@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Lesson 3: OOP Best Practices | Java Tutorial</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="shared-styles.css">
+</head>
+<body><div class="progress-indicator"><div class="progress-bar" style="width: 100%;"></div></div>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge">3</div>
+                <h1 class="lesson-title">OOP Best Practices</h1>
+                <p class="lesson-description">Refactor your application using Object-Oriented Programming principles. Learn interfaces, inheritance, and the Factory design pattern for modular, maintainable code.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="file:///C:/Users/radut/JavaCourse/website/index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Lesson 3</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="file:///C:/Users/radut/JavaCourse/website/lesson2.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Lesson 2</a>
+                <a href="file:///C:/Users/radut/JavaCourse/website/lesson4.html" class="nav-btn nav-btn-primary">Next Lesson <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Interface Design</strong><br>
+                        Understand the concept and benefits of interfaces in Java
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Inheritance Implementation</strong><br>
+                        Create specialized file readers using inheritance
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Factory Design Pattern</strong><br>
+                        Apply the Factory pattern to manage object creation
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Code Organization</strong><br>
+                        Improve modularity, extensibility, and maintainability
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What We're Building -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-lightbulb"></i></div>
+                The Big Refactor: Why Object-Oriented Design?
+            </h2>
+            <p>In this lesson, we're making a <strong>major architectural change</strong>. We're moving from "everything in one class" to a proper <strong>object-oriented design</strong> using interfaces, inheritance, and design patterns.</p>
+            
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Real-World Context:</strong> This lesson simulates what happens in professional development - you start with working code, then refactor it to be more maintainable, extensible, and testable as requirements grow.
+                </div>
+            </div>
+
+            <h3>What Problems Are We Solving?</h3>
+            <p>Our current code works, but has significant limitations:</p>
+            <ul>
+                <li>🔄 <strong>Code Duplication:</strong> Each file type has its own method with similar patterns</li>
+                <li>🧱 <strong>Tight Coupling:</strong> Main class knows too much about file reading implementation details</li>
+                <li>📈 <strong>Hard to Extend:</strong> Adding new file types requires modifying existing code</li>
+                <li>🧪 <strong>Testing Issues:</strong> Can't test file readers independently</li>
+                <li>👥 <strong>Team Development:</strong> Different developers can't work on different file types simultaneously</li>
+            </ul>
+
+            <h3>The OOP Solution</h3>
+            <p>We'll solve these problems using key OOP principles:</p>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Interface</strong><br>
+                        Define a common contract for all file readers
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Polymorphism</strong><br>
+                        Treat all file readers the same way, regardless of type
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Factory Pattern</strong><br>
+                        Centralize object creation logic
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Single Responsibility</strong><br>
+                        Each class has one clear purpose
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Naive Implementation -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-square"></i></div>
+                What We Could Do Wrong: The "Quick Fix" Approach
+            </h2>
+            
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Learning Note:</strong> Before showing the proper OOP approach, let's see what a beginner might try - just adding more methods to the existing class. This helps you understand why OOP is better.
+                </div>
+            </div>
+
+            <h3><code class="inline-code">SimpleFileReader.java</code> (Naive Expansion)</h3>
+            <p>Starting with our improved Lesson 2 code, what if we need to add XML support? A beginner might just add more methods:</p>
+            <pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">package</span> com.example.app;
+
+<span class="hljs-keyword">import</span> java.awt.Desktop;
+<span class="hljs-keyword">import</span> java.io.BufferedReader;
+<span class="hljs-keyword">import</span> java.io.FileReader;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.net.URI;
+<span class="hljs-keyword">import</span> java.net.URISyntaxException;
+<span class="hljs-keyword">import</span> java.nio.file.Files;
+<span class="hljs-keyword">import</span> java.nio.file.Paths;
+<span class="hljs-keyword">import</span> org.json.JSONArray;
+<span class="hljs-keyword">import</span> org.json.JSONObject;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleFileReader</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">DATA_DIR</span> <span class="hljs-operator">=</span> <span class="hljs-string">"java_project/data/"</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        System.out.println(<span class="hljs-string">"--- Reading and Opening from TXT file ---"</span>);
+        readAndOpenTxtFile(DATA_DIR + <span class="hljs-string">"links.txt"</span>);
+
+        System.out.println(<span class="hljs-string">"\n--- Reading and Opening from CSV file ---"</span>);
+        readAndOpenCsvFile(DATA_DIR + <span class="hljs-string">"links.csv"</span>);
+
+        System.out.println(<span class="hljs-string">"\n--- Reading and Opening from JSON file ---"</span>);
+        readAndOpenJsonFile(DATA_DIR + <span class="hljs-string">"links.json"</span>);
+        
+        <span class="hljs-comment">// NAIVE: Need XML support? Just add another method call!</span>
+        System.out.println(<span class="hljs-string">"\n--- Reading and Opening from XML file ---"</span>);
+        readAndOpenXmlFile(DATA_DIR + <span class="hljs-string">"links.xml"</span>);
+    }
+    
+    <span class="hljs-comment">// NAIVE: Instead of creating new classes, just keep adding methods</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readAndOpenXmlFile</span><span class="hljs-params">(String filePath)</span> {
+        System.out.println(<span class="hljs-string">"Processing XML file: "</span> + filePath);
+        <span class="hljs-comment">// Would need XML parsing logic here...</span>
+        <span class="hljs-comment">// And duplicate the same openLink() calls</span>
+        <span class="hljs-comment">// This method would be very similar to the others</span>
+    }
+    
+    <span class="hljs-comment">// What about YAML? Add readAndOpenYamlFile()</span>
+    <span class="hljs-comment">// What about Excel? Add readAndOpenExcelFile()</span>
+    <span class="hljs-comment">// What about custom formats? Keep adding methods!</span>
+    <span class="hljs-comment">// This class would grow to 500+ lines!</span>
+
+    <span class="hljs-comment">// All the existing methods from Lesson 2 (keeping the good parts)</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readAndOpenTxtFile</span><span class="hljs-params">(String filePath)</span> {
+        <span class="hljs-keyword">try</span> (<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(filePath))) {
+            String line;
+            <span class="hljs-keyword">while</span> ((line = reader.readLine()) != <span class="hljs-literal">null</span>) {
+                System.out.println(<span class="hljs-string">"TXT Link: "</span> + line);
+                openLink(line);
+            }
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            System.err.println(<span class="hljs-string">"Error reading TXT file: "</span> + e.getMessage());
+        }
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readAndOpenCsvFile</span><span class="hljs-params">(String filePath)</span> {
+        <span class="hljs-keyword">try</span> (<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(filePath))) {
+            String line;
+            <span class="hljs-keyword">while</span> ((line = reader.readLine()) != <span class="hljs-literal">null</span>) {
+                String[] parts = line.split(<span class="hljs-string">","</span>);
+                <span class="hljs-keyword">if</span> (parts.length &gt;= <span class="hljs-number">2</span>) {
+                    <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> parts[<span class="hljs-number">1</span>].trim();
+                    System.out.println(<span class="hljs-string">"CSV Link - Name: "</span> + parts[<span class="hljs-number">0</span>].trim() + <span class="hljs-string">", URL: "</span> + url);
+                    openLink(url);
+                }
+            }
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            System.err.println(<span class="hljs-string">"Error reading CSV file: "</span> + e.getMessage());
+        }
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readAndOpenJsonFile</span><span class="hljs-params">(String filePath)</span> {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-type">String</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(Files.readAllBytes(Paths.get(filePath)));
+            <span class="hljs-type">JSONArray</span> <span class="hljs-variable">jsonArray</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JSONArray</span>(content);
+            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; jsonArray.length(); i++) {
+                <span class="hljs-type">JSONObject</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> jsonArray.getJSONObject(i);
+                <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> obj.getString(<span class="hljs-string">"url"</span>);
+                System.out.println(<span class="hljs-string">"JSON Link - Name: "</span> + obj.getString(<span class="hljs-string">"name"</span>) + <span class="hljs-string">", URL: "</span> + url);
+                openLink(url);
+            }
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            System.err.println(<span class="hljs-string">"Error reading JSON file: "</span> + e.getMessage());
+        } <span class="hljs-keyword">catch</span> (org.json.JSONException e) {
+            System.err.println(<span class="hljs-string">"Error parsing JSON file: "</span> + e.getMessage());
+        }
+    }
+
+    <span class="hljs-comment">// This method is good - we'll keep this pattern</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">openLink</span><span class="hljs-params">(String url)</span> {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (Desktop.isDesktopSupported() &amp;&amp; Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(<span class="hljs-keyword">new</span> <span class="hljs-title class_">URI</span>(url));
+                System.out.println(<span class="hljs-string">"Opened: "</span> + url);
+            } <span class="hljs-keyword">else</span> {
+                System.out.println(<span class="hljs-string">"Desktop browsing not supported. Could not open: "</span> + url);
+            }
+        } <span class="hljs-keyword">catch</span> (IOException | URISyntaxException e) {
+            System.err.println(<span class="hljs-string">"Error opening link "</span> + url + <span class="hljs-string">": "</span> + e.getMessage());
+        }
+    }
+}</code></pre>
+
+            <h3>Problems with This "Solution"</h3>
+            <ul>
+                <li>📈 <strong>God Class:</strong> One class trying to do everything</li>
+                <li>🔀 <strong>Ugly If-Else Chain:</strong> Gets longer with each new file type</li>
+                <li>🔄 <strong>Still Duplicate Code:</strong> Each file reader method follows the same pattern</li>
+                <li>🧪 <strong>Testing Nightmare:</strong> Can't test one file type without the whole class</li>
+                <li>👥 <strong>Merge Conflicts:</strong> Every developer modifies the same giant file</li>
+                <li>📚 <strong>Violation of OOP Principles:</strong> Not using the power of object-oriented design</li>
+            </ul>
+
+            <p><strong>This is exactly why OOP exists!</strong> Let's see how interfaces, inheritance, and design patterns solve these problems elegantly.</p>
+        </div>
+
+        <!-- Project Structure -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-diagram-3"></i></div>
+                Refactored Project Structure
+            </h2>
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Major Refactoring:</strong> We'll introduce several new Java files and apply OOP design patterns for better code organization.
+                </div>
+            </div>
+            <div class="file-structure">
+                <ul class="file-tree">
+                    <li><span class="folder">📁 JavaCourse/</span>
+                        <ul>
+                            <li><span class="folder">📁 java_project/</span>
+                                <ul>
+                                    <li><span class="folder">📁 src/</span>
+                                        <ul>
+                                            <li><span class="folder">📁 com/</span>
+                                                <ul>
+                                                    <li><span class="folder">📁 example/</span>
+                                                        <ul>
+                                                            <li><span class="folder">📁 app/</span>
+                                                                <ul>
+                                                                    <li><span class="java-file">☕ Main.java (New main class)</span></li>
+                                                                    <li><span class="java-file">🔗 LinkReader.java (Interface)</span></li>
+                                                                    <li><span class="java-file">☕ TxtLinkReader.java</span></li>
+                                                                    <li><span class="java-file">☕ CsvLinkReader.java</span></li>
+                                                                    <li><span class="java-file">☕ JsonLinkReader.java</span></li>
+                                                                    <li><span class="java-file">🏠 LinkReaderFactory.java</span></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="folder">📁 data/</span>
+                                        <ul>
+                                            <li><span class="file">📄 links.txt</span></li>
+                                            <li><span class="file">📄 links.csv</span></li>
+                                            <li><span class="file">📄 links.json</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="mt-4">File Contents for Lesson 3</h2>
+
+        <h3 class="mt-3"><code>java_project/src/com/example/app/LinkReader.java</code> (Interface)</h3>
+        <p>Create a new file named <code>LinkReader.java</code> and add the following content:</p>
+        <pre><code class="language-java hljs" data-highlighted="yes">
+<span class="hljs-keyword">package</span> com.example.app;
+
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.util.List;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">LinkReader</span> {
+    List&lt;String&gt; <span class="hljs-title function_">readLinks</span><span class="hljs-params">(String filePath)</span> <span class="hljs-keyword">throws</span> IOException;
+}
+        </code></pre>
+
+        <h3 class="mt-3"><code>java_project/src/com/example/app/TxtLinkReader.java</code></h3>
+        <p>Create a new file named <code>TxtLinkReader.java</code> and add the following content:</p>
+        <pre><code class="language-java hljs" data-highlighted="yes">
+<span class="hljs-keyword">package</span> com.example.app;
+
+<span class="hljs-keyword">import</span> java.io.BufferedReader;
+<span class="hljs-keyword">import</span> java.io.FileReader;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.util.ArrayList;
+<span class="hljs-keyword">import</span> java.util.List;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TxtLinkReader</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">LinkReader</span> {
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title function_">readLinks</span><span class="hljs-params">(String filePath)</span> <span class="hljs-keyword">throws</span> IOException {
+        List&lt;String&gt; links = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();
+        <span class="hljs-keyword">try</span> (<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(filePath))) {
+            String line;
+            <span class="hljs-keyword">while</span> ((line = reader.readLine()) != <span class="hljs-literal">null</span>) {
+                links.add(line);
+            }
+        }
+        <span class="hljs-keyword">return</span> links;
+    }
+}
+        </code></pre>
+
+        <h3 class="mt-3"><code>java_project/src/com/example/app/CsvLinkReader.java</code></h3>
+        <p>Create a new file named <code>CsvLinkReader.java</code> and add the following content:</p>
+        <pre><code class="language-java hljs" data-highlighted="yes">
+<span class="hljs-keyword">package</span> com.example.app;
+
+<span class="hljs-keyword">import</span> java.io.BufferedReader;
+<span class="hljs-keyword">import</span> java.io.FileReader;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.util.ArrayList;
+<span class="hljs-keyword">import</span> java.util.List;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CsvLinkReader</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">LinkReader</span> {
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title function_">readLinks</span><span class="hljs-params">(String filePath)</span> <span class="hljs-keyword">throws</span> IOException {
+        List&lt;String&gt; links = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();
+        <span class="hljs-keyword">try</span> (<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(filePath))) {
+            String line;
+            <span class="hljs-keyword">while</span> ((line = reader.readLine()) != <span class="hljs-literal">null</span>) {
+                String[] parts = line.split(<span class="hljs-string">","</span>);
+                <span class="hljs-keyword">if</span> (parts.length &gt;= <span class="hljs-number">2</span>) {
+                    links.add(parts[<span class="hljs-number">1</span>].trim());
+                }
+            }
+        }
+        <span class="hljs-keyword">return</span> links;
+    }
+}
+        </code></pre>
+
+        <h3 class="mt-3"><code>java_project/src/com/example/app/JsonLinkReader.java</code></h3>
+        <p>Create a new file named <code>JsonLinkReader.java</code> and add the following content:</p>
+        <pre><code class="language-java hljs" data-highlighted="yes">
+<span class="hljs-keyword">package</span> com.example.app;
+
+<span class="hljs-keyword">import</span> org.json.JSONArray;
+<span class="hljs-keyword">import</span> org.json.JSONObject;
+
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.nio.file.Files;
+<span class="hljs-keyword">import</span> java.nio.file.Paths;
+<span class="hljs-keyword">import</span> java.util.ArrayList;
+<span class="hljs-keyword">import</span> java.util.List;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JsonLinkReader</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">LinkReader</span> {
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title function_">readLinks</span><span class="hljs-params">(String filePath)</span> <span class="hljs-keyword">throws</span> IOException {
+        List&lt;String&gt; links = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-type">String</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(Files.readAllBytes(Paths.get(filePath)));
+            <span class="hljs-type">JSONArray</span> <span class="hljs-variable">jsonArray</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JSONArray</span>(content);
+            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; jsonArray.length(); i++) {
+                <span class="hljs-type">JSONObject</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> jsonArray.getJSONObject(i);
+                links.add(obj.getString(<span class="hljs-string">"url"</span>));
+            }
+        } <span class="hljs-keyword">catch</span> (org.json.JSONException e) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IOException</span>(<span class="hljs-string">"Error parsing JSON file: "</span> + e.getMessage(), e);
+        }
+        <span class="hljs-keyword">return</span> links;
+    }
+}
+        </code></pre>
+
+        <h3 class="mt-3"><code>java_project/src/com/example/app/LinkReaderFactory.java</code></h3>
+        <p>Create a new file named <code>LinkReaderFactory.java</code> and add the following content:</p>
+        <pre><code class="language-java hljs" data-highlighted="yes">
+<span class="hljs-keyword">package</span> com.example.app;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LinkReaderFactory</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> LinkReader <span class="hljs-title function_">getReader</span><span class="hljs-params">(String fileExtension)</span> {
+        <span class="hljs-keyword">switch</span> (fileExtension.toLowerCase()) {
+            <span class="hljs-keyword">case</span> <span class="hljs-string">"txt"</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TxtLinkReader</span>();
+            <span class="hljs-keyword">case</span> <span class="hljs-string">"csv"</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CsvLinkReader</span>();
+            <span class="hljs-keyword">case</span> <span class="hljs-string">"json"</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JsonLinkReader</span>();
+            <span class="hljs-keyword">default</span>:
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>(<span class="hljs-string">"Unsupported file type: "</span> + fileExtension);
+        }
+    }
+}
+        </code></pre>
+
+        <h3 class="mt-3"><code>java_project/src/com/example/app/Main.java</code> (New Main Class)</h3>
+        <p>Create a new file named <code>Main.java</code> (you can delete or rename <code>SimpleFileReader.java</code> as it's no longer needed as the main entry point) and add the following content:</p>
+        <pre><code class="language-java hljs" data-highlighted="yes">
+<span class="hljs-keyword">package</span> com.example.app;
+
+<span class="hljs-keyword">import</span> java.awt.Desktop;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.net.URI;
+<span class="hljs-keyword">import</span> java.net.URISyntaxException;
+<span class="hljs-keyword">import</span> java.util.List;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">DATA_DIR</span> <span class="hljs-operator">=</span> <span class="hljs-string">"java_project/data/"</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        processFile(<span class="hljs-string">"links.txt"</span>, <span class="hljs-string">"txt"</span>);
+        processFile(<span class="hljs-string">"links.csv"</span>, <span class="hljs-string">"csv"</span>);
+        processFile(<span class="hljs-string">"links.json"</span>, <span class="hljs-string">"json"</span>);
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">processFile</span><span class="hljs-params">(String fileName, String fileExtension)</span> {
+        System.out.println(<span class="hljs-string">"\n--- Processing "</span> + fileName + <span class="hljs-string">" ---"</span>);
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-type">LinkReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> LinkReaderFactory.getReader(fileExtension);
+            List&lt;String&gt; links = reader.readLinks(DATA_DIR + fileName);
+
+            <span class="hljs-keyword">for</span> (String link : links) {
+                System.out.println(<span class="hljs-string">"Read Link: "</span> + link);
+                openLink(link);
+            }
+        } <span class="hljs-keyword">catch</span> (IOException | IllegalArgumentException e) {
+            System.err.println(<span class="hljs-string">"Error processing "</span> + fileName + <span class="hljs-string">": "</span> + e.getMessage());
+        }
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">openLink</span><span class="hljs-params">(String url)</span> {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">if</span> (Desktop.isDesktopSupported() &amp;&amp; Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(<span class="hljs-keyword">new</span> <span class="hljs-title class_">URI</span>(url));
+                System.out.println(<span class="hljs-string">"Opened: "</span> + url);
+            }
+        } <span class="hljs-keyword">catch</span> (IOException | URISyntaxException e) {
+            System.err.println(<span class="hljs-string">"Error opening link "</span> + url + <span class="hljs-string">": "</span> + e.getMessage());
+        }
+    }
+}
+        </code></pre>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Reminder:</strong> The <code class="inline-code">org.json</code> library is still required. Follow the <a href="file:///C:/Users/radut/JavaCourse/website/index.html#intellij-setup">IntelliJ IDEA Setup Guide</a> for installation.
+                </div>
+            </div>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-arrow-left-right"></i></div>
+                Before vs After: The Power of Object-Oriented Design
+            </h2>
+            
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Transformation Complete:</strong> Let's compare our "quick fix" approach with the proper OOP solution to see the dramatic improvement.
+                </div>
+            </div>
+
+            <h3>✅ What We Achieved with OOP</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Single Responsibility</strong><br>
+                        Each class has one clear job: TxtLinkReader only reads TXT files
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Open/Closed Principle</strong><br>
+                        Can add new file types without modifying existing code
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Polymorphism</strong><br>
+                        Main class treats all readers the same way via the interface
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Factory Pattern</strong><br>
+                        Centralized object creation with clean, extensible logic
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Testability</strong><br>
+                        Each file reader can be tested independently
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Team Collaboration</strong><br>
+                        Different developers can work on different readers simultaneously
+                    </div>
+                </div>
+            </div>
+
+            <h3>📊 Side-by-Side Comparison</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>❌ Naive "Quick Fix" Approach</h4>
+                    <ul>
+                        <li>One massive class (500+ lines)</li>
+                        <li>Giant if-else chain</li>
+                        <li>Code duplication everywhere</li>
+                        <li>Hard to test individual parts</li>
+                        <li>Adding new file types = modify existing code</li>
+                        <li>Team conflicts when multiple people work on it</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h4>✅ OOP Design Pattern Approach</h4>
+                    <ul>
+                        <li>Multiple focused classes (~50 lines each)</li>
+                        <li>Clean factory pattern</li>
+                        <li>No code duplication</li>
+                        <li>Easy to test each reader individually</li>
+                        <li>Adding new file types = create new class</li>
+                        <li>Perfect for team development</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>🚀 Real-World Benefits</h3>
+            <p>This refactoring demonstrates principles used in professional software development:</p>
+            <ul>
+                <li>🏢 <strong>Enterprise Applications:</strong> Large codebases rely on these patterns</li>
+                <li>🔧 <strong>Microservices:</strong> Each service follows single responsibility</li>
+                <li>🧪 <strong>Test-Driven Development:</strong> OOP makes unit testing practical</li>
+                <li>👥 <strong>Agile Development:</strong> Multiple developers can work in parallel</li>
+                <li>📈 <strong>Scalability:</strong> Easy to add features without breaking existing code</li>
+            </ul>
+
+            <p><strong>This is the difference between beginner and professional code!</strong> You've just learned the fundamental patterns that make large-scale software development possible.</p>
+        </div><div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-play-circle"></i></div>
+                Running the Refactored Application
+            </h2>
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    Follow the <a href="file:///C:/Users/radut/JavaCourse/website/index.html#intellij-setup">IntelliJ IDEA Setup Guide</a> for detailed instructions on running the application.
+                </div>
+            </div>
+            <h3>What to Expect</h3>
+            <p>When you run the application, you should observe the same behavior as Lesson 2, but now your code is much more organized and adheres to OOP principles.</p>
+            
+            <div class="alert-box alert-success">
+                <i class="bi bi-check-circle alert-icon"></i>
+                <div>
+                    <strong>What's Next?</strong><br>
+                    In <a href="file:///C:/Users/radut/JavaCourse/website/lesson4.html">Lesson 4</a>, we'll implement the Singleton design pattern to manage global application configuration and demonstrate advanced OOP concepts.
+                </div>
+            </div>
+        </div><div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="file:///C:/Users/radut/JavaCourse/website/lesson2.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Lesson 2</a>
+                <a href="file:///C:/Users/radut/JavaCourse/website/lesson4.html" class="nav-btn nav-btn-primary">Next: Singleton Pattern <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div></div>
+
+        
+        
+
+        
+        
+
+        
+        
+    
+    <!-- Bootstrap JS -->
+    <script src="./lesson3_files/bootstrap.bundle.min.js.download"></script>
+    <!-- highlight.js JS -->
+    <script src="./lesson3_files/highlight.min.js.download"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+        
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body></html>

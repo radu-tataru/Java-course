@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Lesson 1: Basic File Reading | Java Tutorial</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="shared-styles.css">
+</head>
+
+
+<body><div class="progress-indicator"><div class="progress-bar" style="width: 100%;"></div></div>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge">1</div>
+                <h1 class="lesson-title">Basic File Reading</h1>
+                <p class="lesson-description">Master the fundamentals of reading TXT, CSV, and JSON files in Java using simple, straightforward methods.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="file:///C:/Users/radut/JavaCourse/website/index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Lesson 1</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="file:///C:/Users/radut/JavaCourse/website/index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="file:///C:/Users/radut/JavaCourse/website/lesson2.html" class="nav-btn nav-btn-primary">Next Lesson <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Text File Reading</strong><br>
+                        Read lines from <code class="inline-code">.txt</code> files using BufferedReader
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>CSV Parsing</strong><br>
+                        Parse structured data from <code class="inline-code">.csv</code> files
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>JSON Processing</strong><br>
+                        Handle <code class="inline-code">.json</code> files with org.json library
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>File I/O Fundamentals</strong><br>
+                        Understand Java's basic file input operations
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What We're Building -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-lightbulb"></i></div>
+                What We're Building &amp; Why
+            </h2>
+            <p>In this lesson, we're building a <strong>simple file reader application</strong> that can handle different file formats (TXT, CSV, and JSON). This is a fundamental skill in Java development because:</p>
+            
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Real-World Application:</strong> Most applications need to read configuration files, import data, or process various file formats. Learning to handle TXT, CSV, and JSON files gives you the foundation for 90% of file processing tasks.
+                </div>
+            </div>
+
+            <h3>The Learning Journey</h3>
+            <p>We'll start with the <strong>"make it work"</strong> approach - putting all code in one place to get immediate results. This mirrors real-world development where you:</p>
+            <ol>
+                <li>✅ <strong>Make it work</strong> - Write basic code that solves the problem</li>
+                <li>🔄 <strong>Make it better</strong> - Refactor and organize (Lessons 2-4)</li>
+                <li>🚀 <strong>Make it maintainable</strong> - Apply design patterns and best practices</li>
+            </ol>
+
+            <p>By the end of this lesson, you'll have a working application that reads three different file types and displays their contents. It won't be pretty code, but it will work - and that's exactly how most successful projects start!</p>
+        </div>
+
+        <!-- Naive Implementation First -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-square"></i></div>
+                First Attempt: The "Make It Work" Version
+            </h2>
+            
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Learning Note:</strong> This is intentionally "messy" code that beginners might write. We'll improve it step by step in later lessons. The goal here is to understand the basics and see immediate results.
+                </div>
+            </div>
+
+            <h3><code class="inline-code">SimpleFileReader.java</code> (Naive Version)</h3>
+            <p>Let's start with a simple approach - everything in one main method:</p>
+            <pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">package</span> com.example.app;
+
+<span class="hljs-keyword">import</span> java.io.BufferedReader;
+<span class="hljs-keyword">import</span> java.io.FileReader;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.nio.file.Files;
+<span class="hljs-keyword">import</span> java.nio.file.Paths;
+<span class="hljs-keyword">import</span> org.json.JSONArray;
+<span class="hljs-keyword">import</span> org.json.JSONObject;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleFileReader</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-comment">// Read TXT file - just read line by line</span>
+        System.out.println(<span class="hljs-string">"=== Reading TXT File ==="</span>);
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">txtReader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(<span class="hljs-string">"java_project/data/links.txt"</span>));
+            String line;
+            <span class="hljs-keyword">while</span> ((line = txtReader.readLine()) != <span class="hljs-literal">null</span>) {
+                System.out.println(<span class="hljs-string">"TXT Link: "</span> + line);
+            }
+            txtReader.close();
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            System.out.println(<span class="hljs-string">"Error reading TXT file: "</span> + e.getMessage());
+        }
+
+        <span class="hljs-comment">// Read CSV file - split by comma</span>
+        System.out.println(<span class="hljs-string">"\n=== Reading CSV File ==="</span>);
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-type">BufferedReader</span> <span class="hljs-variable">csvReader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(<span class="hljs-string">"java_project/data/links.csv"</span>));
+            String line;
+            <span class="hljs-keyword">while</span> ((line = csvReader.readLine()) != <span class="hljs-literal">null</span>) {
+                String[] parts = line.split(<span class="hljs-string">","</span>);
+                <span class="hljs-keyword">if</span> (parts.length &gt;= <span class="hljs-number">2</span>) {
+                    System.out.println(<span class="hljs-string">"CSV Link: "</span> + parts[<span class="hljs-number">1</span>].trim());
+                }
+            }
+            csvReader.close();
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            System.out.println(<span class="hljs-string">"Error reading CSV file: "</span> + e.getMessage());
+        }
+
+        <span class="hljs-comment">// Read JSON file - use org.json library</span>
+        System.out.println(<span class="hljs-string">"\n=== Reading JSON File ==="</span>);
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-type">String</span> <span class="hljs-variable">jsonContent</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(Files.readAllBytes(Paths.get(<span class="hljs-string">"java_project/data/links.json"</span>)));
+            <span class="hljs-type">JSONArray</span> <span class="hljs-variable">jsonArray</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JSONArray</span>(jsonContent);
+            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; jsonArray.length(); i++) {
+                <span class="hljs-type">JSONObject</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> jsonArray.getJSONObject(i);
+                System.out.println(<span class="hljs-string">"JSON Link: "</span> + obj.getString(<span class="hljs-string">"url"</span>));
+            }
+        } <span class="hljs-keyword">catch</span> (Exception e) {
+            System.out.println(<span class="hljs-string">"Error reading JSON file: "</span> + e.getMessage());
+        }
+        
+        System.out.println(<span class="hljs-string">"\nDone! All files processed."</span>);
+    }
+}</code></pre>
+
+            <h3>Problems with This Approach</h3>
+            <p>While this code works, notice the issues:</p>
+            <ul>
+                <li>🔄 <strong>Code Duplication:</strong> Similar file reading logic repeated three times</li>
+                <li>🧱 <strong>Hard to Maintain:</strong> All code mixed together in one giant method</li>
+                <li>🐛 <strong>Error Handling:</strong> Basic try-catch blocks don't provide much insight</li>
+                <li>📁 <strong>Hard-coded Paths:</strong> File paths are written directly in the code</li>
+                <li>🔧 <strong>No Flexibility:</strong> Adding a new file type means modifying the main method</li>
+            </ul>
+
+            <p>But guess what? <strong>This is perfectly normal!</strong> Most developers start exactly like this. The key is recognizing these issues and improving the code iteratively.</p>
+        </div>
+
+        <!-- Project Setup -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-gear"></i></div>
+                Project Setup
+            </h2>
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Prerequisites:</strong> Ensure you have a Java Development Kit (JDK) installed on your system. Download from <a href="https://www.oracle.com/java/technologies/downloads/" target="_blank">Oracle</a> or <a href="https://openjdk.org/" target="_blank">OpenJDK</a>.
+                </div>
+            </div>
+            
+            <h3>Directory Structure</h3>
+            <p>Create the following directory structure within your <code class="inline-code">JavaCourse</code> folder:</p>
+            <div class="file-structure">
+                <ul class="file-tree">
+                    <li><span class="folder">📁 JavaCourse/</span>
+                        <ul>
+                            <li><span class="folder">📁 java_project/</span>
+                                <ul>
+                                    <li><span class="folder">📁 src/</span>
+                                        <ul>
+                                            <li><span class="folder">📁 com/</span>
+                                                <ul>
+                                                    <li><span class="folder">📁 example/</span>
+                                                        <ul>
+                                                            <li><span class="folder">📁 app/</span>
+                                                                <ul>
+                                                                    <li><span class="java-file">☕ SimpleFileReader.java</span></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="folder">📁 data/</span>
+                                        <ul>
+                                            <li><span class="file">📄 links.txt</span></li>
+                                            <li><span class="file">📄 links.csv</span></li>
+                                            <li><span class="file">📄 links.json</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Data Files -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-file-earmark-text"></i></div>
+                Sample Data Files
+            </h2>
+
+            <h3><code class="inline-code">java_project/data/links.txt</code></h3>
+            <p>Create a file named <code class="inline-code">links.txt</code> inside the <code class="inline-code">java_project/data/</code> directory:</p>
+            <pre><code class="language-text hljs language-plaintext" data-highlighted="yes">https://www.google.com
+https://www.bing.com
+https://www.duckduckgo.com</code></pre>
+
+            <h3><code class="inline-code">java_project/data/links.csv</code></h3>
+            <p>Create a file named <code class="inline-code">links.csv</code> inside the <code class="inline-code">java_project/data/</code> directory:</p>
+            <pre><code class="language-text hljs language-plaintext" data-highlighted="yes">Google,https://www.google.com
+Bing,https://www.bing.com
+DuckDuckGo,https://www.duckduckgo.com</code></pre>
+
+            <h3><code class="inline-code">java_project/data/links.json</code></h3>
+            <p>Create a file named <code class="inline-code">links.json</code> inside the <code class="inline-code">java_project/data/</code> directory:</p>
+            <pre><code class="language-json hljs" data-highlighted="yes"><span class="hljs-punctuation">[</span>
+  <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Google"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://www.google.com"</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"Bing"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://www.bing.com"</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"DuckDuckGo"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"https://www.duckduckgo.com"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">]</span></code></pre>
+        </div>
+
+        <!-- Java Implementation -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                Improved Implementation: Better Organization
+            </h2>
+            
+            <div class="alert-box alert-success">
+                <i class="bi bi-check-circle alert-icon"></i>
+                <div>
+                    <strong>From Messy to Better:</strong> Now let's refactor our naive code into something more organized. We'll extract methods to reduce duplication and make the code more readable.
+                </div>
+            </div>
+            <h3><code class="inline-code">SimpleFileReader.java</code></h3>
+            <p>Create this file in <code class="inline-code">java_project/src/com/example/app/</code> directory:</p>
+        <pre><code class="language-java hljs" data-highlighted="yes">
+<span class="hljs-keyword">package</span> com.example.app;
+
+<span class="hljs-keyword">import</span> java.io.BufferedReader;
+<span class="hljs-keyword">import</span> java.io.FileReader;
+<span class="hljs-keyword">import</span> java.io.IOException;
+<span class="hljs-keyword">import</span> java.nio.file.Files;
+<span class="hljs-keyword">import</span> java.nio.file.Paths;
+<span class="hljs-keyword">import</span> java.util.List;
+<span class="hljs-keyword">import</span> org.json.JSONArray;
+<span class="hljs-keyword">import</span> org.json.JSONObject;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleFileReader</span> {
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">DATA_DIR</span> <span class="hljs-operator">=</span> <span class="hljs-string">"java_project/data/"</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        System.out.println(<span class="hljs-string">"--- Reading from TXT file ---"</span>);
+        readTxtFile(DATA_DIR + <span class="hljs-string">"links.txt"</span>);
+
+        System.out.println(<span class="hljs-string">"\n--- Reading from CSV file ---"</span>);
+        readCsvFile(DATA_DIR + <span class="hljs-string">"links.csv"</span>);
+
+        System.out.println(<span class="hljs-string">"\n--- Reading from JSON file ---"</span>);
+        readJsonFile(DATA_DIR + <span class="hljs-string">"links.json"</span>);
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readTxtFile</span><span class="hljs-params">(String filePath)</span> {
+        <span class="hljs-keyword">try</span> (<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(filePath))) {
+            String line;
+            <span class="hljs-keyword">while</span> ((line = reader.readLine()) != <span class="hljs-literal">null</span>) {
+                System.out.println(<span class="hljs-string">"TXT Link: "</span> + line);
+            }
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            System.err.println(<span class="hljs-string">"Error reading TXT file: "</span> + e.getMessage());
+        }
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readCsvFile</span><span class="hljs-params">(String filePath)</span> {
+        <span class="hljs-keyword">try</span> (<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(filePath))) {
+            String line;
+            <span class="hljs-keyword">while</span> ((line = reader.readLine()) != <span class="hljs-literal">null</span>) {
+                String[] parts = line.split(<span class="hljs-string">","</span>);
+                <span class="hljs-keyword">if</span> (parts.length &gt;= <span class="hljs-number">2</span>) {
+                    System.out.println(<span class="hljs-string">"CSV Link - Name: "</span> + parts[<span class="hljs-number">0</span>].trim() + <span class="hljs-string">", URL: "</span> + parts[<span class="hljs-number">1</span>].trim());
+                }
+            }
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            System.err.println(<span class="hljs-string">"Error reading CSV file: "</span> + e.getMessage());
+        }
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readJsonFile</span><span class="hljs-params">(String filePath)</span> {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-type">String</span> <span class="hljs-variable">content</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(Files.readAllBytes(Paths.get(filePath)));
+            <span class="hljs-type">JSONArray</span> <span class="hljs-variable">jsonArray</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JSONArray</span>(content);
+            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; jsonArray.length(); i++) {
+                <span class="hljs-type">JSONObject</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> jsonArray.getJSONObject(i);
+                System.out.println(<span class="hljs-string">"JSON Link - Name: "</span> + obj.getString(<span class="hljs-string">"name"</span>) + <span class="hljs-string">", URL: "</span> + obj.getString(<span class="hljs-string">"url"</span>));
+            }
+        } <span class="hljs-keyword">catch</span> (IOException e) {
+            System.err.println(<span class="hljs-string">"Error reading JSON file: "</span> + e.getMessage());
+        } <span class="hljs-keyword">catch</span> (org.json.JSONException e) {
+            System.err.println(<span class="hljs-string">"Error parsing JSON file: "</span> + e.getMessage());
+        }
+    }
+}
+        </code></pre>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Important:</strong> The <code class="inline-code">org.json</code> library is not part of the standard JDK. Add it as a dependency using the <a href="file:///C:/Users/radut/JavaCourse/website/index.html#intellij-setup">IntelliJ IDEA Setup Guide</a>.
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-arrow-left-right"></i></div>
+                Before vs After: What Did We Improve?
+            </h2>
+            
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Key Improvements Made:</strong> Let's compare our naive first attempt with the improved version to understand what we gained.
+                </div>
+            </div>
+
+            <h3>✅ Improvements in the Better Version</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Method Extraction</strong><br>
+                        Separated each file reading logic into its own method for clarity
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Constants for Paths</strong><br>
+                        Used <code>DATA_DIR</code> constant instead of hard-coding paths everywhere
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Try-with-Resources</strong><br>
+                        Proper resource management with automatic file closing
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Better Error Handling</strong><br>
+                        Specific exception handling for JSON vs IO errors
+                    </div>
+                </div>
+            </div>
+
+            <h3>🎯 What We'll Improve Further</h3>
+            <p>This is still not perfect! In upcoming lessons, we'll address:</p>
+            <ul>
+                <li>🔄 <strong>Code Duplication:</strong> Still repeating similar file reading patterns</li>
+                <li>🧩 <strong>No Abstraction:</strong> Each file type handled completely differently</li>
+                <li>🔧 <strong>Limited Extensibility:</strong> Adding new file types requires code changes</li>
+                <li>🏗️ <strong>No Design Patterns:</strong> Could benefit from Factory and Strategy patterns</li>
+            </ul>
+
+            <p><strong>And that's perfectly fine!</strong> This iterative improvement process is exactly how professional software development works. We start simple, identify problems, and improve step by step.</p>
+        </div>
+
+        <h2 class="mt-4">How to Compile and Run</h2>
+        <p>Please refer to the <a href="file:///C:/Users/radut/JavaCourse/website/index.html#intellij-setup">IntelliJ IDEA Setup Guide</a> on the home page for detailed instructions on how to import the project and run the application.</p>
+        <p>When you run the application, you should see output similar to this in your IntelliJ console:</p>
+        <pre><code data-highlighted="yes" class="hljs language-javascript">
+--- <span class="hljs-title class_">Reading</span> <span class="hljs-keyword">from</span> <span class="hljs-variable constant_">TXT</span> file ---
+<span class="hljs-variable constant_">TXT</span> <span class="hljs-title class_">Link</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.google.com</span>
+<span class="hljs-variable constant_">TXT</span> <span class="hljs-title class_">Link</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.bing.com</span>
+<span class="hljs-variable constant_">TXT</span> <span class="hljs-title class_">Link</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.duckduckgo.com</span>
+
+--- <span class="hljs-title class_">Reading</span> <span class="hljs-keyword">from</span> <span class="hljs-variable constant_">CSV</span> file ---
+<span class="hljs-variable constant_">CSV</span> <span class="hljs-title class_">Link</span> - <span class="hljs-title class_">Name</span>: <span class="hljs-title class_">Google</span>, <span class="hljs-attr">URL</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.google.com</span>
+<span class="hljs-variable constant_">CSV</span> <span class="hljs-title class_">Link</span> - <span class="hljs-title class_">Name</span>: <span class="hljs-title class_">Bing</span>, <span class="hljs-attr">URL</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.bing.com</span>
+<span class="hljs-variable constant_">CSV</span> <span class="hljs-title class_">Link</span> - <span class="hljs-title class_">Name</span>: <span class="hljs-title class_">DuckDuckGo</span>, <span class="hljs-attr">URL</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.duckduckgo.com</span>
+
+--- <span class="hljs-title class_">Reading</span> <span class="hljs-keyword">from</span> <span class="hljs-title class_">JSON</span> file ---
+<span class="hljs-title class_">JSON</span> <span class="hljs-title class_">Link</span> - <span class="hljs-title class_">Name</span>: <span class="hljs-title class_">Google</span>, <span class="hljs-attr">URL</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.google.com</span>
+<span class="hljs-title class_">JSON</span> <span class="hljs-title class_">Link</span> - <span class="hljs-title class_">Name</span>: <span class="hljs-title class_">Bing</span>, <span class="hljs-attr">URL</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.bing.com</span>
+<span class="hljs-title class_">JSON</span> <span class="hljs-title class_">Link</span> - <span class="hljs-title class_">Name</span>: <span class="hljs-title class_">DuckDuckGo</span>, <span class="hljs-attr">URL</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.duckduckgo.com</span></code></pre>
+            
+            <div class="alert-box alert-success">
+                <i class="bi bi-check-circle alert-icon"></i>
+                <div>
+                    <strong>What's Next?</strong><br>
+                    In <a href="file:///C:/Users/radut/JavaCourse/website/lesson2.html">Lesson 2</a>, we'll enhance this file reader by adding functionality to open the links directly in your web browser.
+                </div>
+            </div>
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="file:///C:/Users/radut/JavaCourse/website/index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="file:///C:/Users/radut/JavaCourse/website/lesson2.html" class="nav-btn nav-btn-primary">Next: Opening Links <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div></div>
+
+        <!-- Navigation Footer -->
+        
+    
+    <!-- Bootstrap JS -->
+    <script src="./lesson1_files/bootstrap.bundle.min.js.download"></script>
+    <!-- highlight.js JS -->
+    <script src="./lesson1_files/highlight.min.js.download"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+        
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+
+</body></html>

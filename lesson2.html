@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: Opening Links from Files | Java Tutorial</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="shared-styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge">2</div>
+                <h1 class="lesson-title">Opening Links from Files</h1>
+                <p class="lesson-description">Learn to use Java's Desktop API to automatically open URLs in your default web browser. Take your file reading skills to the next level by adding interactive functionality.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Lesson 2</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="lesson1.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Lesson 1</a>
+                <a href="lesson3.html" class="nav-btn nav-btn-primary">Next Lesson <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Desktop API</strong><br>
+                        Learn to use <code class="inline-code">java.awt.Desktop</code> API for system integration
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>URL Opening</strong><br>
+                        Open URLs programmatically from your Java application
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Enhanced File Reader</strong><br>
+                        Add interactive functionality to the basic file reader
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Browser Integration</strong><br>
+                        Automatically launch default web browser from Java
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What We're Building -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-lightbulb"></i></div>
+                What We're Adding & Why
+            </h2>
+            <p>In this lesson, we're <strong>enhancing our file reader</strong> with browser integration. Instead of just reading and displaying links, we'll make our application <strong>interactive</strong> by opening them in the user's default browser.</p>
+            
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Real-World Application:</strong> Many applications need to interact with the user's system - opening files, browsers, or other programs. Java's Desktop API is the standard way to bridge your application with the operating system.
+                </div>
+            </div>
+
+            <h3>Why This Matters</h3>
+            <ul>
+                <li>🌐 <strong>User Experience:</strong> Transform a console application into something interactive</li>
+                <li>🔗 <strong>System Integration:</strong> Learn how Java applications interact with the OS</li>
+                <li>🛠️ <strong>Practical Skills:</strong> Desktop API is used in many real-world Java applications</li>
+                <li>📱 <strong>Foundation:</strong> Builds toward more complex desktop applications</li>
+            </ul>
+
+            <p>We're still in the <strong>"make it work first"</strong> phase, so we'll add this functionality in the simplest way possible before refactoring in later lessons.</p>
+        </div>
+
+        <!-- Naive Implementation First -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-square"></i></div>
+                First Attempt: Adding Browser Opening
+            </h2>
+            
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Learning Note:</strong> We'll start by just adding the browser opening logic directly into our existing code. It's not elegant, but it works and teaches the core concepts.
+                </div>
+            </div>
+
+            <h3><code class="inline-code">SimpleFileReader.java</code> (Naive Browser Integration)</h3>
+            <p>Starting with our organized code from Lesson 1, let's add browser opening in the simplest way - directly in each method:</p>
+            <pre><code class="language-java">package com.example.app;
+
+import java.awt.Desktop;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class SimpleFileReader {
+    
+    private static final String DATA_DIR = "java_project/data/";
+
+    public static void main(String[] args) {
+        System.out.println("--- Reading from TXT file ---");
+        readTxtFile(DATA_DIR + "links.txt");
+
+        System.out.println("\n--- Reading from CSV file ---");
+        readCsvFile(DATA_DIR + "links.csv");
+
+        System.out.println("\n--- Reading from JSON file ---");
+        readJsonFile(DATA_DIR + "links.json");
+    }
+
+    private static void readTxtFile(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println("TXT Link: " + line);
+                
+                // NAIVE: Add browser opening directly here - no error checking
+                try {
+                    Desktop.getDesktop().browse(new URI(line));
+                    System.out.println("Opened: " + line);
+                } catch (Exception e) {
+                    System.out.println("Could not open: " + line);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading TXT file: " + e.getMessage());
+        }
+    }
+
+    private static void readCsvFile(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 2) {
+                    String url = parts[1].trim();
+                    System.out.println("CSV Link - Name: " + parts[0].trim() + ", URL: " + url);
+                    
+                    // NAIVE: Duplicate the same browser opening code
+                    try {
+                        Desktop.getDesktop().browse(new URI(url));
+                        System.out.println("Opened: " + url);
+                    } catch (Exception e) {
+                        System.out.println("Could not open: " + url);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading CSV file: " + e.getMessage());
+        }
+    }
+
+    private static void readJsonFile(String filePath) {
+        try {
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+            JSONArray jsonArray = new JSONArray(content);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject obj = jsonArray.getJSONObject(i);
+                String url = obj.getString("url");
+                System.out.println("JSON Link - Name: " + obj.getString("name") + ", URL: " + url);
+                
+                // NAIVE: Yet more duplicate browser opening code
+                try {
+                    Desktop.getDesktop().browse(new URI(url));
+                    System.out.println("Opened: " + url);
+                } catch (Exception e) {
+                    System.out.println("Could not open: " + url);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading JSON file: " + e.getMessage());
+        } catch (org.json.JSONException e) {
+            System.err.println("Error parsing JSON file: " + e.getMessage());
+        }
+    }
+}</code></pre>
+
+            <h3>Issues with This Approach</h3>
+            <p>This works, but notice the problems:</p>
+            <ul>
+                <li>🔄 <strong>Massive Code Duplication:</strong> Browser opening logic repeated 3 times</li>
+                <li>🐛 <strong>Poor Error Handling:</strong> Generic catch-all exception handling</li>
+                <li>📱 <strong>No Platform Checking:</strong> Doesn't verify if Desktop is supported</li>
+                <li>🧱 <strong>Mixed Responsibilities:</strong> File reading and browser opening all mixed together</li>
+                <li>🔧 <strong>Hard to Test:</strong> Can't test file reading without opening browsers</li>
+            </ul>
+
+            <p>But remember - <strong>this is normal!</strong> We're prioritizing learning the Desktop API first, then we'll clean up the code structure.</p>
+        </div>
+
+        <!-- Project Structure -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-folder"></i></div>
+                Project Structure
+            </h2>
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Building on Lesson 1:</strong> The file structure remains the same, but we'll enhance <code class="inline-code">SimpleFileReader.java</code> with browser integration.
+                </div>
+            </div>
+            <div class="file-structure">
+                <ul class="file-tree">
+                    <li><span class="folder">📁 JavaCourse/</span>
+                        <ul>
+                            <li><span class="folder">📁 java_project/</span>
+                                <ul>
+                                    <li><span class="folder">📁 src/</span>
+                                        <ul>
+                                            <li><span class="folder">📁 com/</span>
+                                                <ul>
+                                                    <li><span class="folder">📁 example/</span>
+                                                        <ul>
+                                                            <li><span class="folder">📁 app/</span>
+                                                                <ul>
+                                                                    <li><span class="java-file">☕ SimpleFileReader.java (Enhanced)</span></li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="folder">📁 data/</span>
+                                        <ul>
+                                            <li><span class="file">📄 links.txt</span></li>
+                                            <li><span class="file">📄 links.csv</span></li>
+                                            <li><span class="file">📄 links.json</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Enhanced Java Implementation -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                Improved Implementation: Extracting Common Logic
+            </h2>
+            
+            <div class="alert-box alert-success">
+                <i class="bi bi-check-circle alert-icon"></i>
+                <div>
+                    <strong>From Duplication to Organization:</strong> Now let's refactor our naive browser integration by extracting the common link-opening logic into a reusable method.
+                </div>
+            </div>
+            <h3><code class="inline-code">SimpleFileReader.java</code> (Enhanced)</h3>
+            <p>Replace the content of your <code class="inline-code">SimpleFileReader.java</code> file with the following enhanced version:</p>
+        <pre><code class="language-java">
+package com.example.app;
+
+import java.awt.Desktop;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class SimpleFileReader {
+
+    private static final String DATA_DIR = "java_project/data/";
+
+    public static void main(String[] args) {
+        System.out.println("--- Reading and Opening from TXT file ---");
+        readAndOpenTxtFile(DATA_DIR + "links.txt");
+
+        System.out.println("\n--- Reading and Opening from CSV file ---");
+        readAndOpenCsvFile(DATA_DIR + "links.csv");
+
+        System.out.println("\n--- Reading and Opening from JSON file ---");
+        readAndOpenJsonFile(DATA_DIR + "links.json");
+    }
+
+    private static void openLink(String url) {
+        try {
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                Desktop.getDesktop().browse(new URI(url));
+                System.out.println("Opened: " + url);
+            } else {
+                System.out.println("Desktop browsing not supported. Could not open: " + url);
+            }
+        } catch (IOException | URISyntaxException e) {
+            System.err.println("Error opening link " + url + ": " + e.getMessage());
+        }
+    }
+
+    private static void readAndOpenTxtFile(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println("TXT Link: " + line);
+                openLink(line);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading TXT file: " + e.getMessage());
+        }
+    }
+
+    private static void readAndOpenCsvFile(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 2) {
+                    String url = parts[1].trim();
+                    System.out.println("CSV Link - Name: " + parts[0].trim() + ", URL: " + url);
+                    openLink(url);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading CSV file: " + e.getMessage());
+        }
+    }
+
+    private static void readAndOpenJsonFile(String filePath) {
+        try {
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+            JSONArray jsonArray = new JSONArray(content);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject obj = jsonArray.getJSONObject(i);
+                String url = obj.getString("url");
+                System.out.println("JSON Link - Name: " + obj.getString("name") + ", URL: " + url);
+                openLink(url);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading JSON file: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Important:</strong> The <code class="inline-code">java.awt.Desktop</code> API requires a desktop environment. Ensure your system has a default web browser configured.
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-arrow-left-right"></i></div>
+                Before vs After: What Did We Improve?
+            </h2>
+            
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Evolution in Action:</strong> Let's compare our naive browser integration with the improved version to see the progress we made.
+                </div>
+            </div>
+
+            <h3>✅ Improvements in the Better Version</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>DRY Principle</strong><br>
+                        Extracted <code>openLink()</code> method - no more code duplication!
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Platform Checking</strong><br>
+                        Added proper Desktop support verification before attempting to open URLs
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Better Exception Handling</strong><br>
+                        Specific handling for IOException and URISyntaxException
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Separation of Concerns</strong><br>
+                        File reading and link opening now in separate, focused methods
+                    </div>
+                </div>
+            </div>
+
+            <h3>🎯 Still Room for Improvement</h3>
+            <p>Our code is getting better, but we still have challenges:</p>
+            <ul>
+                <li>🔄 <strong>Similar File Reading Patterns:</strong> Each file type still has its own method with similar structure</li>
+                <li>🧩 <strong>No Common Interface:</strong> Can't treat different file readers uniformly</li>
+                <li>🏗️ <strong>Monolithic Class:</strong> All functionality still crammed into one class</li>
+                <li>📈 <strong>Scalability Issues:</strong> Adding new file types means modifying existing code</li>
+                <li>🧪 <strong>Testing Challenges:</strong> Hard to test individual components in isolation</li>
+            </ul>
+
+            <p><strong>This progression is perfect!</strong> Each lesson builds on the previous one, gradually introducing better practices. In Lesson 3, we'll tackle these remaining issues using object-oriented design principles.</p>
+        </div>
+
+        <!-- Running the Enhanced Application -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-play-circle"></i></div>
+                Running the Enhanced Application
+            </h2>
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    Since we modified <code class="inline-code">SimpleFileReader.java</code>, recompile it using the <a href="index.html#intellij-setup">IntelliJ IDEA Setup Guide</a>.
+                </div>
+            </div>
+            <h3>What to Expect</h3>
+            <p>When you run the application, you'll see console output similar to Lesson 1, but your default web browser will also automatically open each link!</p>
+            
+            <div class="alert-box alert-success">
+                <i class="bi bi-check-circle alert-icon"></i>
+                <div>
+                    <strong>What's Next?</strong><br>
+                    In <a href="lesson3.html">Lesson 3</a>, we'll refactor this code using Object-Oriented Programming principles like interfaces and inheritance for better modularity.
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="lesson1.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Lesson 1</a>
+                <a href="lesson3.html" class="nav-btn nav-btn-primary">Next: OOP Best Practices <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+        
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
