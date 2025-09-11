@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 5: Testing and Build Automation | Java Tutorial</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge">5</div>
+                <h1 class="lesson-title">Testing and Build Automation</h1>
+                <p class="lesson-description">Learn unit testing with JUnit 5 and automated testing in Maven builds. Essential skills for QA engineers transitioning to test automation.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Step 5</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="step4.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 4</a>
+                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step5-testing-automation" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Course Complete <i class="bi bi-check-circle"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>JUnit 5 Fundamentals</strong><br>
+                        Learn to write and execute unit tests using JUnit 5 framework
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Test Organization</strong><br>
+                        Structure tests in Maven projects with proper naming conventions
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Build Automation</strong><br>
+                        Integrate automated testing into Maven build lifecycle
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Test Assertions</strong><br>
+                        Use assertions to validate application behavior and catch regressions
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What We're Building -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-lightbulb"></i></div>
+                What We're Testing & Why
+            </h2>
+            <p>In this lesson, we're adding <strong>automated unit tests</strong> to validate our existing application. Instead of manually checking if our code works, we'll write tests that verify functionality automatically.</p>
+            
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>QA Automation Foundation:</strong> Unit testing is the foundation of all test automation. Before testing web applications with Selenium or APIs with RestAssured, QA engineers must understand how to verify code behavior programmatically.
+                </div>
+            </div>
+
+            <h3>Why Testing Matters for QA Engineers</h3>
+            <ul>
+                <li>🔍 <strong>Automated Validation:</strong> Catch bugs before they reach production</li>
+                <li>🔄 <strong>Regression Prevention:</strong> Ensure changes don't break existing functionality</li>
+                <li>📋 <strong>Documentation:</strong> Tests serve as living documentation of expected behavior</li>
+                <li>🏗️ <strong>Foundation Building:</strong> Essential step toward Selenium and API testing</li>
+            </ul>
+
+            <p>We'll test our existing <strong>LinkReader classes</strong> and <strong>Logger singleton</strong> from previous steps, building confidence in our application's reliability.</p>
+        </div>
+
+        <!-- Project Structure -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-folder"></i></div>
+                Maven Test Structure
+            </h2>
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Building on Step 4:</strong> We'll add testing to our existing Singleton-enhanced project using Maven's standard test directory structure.
+                </div>
+            </div>
+            <div class="file-structure">
+                <ul class="file-tree">
+                    <li><span class="folder">📁 java_project/</span>
+                        <ul>
+                            <li><span class="folder">📁 src/</span>
+                                <ul>
+                                    <li><span class="folder">📁 main/java/com/example/app/</span>
+                                        <ul>
+                                            <li><span class="java-file">☕ Main.java</span></li>
+                                            <li><span class="java-file">☕ Logger.java (Singleton)</span></li>
+                                            <li><span class="java-file">☕ LinkReader.java (Interface)</span></li>
+                                            <li><span class="java-file">☕ TxtLinkReader.java</span></li>
+                                            <li><span class="java-file">☕ CsvLinkReader.java</span></li>
+                                            <li><span class="java-file">☕ JsonLinkReader.java</span></li>
+                                            <li><span class="java-file">☕ LinkReaderFactory.java</span></li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="folder">📁 test/java/com/example/app/</span>
+                                        <ul>
+                                            <li><span class="java-file">🧪 TxtLinkReaderTest.java (NEW)</span></li>
+                                            <li><span class="java-file">🧪 CsvLinkReaderTest.java (NEW)</span></li>
+                                            <li><span class="java-file">🧪 JsonLinkReaderTest.java (NEW)</span></li>
+                                            <li><span class="java-file">🧪 LoggerTest.java (NEW)</span></li>
+                                            <li><span class="java-file">🧪 LinkReaderFactoryTest.java (NEW)</span></li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="folder">📁 test/resources/</span>
+                                        <ul>
+                                            <li><span class="file">📄 test-links.txt (NEW)</span></li>
+                                            <li><span class="file">📄 test-links.csv (NEW)</span></li>
+                                            <li><span class="file">📄 test-links.json (NEW)</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Maven Configuration -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-gear"></i></div>
+                Maven Testing Setup
+            </h2>
+            
+            <h3><code class="inline-code">pom.xml</code> Enhancement</h3>
+            <p>First, we need to add JUnit 5 dependency to our existing <code class="inline-code">pom.xml</code>:</p>
+            <pre><code class="language-xml">&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    
+    &lt;groupId&gt;com.example&lt;/groupId&gt;
+    &lt;artifactId&gt;java-course-project&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+    
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;junit.version&gt;5.9.2&lt;/junit.version&gt;
+    &lt;/properties&gt;
+    
+    &lt;dependencies&gt;
+        &lt;!-- Existing org.json dependency --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.json&lt;/groupId&gt;
+            &lt;artifactId&gt;json&lt;/artifactId&gt;
+            &lt;version&gt;20230227&lt;/version&gt;
+        &lt;/dependency&gt;
+        
+        &lt;!-- NEW: JUnit 5 for testing --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+            &lt;version&gt;${junit.version}&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;!-- Maven Surefire Plugin for running tests --&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.0.0-M9&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+        </div>
+
+        <!-- Test Data Files -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-file-earmark-text"></i></div>
+                Test Data Files
+            </h2>
+
+            <h3><code class="inline-code">src/test/resources/test-links.txt</code></h3>
+            <pre><code class="language-text">https://junit.org
+https://maven.apache.org
+https://github.com</code></pre>
+
+            <h3><code class="inline-code">src/test/resources/test-links.csv</code></h3>
+            <pre><code class="language-text">name,url,category
+JUnit,https://junit.org,Testing
+Maven,https://maven.apache.org,Build
+GitHub,https://github.com,Version Control</code></pre>
+
+            <h3><code class="inline-code">src/test/resources/test-links.json</code></h3>
+            <pre><code class="language-json">[
+  {
+    "name": "JUnit",
+    "url": "https://junit.org"
+  },
+  {
+    "name": "Maven", 
+    "url": "https://maven.apache.org"
+  }
+]</code></pre>
+        </div>
+
+        <!-- Basic Unit Tests -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-square"></i></div>
+                Writing Your First Unit Tests
+            </h2>
+            
+            <h3><code class="inline-code">TxtLinkReaderTest.java</code></h3>
+            <p>Let's start by testing our TXT file reader with basic assertions:</p>
+            <pre><code class="language-java">package com.example.app;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.IOException;
+import java.util.List;
+
+public class TxtLinkReaderTest {
+    
+    private TxtLinkReader reader;
+    
+    @BeforeEach
+    void setUp() {
+        reader = new TxtLinkReader();
+    }
+    
+    @Test
+    void testReadValidTxtFile() throws IOException {
+        // Arrange - Get the test file path
+        String testFile = getClass().getClassLoader()
+            .getResource("test-links.txt").getPath();
+        
+        // Act - Read the links
+        List&lt;String&gt; links = reader.readLinks(testFile);
+        
+        // Assert - Verify the results
+        assertNotNull(links, "Links list should not be null");
+        assertEquals(3, links.size(), "Should read exactly 3 links");
+        assertTrue(links.contains("https://junit.org"), 
+                  "Should contain JUnit URL");
+        assertTrue(links.contains("https://maven.apache.org"), 
+                  "Should contain Maven URL");
+        assertTrue(links.contains("https://github.com"), 
+                  "Should contain GitHub URL");
+    }
+    
+    @Test
+    void testReadNonExistentFile() {
+        // Test error handling
+        String nonExistentFile = "does-not-exist.txt";
+        
+        assertThrows(IOException.class, () -&gt; {
+            reader.readLinks(nonExistentFile);
+        }, "Should throw IOException for non-existent file");
+    }
+}</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-check-circle alert-icon"></i>
+                <div>
+                    <strong>Test Structure:</strong> Notice the AAA pattern - <strong>Arrange</strong> (setup), <strong>Act</strong> (execute), <strong>Assert</strong> (verify). This is the standard approach for writing clear, maintainable tests.
+                </div>
+            </div>
+        </div>
+
+        <!-- Testing the Factory Pattern -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-gear-wide-connected"></i></div>
+                Testing the Factory Pattern
+            </h2>
+            
+            <h3><code class="inline-code">LinkReaderFactoryTest.java</code></h3>
+            <p>Test our Factory pattern implementation to ensure it creates the correct readers:</p>
+            <pre><code class="language-java">package com.example.app;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class LinkReaderFactoryTest {
+    
+    @Test
+    void testCreateTxtReader() {
+        LinkReader reader = LinkReaderFactory.getReader("txt");
+        
+        assertNotNull(reader, "Reader should not be null");
+        assertInstanceOf(TxtLinkReader.class, reader, 
+                        "Should create TxtLinkReader for 'txt' extension");
+    }
+    
+    @Test
+    void testCreateCsvReader() {
+        LinkReader reader = LinkReaderFactory.getReader("csv");
+        
+        assertInstanceOf(CsvLinkReader.class, reader, 
+                        "Should create CsvLinkReader for 'csv' extension");
+    }
+    
+    @Test
+    void testCreateJsonReader() {
+        LinkReader reader = LinkReaderFactory.getReader("json");
+        
+        assertInstanceOf(JsonLinkReader.class, reader, 
+                        "Should create JsonLinkReader for 'json' extension");
+    }
+    
+    @Test
+    void testUnsupportedFileType() {
+        assertThrows(IllegalArgumentException.class, () -&gt; {
+            LinkReaderFactory.getReader("xml");
+        }, "Should throw exception for unsupported file type");
+    }
+    
+    @Test
+    void testCaseInsensitive() {
+        LinkReader upperCase = LinkReaderFactory.getReader("TXT");
+        LinkReader lowerCase = LinkReaderFactory.getReader("txt");
+        
+        assertEquals(upperCase.getClass(), lowerCase.getClass(), 
+                    "Factory should be case-insensitive");
+    }
+}</code></pre>
+        </div>
+
+        <!-- Testing the Singleton Pattern -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-shield-check"></i></div>
+                Testing the Singleton Pattern
+            </h2>
+            
+            <h3><code class="inline-code">LoggerTest.java</code></h3>
+            <p>Verify our Singleton implementation works correctly:</p>
+            <pre><code class="language-java">package com.example.app;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class LoggerTest {
+    
+    @Test
+    void testSingletonBehavior() {
+        // Get two instances
+        Logger logger1 = Logger.getInstance();
+        Logger logger2 = Logger.getInstance();
+        
+        // They should be the exact same object
+        assertSame(logger1, logger2, 
+                  "getInstance() should return the same instance");
+        
+        // Verify they're not null
+        assertNotNull(logger1, "Logger instance should not be null");
+        assertNotNull(logger2, "Logger instance should not be null");
+    }
+    
+    @Test
+    void testLoggerMethods() {
+        Logger logger = Logger.getInstance();
+        
+        // These methods should not throw exceptions
+        assertDoesNotThrow(() -&gt; {
+            logger.logLinkOpened("https://example.com");
+            logger.logLinkFailed("https://broken-link.com");
+            logger.showLogLocation();
+        }, "Logger methods should execute without throwing exceptions");
+    }
+}</code></pre>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Testing Note:</strong> Singleton testing can be tricky in real applications due to global state. In more complex scenarios, you might need to reset the singleton between tests or use dependency injection.
+                </div>
+            </div>
+        </div>
+
+        <!-- Running Tests -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-play-circle"></i></div>
+                Running Your Tests
+            </h2>
+
+            <h3>Command Line Execution</h3>
+            <p>Maven provides several ways to run your tests:</p>
+            
+            <div class="alert-box alert-info">
+                <i class="bi bi-terminal alert-icon"></i>
+                <div>
+                    <strong>Maven Test Commands:</strong>
+                    <ul style="margin-bottom: 0;">
+                        <li><code>mvn test</code> - Run all tests</li>
+                        <li><code>mvn test -Dtest=TxtLinkReaderTest</code> - Run specific test class</li>
+                        <li><code>mvn clean test</code> - Clean and run all tests</li>
+                        <li><code>mvn compile test</code> - Compile and test</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Expected Output</h3>
+            <p>When you run <code class="inline-code">mvn test</code>, you should see output like:</p>
+            <pre><code class="language-text">[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.example.app.TxtLinkReaderTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] Running com.example.app.LinkReaderFactoryTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
+[INFO] Running com.example.app.LoggerTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] BUILD SUCCESS</code></pre>
+        </div>
+
+        <!-- What We've Accomplished -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-trophy"></i></div>
+                What We've Accomplished
+            </h2>
+            
+            <div class="alert-box alert-success">
+                <i class="bi bi-check-circle alert-icon"></i>
+                <div>
+                    <strong>Testing Foundation Complete!</strong> You've now learned the essential testing skills needed for QA automation development.
+                </div>
+            </div>
+
+            <h3>✅ Skills Learned</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Unit Testing Fundamentals</strong><br>
+                        JUnit 5 basics, test structure, and assertion methods
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Maven Test Integration</strong><br>
+                        Test directory structure and automated test execution
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Design Pattern Testing</strong><br>
+                        How to test Factory patterns and Singleton implementations
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Professional Practices</strong><br>
+                        Test organization, naming conventions, and the AAA pattern
+                    </div>
+                </div>
+            </div>
+
+            <h3>🚀 Ready for Advanced Testing</h3>
+            <p>With this foundation, you're prepared for:</p>
+            <ul>
+                <li><strong>Integration Testing</strong> - Testing component interactions</li>
+                <li><strong>Selenium WebDriver</strong> - Web application testing</li>
+                <li><strong>REST API Testing</strong> - API automation with RestAssured</li>
+                <li><strong>Test Frameworks</strong> - TestNG, Cucumber BDD</li>
+                <li><strong>CI/CD Pipelines</strong> - Automated testing in build processes</li>
+            </ul>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Next Steps:</strong> You've completed the essential Java and testing foundation. You're now ready to explore specialized QA automation frameworks like Selenium for web testing or RestAssured for API testing.
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="step4.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 4</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Course Complete <i class="bi bi-check-circle"></i></a>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+        
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
