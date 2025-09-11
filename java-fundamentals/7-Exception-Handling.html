@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exception Handling - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="lesson-header">
+            <div class="lesson-title">
+                <div class="lesson-icon"><i class="bi bi-exclamation-triangle"></i></div>
+                <div>
+                    <h1>Exception Handling</h1>
+                    <p class="lesson-subtitle">Managing errors and exceptions gracefully in Java applications</p>
+                </div>
+            </div>
+            <div class="lesson-info">
+                <div class="info-item"><i class="bi bi-clock"></i><span>30 minutes</span></div>
+                <div class="info-item"><i class="bi bi-bar-chart"></i><span>Intermediate</span></div>
+                <div class="info-item"><i class="bi bi-tag"></i><span>Error Handling</span></div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-house"></i> Home</a>
+                <a href="6-String-Manipulation.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous</a>
+                <a href="8-Debugging-Techniques.html" class="nav-btn nav-btn-primary">Next <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Try-Catch-Finally Blocks</h2>
+            <div class="code-example">
+                <pre><code class="language-java">public class ExceptionDemo {
+    public void handleExceptions() {
+        try {
+            // Code that might throw an exception
+            int result = divideNumbers(10, 0);
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            // Handle specific exception
+            System.err.println("Cannot divide by zero: " + e.getMessage());
+        } catch (Exception e) {
+            // Handle any other exception
+            System.err.println("Unexpected error: " + e.getMessage());
+        } finally {
+            // Always executes (cleanup code)
+            System.out.println("Cleanup completed");
+        }
+    }
+    
+    private int divideNumbers(int a, int b) {
+        return a / b;  // May throw ArithmeticException
+    }
+}</code></pre>
+            </div>
+
+            <h2>File Operations with Exception Handling</h2>
+            <div class="code-example">
+                <pre><code class="language-java">import java.io.*;
+
+public class FileExceptionDemo {
+    public void readFileWithExceptions(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + filename);
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+
+            <h2>Custom Exceptions</h2>
+            <div class="code-example">
+                <pre><code class="language-java">// Custom exception class
+class InvalidTestDataException extends Exception {
+    public InvalidTestDataException(String message) {
+        super(message);
+    }
+}
+
+public class TestDataValidator {
+    public void validateTestData(String data) throws InvalidTestDataException {
+        if (data == null || data.trim().isEmpty()) {
+            throw new InvalidTestDataException("Test data cannot be null or empty");
+        }
+        
+        if (data.length() < 5) {
+            throw new InvalidTestDataException("Test data must be at least 5 characters");
+        }
+        
+        System.out.println("Test data is valid: " + data);
+    }
+    
+    public void runValidation() {
+        try {
+            validateTestData("");
+        } catch (InvalidTestDataException e) {
+            System.err.println("Validation failed: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="6-String-Manipulation.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous</a>
+                <a href="8-Debugging-Techniques.html" class="nav-btn nav-btn-primary">Next: Debugging <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugging Techniques - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="lesson-header">
+            <div class="lesson-title">
+                <div class="lesson-icon"><i class="bi bi-bug"></i></div>
+                <div>
+                    <h1>Debugging Techniques</h1>
+                    <p class="lesson-subtitle">Essential debugging skills for finding and fixing code issues</p>
+                </div>
+            </div>
+            <div class="lesson-info">
+                <div class="info-item"><i class="bi bi-clock"></i><span>25 minutes</span></div>
+                <div class="info-item"><i class="bi bi-bar-chart"></i><span>Beginner</span></div>
+                <div class="info-item"><i class="bi bi-tag"></i><span>Debugging Skills</span></div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-house"></i> Home</a>
+                <a href="7-Exception-Handling.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous</a>
+                <a href="9-File-Operations.html" class="nav-btn nav-btn-primary">Next <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Using IDE Debugger</h2>
+            <div class="info-box">
+                <i class="bi bi-info-circle tip-icon"></i>
+                <div>
+                    <strong>IntelliJ IDEA Debugging:</strong>
+                    <br>• Set breakpoints by clicking line numbers
+                    <br>• F8: Step over, F7: Step into, F9: Resume
+                    <br>• Watch variables in the debugger window
+                </div>
+            </div>
+
+            <h2>Reading Stack Traces</h2>
+            <div class="code-example">
+                <pre><code class="language-java">public class StackTraceDemo {
+    public void demonstrateStackTrace() {
+        try {
+            methodA();
+        } catch (Exception e) {
+            // Print full stack trace
+            e.printStackTrace();
+            
+            // Get specific information
+            System.err.println("Error message: " + e.getMessage());
+            System.err.println("Error type: " + e.getClass().getSimpleName());
+        }
+    }
+    
+    private void methodA() {
+        methodB();
+    }
+    
+    private void methodB() {
+        methodC();
+    }
+    
+    private void methodC() {
+        // This will cause a NullPointerException
+        String text = null;
+        int length = text.length();
+    }
+}</code></pre>
+            </div>
+
+            <h2>Effective Logging</h2>
+            <div class="code-example">
+                <pre><code class="language-java">import java.util.logging.*;
+
+public class LoggingDemo {
+    private static final Logger logger = Logger.getLogger(LoggingDemo.class.getName());
+    
+    public void demonstrateLogging() {
+        // Different log levels
+        logger.info("Application starting");
+        logger.warning("This is a warning message");
+        logger.severe("Critical error occurred");
+        
+        // Logging with variables
+        String username = "testuser";
+        logger.info("Processing user: " + username);
+        
+        // Logging exceptions
+        try {
+            riskyOperation();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Operation failed", e);
+        }
+    }
+    
+    private void riskyOperation() throws Exception {
+        throw new Exception("Something went wrong");
+    }
+}</code></pre>
+            </div>
+
+            <h2>Common Debugging Scenarios</h2>
+            <div class="code-example">
+                <pre><code class="language-java">public class DebuggingScenarios {
+    
+    // Null pointer debugging
+    public void debugNullPointer() {
+        String text = getText();
+        
+        // Always check for null before using
+        if (text != null) {
+            System.out.println("Length: " + text.length());
+        } else {
+            System.err.println("Text is null!");
+        }
+    }
+    
+    // Array bounds debugging
+    public void debugArrayBounds() {
+        int[] numbers = {1, 2, 3, 4, 5};
+        int index = 10;
+        
+        // Check bounds before accessing
+        if (index >= 0 && index < numbers.length) {
+            System.out.println("Value: " + numbers[index]);
+        } else {
+            System.err.println("Index " + index + " is out of bounds");
+        }
+    }
+    
+    // Logic debugging with assertions
+    public void debugLogic(int age) {
+        // Use assertions to verify assumptions
+        assert age >= 0 : "Age cannot be negative";
+        
+        if (age < 18) {
+            System.out.println("Minor");
+        } else if (age < 65) {
+            System.out.println("Adult");
+        } else {
+            System.out.println("Senior");
+        }
+    }
+    
+    private String getText() {
+        // This might return null in real scenarios
+        return null;
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="7-Exception-Handling.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous</a>
+                <a href="9-File-Operations.html" class="nav-btn nav-btn-primary">Next: File I/O <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
