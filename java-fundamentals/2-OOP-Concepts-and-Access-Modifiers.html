@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Fundamentals 2: OOP Concepts & Access Control | Java Course</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-shield-lock"></i></div>
+                <h1 class="lesson-title">OOP Concepts & Access Control</h1>
+                <p class="lesson-description">Learn the four pillars of Object-Oriented Programming and master Java access modifiers for proper encapsulation and code organization.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Java Fundamentals 2</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="1-Constructors.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: Constructors</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Ready for Project <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Java Packages</strong><br>
+                        Understand package organization and namespace management
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Access Modifiers</strong><br>
+                        Master private, protected, public, and default access levels
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Getters & Setters</strong><br>
+                        Implement proper encapsulation with accessor methods
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Four Pillars of OOP</strong><br>
+                        Learn Encapsulation, Inheritance, Polymorphism, and Abstraction
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Java Packages Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-folder"></i></div>
+                Java Packages
+            </h2>
+            <p>A package in Java is a namespace that organizes classes and interfaces. It helps avoid name conflicts and makes code easier to manage.</p>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Best Practice:</strong> Always organize your Java classes in logical packages, especially for larger projects.
+                </div>
+            </div>
+
+            <h3>Folder Structure Example</h3>
+            <pre><code class="language-text">SchoolProject/
+│
+├── com/
+│   └── school/
+│       ├── vehicles/
+│       │   └── Vehicle.java
+│       │
+│       └── test/
+│           └── TestVehicle.java
+│
+└── Main.java</code></pre>
+        </div>
+
+        <!-- Access Modifiers Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Access Modifiers
+            </h2>
+            <p>Access modifiers determine the visibility of classes, methods, and variables.</p>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Modifier</th>
+                            <th>Same Class</th>
+                            <th>Same Package</th>
+                            <th>Subclass</th>
+                            <th>Other Packages</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>public</strong></td>
+                            <td><i class="bi bi-check-circle text-success"></i></td>
+                            <td><i class="bi bi-check-circle text-success"></i></td>
+                            <td><i class="bi bi-check-circle text-success"></i></td>
+                            <td><i class="bi bi-check-circle text-success"></i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>protected</strong></td>
+                            <td><i class="bi bi-check-circle text-success"></i></td>
+                            <td><i class="bi bi-check-circle text-success"></i></td>
+                            <td><i class="bi bi-check-circle text-success"></i></td>
+                            <td><i class="bi bi-x-circle text-danger"></i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>default</strong></td>
+                            <td><i class="bi bi-check-circle text-success"></i></td>
+                            <td><i class="bi bi-check-circle text-success"></i></td>
+                            <td><i class="bi bi-x-circle text-danger"></i></td>
+                            <td><i class="bi bi-x-circle text-danger"></i></td>
+                        </tr>
+                        <tr>
+                            <td><strong>private</strong></td>
+                            <td><i class="bi bi-check-circle text-success"></i></td>
+                            <td><i class="bi bi-x-circle text-danger"></i></td>
+                            <td><i class="bi bi-x-circle text-danger"></i></td>
+                            <td><i class="bi bi-x-circle text-danger"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Refactored Vehicle Class -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-square"></i></div>
+                Refactored Vehicle Class with Access Modifiers
+            </h2>
+            <p>Here's our Vehicle class properly implemented with access modifiers and encapsulation:</p>
+
+            <pre><code class="language-java">public class Vehicle {
+    private static String marca = "Dacia";
+    private String type;
+    private int horsepower;
+    private String comment;
+
+    private static int count = 0;
+
+    public Vehicle(String type, int horsepower, String comment){
+        this.type = type;
+        this.horsepower = horsepower;
+        this.comment = comment;
+        count++;
+    }
+
+    public void honk(){
+        System.out.println(this.type + " " + marca + " a claxonat!");
+    }
+
+    public static void sum(){
+        System.out.println(count);
+    }
+
+    // Getter methods
+    public String getType() {
+        return type;
+    }
+
+    public int getHorsepower() {
+        return horsepower;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public static String getMarca() {
+        return marca;
+    }
+
+    public static int getCount() {
+        return count;
+    }
+
+    // Setter methods
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setHorsepower(int horsepower) {
+        this.horsepower = horsepower;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public static void setMarca(String marca) {
+        Vehicle.marca = marca;
+    }
+}</code></pre>
+        </div>
+
+        <!-- Getters and Setters -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-gear-wide-connected"></i></div>
+                Why Use Getters and Setters?
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-shield-check text-primary"></i>
+                    <div>
+                        <strong>Control Access and Behavior:</strong> Validate or restrict changes to fields.
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-arrows-move text-primary"></i>
+                    <div>
+                        <strong>Flexibility for Future Changes:</strong> Internal implementation can change without affecting external code.
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-bug text-primary"></i>
+                    <div>
+                        <strong>Debugging and Logging:</strong> Add logs or breakpoints inside access methods.
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-shield-lock text-primary"></i>
+                    <div>
+                        <strong>Protect Invariants and Business Rules:</strong> Enforce rules like non-negative horsepower.
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Important:</strong> Always make fields private and provide public getter/setter methods when external access is needed. This is a fundamental principle of encapsulation.
+                </div>
+            </div>
+        </div>
+
+        <!-- Four Pillars of OOP -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-building"></i></div>
+                The Four Pillars of OOP
+            </h2>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h4><i class="bi bi-box-seam"></i> 1. Encapsulation</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>The practice of hiding internal data and only exposing access through public methods, typically using getters and setters.</p>
+                            <div class="alert alert-light">
+                                <strong>Example:</strong> Private fields with public accessor methods
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h4><i class="bi bi-diagram-2"></i> 2. Inheritance</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>A mechanism that allows one class to acquire the properties and behaviors (fields and methods) of another class.</p>
+                            <div class="alert alert-light">
+                                <strong>Example:</strong> <code>class Car extends Vehicle</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h4><i class="bi bi-shapes"></i> 3. Polymorphism</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>The ability of different classes to respond to the same method call in different ways, often through method overriding or overloading.</p>
+                            <div class="alert alert-light">
+                                <strong>Example:</strong> Same method name, different implementations
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h4><i class="bi bi-eye-slash"></i> 4. Abstraction</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>The process of hiding complex implementation details and showing only the essential features of an object.</p>
+                            <div class="alert alert-light">
+                                <strong>Example:</strong> Abstract classes and interfaces
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-check-circle"></i></div>
+                Summary & Next Steps
+            </h2>
+            
+            <div class="alert-box alert-success">
+                <i class="bi bi-trophy alert-icon"></i>
+                <div>
+                    <strong>Congratulations!</strong> You've now mastered the fundamental concepts of Java and Object-Oriented Programming. You're ready to tackle real-world projects!
+                </div>
+            </div>
+
+            <h3>What You've Learned:</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Package Organization:</strong> How to structure Java projects with proper namespaces
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Access Control:</strong> Private, protected, public, and default access modifiers
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Encapsulation:</strong> Proper data hiding with getters and setters
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>OOP Principles:</strong> The four pillars that guide professional Java development
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box alert-primary">
+                <i class="bi bi-rocket alert-icon"></i>
+                <div>
+                    <strong>Ready for the Project?</strong><br>
+                    Now that you understand Java fundamentals, you're prepared to build a complete file-reading application using professional coding practices. Head back to the <a href="../index.html" class="alert-link">homepage</a> and start with <strong>Step 1</strong> of the project features!
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="1-Constructors.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: Constructors</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Start Project Steps <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+        
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -310,6 +310,42 @@
             background: #1d4ed8;
             transform: translateY(-2px);
         }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+
+        .section-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -317,20 +353,20 @@
     <div class="hero-section">
         <div class="container">
             <div class="hero-content text-center">
-                <h1 class="hero-title">Java File Reading Tutorial</h1>
-                <p class="hero-subtitle">Master file I/O operations in Java with modern best practices. Learn to read TXT, CSV, and JSON files while building production-ready applications.</p>
+                <h1 class="hero-title">Java Course: Project & Fundamentals</h1>
+                <p class="hero-subtitle">Build a production-ready file reading application while mastering Java and OOP fundamentals. Perfect for intermediate programmers and students learning Java.</p>
                 <div class="tech-stack justify-content-center">
                     <div class="tech-badge">
-                        <i class="bi bi-cup-hot"></i> Java
+                        <i class="bi bi-code-square"></i> Project Features
                     </div>
                     <div class="tech-badge">
-                        <i class="bi bi-file-earmark-text"></i> File I/O
+                        <i class="bi bi-book"></i> Java Fundamentals
                     </div>
                     <div class="tech-badge">
-                        <i class="bi bi-diagram-3"></i> OOP
+                        <i class="bi bi-diagram-3"></i> OOP Patterns
                     </div>
                     <div class="tech-badge">
-                        <i class="bi bi-shield-check"></i> Error Handling
+                        <i class="bi bi-gear"></i> Best Practices
                     </div>
                 </div>
             </div>
@@ -338,12 +374,19 @@
     </div>
 
     <div class="container">
-        <!-- Lessons Section -->
+        <!-- Project Features Section -->
+        <div class="section-header">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-square"></i></div>
+                Project Features
+            </h2>
+            <p class="section-subtitle">Build a fully functional file reading application following Java best practices. Perfect for intermediate programmers or developers coming from other languages.</p>
+        </div>
         <div class="lesson-grid">
-            <a href="lesson1.html" class="lesson-card">
+            <a href="project-features/step1.html" class="lesson-card">
                 <div class="lesson-number">1</div>
                 <h3 class="lesson-title">Basic File Reading</h3>
-                <p class="lesson-description">Learn the fundamental concepts of reading data from plain text, CSV, and JSON files in Java using simple, straightforward methods.</p>
+                <p class="lesson-description">Implement fundamental file I/O operations for TXT, CSV, and JSON files with proper error handling and resource management.</p>
                 <div class="lesson-meta">
                     <div class="meta-item">
                         <i class="bi bi-clock"></i>
@@ -351,19 +394,109 @@
                     </div>
                     <div class="meta-item">
                         <i class="bi bi-bar-chart"></i>
-                        <span>Beginner</span>
+                        <span>Intermediate</span>
                     </div>
                     <div class="meta-item">
                         <i class="bi bi-file-earmark-code"></i>
-                        <span>TXT, CSV, JSON</span>
+                        <span>File I/O</span>
                     </div>
                 </div>
             </a>
 
-            <a href="lesson2.html" class="lesson-card">
+            <a href="project-features/step2.html" class="lesson-card">
                 <div class="lesson-number">2</div>
-                <h3 class="lesson-title">Opening Links from Files</h3>
-                <p class="lesson-description">Discover how to take the links read from files and open them directly in your default web browser using Java's Desktop API.</p>
+                <h3 class="lesson-title">Desktop API Integration</h3>
+                <p class="lesson-description">Add system integration capabilities by opening URLs in the default browser using Java's Desktop API with cross-platform compatibility.</p>
+                <div class="lesson-meta">
+                    <div class="meta-item">
+                        <i class="bi bi-clock"></i>
+                        <span>25 min</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-bar-chart"></i>
+                        <span>Intermediate</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-browser-chrome"></i>
+                        <span>System Integration</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="project-features/step3.html" class="lesson-card">
+                <div class="lesson-number">3</div>
+                <h3 class="lesson-title">Professional Code Architecture</h3>
+                <p class="lesson-description">Refactor to enterprise-level code using interfaces, inheritance, and the Factory pattern. Learn modular design principles.</p>
+                <div class="lesson-meta">
+                    <div class="meta-item">
+                        <i class="bi bi-clock"></i>
+                        <span>45 min</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-bar-chart"></i>
+                        <span>Advanced</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-diagram-3"></i>
+                        <span>Design Patterns</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="project-features/step4.html" class="lesson-card">
+                <div class="lesson-number">4</div>
+                <h3 class="lesson-title">Production-Ready Features</h3>
+                <p class="lesson-description">Add application-wide logging with the Singleton pattern. Implement thread-safe global services and centralized state management.</p>
+                <div class="lesson-meta">
+                    <div class="meta-item">
+                        <i class="bi bi-clock"></i>
+                        <span>35 min</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-bar-chart"></i>
+                        <span>Advanced</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-gear"></i>
+                        <span>Enterprise Patterns</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Java Fundamentals Section -->
+        <div class="section-header" style="margin-top: 80px;">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-book"></i></div>
+                Java Fundamentals
+            </h2>
+            <p class="section-subtitle">Essential Java and OOP concepts for new learners. Study these first if you're new to Java or need to brush up on core concepts before tackling the project.</p>
+        </div>
+        <div class="lesson-grid">
+            <a href="java-fundamentals/1-Constructors.html" class="lesson-card">
+                <div class="lesson-number"><i class="bi bi-hammer"></i></div>
+                <h3 class="lesson-title">Constructors & Object Creation</h3>
+                <p class="lesson-description">Master Java constructors, understand the difference between instance and static properties, and learn object initialization patterns.</p>
+                <div class="lesson-meta">
+                    <div class="meta-item">
+                        <i class="bi bi-clock"></i>
+                        <span>20 min</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-bar-chart"></i>
+                        <span>Beginner</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="bi bi-cup-hot"></i>
+                        <span>Java Basics</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="java-fundamentals/2-OOP-Concepts-and-Access-Modifiers.html" class="lesson-card">
+                <div class="lesson-number"><i class="bi bi-shield-lock"></i></div>
+                <h3 class="lesson-title">OOP Concepts & Access Control</h3>
+                <p class="lesson-description">Learn the four pillars of OOP (Encapsulation, Inheritance, Polymorphism, Abstraction) and Java access modifiers (private, protected, public).</p>
                 <div class="lesson-meta">
                     <div class="meta-item">
                         <i class="bi bi-clock"></i>
@@ -374,51 +507,54 @@
                         <span>Beginner</span>
                     </div>
                     <div class="meta-item">
-                        <i class="bi bi-browser-chrome"></i>
-                        <span>Desktop API</span>
+                        <i class="bi bi-diagram-2"></i>
+                        <span>OOP Fundamentals</span>
                     </div>
                 </div>
             </a>
+        </div>
 
-            <a href="lesson3.html" class="lesson-card">
-                <div class="lesson-number">3</div>
-                <h3 class="lesson-title">OOP Best Practices</h3>
-                <p class="lesson-description">Refactor your application using Object-Oriented Programming principles like interfaces, inheritance, and the Factory pattern for better modularity.</p>
-                <div class="lesson-meta">
-                    <div class="meta-item">
-                        <i class="bi bi-clock"></i>
-                        <span>45 min</span>
-                    </div>
-                    <div class="meta-item">
-                        <i class="bi bi-bar-chart"></i>
-                        <span>Intermediate</span>
-                    </div>
-                    <div class="meta-item">
-                        <i class="bi bi-diagram-3"></i>
-                        <span>Design Patterns</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="lesson4.html" class="lesson-card">
-                <div class="lesson-number">4</div>
-                <h3 class="lesson-title">Singleton Design Pattern</h3>
-                <p class="lesson-description">Master the Singleton design pattern to ensure single instance creation, manage global application state, and implement thread-safe singletons.</p>
-                <div class="lesson-meta">
-                    <div class="meta-item">
-                        <i class="bi bi-clock"></i>
-                        <span>35 min</span>
-                    </div>
-                    <div class="meta-item">
-                        <i class="bi bi-bar-chart"></i>
-                        <span>Intermediate</span>
-                    </div>
-                    <div class="meta-item">
-                        <i class="bi bi-gear"></i>
-                        <span>Design Patterns</span>
+        <!-- Learning Path Section -->
+        <div class="section-header" style="margin-top: 80px;">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-signpost-2"></i></div>
+                Recommended Learning Path
+            </h2>
+            <p class="section-subtitle">Choose your path based on your Java experience level</p>
+        </div>
+        
+        <div class="row" style="margin-bottom: 60px;">
+            <div class="col-md-6">
+                <div class="path-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 30px; border-radius: 16px; margin-bottom: 20px;">
+                    <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: white;">
+                        <i class="bi bi-person-check" style="font-size: 1.5rem;"></i>
+                        Experienced Developers
+                    </h3>
+                    <p style="margin-bottom: 15px; opacity: 0.9;">Coming from other languages or intermediate Java knowledge?</p>
+                    <p style="margin-bottom: 20px; opacity: 0.9;"><strong>Jump straight into the project steps:</strong></p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <span style="background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">Step 1: File Reading</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">Step 2: Desktop API</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">Step 3: Architecture</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">Step 4: Production</span>
                     </div>
                 </div>
-            </a>
+            </div>
+            <div class="col-md-6">
+                <div class="path-card" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 30px; border-radius: 16px; margin-bottom: 20px;">
+                    <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: white;">
+                        <i class="bi bi-mortarboard" style="font-size: 1.5rem;"></i>
+                        Java Beginners
+                    </h3>
+                    <p style="margin-bottom: 15px; opacity: 0.9;">New to Java or need OOP fundamentals first?</p>
+                    <p style="margin-bottom: 20px; opacity: 0.9;"><strong>Start with Java fundamentals, then project steps:</strong></p>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <span style="background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">1. Constructors</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">2. OOP Concepts</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;">→ Project Steps</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Setup Section -->

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Lesson 3: OOP Best Practices | Java Tutorial</title>
+   <title>Step 3: Professional Code Architecture | Java Tutorial</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -13,7 +13,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Shared Styles -->
-    <link rel="stylesheet" href="shared-styles.css">
+    <link rel="stylesheet" href="../shared-styles.css">
 </head>
 <body><div class="progress-indicator"><div class="progress-bar" style="width: 100%;"></div></div>
     <!-- Header Section -->
@@ -31,13 +31,13 @@
         <!-- Navigation -->
         <div class="lesson-nav">
             <ul class="nav-breadcrumb">
-                <li><a href="file:///C:/Users/radut/JavaCourse/website/index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
                 <li><i class="bi bi-chevron-right separator"></i></li>
-                <li><span style="color: var(--secondary-color);">Lesson 3</span></li>
+                <li><span style="color: var(--secondary-color);">Step 3</span></li>
             </ul>
             <div class="nav-actions">
-                <a href="file:///C:/Users/radut/JavaCourse/website/lesson2.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Lesson 2</a>
-                <a href="file:///C:/Users/radut/JavaCourse/website/lesson4.html" class="nav-btn nav-btn-primary">Next Lesson <i class="bi bi-arrow-right"></i></a>
+                <a href="step2.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 2</a>
+                <a href="step4.html" class="nav-btn nav-btn-primary">Next Step <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
 
@@ -153,7 +153,7 @@
             </div>
 
             <h3><code class="inline-code">SimpleFileReader.java</code> (Naive Expansion)</h3>
-            <p>Starting with our improved Lesson 2 code, what if we need to add XML support? A beginner might just add more methods:</p>
+            <p>Starting with our improved Step 2 code, what if we need to add XML support? A beginner might just add more methods:</p>
             <pre><code class="language-java hljs" data-highlighted="yes"><span class="hljs-keyword">package</span> com.example.app;
 
 <span class="hljs-keyword">import</span> java.awt.Desktop;
@@ -198,7 +198,7 @@
     <span class="hljs-comment">// What about custom formats? Keep adding methods!</span>
     <span class="hljs-comment">// This class would grow to 500+ lines!</span>
 
-    <span class="hljs-comment">// All the existing methods from Lesson 2 (keeping the good parts)</span>
+    <span class="hljs-comment">// All the existing methods from Step 2 (keeping the good parts)</span>
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">readAndOpenTxtFile</span><span class="hljs-params">(String filePath)</span> {
         <span class="hljs-keyword">try</span> (<span class="hljs-type">BufferedReader</span> <span class="hljs-variable">reader</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedReader</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>(filePath))) {
             String line;
@@ -503,7 +503,7 @@
             <div class="alert-box alert-warning">
                 <i class="bi bi-exclamation-triangle alert-icon"></i>
                 <div>
-                    <strong>Reminder:</strong> The <code class="inline-code">org.json</code> library is still required. Follow the <a href="file:///C:/Users/radut/JavaCourse/website/index.html#intellij-setup">IntelliJ IDEA Setup Guide</a> for installation.
+                    <strong>Reminder:</strong> The <code class="inline-code">org.json</code> library is still required. Follow the <a href="../index.html#intellij-setup">IntelliJ IDEA Setup Guide</a> for installation.
                 </div>
             </div>
         <div class="content-section">
@@ -610,23 +610,23 @@
             <div class="alert-box alert-info">
                 <i class="bi bi-info-circle alert-icon"></i>
                 <div>
-                    Follow the <a href="file:///C:/Users/radut/JavaCourse/website/index.html#intellij-setup">IntelliJ IDEA Setup Guide</a> for detailed instructions on running the application.
+                    Follow the <a href="../index.html#intellij-setup">IntelliJ IDEA Setup Guide</a> for detailed instructions on running the application.
                 </div>
             </div>
             <h3>What to Expect</h3>
-            <p>When you run the application, you should observe the same behavior as Lesson 2, but now your code is much more organized and adheres to OOP principles.</p>
+            <p>When you run the application, you should observe the same behavior as Step 2, but now your code is much more organized and adheres to OOP principles.</p>
             
             <div class="alert-box alert-success">
                 <i class="bi bi-check-circle alert-icon"></i>
                 <div>
                     <strong>What's Next?</strong><br>
-                    In <a href="file:///C:/Users/radut/JavaCourse/website/lesson4.html">Lesson 4</a>, we'll implement the Singleton design pattern to manage global application configuration and demonstrate advanced OOP concepts.
+                    In <a href="step4.html">Step 4</a>, we'll implement the Singleton design pattern to manage global application configuration and demonstrate advanced OOP concepts.
                 </div>
             </div>
         </div><div class="lesson-nav">
             <div class="nav-actions footer-nav">
-                <a href="file:///C:/Users/radut/JavaCourse/website/lesson2.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Lesson 2</a>
-                <a href="file:///C:/Users/radut/JavaCourse/website/lesson4.html" class="nav-btn nav-btn-primary">Next: Singleton Pattern <i class="bi bi-arrow-right"></i></a>
+                <a href="step2.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 2</a>
+                <a href="step4.html" class="nav-btn nav-btn-primary">Next: Production Features <i class="bi bi-arrow-right"></i></a>
             </div>
         </div></div>
 

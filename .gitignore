@@ -1,0 +1,27 @@
+# Claude Code context file - should not be committed
+CLAUDE.md
+
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Build artifacts
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+target/
+build/
+out/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.log
