@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OOP Concepts and Java Access Modifiers</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; background-color: #f9f9f9; }
+        h1, h2, h3 { color: #333; }
+        code { background-color: #eee; padding: 10px; display: block; white-space: pre-wrap; border-left: 4px solid #ccc; margin: 10px 0; }
+        .section { background-color: #fff; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+        table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #f0f0f0; }
+    </style>
+</head>
+<body>
+
+    <h1>Java OOP Concepts and Access Modifiers</h1>
+
+    <div class="section">
+        <h2>Java Packages</h2>
+        <p>A package in Java is a namespace that organizes classes and interfaces. It helps avoid name conflicts and makes code easier to manage.</p>
+        <h3>Folder Structure Example</h3>
+        <code>
+SchoolProject/
+│
+├── com/
+│   └── school/
+│       ├── vehicles/
+│       │   └── Vehicle.java
+│       │
+│       └── test/
+│           └── TestVehicle.java
+│
+└── Main.java
+        </code>
+    </div>
+
+    <div class="section">
+        <h2>Access Modifiers</h2>
+        <p>Access modifiers determine the visibility of classes, methods, and variables.</p>
+        <table>
+            <tr>
+                <th>Modifier</th><th>Same Class</th><th>Same Package</th><th>Subclass</th><th>Other Packages</th>
+            </tr>
+            <tr><td>public</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+            <tr><td>protected</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+            <tr><td>default</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td></tr>
+            <tr><td>private</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Refactored Vehicle Class with Access Modifiers</h2>
+        <code>
+public class Vehicle {
+    private static String marca = "Dacia";
+    private String type;
+    private int horsepower;
+    private String comment;
+
+    private static int count = 0;
+
+    public Vehicle(String type, int horsepower, String comment){
+        this.type = type;
+        this.horsepower = horsepower;
+        this.comment = comment;
+        count++;
+    }
+
+    public void honk(){
+        System.out.println(this.type + " " + marca + " a claxonat!");
+    }
+
+    public static void sum(){
+        System.out.println(count);
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getHorsepower() {
+        return horsepower;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public static String getMarca() {
+        return marca;
+    }
+
+    public static int getCount() {
+        return count;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setHorsepower(int horsepower) {
+        this.horsepower = horsepower;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public static void setMarca(String marca) {
+        Vehicle.marca = marca;
+    }
+}
+        </code>
+    </div>
+
+    <div class="section">
+        <h2>Why Use Getters and Setters?</h2>
+        <ul>
+            <li><strong>Control Access and Behavior:</strong> Validate or restrict changes to fields.</li>
+            <li><strong>Flexibility for Future Changes:</strong> Internal implementation can change without affecting external code.</li>
+            <li><strong>Debugging and Logging:</strong> Add logs or breakpoints inside access methods.</li>
+            <li><strong>Protect Invariants and Business Rules:</strong> Enforce rules like non-negative horsepower.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>The Four Pillars of OOP</h2>
+        <h3>1. Encapsulation</h3>
+        <p>The practice of hiding internal data and only exposing access through public methods, typically using getters and setters.</p>
+
+        <h3>2. Inheritance</h3>
+        <p>A mechanism that allows one class to acquire the properties and behaviors (fields and methods) of another class.</p>
+
+        <h3>3. Polymorphism</h3>
+        <p>The ability of different classes to respond to the same method call in different ways, often through method overriding or overloading.</p>
+
+        <h3>4. Abstraction</h3>
+        <p>The process of hiding complex implementation details and showing only the essential features of an object.</p>
+    </div>
+
+</body>
+</html>

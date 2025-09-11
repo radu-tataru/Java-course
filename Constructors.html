@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Java Lesson: Vehicle Class</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1, h2 {
+            color: #005f99;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #aaa;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        code {
+            background-color: #eee;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚗 Java Lesson: Understanding Classes and Objects with <code>Vehicle</code></h1>
+
+    <h2>1️⃣ Instance vs Class Properties</h2>
+    <p>Java classes can have two types of properties:</p>
+    <table>
+        <tr>
+            <th>Type</th>
+            <th>Keyword</th>
+            <th>Shared or Unique?</th>
+            <th>Example in <code>Vehicle</code></th>
+        </tr>
+        <tr>
+            <td>Instance</td>
+            <td>none</td>
+            <td>Unique per object</td>
+            <td><code>type</code>, <code>horsepower</code>, <code>comment</code></td>
+        </tr>
+        <tr>
+            <td>Class (Static)</td>
+            <td><code>static</code></td>
+            <td>Shared by all objects</td>
+            <td><code>marca</code>, <code>count</code></td>
+        </tr>
+    </table>
+
+    <p><strong>Instance properties</strong> belong to each object. Every <code>Vehicle</code> can have a different <code>type</code> or <code>horsepower</code>.</p>
+    <p><strong>Static properties</strong> belong to the class itself. All vehicles share the same <code>marca</code> ("Dacia") and the <code>count</code> of created vehicles.</p>
+
+    <h2>2️⃣ Constructors</h2>
+    <p>Constructors are special methods used to create objects.</p>
+    <pre><code>public Vehicle(String type, int horsepower, String comment) {
+    this.type = type;
+    this.horsepower = horsepower;
+    this.comment = comment;
+    count++; // increases the shared count
+}</code></pre>
+
+    <p>You can have <strong>multiple constructors</strong> (called <em>overloading</em>) to allow different ways of creating objects:</p>
+    <pre><code>public Vehicle(String type, int horsepower, String comment, String color) {
+    // This constructor is empty for now
+}</code></pre>
+
+    <h2>3️⃣ Methods: Class vs Object</h2>
+    <table>
+        <tr>
+            <th>Method Type</th>
+            <th>Keyword</th>
+            <th>Called On</th>
+            <th>Example</th>
+        </tr>
+        <tr>
+            <td>Object Method</td>
+            <td>none</td>
+            <td>an object</td>
+            <td><code>Honk()</code></td>
+        </tr>
+        <tr>
+            <td>Class Method</td>
+            <td><code>static</code></td>
+            <td>the class</td>
+            <td><code>sum()</code></td>
+        </tr>
+    </table>
+
+    <h3>✅ Object Method</h3>
+    <pre><code>public void Honk() {
+    System.out.println(this.type + " " + marca + " a claxonat!");
+}</code></pre>
+    <p>Called like: <code>myCar.Honk();</code></p>
+
+    <h3>✅ Class Method</h3>
+    <pre><code>static void sum() {
+    System.out.println(count);
+}</code></pre>
+    <p>Called like: <code>Vehicle.sum();</code></p>
+
+    <h2>🚀 Demo</h2>
+    <pre><code>public class Main {
+    public static void main(String[] args) {
+        Vehicle car1 = new Vehicle("SUV", 150, "Good for families");
+        Vehicle car2 = new Vehicle("Sedan", 120, "Fuel efficient");
+
+        car1.Honk(); // SUV Dacia a claxonat!
+        car2.Honk(); // Sedan Dacia a claxonat!
+
+        Vehicle.sum(); // 2
+    }
+}</code></pre>
+
+    <h2>🧠 Summary</h2>
+    <ul>
+        <li>Use <strong>instance properties</strong> for data unique to each object.</li>
+        <li>Use <strong>static properties</strong> for shared data across all objects.</li>
+        <li>Constructors initialize objects and can be overloaded.</li>
+        <li>Object methods work with individual objects; static methods work with the class.</li>
+    </ul>
+
+</body>
+</html>
