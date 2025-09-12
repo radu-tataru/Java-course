@@ -262,6 +262,63 @@
 &lt;/dependencies&gt;</code></pre>
                 </div>
 
+        <!-- Project Structure -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-folder"></i></div>
+                Project Structure
+            </h2>
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Page Object Model Implementation:</strong> We'll add Page Object Model classes to our existing Selenium project, creating a maintainable testing architecture.
+                </div>
+            </div>
+            <div class="file-structure">
+                <ul class="file-tree">
+                    <li><span class="folder">📁 java_project/</span>
+                        <ul>
+                            <li><span class="folder">📁 src/</span>
+                                <ul>
+                                    <li><span class="folder">📁 main/java/com/example/app/</span>
+                                        <ul>
+                                            <li><span class="java-file">☕ Main.java</span></li>
+                                            <li><span class="java-file">🔗 LinkReader.java (Interface)</span></li>
+                                            <li><span class="java-file">☕ TxtLinkReader.java</span></li>
+                                            <li><span class="java-file">☕ CsvLinkReader.java</span></li>
+                                            <li><span class="java-file">☕ JsonLinkReader.java</span></li>
+                                            <li><span class="java-file">🏠 LinkReaderFactory.java</span></li>
+                                            <li><span class="java-file">📋 Logger.java (Singleton)</span></li>
+                                            <li><span class="java-file">🌐 SeleniumLinkOpener.java</span></li>
+                                            <li><span class="java-file">📄 BasePage.java (NEW - Page Object Model)</span></li>
+                                            <li><span class="java-file">📄 GitHubHomePage.java (NEW - POM)</span></li>
+                                            <li><span class="java-file">📄 JUnitHomePage.java (NEW - POM)</span></li>
+                                            <li><span class="java-file">📄 MavenHomePage.java (NEW - POM)</span></li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="folder">📁 test/java/com/example/app/</span>
+                                        <ul>
+                                            <li><span class="java-file">🧪 TxtLinkReaderTest.java</span></li>
+                                            <li><span class="java-file">🧪 LoggerTest.java</span></li>
+                                            <li><span class="java-file">🧪 PageObjectTests.java (NEW)</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><span class="folder">📁 data/</span>
+                                <ul>
+                                    <li><span class="file">📄 links.txt</span></li>
+                                    <li><span class="file">📄 links.csv</span></li>
+                                    <li><span class="file">📄 links.json</span></li>
+                                </ul>
+                            </li>
+                            <li><span class="file">📄 pom.xml (Updated with Selenium Support dependency)</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <div class="content-section">
             <h2 class="section-title">
                 <div class="section-icon"><i class="bi bi-list-check"></i></div>

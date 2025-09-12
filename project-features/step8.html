@@ -315,6 +315,89 @@ public class EnvironmentConfig {
 &lt;/dependencies&gt;</code></pre>
                 </div>
 
+        <!-- Project Structure -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-folder"></i></div>
+                Project Structure
+            </h2>
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Data-Driven Architecture:</strong> We'll restructure the project into clean packages with data providers, test models, and configuration management for enterprise-level testing.
+                </div>
+            </div>
+            <div class="file-structure">
+                <ul class="file-tree">
+                    <li><span class="folder">📁 java_project/</span>
+                        <ul>
+                            <li><span class="folder">📁 src/</span>
+                                <ul>
+                                    <li><span class="folder">📁 main/java/com/example/app/</span>
+                                        <ul>
+                                            <li><span class="folder">📁 pages/</span>
+                                                <ul>
+                                                    <li><span class="java-file">📄 BasePage.java</span></li>
+                                                    <li><span class="java-file">📄 GitHubHomePage.java</span></li>
+                                                    <li><span class="java-file">📄 JUnitHomePage.java</span></li>
+                                                    <li><span class="java-file">📄 PageObjectManager.java</span></li>
+                                                </ul>
+                                            </li>
+                                            <li><span class="folder">📁 data/</span>
+                                                <ul>
+                                                    <li><span class="folder">📁 providers/</span>
+                                                        <ul>
+                                                            <li><span class="java-file">📊 ExcelDataProvider.java (NEW)</span></li>
+                                                            <li><span class="java-file">📊 TestDataProvider.java (NEW)</span></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><span class="folder">📁 models/</span>
+                                                        <ul>
+                                                            <li><span class="java-file">📋 WebsiteTestData.java (NEW)</span></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><span class="folder">📁 config/</span>
+                                                <ul>
+                                                    <li><span class="java-file">⚙️ EnvironmentConfig.java (NEW)</span></li>
+                                                </ul>
+                                            </li>
+                                            <li><span class="folder">📁 utils/</span>
+                                                <ul>
+                                                    <li><span class="java-file">📋 Logger.java</span></li>
+                                                </ul>
+                                            </li>
+                                            <li><span class="java-file">☕ Main.java</span></li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="folder">📁 test/java/com/example/app/</span>
+                                        <ul>
+                                            <li><span class="java-file">🧪 ParameterizedWebsiteTests.java (NEW)</span></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><span class="folder">📁 test-data/</span>
+                                <ul>
+                                    <li><span class="file">📊 website-test-data.xlsx (NEW)</span></li>
+                                    <li><span class="file">📄 test-config.json (NEW)</span></li>
+                                </ul>
+                            </li>
+                            <li><span class="folder">📁 environments/</span>
+                                <ul>
+                                    <li><span class="file">⚙️ dev.properties (NEW)</span></li>
+                                    <li><span class="file">⚙️ staging.properties (NEW)</span></li>
+                                    <li><span class="file">⚙️ prod.properties (NEW)</span></li>
+                                </ul>
+                            </li>
+                            <li><span class="file">📄 pom.xml (Updated with POI, TestNG, Jackson)</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <div class="content-section">
             <h2 class="section-title">
                 <div class="section-icon"><i class="bi bi-table"></i></div>
