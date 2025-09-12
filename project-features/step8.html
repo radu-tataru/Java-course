@@ -4,53 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Step 8: Test Data Management & Parameterization</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
-    <link href="../shared-styles.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<body><div class="progress-indicator"><div class="progress-bar" style="width: 100%;"></div></div>
+    <!-- Header Section -->
+    <div class="lesson-header">
         <div class="container">
-            <a class="navbar-brand" href="../index.html">
-                <i class="bi bi-code-slash"></i> Java Course
-            </a>
+            <div class="lesson-content">
+                <div class="lesson-number-badge">8</div>
+                <h1 class="lesson-title">Test Data Management & Parameterization</h1>
+                <p class="lesson-description">Transform our testing framework from hardcoded data to flexible, data-driven testing with clean architecture and multiple data sources</p>
+            </div>
         </div>
-    </nav>
+    </div>
 
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="step-header">
-                    <div class="step-number">Step 8</div>
-                    <h1>Test Data Management & Parameterization</h1>
-                    <p class="lead">Transform our testing framework from hardcoded data to flexible, data-driven testing with clean architecture and multiple data sources</p>
-                </div>
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Step 8</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="step7.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous Step</a>
+                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step8-test-data-management" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Course Complete <i class="bi bi-check-circle"></i></a>
+            </div>
+        </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-bullseye"></i> Learning Objectives</h2>
-                    <div class="objective-grid">
-                        <div class="objective-item">
-                            <i class="bi bi-file-earmark-spreadsheet objective-icon"></i>
-                            <span>Implement Excel and CSV data providers for comprehensive test data management</span>
-                        </div>
-                        <div class="objective-item">
-                            <i class="bi bi-diagram-3 objective-icon"></i>
-                            <span>Restructure project architecture with proper package organization</span>
-                        </div>
-                        <div class="objective-item">
-                            <i class="bi bi-arrow-repeat objective-icon"></i>
-                            <span>Master parameterized testing with JUnit 5 and TestNG integration</span>
-                        </div>
-                        <div class="objective-item">
-                            <i class="bi bi-gear objective-icon"></i>
-                            <span>Create environment-specific configuration management system</span>
-                        </div>
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Excel and CSV Data Providers</strong><br>
+                        Implement comprehensive test data management with file providers
                     </div>
                 </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Clean Architecture Restructure</strong><br>
+                        Organize project with proper package structure
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Parameterized Testing</strong><br>
+                        Master JUnit 5 and TestNG integration techniques
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Environment Configuration</strong><br>
+                        Create multi-environment configuration management
+                    </div>
+                </div>
+            </div>
+                </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-info-circle"></i> What is Data-Driven Testing?</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-info-circle"></i></div>
+                What is Data-Driven Testing?
+            </h2>
                     <p>Data-Driven Testing separates test logic from test data, allowing the same test method to run with multiple data sets. This approach provides several key advantages:</p>
                     
                     <div class="pros-cons-grid">
@@ -76,8 +110,11 @@
                     </div>
                 </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-diagram-3"></i> Clean Architecture Restructure</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-diagram-3"></i></div>
+                Clean Architecture Restructure
+            </h2>
                     <p>Before implementing data-driven features, we'll reorganize our project into a clean, maintainable architecture:</p>
 
                     <div class="architecture-diagram">
@@ -105,8 +142,11 @@
                     </div>
                 </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-gear"></i> Step 8 Implementation</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-gear"></i></div>
+                Step 8 Implementation
+            </h2>
                     <p>We'll implement data-driven testing capabilities while maintaining clean architecture principles:</p>
 
                     <div class="implementation-steps">
@@ -136,8 +176,11 @@
                     </div>
                 </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-code-slash"></i> Key Code Examples</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                Key Code Examples
+            </h2>
 
                     <h3>Excel Data Provider</h3>
                     <pre><code class="language-java">@Component
@@ -232,8 +275,11 @@ public class EnvironmentConfig {
 }</code></pre>
                 </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-tools"></i> Required Dependencies</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-tools"></i></div>
+                Required Dependencies
+            </h2>
                     <p>Add these Maven dependencies to your <code>pom.xml</code>:</p>
                     
                     <pre><code class="language-xml">&lt;dependencies&gt;
@@ -269,8 +315,11 @@ public class EnvironmentConfig {
 &lt;/dependencies&gt;</code></pre>
                 </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-table"></i> Test Data Structure</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-table"></i></div>
+                Test Data Structure
+            </h2>
                     <p>Our Excel test data will follow this structure:</p>
                     
                     <div class="table-responsive">
@@ -320,8 +369,11 @@ public class EnvironmentConfig {
                     <p><strong>Clean Architecture Benefits:</strong> Proper package organization makes the codebase more maintainable and scalable. Data-driven testing allows QA teams to add test scenarios without modifying code, while environment configuration enables the same tests to run across different environments. This approach is essential for enterprise-level test automation frameworks.</p>
                 </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-trophy"></i> Key Takeaways</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-trophy"></i></div>
+                Key Takeaways
+            </h2>
                     <div class="takeaway-grid">
                         <div class="takeaway-item">
                             <i class="bi bi-diagram-3 text-primary"></i>
@@ -342,22 +394,16 @@ public class EnvironmentConfig {
                     </div>
                 </div>
 
-                <div class="navigation-section">
-                    <a href="step7.html" class="nav-btn nav-btn-prev">
-                        <i class="bi bi-arrow-left"></i> Previous: Step 7
-                    </a>
-                    
-                    <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step8-test-data-management" 
-                       class="nav-btn nav-btn-secondary" target="_blank">
-                       <i class="bi bi-github"></i> View Code
-                    </a>
-                    
-                    <a href="../index.html" class="nav-btn nav-btn-next">
-                        Course Complete <i class="bi bi-check-circle"></i>
-                    </a>
-                </div>
+        <!-- Bottom Navigation -->
+        <div class="lesson-nav bottom-nav">
+            <div class="nav-actions">
+                <a href="step7.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous Step</a>
+                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step8-test-data-management" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Course Complete <i class="bi bi-check-circle"></i></a>
             </div>
         </div>
+    </div>
+
     </div>
 
     <footer class="bg-dark text-white text-center py-4 mt-5">

@@ -4,53 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Step 7: Page Object Model & Advanced Testing</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
-    <link href="../shared-styles.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<body><div class="progress-indicator"><div class="progress-bar" style="width: 100%;"></div></div>
+    <!-- Header Section -->
+    <div class="lesson-header">
         <div class="container">
-            <a class="navbar-brand" href="../index.html">
-                <i class="bi bi-code-slash"></i> Java Course
-            </a>
+            <div class="lesson-content">
+                <div class="lesson-number-badge">7</div>
+                <h1 class="lesson-title">Page Object Model & Advanced Testing</h1>
+                <p class="lesson-description">Transform our Selenium automation into a professional testing framework using the Page Object Model design pattern</p>
+            </div>
         </div>
-    </nav>
+    </div>
 
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="step-header">
-                    <div class="step-number">Step 7</div>
-                    <h1>Page Object Model & Advanced Testing</h1>
-                    <p class="lead">Transform our Selenium automation into a professional testing framework using the Page Object Model design pattern</p>
-                </div>
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Step 7</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="step6.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous Step</a>
+                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step7-page-object-model" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
+                <a href="step8.html" class="nav-btn nav-btn-primary">Next Step <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-bullseye"></i> Learning Objectives</h2>
-                    <div class="objective-grid">
-                        <div class="objective-item">
-                            <i class="bi bi-diagram-3 objective-icon"></i>
-                            <span>Implement Page Object Model pattern for maintainable test automation</span>
-                        </div>
-                        <div class="objective-item">
-                            <i class="bi bi-search objective-icon"></i>
-                            <span>Master WebElement location strategies and interactions</span>
-                        </div>
-                        <div class="objective-item">
-                            <i class="bi bi-check-circle objective-icon"></i>
-                            <span>Create comprehensive test methods with assertions</span>
-                        </div>
-                        <div class="objective-item">
-                            <i class="bi bi-shield-check objective-icon"></i>
-                            <span>Build reusable page components for complex web applications</span>
-                        </div>
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Page Object Model Pattern</strong><br>
+                        Implement POM pattern for maintainable test automation
                     </div>
                 </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>WebElement Location Strategies</strong><br>
+                        Master element location and interaction techniques
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Comprehensive Test Methods</strong><br>
+                        Create test methods with proper assertions
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Reusable Page Components</strong><br>
+                        Build page components for complex web applications
+                    </div>
+                </div>
+            </div>
+                </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-info-circle"></i> What is Page Object Model?</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-info-circle"></i></div>
+                What is Page Object Model?
+            </h2>
                     <p>The Page Object Model (POM) is a design pattern that creates an object repository for storing web elements. It helps reduce code duplication and improves test maintenance by:</p>
                     
                     <div class="pros-cons-grid">
@@ -76,8 +110,11 @@
                     </div>
                 </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-gear"></i> Step 7 Implementation</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-gear"></i></div>
+                Step 7 Implementation
+            </h2>
                     <p>We'll transform our basic Selenium automation into a professional testing framework using the Page Object Model pattern.</p>
 
                     <div class="implementation-steps">
@@ -115,8 +152,11 @@
                     </div>
                 </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-code-slash"></i> Key Code Examples</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                Key Code Examples
+            </h2>
 
                     <h3>Base Page Class</h3>
                     <pre><code class="language-java">public class BasePage {
@@ -191,8 +231,11 @@
 }</code></pre>
                 </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-tools"></i> Required Dependencies</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-tools"></i></div>
+                Required Dependencies
+            </h2>
                     <p>Add these Maven dependencies to your <code>pom.xml</code>:</p>
                     
                     <pre><code class="language-xml">&lt;dependencies&gt;
@@ -219,8 +262,11 @@
 &lt;/dependencies&gt;</code></pre>
                 </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-list-check"></i> Testing Strategy</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-list-check"></i></div>
+                Testing Strategy
+            </h2>
                     <p>Our Step 7 testing approach will include:</p>
                     
                     <div class="testing-strategy">
@@ -258,8 +304,11 @@
                     <p><strong>Page Object Model Benefits:</strong> This pattern is industry-standard in professional QA automation. It separates the "how" (element location and interaction) from the "what" (test logic), making your tests more maintainable and readable. When page layouts change, you only need to update the page object classes, not every test method.</p>
                 </div>
 
-                <div class="content-section">
-                    <h2><i class="bi bi-trophy"></i> Key Takeaways</h2>
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-trophy"></i></div>
+                Key Takeaways
+            </h2>
                     <div class="takeaway-grid">
                         <div class="takeaway-item">
                             <i class="bi bi-diagram-3 text-primary"></i>
@@ -280,22 +329,16 @@
                     </div>
                 </div>
 
-                <div class="navigation-section">
-                    <a href="step6.html" class="nav-btn nav-btn-prev">
-                        <i class="bi bi-arrow-left"></i> Previous: Step 6
-                    </a>
-                    
-                    <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step7-page-object-model" 
-                       class="nav-btn nav-btn-secondary" target="_blank">
-                       <i class="bi bi-github"></i> View Code
-                    </a>
-                    
-                    <a href="step8.html" class="nav-btn nav-btn-next">
-                        Next: Step 8 <i class="bi bi-arrow-right"></i>
-                    </a>
-                </div>
+        <!-- Bottom Navigation -->
+        <div class="lesson-nav bottom-nav">
+            <div class="nav-actions">
+                <a href="step6.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous Step</a>
+                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step7-page-object-model" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
+                <a href="step8.html" class="nav-btn nav-btn-primary">Next Step <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
+    </div>
+
     </div>
 
     <footer class="bg-dark text-white text-center py-4 mt-5">
