@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 6: Basic Selenium Integration | Java Tutorial</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge">6</div>
+                <h1 class="lesson-title">Basic Selenium Integration</h1>
+                <p class="lesson-description">Replace Desktop API with Selenium WebDriver for better control and professional web automation. Add page verification and screenshot capabilities.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Step 6</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="step5.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 5</a>
+                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step6-selenium-integration" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
+                <a href="step7.html" class="nav-btn nav-btn-primary">Next: Step 7 <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Replace Desktop API</strong><br>
+                        Transition from Desktop.browse() to Selenium WebDriver for better control
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Basic WebDriver Setup</strong><br>
+                        Learn WebDriver initialization and browser automation fundamentals
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Page Verification</strong><br>
+                        Implement simple page validation and title checking
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Screenshot Capability</strong><br>
+                        Add visual documentation and error capture with screenshots
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What We're Building -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-lightbulb"></i></div>
+                From Desktop API to Web Automation
+            </h2>
+            <p>In this step, we're upgrading our link opening mechanism from the basic <code>Desktop.browse()</code> to <strong>Selenium WebDriver</strong>. This transition gives us:</p>
+            
+            <div class="pros-cons-grid">
+                <div class="pros-box">
+                    <h4><i class="bi bi-check-circle text-success"></i> WebDriver Advantages</h4>
+                    <ul>
+                        <li><strong>Better Control:</strong> Can verify page actually loads</li>
+                        <li><strong>Cross-Platform:</strong> Works consistently across operating systems</li>
+                        <li><strong>Information Gathering:</strong> Can read page title, check elements</li>
+                        <li><strong>Professional Approach:</strong> Industry standard for web automation</li>
+                        <li><strong>Error Handling:</strong> Graceful failure handling</li>
+                        <li><strong>Visual Evidence:</strong> Screenshot capability for debugging</li>
+                    </ul>
+                </div>
+                <div class="cons-box">
+                    <h4><i class="bi bi-info-circle text-primary"></i> What We Keep</h4>
+                    <ul>
+                        <li><strong>Same Architecture:</strong> All existing patterns remain</li>
+                        <li><strong>Same File Reading:</strong> TXT, CSV, JSON processing</li>
+                        <li><strong>Same Logging:</strong> Singleton logger integration</li>
+                        <li><strong>Same Factory:</strong> LinkReader factory pattern</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Gentle Introduction:</strong> We're only changing the link opening mechanism. All the architecture and design patterns from previous steps remain exactly the same. This makes Selenium feel like a natural upgrade rather than a complete rewrite.
+                </div>
+            </div>
+        </div>
+
+        <!-- Maven Dependencies -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-box"></i></div>
+                Adding Selenium Dependencies
+            </h2>
+            <p>First, we need to add Selenium dependencies to our <code>pom.xml</code>:</p>
+
+            <pre><code class="language-xml">&lt;dependencies&gt;
+    &lt;!-- Existing JSON dependency --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.json&lt;/groupId&gt;
+        &lt;artifactId&gt;json&lt;/artifactId&gt;
+        &lt;version&gt;20240303&lt;/version&gt;
+    &lt;/dependency&gt;
+    
+    &lt;!-- NEW: Selenium WebDriver --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
+        &lt;artifactId&gt;selenium-java&lt;/artifactId&gt;
+        &lt;version&gt;4.15.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    
+    &lt;!-- NEW: WebDriver Manager (automatic driver downloads) --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.github.bonigarcia&lt;/groupId&gt;
+        &lt;artifactId&gt;webdrivermanager&lt;/artifactId&gt;
+        &lt;version&gt;5.6.2&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-star alert-icon"></i>
+                <div>
+                    <strong>WebDriverManager Magic:</strong> The WebDriverManager library automatically downloads and manages browser drivers (ChromeDriver, GeckoDriver, etc.). No more manual driver downloads or PATH configuration!
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced JSON Structure -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-file-earmark-code"></i></div>
+                Enhanced JSON Data Structure
+            </h2>
+            <p>Let's enhance our <code>links.json</code> to include title verification data:</p>
+
+            <pre><code class="language-json">[
+  {
+    "name": "Google",
+    "url": "https://www.google.com",
+    "expectedTitle": "Google"
+  },
+  {
+    "name": "Bing", 
+    "url": "https://www.bing.com",
+    "expectedTitle": "Bing"
+  },
+  {
+    "name": "DuckDuckGo",
+    "url": "https://www.duckduckgo.com", 
+    "expectedTitle": "DuckDuckGo"
+  }
+]</code></pre>
+
+            <p>We've added an <code>expectedTitle</code> field that we'll use to verify the page loads correctly.</p>
+        </div>
+
+        <!-- Basic Selenium Implementation -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                Basic SeleniumLinkOpener
+            </h2>
+            <p>Let's start with a simple version that replaces the Desktop API:</p>
+
+            <pre><code class="language-java">package com.example.app;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class SeleniumLinkOpener {
+    private WebDriver driver;
+    
+    public SeleniumLinkOpener() {
+        // Automatically download and setup ChromeDriver
+        WebDriverManager.chromedriver().setup();
+        
+        // Configure Chrome options
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized");
+        
+        // Create WebDriver instance
+        this.driver = new ChromeDriver(options);
+        
+        Logger.getInstance().log("Selenium WebDriver initialized successfully");
+    }
+    
+    public void openLink(String url) {
+        try {
+            Logger.getInstance().log("Opening: " + url);
+            driver.get(url);
+            
+            // Wait for page to load
+            Thread.sleep(2000);
+            
+            // Get page title for verification
+            String title = driver.getTitle();
+            Logger.getInstance().log("✅ Opened: " + url + " (Title: " + title + ")");
+            
+        } catch (Exception e) {
+            Logger.getInstance().log("❌ Error opening " + url + ": " + e.getMessage());
+        }
+    }
+    
+    public void cleanup() {
+        if (driver != null) {
+            driver.quit();
+            Logger.getInstance().log("Browser closed successfully");
+        }
+    }
+}</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Key Changes:</strong> We replaced <code>Desktop.getDesktop().browse(uri)</code> with <code>driver.get(url)</code>. Everything else in our architecture stays exactly the same!
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Features -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-gear-wide-connected"></i></div>
+                Enhanced Features: Verification & Screenshots
+            </h2>
+            <p>Now let's add page verification and screenshot capabilities:</p>
+
+            <pre><code class="language-java">import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+
+public class SeleniumLinkOpener {
+    private WebDriver driver;
+    private String screenshotDir = "screenshots";
+    
+    public SeleniumLinkOpener() {
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized");
+        this.driver = new ChromeDriver(options);
+        
+        // Create screenshots directory
+        new File(screenshotDir).mkdirs();
+    }
+    
+    public boolean openAndVerifyLink(String url, String expectedTitleFragment) {
+        try {
+            Logger.getInstance().log("Opening: " + url);
+            driver.get(url);
+            
+            // Wait for page to load
+            Thread.sleep(2000);
+            
+            String actualTitle = driver.getTitle();
+            boolean verification = verifyPageLoaded(expectedTitleFragment, actualTitle);
+            
+            if (verification) {
+                Logger.getInstance().log("✅ SUCCESS: " + url + " (Title: " + actualTitle + ")");
+            } else {
+                Logger.getInstance().log("❌ FAILED: " + url + " - Title verification failed");
+                takeScreenshot("failed_" + System.currentTimeMillis());
+            }
+            
+            return verification;
+            
+        } catch (Exception e) {
+            Logger.getInstance().log("❌ ERROR opening " + url + ": " + e.getMessage());
+            takeScreenshot("error_" + System.currentTimeMillis());
+            return false;
+        }
+    }
+    
+    public boolean verifyPageLoaded(String expectedTitle, String actualTitle) {
+        if (expectedTitle == null || expectedTitle.isEmpty()) {
+            return !actualTitle.isEmpty(); // Just check page has a title
+        }
+        
+        boolean matches = actualTitle.toLowerCase()
+                                   .contains(expectedTitle.toLowerCase());
+        Logger.getInstance().log("Title verification - Expected: '" + expectedTitle + 
+                               "', Got: '" + actualTitle + "' - " + (matches ? "PASS" : "FAIL"));
+        return matches;
+    }
+    
+    public void takeScreenshot(String filename) {
+        try {
+            File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            File destFile = new File(screenshotDir, filename + ".png");
+            Files.copy(screenshot.toPath(), destFile.toPath(), 
+                      StandardCopyOption.REPLACE_EXISTING);
+            Logger.getInstance().log("📸 Screenshot saved: " + destFile.getAbsolutePath());
+        } catch (Exception e) {
+            Logger.getInstance().log("Screenshot failed: " + e.getMessage());
+        }
+    }
+}</code></pre>
+        </div>
+
+        <!-- Integration with Existing Architecture -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-puzzle"></i></div>
+                Integration with Existing Architecture
+            </h2>
+            <p>Here's how we integrate Selenium with our existing Main class and architecture:</p>
+
+            <pre><code class="language-java">public class Main {
+    public static void main(String[] args) {
+        Logger.getInstance().log("Starting Selenium-powered file reader application...");
+        
+        // Same file reading as before - no changes!
+        LinkReader txtReader = LinkReaderFactory.create("txt");
+        LinkReader csvReader = LinkReaderFactory.create("csv"); 
+        LinkReader jsonReader = LinkReaderFactory.create("json");
+        
+        List&lt;String&gt; allLinks = new ArrayList&lt;&gt;();
+        
+        // Read from all file types
+        allLinks.addAll(txtReader.readLinks("java_project/data/links.txt"));
+        allLinks.addAll(csvReader.readLinks("java_project/data/links.csv"));
+        allLinks.addAll(jsonReader.readLinks("java_project/data/links.json"));
+        
+        // NEW: Use Selenium instead of Desktop API
+        SeleniumLinkOpener opener = new SeleniumLinkOpener();
+        
+        int successCount = 0;
+        for (String link : allLinks) {
+            // For JSON links with title info, extract expected title
+            String expectedTitle = extractExpectedTitle(link);
+            boolean success = opener.openAndVerifyLink(link, expectedTitle);
+            if (success) successCount++;
+        }
+        
+        Logger.getInstance().log("Test Results: " + successCount + "/" + allLinks.size() + " links successful");
+        
+        // Clean up resources
+        opener.cleanup();
+        Logger.getInstance().log("Application completed successfully!");
+    }
+}</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-check-circle alert-icon"></i>
+                <div>
+                    <strong>Architecture Preserved:</strong> Notice how all our existing architecture remains intact - we still use the same file readers, factory pattern, singleton logger, and data processing. Selenium is just a more powerful replacement for the link opening mechanism.
+                </div>
+            </div>
+        </div>
+
+        <!-- Running the Application -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-play-circle"></i></div>
+                Running the Enhanced Application
+            </h2>
+            <p>When you run the application, you'll see:</p>
+
+            <pre><code class="language-text">Starting Selenium-powered file reader application...
+Selenium WebDriver initialized successfully
+Opening: https://www.google.com
+Title verification - Expected: 'Google', Got: 'Google' - PASS
+✅ SUCCESS: https://www.google.com (Title: Google)
+Opening: https://www.bing.com
+Title verification - Expected: 'Bing', Got: 'Bing - Web Search' - PASS
+✅ SUCCESS: https://www.bing.com (Title: Bing - Web Search)
+Opening: https://www.duckduckgo.com
+Title verification - Expected: 'DuckDuckGo', Got: 'DuckDuckGo — Privacy, simplified.' - PASS
+✅ SUCCESS: https://www.duckduckgo.com (Title: DuckDuckGo — Privacy, simplified.)
+Test Results: 3/3 links successful
+Browser closed successfully
+Application completed successfully!</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-camera alert-icon"></i>
+                <div>
+                    <strong>Screenshot Evidence:</strong> If any link fails to load or doesn't match the expected title, a screenshot will be automatically saved in the <code>screenshots/</code> directory for debugging.
+                </div>
+            </div>
+        </div>
+
+        <!-- What We've Accomplished -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-trophy"></i></div>
+                What We've Accomplished
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Professional Web Automation:</strong> Replaced basic Desktop API with industry-standard Selenium WebDriver
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Page Verification:</strong> Added ability to verify pages load correctly and match expected titles
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Visual Evidence:</strong> Implemented screenshot capture for failed tests and errors
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Architecture Integrity:</strong> Maintained all existing design patterns while adding new capabilities
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-star alert-icon"></i>
+                <div>
+                    <strong>QA Foundation Complete:</strong> You now have the foundation of a professional QA automation framework. In the next steps, we'll add more advanced testing features, reporting capabilities, and multi-browser support.
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="step5.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 5: Testing</a>
+                <a href="step7.html" class="nav-btn nav-btn-primary">Next: Page Validation <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+        
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 8: Test Data Management & Parameterization</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link href="../shared-styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="bi bi-code-slash"></i> Java Course
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="step-header">
+                    <div class="step-number">Step 8</div>
+                    <h1>Test Data Management & Parameterization</h1>
+                    <p class="lead">Transform our testing framework from hardcoded data to flexible, data-driven testing with clean architecture and multiple data sources</p>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-bullseye"></i> Learning Objectives</h2>
+                    <div class="objective-grid">
+                        <div class="objective-item">
+                            <i class="bi bi-file-earmark-spreadsheet objective-icon"></i>
+                            <span>Implement Excel and CSV data providers for comprehensive test data management</span>
+                        </div>
+                        <div class="objective-item">
+                            <i class="bi bi-diagram-3 objective-icon"></i>
+                            <span>Restructure project architecture with proper package organization</span>
+                        </div>
+                        <div class="objective-item">
+                            <i class="bi bi-arrow-repeat objective-icon"></i>
+                            <span>Master parameterized testing with JUnit 5 and TestNG integration</span>
+                        </div>
+                        <div class="objective-item">
+                            <i class="bi bi-gear objective-icon"></i>
+                            <span>Create environment-specific configuration management system</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-info-circle"></i> What is Data-Driven Testing?</h2>
+                    <p>Data-Driven Testing separates test logic from test data, allowing the same test method to run with multiple data sets. This approach provides several key advantages:</p>
+                    
+                    <div class="pros-cons-grid">
+                        <div class="pros-section">
+                            <h4><i class="bi bi-check-circle-fill text-success"></i> Benefits</h4>
+                            <ul>
+                                <li>Single test covers multiple scenarios</li>
+                                <li>Easy addition of new test cases without code changes</li>
+                                <li>Non-technical users can contribute test data</li>
+                                <li>Improved test coverage with minimal effort</li>
+                                <li>Clear separation of test logic and test data</li>
+                            </ul>
+                        </div>
+                        <div class="cons-section">
+                            <h4><i class="bi bi-exclamation-triangle-fill text-warning"></i> Considerations</h4>
+                            <ul>
+                                <li>Initial setup requires more planning</li>
+                                <li>Data management overhead</li>
+                                <li>Need for data validation mechanisms</li>
+                                <li>Complex debugging when data issues arise</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-diagram-3"></i> Clean Architecture Restructure</h2>
+                    <p>Before implementing data-driven features, we'll reorganize our project into a clean, maintainable architecture:</p>
+
+                    <div class="architecture-diagram">
+                        <h4>New Package Structure:</h4>
+                        <pre><code class="language-text">com.example.app/
+├── pages/              # Page Object Model classes
+│   ├── BasePage.java
+│   ├── GitHubHomePage.java
+│   ├── JUnitHomePage.java
+│   └── PageObjectManager.java
+├── data/               # Test data management
+│   ├── providers/      # Data provider classes
+│   ├── models/         # Data model classes
+│   └── readers/        # File reading utilities
+├── config/             # Configuration management
+│   ├── EnvironmentConfig.java
+│   └── TestConfiguration.java
+├── utils/              # Utility classes
+│   ├── Logger.java
+│   └── ScreenshotUtils.java
+├── tests/              # Test execution classes
+│   ├── TestResult.java
+│   └── TestSummary.java
+└── Main.java           # Application entry point</code></pre>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-gear"></i> Step 8 Implementation</h2>
+                    <p>We'll implement data-driven testing capabilities while maintaining clean architecture principles:</p>
+
+                    <div class="implementation-steps">
+                        <div class="step-item">
+                            <div class="step-number-small">1</div>
+                            <div class="step-content">
+                                <h4>Project Restructure & Excel Data Providers</h4>
+                                <p>Reorganize classes into logical packages and implement Excel reading capabilities using Apache POI for comprehensive test data management.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-item">
+                            <div class="step-number-small">2</div>
+                            <div class="step-content">
+                                <h4>Parameterized Testing Integration</h4>
+                                <p>Integrate JUnit 5 @ParameterizedTest and TestNG @DataProvider annotations to enable dynamic test execution with multiple data sets.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-item">
+                            <div class="step-number-small">3</div>
+                            <div class="step-content">
+                                <h4>Environment Configuration Management</h4>
+                                <p>Create flexible environment configuration system supporting dev, staging, and production environments with externalized properties.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-code-slash"></i> Key Code Examples</h2>
+
+                    <h3>Excel Data Provider</h3>
+                    <pre><code class="language-java">@Component
+public class ExcelDataProvider {
+    
+    public List&lt;WebsiteTestData&gt; readWebsiteData(String filePath) {
+        List&lt;WebsiteTestData&gt; testData = new ArrayList&lt;&gt;();
+        
+        try (FileInputStream fis = new FileInputStream(filePath);
+             Workbook workbook = WorkbookFactory.create(fis)) {
+            
+            Sheet sheet = workbook.getSheetAt(0);
+            
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) continue; // Skip header
+                
+                WebsiteTestData data = WebsiteTestData.builder()
+                    .testName(getCellValue(row.getCell(0)))
+                    .website(getCellValue(row.getCell(1)))
+                    .expectedTitle(getCellValue(row.getCell(2)))
+                    .environment(getCellValue(row.getCell(3)))
+                    .build();
+                    
+                testData.add(data);
+            }
+        } catch (IOException e) {
+            Logger.getInstance().log("Error reading Excel file: " + e.getMessage());
+        }
+        
+        return testData;
+    }
+}</code></pre>
+
+                    <h3>Parameterized Test Method</h3>
+                    <pre><code class="language-java">public class ParameterizedWebsiteTests {
+    
+    @ParameterizedTest
+    @MethodSource("testDataProvider")
+    @DisplayName("Website verification with dynamic test data")
+    void testWebsiteWithExcelData(WebsiteTestData testData) {
+        // Set environment configuration
+        EnvironmentConfig.setEnvironment(testData.getEnvironment());
+        
+        // Execute test using Page Object Model
+        PageObjectManager pageManager = new PageObjectManager(driver);
+        BasePage page = pageManager.navigateToPage(testData.getWebsiteUrl());
+        
+        // Perform verification
+        TestResult result = page.verifyPageElements();
+        assertThat(result.allTestsPassed()).isTrue();
+        
+        Logger.getInstance().logPageTest(testData.getTestName(), 
+                                        result.getOverallResult());
+    }
+    
+    static Stream&lt;WebsiteTestData&gt; testDataProvider() {
+        TestDataProvider provider = new TestDataProvider();
+        return provider.getWebsiteTestData().stream();
+    }
+}</code></pre>
+
+                    <h3>Environment Configuration</h3>
+                    <pre><code class="language-java">@Configuration
+public class EnvironmentConfig {
+    private static String currentEnvironment = "dev";
+    private static Properties envProperties;
+    
+    static {
+        loadEnvironmentProperties();
+    }
+    
+    public static void setEnvironment(String environment) {
+        currentEnvironment = environment;
+        loadEnvironmentProperties();
+    }
+    
+    private static void loadEnvironmentProperties() {
+        envProperties = new Properties();
+        String propertiesFile = "environments/" + currentEnvironment + ".properties";
+        
+        try (InputStream is = EnvironmentConfig.class.getClassLoader()
+                .getResourceAsStream(propertiesFile)) {
+            envProperties.load(is);
+        } catch (IOException e) {
+            Logger.getInstance().log("Warning: Could not load environment properties");
+        }
+    }
+    
+    public static String getProperty(String key) {
+        return envProperties.getProperty(key);
+    }
+}</code></pre>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-tools"></i> Required Dependencies</h2>
+                    <p>Add these Maven dependencies to your <code>pom.xml</code>:</p>
+                    
+                    <pre><code class="language-xml">&lt;dependencies&gt;
+    &lt;!-- Existing Selenium and testing dependencies --&gt;
+    
+    &lt;!-- NEW: Apache POI for Excel reading --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+        &lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;
+        &lt;version&gt;5.2.4&lt;/version&gt;
+    &lt;/dependency&gt;
+    
+    &lt;!-- NEW: TestNG for advanced parameterization --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.testng&lt;/groupId&gt;
+        &lt;artifactId&gt;testng&lt;/artifactId&gt;
+        &lt;version&gt;7.8.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    
+    &lt;!-- NEW: Jackson for enhanced JSON processing --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+        &lt;version&gt;2.15.2&lt;/version&gt;
+    &lt;/dependency&gt;
+    
+    &lt;!-- NEW: AssertJ for fluent assertions --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.assertj&lt;/groupId&gt;
+        &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
+        &lt;version&gt;3.24.2&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-table"></i> Test Data Structure</h2>
+                    <p>Our Excel test data will follow this structure:</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Test Name</th>
+                                    <th>Website</th>
+                                    <th>Expected Title</th>
+                                    <th>Button Text</th>
+                                    <th>Environment</th>
+                                    <th>Priority</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>GitHub_Production_Test</td>
+                                    <td>GitHub</td>
+                                    <td>GitHub</td>
+                                    <td>Sign up</td>
+                                    <td>prod</td>
+                                    <td>high</td>
+                                </tr>
+                                <tr>
+                                    <td>JUnit_Staging_Test</td>
+                                    <td>JUnit</td>
+                                    <td>JUnit 5</td>
+                                    <td>Guide</td>
+                                    <td>staging</td>
+                                    <td>medium</td>
+                                </tr>
+                                <tr>
+                                    <td>Maven_Dev_Test</td>
+                                    <td>Maven</td>
+                                    <td>Maven</td>
+                                    <td>Download</td>
+                                    <td>dev</td>
+                                    <td>high</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="alert alert-success">
+                    <h4><i class="bi bi-lightbulb"></i> Professional Testing Insight</h4>
+                    <p><strong>Clean Architecture Benefits:</strong> Proper package organization makes the codebase more maintainable and scalable. Data-driven testing allows QA teams to add test scenarios without modifying code, while environment configuration enables the same tests to run across different environments. This approach is essential for enterprise-level test automation frameworks.</p>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-trophy"></i> Key Takeaways</h2>
+                    <div class="takeaway-grid">
+                        <div class="takeaway-item">
+                            <i class="bi bi-diagram-3 text-primary"></i>
+                            <span><strong>Clean Architecture:</strong> Proper package organization improves maintainability and team collaboration</span>
+                        </div>
+                        <div class="takeaway-item">
+                            <i class="bi bi-file-earmark-spreadsheet text-primary"></i>
+                            <span><strong>Data-Driven Testing:</strong> Separate test logic from test data for maximum flexibility</span>
+                        </div>
+                        <div class="takeaway-item">
+                            <i class="bi bi-arrow-repeat text-primary"></i>
+                            <span><strong>Parameterized Tests:</strong> Single test method handles multiple data scenarios efficiently</span>
+                        </div>
+                        <div class="takeaway-item">
+                            <i class="bi bi-gear text-primary"></i>
+                            <span><strong>Environment Management:</strong> Professional approach to multi-environment testing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation-section">
+                    <a href="step7.html" class="nav-btn nav-btn-prev">
+                        <i class="bi bi-arrow-left"></i> Previous: Step 7
+                    </a>
+                    
+                    <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step8-test-data-management" 
+                       class="nav-btn nav-btn-secondary" target="_blank">
+                       <i class="bi bi-github"></i> View Code
+                    </a>
+                    
+                    <a href="../index.html" class="nav-btn nav-btn-next">
+                        Course Complete <i class="bi bi-check-circle"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2024 Java Course for QA Engineers. Building enterprise-level data-driven testing frameworks.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
