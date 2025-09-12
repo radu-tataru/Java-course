@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 7: Page Object Model & Advanced Testing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link href="../shared-styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="bi bi-code-slash"></i> Java Course
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="step-header">
+                    <div class="step-number">Step 7</div>
+                    <h1>Page Object Model & Advanced Testing</h1>
+                    <p class="lead">Transform our Selenium automation into a professional testing framework using the Page Object Model design pattern</p>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-bullseye"></i> Learning Objectives</h2>
+                    <div class="objective-grid">
+                        <div class="objective-item">
+                            <i class="bi bi-diagram-3 objective-icon"></i>
+                            <span>Implement Page Object Model pattern for maintainable test automation</span>
+                        </div>
+                        <div class="objective-item">
+                            <i class="bi bi-search objective-icon"></i>
+                            <span>Master WebElement location strategies and interactions</span>
+                        </div>
+                        <div class="objective-item">
+                            <i class="bi bi-check-circle objective-icon"></i>
+                            <span>Create comprehensive test methods with assertions</span>
+                        </div>
+                        <div class="objective-item">
+                            <i class="bi bi-shield-check objective-icon"></i>
+                            <span>Build reusable page components for complex web applications</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-info-circle"></i> What is Page Object Model?</h2>
+                    <p>The Page Object Model (POM) is a design pattern that creates an object repository for storing web elements. It helps reduce code duplication and improves test maintenance by:</p>
+                    
+                    <div class="pros-cons-grid">
+                        <div class="pros-section">
+                            <h4><i class="bi bi-check-circle-fill text-success"></i> Benefits</h4>
+                            <ul>
+                                <li>Separates test logic from page-specific code</li>
+                                <li>Makes tests more readable and maintainable</li>
+                                <li>Reduces code duplication across test methods</li>
+                                <li>Provides a single place to update element locators</li>
+                                <li>Enables reusable page components</li>
+                            </ul>
+                        </div>
+                        <div class="cons-section">
+                            <h4><i class="bi bi-exclamation-triangle-fill text-warning"></i> Considerations</h4>
+                            <ul>
+                                <li>Initial setup requires more planning</li>
+                                <li>Additional abstraction layer to understand</li>
+                                <li>Need to maintain page object classes</li>
+                                <li>May be overkill for very simple test scenarios</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-gear"></i> Step 7 Implementation</h2>
+                    <p>We'll transform our basic Selenium automation into a professional testing framework using the Page Object Model pattern.</p>
+
+                    <div class="implementation-steps">
+                        <div class="step-item">
+                            <div class="step-number-small">1</div>
+                            <div class="step-content">
+                                <h4>Create Base Page Class</h4>
+                                <p>Establish a foundation class with common WebDriver operations and utilities that all page objects will inherit.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-item">
+                            <div class="step-number-small">2</div>
+                            <div class="step-content">
+                                <h4>Implement Specific Page Objects</h4>
+                                <p>Create page object classes for each website we're testing (GitHub, JUnit, Maven, Selenium) with their specific elements and methods.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-item">
+                            <div class="step-number-small">3</div>
+                            <div class="step-content">
+                                <h4>Add WebElement Interactions</h4>
+                                <p>Implement methods to interact with page elements: clicking links, verifying text, checking element presence, and extracting information.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-item">
+                            <div class="step-number-small">4</div>
+                            <div class="step-content">
+                                <h4>Create Test Methods with Assertions</h4>
+                                <p>Build comprehensive test methods that verify page functionality, content, and behavior using proper assertions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-code-slash"></i> Key Code Examples</h2>
+
+                    <h3>Base Page Class</h3>
+                    <pre><code class="language-java">public class BasePage {
+    protected WebDriver driver;
+    protected WebDriverWait wait;
+    
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(driver, this);
+    }
+    
+    protected void takeScreenshot(String testName) {
+        // Screenshot implementation
+    }
+    
+    protected boolean isElementDisplayed(WebElement element) {
+        try {
+            return element.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+}</code></pre>
+
+                    <h3>Specific Page Object</h3>
+                    <pre><code class="language-java">public class GitHubHomePage extends BasePage {
+    @FindBy(css = "h1")
+    private WebElement mainHeading;
+    
+    @FindBy(css = "a[href='/signup']")
+    private WebElement signUpButton;
+    
+    public GitHubHomePage(WebDriver driver) {
+        super(driver);
+    }
+    
+    public String getMainHeading() {
+        wait.until(ExpectedConditions.visibilityOf(mainHeading));
+        return mainHeading.getText();
+    }
+    
+    public boolean isSignUpButtonVisible() {
+        return isElementDisplayed(signUpButton);
+    }
+    
+    public void verifyPageLoaded() {
+        wait.until(ExpectedConditions.titleContains("GitHub"));
+        takeScreenshot("github_home_loaded");
+    }
+}</code></pre>
+
+                    <h3>Test Implementation</h3>
+                    <pre><code class="language-java">public void testGitHubHomePage() {
+    driver.get("https://github.com");
+    GitHubHomePage gitHubPage = new GitHubHomePage(driver);
+    
+    gitHubPage.verifyPageLoaded();
+    
+    String heading = gitHubPage.getMainHeading();
+    Logger.getInstance().log("GitHub heading: " + heading);
+    
+    boolean signUpVisible = gitHubPage.isSignUpButtonVisible();
+    Logger.getInstance().log("Sign up button visible: " + signUpVisible);
+    
+    // Enhanced logging with assertions
+    if (heading.toLowerCase().contains("github")) {
+        Logger.getInstance().log("✅ GitHub page heading verification passed");
+    } else {
+        Logger.getInstance().log("❌ GitHub page heading verification failed");
+    }
+}</code></pre>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-tools"></i> Required Dependencies</h2>
+                    <p>Add these Maven dependencies to your <code>pom.xml</code>:</p>
+                    
+                    <pre><code class="language-xml">&lt;dependencies&gt;
+    &lt;!-- Existing Selenium dependencies --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
+        &lt;artifactId&gt;selenium-java&lt;/artifactId&gt;
+        &lt;version&gt;4.15.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    
+    &lt;!-- NEW: Selenium Support for PageFactory --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
+        &lt;artifactId&gt;selenium-support&lt;/artifactId&gt;
+        &lt;version&gt;4.15.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    
+    &lt;!-- WebDriverManager --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.github.bonigarcia&lt;/groupId&gt;
+        &lt;artifactId&gt;webdrivermanager&lt;/artifactId&gt;
+        &lt;version&gt;5.6.2&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-list-check"></i> Testing Strategy</h2>
+                    <p>Our Step 7 testing approach will include:</p>
+                    
+                    <div class="testing-strategy">
+                        <div class="strategy-item">
+                            <h4><i class="bi bi-eye"></i> Visual Verification</h4>
+                            <ul>
+                                <li>Page title and heading verification</li>
+                                <li>Element presence and visibility checks</li>
+                                <li>Screenshot capture for evidence</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="strategy-item">
+                            <h4><i class="bi bi-cursor-fill"></i> Interaction Testing</h4>
+                            <ul>
+                                <li>Button and link availability</li>
+                                <li>Navigation flow validation</li>
+                                <li>Form element interactions</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="strategy-item">
+                            <h4><i class="bi bi-file-text"></i> Content Validation</h4>
+                            <ul>
+                                <li>Text content verification</li>
+                                <li>Page structure analysis</li>
+                                <li>Dynamic content handling</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-success">
+                    <h4><i class="bi bi-lightbulb"></i> Professional Testing Insight</h4>
+                    <p><strong>Page Object Model Benefits:</strong> This pattern is industry-standard in professional QA automation. It separates the "how" (element location and interaction) from the "what" (test logic), making your tests more maintainable and readable. When page layouts change, you only need to update the page object classes, not every test method.</p>
+                </div>
+
+                <div class="content-section">
+                    <h2><i class="bi bi-trophy"></i> Key Takeaways</h2>
+                    <div class="takeaway-grid">
+                        <div class="takeaway-item">
+                            <i class="bi bi-diagram-3 text-primary"></i>
+                            <span><strong>Page Object Pattern:</strong> Separates page structure from test logic for better maintainability</span>
+                        </div>
+                        <div class="takeaway-item">
+                            <i class="bi bi-search text-primary"></i>
+                            <span><strong>Element Location:</strong> @FindBy annotations provide clean, maintainable element location strategies</span>
+                        </div>
+                        <div class="takeaway-item">
+                            <i class="bi bi-shield-check text-primary"></i>
+                            <span><strong>Test Reliability:</strong> WebDriverWait and proper element handling increase test stability</span>
+                        </div>
+                        <div class="takeaway-item">
+                            <i class="bi bi-recycle text-primary"></i>
+                            <span><strong>Code Reusability:</strong> Page objects can be reused across multiple test scenarios</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation-section">
+                    <a href="step6.html" class="nav-btn nav-btn-prev">
+                        <i class="bi bi-arrow-left"></i> Previous: Step 6
+                    </a>
+                    
+                    <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step7-page-object-model" 
+                       class="nav-btn nav-btn-secondary" target="_blank">
+                       <i class="bi bi-github"></i> View Code
+                    </a>
+                    
+                    <a href="step8.html" class="nav-btn nav-btn-next">
+                        Next: Step 8 <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <p>&copy; 2024 Java Course for QA Engineers. Building professional automation frameworks.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
