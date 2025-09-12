@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Fundamentals 9: Debugging Techniques | Java Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-bug"></i></div>
+                <h1 class="lesson-title">Debugging Techniques</h1>
+                <p class="lesson-description">Master essential debugging skills using IDE tools, learn to read stack traces, and develop systematic approaches to finding and fixing code issues.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Java Fundamentals 9</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="8-Exception-Handling.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: Exceptions</a>
+                <a href="10-File-Operations.html" class="nav-btn nav-btn-primary">Next: File I/O <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>IDE Debugging</strong><br>
+                        Use breakpoints, step debugging, and variable inspection in IntelliJ IDEA
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Stack Trace Analysis</strong><br>
+                        Read and interpret stack traces to identify error locations
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Logging Strategies</strong><br>
+                        Use System.out.println and logging frameworks for debugging
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Debugging Mindset</strong><br>
+                        Develop systematic approaches to problem-solving and bug fixing
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-play-circle"></i></div>
+                Using IDE Debugger
+            </h2>
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>IntelliJ IDEA Debugging:</strong>
+                    <br>• Set breakpoints by clicking line numbers
+                    <br>• F8: Step over, F7: Step into, F9: Resume
+                    <br>• Watch variables in the debugger window
+                </div>
+            </div>
+
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-list-ul"></i></div>
+                Reading Stack Traces
+            </h2>
+            <div class="code-example">
+                <pre><code class="language-java">public class StackTraceDemo {
+    public void demonstrateStackTrace() {
+        try {
+            methodA();
+        } catch (Exception e) {
+            // Print full stack trace
+            e.printStackTrace();
+            
+            // Get specific information
+            System.err.println("Error message: " + e.getMessage());
+            System.err.println("Error type: " + e.getClass().getSimpleName());
+        }
+    }
+    
+    private void methodA() {
+        methodB();
+    }
+    
+    private void methodB() {
+        methodC();
+    }
+    
+    private void methodC() {
+        // This will cause a NullPointerException
+        String text = null;
+        int length = text.length();
+    }
+}</code></pre>
+            </div>
+
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-journal-text"></i></div>
+                Effective Logging
+            </h2>
+            <div class="code-example">
+                <pre><code class="language-java">import java.util.logging.*;
+
+public class LoggingDemo {
+    private static final Logger logger = Logger.getLogger(LoggingDemo.class.getName());
+    
+    public void demonstrateLogging() {
+        // Different log levels
+        logger.info("Application starting");
+        logger.warning("This is a warning message");
+        logger.severe("Critical error occurred");
+        
+        // Logging with variables
+        String username = "testuser";
+        logger.info("Processing user: " + username);
+        
+        // Logging exceptions
+        try {
+            riskyOperation();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Operation failed", e);
+        }
+    }
+    
+    private void riskyOperation() throws Exception {
+        throw new Exception("Something went wrong");
+    }
+}</code></pre>
+            </div>
+
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-search"></i></div>
+                Common Debugging Scenarios
+            </h2>
+            <div class="code-example">
+                <pre><code class="language-java">public class DebuggingScenarios {
+    
+    // Null pointer debugging
+    public void debugNullPointer() {
+        String text = getText();
+        
+        // Always check for null before using
+        if (text != null) {
+            System.out.println("Length: " + text.length());
+        } else {
+            System.err.println("Text is null!");
+        }
+    }
+    
+    // Array bounds debugging
+    public void debugArrayBounds() {
+        int[] numbers = {1, 2, 3, 4, 5};
+        int index = 10;
+        
+        // Check bounds before accessing
+        if (index >= 0 && index < numbers.length) {
+            System.out.println("Value: " + numbers[index]);
+        } else {
+            System.err.println("Index " + index + " is out of bounds");
+        }
+    }
+    
+    // Logic debugging with assertions
+    public void debugLogic(int age) {
+        // Use assertions to verify assumptions
+        assert age >= 0 : "Age cannot be negative";
+        
+        if (age < 18) {
+            System.out.println("Minor");
+        } else if (age < 65) {
+            System.out.println("Adult");
+        } else {
+            System.out.println("Senior");
+        }
+    }
+    
+    private String getText() {
+        // This might return null in real scenarios
+        return null;
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-check-circle"></i></div>
+                Summary
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        Use <strong>IDE debugger</strong> with breakpoints and step debugging.
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        Read <strong>stack traces</strong> to find the exact error location.
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        Add <strong>logging statements</strong> to track program execution.
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-trophy alert-icon"></i>
+                <div>
+                    <strong>What's Next?</strong><br>
+                    In <a href="10-File-Operations.html">Java Fundamentals 10</a>, we'll learn about file I/O operations and working with the filesystem.
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="8-Exception-Handling.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: Exceptions</a>
+                <a href="10-File-Operations.html" class="nav-btn nav-btn-primary">Next: File I/O <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+        
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

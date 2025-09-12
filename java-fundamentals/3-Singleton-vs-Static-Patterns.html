@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singleton vs Static Patterns - Java Fundamentals</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-gear-wide-connected"></i></div>
+                <h1 class="lesson-title">Singleton vs Static Patterns</h1>
+                <p class="lesson-description">Understanding when and why to use Singleton pattern over static methods in Java development and QA automation.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Java Fundamentals 3</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="2-OOP-Concepts-and-Access-Modifiers.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: OOP Concepts</a>
+                <a href="4-Data-Types-and-Variables.html" class="nav-btn nav-btn-primary">Next: Data Types <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Singleton vs Static Understanding</strong><br>
+                        Understand the difference between Singleton and static approaches
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Pattern Selection Criteria</strong><br>
+                        Learn when to use each pattern effectively
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Singleton Implementation</strong><br>
+                        Master Singleton implementation in Java
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>QA Automation Applications</strong><br>
+                        Apply patterns to real QA automation scenarios
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-section">
+            <h2 id="introduction">Introduction</h2>
+            <p>This guide explains why the Singleton pattern is often recommended for logging and other services in Java, instead of simply using static methods. While both approaches can achieve similar results for basic functionality, the Singleton pattern provides important advantages in flexibility, testability, and maintainability.</p>
+
+            <h2 id="static-limitations">Why Not Just Static Methods?</h2>
+            <p>Static methods seem convenient for shared functionality like logging, but they have several important limitations:</p>
+            
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-x-circle objective-icon text-danger"></i>
+                    <div>
+                        <strong>No flexibility:</strong> Static methods are tied to the class; behavior changes require code modification
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-x-circle objective-icon text-danger"></i>
+                    <div>
+                        <strong>Global state issues:</strong> Configuration must be stored in static variables, which is harder to manage and test
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-x-circle objective-icon text-danger"></i>
+                    <div>
+                        <strong>No polymorphism:</strong> You can't swap out implementations at runtime
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-x-circle objective-icon text-danger"></i>
+                    <div>
+                        <strong>Difficult to test:</strong> Mocking or stubbing static methods requires special frameworks
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="singleton-benefits">Benefits of Singleton Logger</h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon text-success"></i>
+                    <div>
+                        <strong>Configurable:</strong> Store log levels, formats, or destinations as instance fields
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon text-success"></i>
+                    <div>
+                        <strong>Injectable:</strong> Pass the singleton into other classes for better dependency management
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon text-success"></i>
+                    <div>
+                        <strong>Polymorphic:</strong> Replace with different implementations (console, file, remote) without touching consumers
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon text-success"></i>
+                    <div>
+                        <strong>Testable:</strong> Use mocks or stubs during testing
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="static-example">Static Logger Example</h2>
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">Static Logger Implementation</span>
+                </div>
+                <pre><code class="language-java">// Static logger utility
+public class StaticLogger {
+    private static String logLevel = "INFO";
+
+    public static void setLogLevel(String level) {
+        logLevel = level;
+    }
+
+    public static void log(String message) {
+        System.out.println("[" + logLevel + "] " + message);
+    }
+}
+
+// Usage
+public class App {
+    public static void main(String[] args) {
+        StaticLogger.log("Application started");
+        StaticLogger.setLogLevel("DEBUG");
+        StaticLogger.log("Debugging info");
+    }
+}</code></pre>
+            </div>
+
+            <div class="pros-cons-grid">
+                <div class="pros-box">
+                    <h4><i class="bi bi-check-circle text-success"></i> Pros</h4>
+                    <ul>
+                        <li>Simple to use</li>
+                        <li>No instance needed</li>
+                        <li>Direct class access</li>
+                    </ul>
+                </div>
+                <div class="cons-box">
+                    <h4><i class="bi bi-x-circle text-danger"></i> Cons</h4>
+                    <ul>
+                        <li>Hard to replace implementation</li>
+                        <li>Difficult to test</li>
+                        <li>Cannot extend functionality</li>
+                        <li>Global state management issues</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 id="singleton-example">Singleton Logger Example</h2>
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">Singleton Logger Implementation</span>
+                </div>
+                <pre><code class="language-java">// Singleton logger
+public class SingletonLogger {
+    private static SingletonLogger instance;
+    private String logLevel = "INFO";
+
+    // Private constructor prevents external instantiation
+    private SingletonLogger() {}
+
+    public static synchronized SingletonLogger getInstance() {
+        if (instance == null) {
+            instance = new SingletonLogger();
+        }
+        return instance;
+    }
+
+    public void setLogLevel(String level) {
+        this.logLevel = level;
+    }
+
+    public void log(String message) {
+        System.out.println("[" + logLevel + "] " + message);
+    }
+}
+
+// Usage
+public class App {
+    public static void main(String[] args) {
+        SingletonLogger logger = SingletonLogger.getInstance();
+        logger.log("Application started");
+        logger.setLogLevel("DEBUG");
+        logger.log("Debugging info");
+    }
+}</code></pre>
+            </div>
+
+            <div class="pros-cons-grid">
+                <div class="pros-box">
+                    <h4><i class="bi bi-check-circle text-success"></i> Pros</h4>
+                    <ul>
+                        <li>Configurable instance state</li>
+                        <li>Injectable for better testing</li>
+                        <li>Extendable and replaceable</li>
+                        <li>Supports polymorphism</li>
+                    </ul>
+                </div>
+                <div class="cons-box">
+                    <h4><i class="bi bi-x-circle text-danger"></i> Cons</h4>
+                    <ul>
+                        <li>Slightly more boilerplate code</li>
+                        <li>Need to manage instance creation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 id="static-instance-explanation">Why Must the Instance Be Static?</h2>
+            <div class="info-box">
+                <i class="bi bi-info-circle tip-icon"></i>
+                <div>
+                    The <code>instance</code> variable in a Singleton <strong>must be static</strong> so it belongs to the class, not to individual objects. This allows the class to hold and manage a single shared reference that can be accessed globally, even before any object exists. Without <code>static</code>, each object would have its own copy, which defeats the purpose of a Singleton.
+                </div>
+            </div>
+
+            <h2 id="qa-automation-usage">Real-World QA Automation Usage</h2>
+            <p>In QA automation, the Singleton pattern is commonly used for:</p>
+
+            <div class="usage-examples">
+                <div class="usage-item">
+                    <i class="bi bi-browser-chrome usage-icon"></i>
+                    <div>
+                        <strong>WebDriver Management:</strong> Ensure only one browser instance is active during test execution
+                    </div>
+                </div>
+                <div class="usage-item">
+                    <i class="bi bi-gear usage-icon"></i>
+                    <div>
+                        <strong>Test Configuration:</strong> Centralized configuration management for test environments and settings
+                    </div>
+                </div>
+                <div class="usage-item">
+                    <i class="bi bi-file-text usage-icon"></i>
+                    <div>
+                        <strong>Test Reporting:</strong> Single report generator that collects results from multiple test classes
+                    </div>
+                </div>
+                <div class="usage-item">
+                    <i class="bi bi-database usage-icon"></i>
+                    <div>
+                        <strong>Database Connections:</strong> Manage database connections for test data setup and cleanup
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="implementation-best-practices">Implementation Best Practices</h2>
+            <div class="best-practices">
+                <div class="practice-item">
+                    <i class="bi bi-check-circle-fill practice-icon"></i>
+                    <div>
+                        <strong>Thread Safety:</strong> Use <code>synchronized</code> or consider double-checked locking for multi-threaded environments
+                    </div>
+                </div>
+                <div class="practice-item">
+                    <i class="bi bi-check-circle-fill practice-icon"></i>
+                    <div>
+                        <strong>Lazy Initialization:</strong> Create instance only when first accessed to save memory
+                    </div>
+                </div>
+                <div class="practice-item">
+                    <i class="bi bi-check-circle-fill practice-icon"></i>
+                    <div>
+                        <strong>Private Constructor:</strong> Prevent external instantiation to maintain single instance guarantee
+                    </div>
+                </div>
+                <div class="practice-item">
+                    <i class="bi bi-check-circle-fill practice-icon"></i>
+                    <div>
+                        <strong>Interface Implementation:</strong> Use interfaces to make singletons more testable and flexible
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="when-to-use">When to Use Each Pattern</h2>
+            <div class="decision-table">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Use Case</th>
+                            <th>Static Methods</th>
+                            <th>Singleton</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Simple utility functions</td>
+                            <td class="text-success">✓ Good choice</td>
+                            <td class="text-warning">⚠ Overkill</td>
+                        </tr>
+                        <tr>
+                            <td>Stateful services</td>
+                            <td class="text-danger">✗ Problematic</td>
+                            <td class="text-success">✓ Ideal</td>
+                        </tr>
+                        <tr>
+                            <td>Need dependency injection</td>
+                            <td class="text-danger">✗ Not possible</td>
+                            <td class="text-success">✓ Supported</td>
+                        </tr>
+                        <tr>
+                            <td>Unit testing required</td>
+                            <td class="text-danger">✗ Difficult</td>
+                            <td class="text-success">✓ Easy to mock</td>
+                        </tr>
+                        <tr>
+                            <td>Configuration management</td>
+                            <td class="text-warning">⚠ Limited</td>
+                            <td class="text-success">✓ Flexible</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 id="practice-exercise">Practice Exercise</h2>
+            <div class="exercise-box">
+                <h3><i class="bi bi-code-square"></i> Singleton Pattern Challenge</h3>
+                <p>Create a <code>TestConfigManager</code> singleton that:</p>
+                <ol>
+                    <li>Manages test environment settings (URL, timeout, browser type)</li>
+                    <li>Provides methods to get and set configuration values</li>
+                    <li>Includes a method to load configuration from a properties file</li>
+                    <li>Demonstrates thread-safe implementation</li>
+                </ol>
+            </div>
+
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">Exercise Solution Template</span>
+                </div>
+                <pre><code class="language-java">public class TestConfigManager {
+    private static TestConfigManager instance;
+    // TODO: Add configuration fields
+    
+    private TestConfigManager() {
+        // TODO: Initialize default values
+    }
+    
+    public static synchronized TestConfigManager getInstance() {
+        // TODO: Implement singleton pattern
+        return instance;
+    }
+    
+    // TODO: Add configuration getter/setter methods
+    // TODO: Add loadFromFile method
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bookmark-check"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Design Choice:</strong> Choose Singleton for stateful services, static for simple utilities
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Testing Benefits:</strong> Singletons are much easier to mock and test than static methods
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Implementation:</strong> Private constructor, static instance, synchronized access
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>QA Applications:</strong> WebDriver, configuration, reporting, database connections
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
+            <div class="nav-actions">
+                <a href="2-OOP-Concepts-and-Access-Modifiers.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: OOP Concepts</a>
+                <a href="4-Data-Types-and-Variables.html" class="nav-btn nav-btn-primary">Next: Data Types <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+        
+        // Progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

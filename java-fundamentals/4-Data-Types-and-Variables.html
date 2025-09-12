@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Types & Variables - Java Fundamentals</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-type"></i></div>
+                <h1 class="lesson-title">Data Types & Variables</h1>
+                <p class="lesson-description">Understanding Java's type system and variable management for effective programming.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Java Fundamentals 4</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="3-Singleton-vs-Static-Patterns.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: Singleton Patterns</a>
+                <a href="5-Methods-and-Functions.html" class="nav-btn nav-btn-primary">Next: Methods <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Primitive and Reference Types</strong><br>
+                        Master primitive and reference data types in Java
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Variable Declaration</strong><br>
+                        Understand variable declaration and initialization
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Type Conversion</strong><br>
+                        Learn type conversion and casting techniques
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Best Practices</strong><br>
+                        Apply best practices for variable naming and scope
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Main Content -->
+        <div class="content-section">
+            <h2 id="primitive-types">Primitive Data Types</h2>
+            <p>Java has eight primitive data types that store simple values directly in memory.</p>
+
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">Common Primitive Types</span>
+                </div>
+                <pre><code class="language-java">// Integer types
+int age = 25;              // 32-bit integer
+long population = 8000000000L;  // 64-bit integer (note the L)
+
+// Floating-point types
+double price = 29.99;      // 64-bit decimal
+float percentage = 0.85f;  // 32-bit decimal (note the f)
+
+// Boolean type
+boolean isActive = true;
+boolean hasPermission = false;
+
+// Character type
+char grade = 'A';
+char symbol = '$';</code></pre>
+            </div>
+
+            <div class="tip-box">
+                <i class="bi bi-lightbulb tip-icon"></i>
+                <div>
+                    <strong>Memory Tip:</strong> Primitive types store actual values, not references. They're faster and use less memory than reference types.
+                </div>
+            </div>
+
+            <h2 id="reference-types">Reference Data Types</h2>
+            <p>Reference types store references (addresses) to objects in memory. The most common is String.</p>
+
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">String Reference Type</span>
+                </div>
+                <pre><code class="language-java">// String is a reference type
+String name = "John Doe";
+String email = null;  // Can be null
+String empty = "";    // Empty string is different from null
+
+// Other reference types
+Integer boxedAge = 25;        // Wrapper class for int
+Boolean boxedFlag = true;     // Wrapper class for boolean</code></pre>
+            </div>
+
+            <h2 id="variable-declaration">Variable Declaration & Initialization</h2>
+            <p>Variables must be declared with a type and can be initialized with a value.</p>
+
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">Variable Declaration Patterns</span>
+                </div>
+                <pre><code class="language-java">public class VariableDemo {
+    // Class-level variables (fields)
+    private int classField = 100;
+    private String className;  // Initialized to null by default
+    
+    public void demonstrateVariables() {
+        // Local variables - must be initialized before use
+        int localVar;           // Declared but not initialized
+        // System.out.println(localVar); // ERROR! Must initialize first
+        
+        localVar = 50;          // Now initialized
+        System.out.println(localVar); // OK
+        
+        // Declaration with initialization
+        String message = "Hello World";
+        boolean isReady = true;
+        
+        // Multiple declarations
+        int x = 1, y = 2, z = 3;
+        String firstName = "John", lastName = "Doe";
+    }
+}</code></pre>
+            </div>
+
+            <h2 id="variable-scope">Variable Scope</h2>
+            <p>Variable scope determines where variables can be accessed in your code.</p>
+
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">Understanding Variable Scope</span>
+                </div>
+                <pre><code class="language-java">public class ScopeDemo {
+    // Class scope - accessible throughout the class
+    private int classVariable = 10;
+    
+    public void methodOne() {
+        // Method scope - only accessible within this method
+        int methodVariable = 20;
+        
+        if (classVariable > 5) {
+            // Block scope - only accessible within this if block
+            int blockVariable = 30;
+            
+            System.out.println(classVariable);  // OK - class scope
+            System.out.println(methodVariable); // OK - method scope
+            System.out.println(blockVariable);  // OK - current block
+        }
+        
+        // System.out.println(blockVariable); // ERROR! Out of scope
+    }
+    
+    public void methodTwo() {
+        System.out.println(classVariable);  // OK - class scope
+        // System.out.println(methodVariable); // ERROR! Different method
+    }
+}</code></pre>
+            </div>
+
+            <div class="warning-box">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Scope Rule:</strong> Variables are only accessible within the scope where they're declared. Local variables must be initialized before use.
+                </div>
+            </div>
+
+            <h2 id="type-casting">Type Casting and Conversion</h2>
+            <p>Sometimes you need to convert between different data types.</p>
+
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">Type Casting Examples</span>
+                </div>
+                <pre><code class="language-java">public class TypeCastingDemo {
+    public void demonstrateCasting() {
+        // Automatic casting (widening) - no data loss
+        int intValue = 100;
+        long longValue = intValue;     // int to long - automatic
+        double doubleValue = intValue; // int to double - automatic
+        
+        // Manual casting (narrowing) - potential data loss
+        double largeDouble = 99.99;
+        int truncatedInt = (int) largeDouble; // 99 (decimal part lost)
+        
+        // String to number conversion
+        String numberString = "42";
+        int convertedInt = Integer.parseInt(numberString);
+        double convertedDouble = Double.parseDouble("3.14");
+        
+        // Number to String conversion
+        int age = 25;
+        String ageString = String.valueOf(age);
+        String formattedAge = "" + age; // Quick conversion trick
+        
+        System.out.println("Converted int: " + convertedInt);
+        System.out.println("Age as string: " + ageString);
+    }
+}</code></pre>
+            </div>
+
+            <h2 id="best-practices">Best Practices for Variables</h2>
+            <div class="best-practices">
+                <div class="practice-item">
+                    <i class="bi bi-check-circle-fill practice-icon"></i>
+                    <div>
+                        <strong>Use descriptive names:</strong> <code>userName</code> instead of <code>u</code>
+                    </div>
+                </div>
+                <div class="practice-item">
+                    <i class="bi bi-check-circle-fill practice-icon"></i>
+                    <div>
+                        <strong>Initialize variables:</strong> Always initialize local variables before use
+                    </div>
+                </div>
+                <div class="practice-item">
+                    <i class="bi bi-check-circle-fill practice-icon"></i>
+                    <div>
+                        <strong>Choose appropriate types:</strong> Use <code>int</code> for whole numbers, <code>String</code> for text
+                    </div>
+                </div>
+                <div class="practice-item">
+                    <i class="bi bi-check-circle-fill practice-icon"></i>
+                    <div>
+                        <strong>Minimize scope:</strong> Declare variables in the smallest scope needed
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="practice-exercise">Practice Exercise</h2>
+            <div class="exercise-box">
+                <h3><i class="bi bi-code-square"></i> Variable Declaration Challenge</h3>
+                <p>Create a class that demonstrates different variable types and scopes:</p>
+                <ol>
+                    <li>Declare class fields for storing user information (name, age, email)</li>
+                    <li>Create a method that uses local variables for calculations</li>
+                    <li>Practice type conversion between String and numeric types</li>
+                    <li>Show how variable scope affects accessibility</li>
+                </ol>
+            </div>
+
+            <div class="code-example">
+                <div class="code-header">
+                    <span class="code-title">Exercise Solution Template</span>
+                </div>
+                <pre><code class="language-java">public class UserProfile {
+    // TODO: Add class fields for user information
+    
+    public void processUserData() {
+        // TODO: Declare local variables
+        // TODO: Practice type conversions
+        // TODO: Demonstrate variable scope
+    }
+    
+    public void displayUserInfo() {
+        // TODO: Access class fields and display information
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bookmark-check"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Primitive vs Reference:</strong> Primitives store values directly, references store memory addresses
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Variable Scope:</strong> Variables are only accessible within their declared scope
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Type Casting:</strong> Convert between types carefully to avoid data loss
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Initialization:</strong> Local variables must be initialized before use
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="3-Singleton-vs-Static-Patterns.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous</a>
+                <a href="5-Methods-and-Functions.html" class="nav-btn nav-btn-primary">Next: Methods <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+        
+        // Progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

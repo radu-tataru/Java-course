@@ -702,7 +702,66 @@
                     <div class="step-number">2</div>
                     <span>Add JSON Library Dependency</span>
                 </div>
-                <p>The <code>org.json</code> library is required for JSON parsing operations.</p>
+                <p>The <code>org.json</code> library is required for JSON parsing operations. Choose one of the following methods:</p>
+                
+                <h5><i class="bi bi-star-fill text-warning"></i> Method A: Maven Configuration (Recommended)</h5>
+                <p>If your project uses Maven, add this dependency to your <code>pom.xml</code> file:</p>
+                <pre><code class="language-xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.json&lt;/groupId&gt;
+        &lt;artifactId&gt;json&lt;/artifactId&gt;
+        &lt;version&gt;20240303&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+                <p><strong>Maven Setup Steps:</strong></p>
+                <ol>
+                    <li>Create a <code>pom.xml</code> file in your <code>java_project</code> root directory</li>
+                    <li>Add the complete Maven project structure:</li>
+                </ol>
+                <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    
+    &lt;groupId&gt;com.example&lt;/groupId&gt;
+    &lt;artifactId&gt;file-reader-app&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;/properties&gt;
+    
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.json&lt;/groupId&gt;
+            &lt;artifactId&gt;json&lt;/artifactId&gt;
+            &lt;version&gt;20240303&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    
+    &lt;build&gt;
+        &lt;sourceDirectory&gt;src&lt;/sourceDirectory&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.11.0&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+                <ol start="3">
+                    <li>In IntelliJ: <code>File</code> → <code>Open</code> and select the <code>java_project</code> folder</li>
+                    <li>IntelliJ will detect the <code>pom.xml</code> and ask to import as Maven project - click <strong>Import</strong></li>
+                    <li>Wait for Maven to download dependencies automatically</li>
+                </ol>
+                
+                <h5><i class="bi bi-download"></i> Method B: Manual JAR Download (Fallback)</h5>
+                <p>If you prefer not to use Maven or encounter issues:</p>
                 <ul>
                     <li>Download <code>org.json</code> JAR file from <a href="https://mvnrepository.com/artifact/org.json/json" target="_blank" class="btn btn-sm btn-primary">MVNRepository</a></li>
                     <li>Create <code>lib</code> folder in <code>java_project</code> directory</li>

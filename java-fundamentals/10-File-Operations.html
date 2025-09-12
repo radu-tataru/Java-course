@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Fundamentals 10: File Operations & I/O | Java Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-file-text"></i></div>
+                <h1 class="lesson-title">File Operations & I/O</h1>
+                <p class="lesson-description">Master Java file I/O operations, learn to work with paths and directories, and understand modern NIO.2 APIs for efficient file handling in your applications.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Java Fundamentals 10</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="9-Debugging-Techniques.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: Debugging</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Ready for Project <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>File Reading/Writing</strong><br>
+                        Master basic file operations with FileReader, FileWriter, and BufferedReader
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Modern NIO.2 APIs</strong><br>
+                        Use java.nio.file.Files for efficient file operations and path handling
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Directory Operations</strong><br>
+                        Navigate directories, list files, and perform directory manipulations
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Error Handling</strong><br>
+                        Handle file I/O exceptions and implement proper resource management
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-file-earmark-text"></i></div>
+                Basic File Reading
+            </h2>
+            <div class="code-example">
+                <pre><code class="language-java">import java.io.*;
+import java.nio.file.*;
+
+public class FileOperations {
+    
+    // Reading entire file content
+    public void readEntireFile(String filename) {
+        try {
+            String content = Files.readString(Paths.get(filename));
+            System.out.println("File content: " + content);
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+    }
+    
+    // Reading file line by line
+    public void readFileByLines(String filename) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(filename))) {
+            String line;
+            int lineNumber = 1;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(lineNumber + ": " + line);
+                lineNumber++;
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-pencil-square"></i></div>
+                Writing to Files
+            </h2>
+            <div class="code-example">
+                <pre><code class="language-java">import java.io.*;
+import java.nio.file.*;
+import java.util.List;
+
+public class FileWriting {
+    
+    // Writing string to file
+    public void writeToFile(String filename, String content) {
+        try {
+            Files.writeString(Paths.get(filename), content);
+            System.out.println("Content written to " + filename);
+        } catch (IOException e) {
+            System.err.println("Error writing file: " + e.getMessage());
+        }
+    }
+    
+    // Appending to file
+    public void appendToFile(String filename, String content) {
+        try {
+            Files.writeString(Paths.get(filename), content, 
+                StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+            System.out.println("Content appended to " + filename);
+        } catch (IOException e) {
+            System.err.println("Error appending to file: " + e.getMessage());
+        }
+    }
+    
+    // Writing multiple lines
+    public void writeLines(String filename, List<String> lines) {
+        try {
+            Files.write(Paths.get(filename), lines);
+            System.out.println("Lines written to " + filename);
+        } catch (IOException e) {
+            System.err.println("Error writing lines: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-filetype-json"></i></div>
+                Working with Different File Formats
+            </h2>
+            <div class="code-example">
+                <pre><code class="language-java">import java.io.*;
+import java.util.*;
+import org.json.*;
+
+public class FileFormats {
+    
+    // CSV file processing
+    public void processCSV(String filename) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] columns = line.split(",");
+                System.out.println("Columns: " + Arrays.toString(columns));
+            }
+        } catch (IOException e) {
+            System.err.println("Error processing CSV: " + e.getMessage());
+        }
+    }
+    
+    // JSON file processing
+    public void processJSON(String filename) {
+        try {
+            String content = Files.readString(Paths.get(filename));
+            JSONObject jsonObject = new JSONObject(content);
+            
+            // Access JSON data
+            String name = jsonObject.getString("name");
+            int age = jsonObject.getInt("age");
+            
+            System.out.println("Name: " + name + ", Age: " + age);
+        } catch (IOException | JSONException e) {
+            System.err.println("Error processing JSON: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-folder"></i></div>
+                Path Operations
+            </h2>
+            <div class="code-example">
+                <pre><code class="language-java">import java.nio.file.*;
+
+public class PathOperations {
+    
+    public void demonstratePathOperations() {
+        // Creating paths
+        Path currentDir = Paths.get(".");
+        Path dataDir = Paths.get("data", "test-files");
+        Path configFile = dataDir.resolve("config.properties");
+        
+        // Path information
+        System.out.println("Current directory: " + currentDir.toAbsolutePath());
+        System.out.println("Data directory: " + dataDir);
+        System.out.println("Config file: " + configFile);
+        
+        // File existence and properties
+        if (Files.exists(configFile)) {
+            try {
+                System.out.println("File size: " + Files.size(configFile) + " bytes");
+                System.out.println("Is readable: " + Files.isReadable(configFile));
+                System.out.println("Is writable: " + Files.isWritable(configFile));
+            } catch (IOException e) {
+                System.err.println("Error getting file properties: " + e.getMessage());
+            }
+        } else {
+            System.out.println("Config file does not exist");
+        }
+        
+        // Creating directories
+        try {
+            Files.createDirectories(dataDir);
+            System.out.println("Directory created: " + dataDir);
+        } catch (IOException e) {
+            System.err.println("Error creating directory: " + e.getMessage());
+        }
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-check-circle"></i></div>
+                Summary
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        Use <strong>java.nio.file.Files</strong> for modern, efficient file operations.
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        Handle <strong>different file formats</strong> like CSV, JSON, and plain text.
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        Use <strong>Path operations</strong> for directory navigation and file management.
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-trophy alert-icon"></i>
+                <div>
+                    <strong>Congratulations!</strong><br>
+                    You've completed all Java Fundamentals. You're now ready to apply these concepts in our <a href="../index.html">Project Features</a> course.
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="9-Debugging-Techniques.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: Debugging</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Ready for Project <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+        
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
