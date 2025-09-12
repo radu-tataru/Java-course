@@ -213,6 +213,47 @@
             </h2>
             <p>Here's how all these concepts work together:</p>
 
+            <h3>Complete Vehicle Class</h3>
+            <pre><code class="language-java">public class Vehicle {
+    // Static properties (shared by all objects)
+    static String marca = "Dacia";
+    static int count = 0;
+
+    // Instance properties (unique to each object)
+    String type;
+    int horsepower;
+    String comment;
+    String color;
+
+    // Constructor
+    public Vehicle(String type, int horsepower, String comment) {
+        this.type = type;
+        this.horsepower = horsepower;
+        this.comment = comment;
+        count++; // increases the shared count
+    }
+
+    // Overloaded constructor
+    public Vehicle(String type, int horsepower, String comment, String color) {
+        this.type = type;
+        this.horsepower = horsepower;
+        this.comment = comment;
+        this.color = color;
+        count++;
+    }
+
+    // Instance method
+    public void Honk() {
+        System.out.println(this.type + " " + marca + " a claxonat!");
+    }
+
+    // Static method
+    static void sum() {
+        System.out.println(count);
+    }
+}</code></pre>
+
+            <h3>Using the Vehicle Class</h3>
             <pre><code class="language-java">public class Main {
     public static void main(String[] args) {
         Vehicle car1 = new Vehicle("SUV", 150, "Good for families");

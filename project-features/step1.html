@@ -435,38 +435,46 @@ DuckDuckGo,https://www.duckduckgo.com</code></pre>
             <p><strong>And that's perfectly fine!</strong> This iterative improvement process is exactly how professional software development works. We start simple, identify problems, and improve step by step.</p>
         </div>
 
-        <h2 class="mt-4">How to Compile and Run</h2>
-        <p>Please refer to the <a href="../index.html#intellij-setup">IntelliJ IDEA Setup Guide</a> on the home page for detailed instructions on how to import the project and run the application.</p>
-        <p>When you run the application, you should see output similar to this in your IntelliJ console:</p>
-        <pre><code data-highlighted="yes" class="hljs language-javascript">
---- <span class="hljs-title class_">Reading</span> <span class="hljs-keyword">from</span> <span class="hljs-variable constant_">TXT</span> file ---
-<span class="hljs-variable constant_">TXT</span> <span class="hljs-title class_">Link</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.google.com</span>
-<span class="hljs-variable constant_">TXT</span> <span class="hljs-title class_">Link</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.bing.com</span>
-<span class="hljs-variable constant_">TXT</span> <span class="hljs-title class_">Link</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.duckduckgo.com</span>
+        <!-- How to Compile and Run -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-play-circle"></i></div>
+                How to Compile and Run
+            </h2>
+            <p>Please refer to the <a href="../index.html#intellij-setup">IntelliJ IDEA Setup Guide</a> on the home page for detailed instructions on how to import the project and run the application.</p>
+            <p>When you run the application, you should see output similar to this in your IntelliJ console:</p>
+            <pre><code class="language-text">--- Reading from TXT file ---
+TXT Link: https://www.google.com
+TXT Link: https://www.bing.com
+TXT Link: https://www.duckduckgo.com
 
---- <span class="hljs-title class_">Reading</span> <span class="hljs-keyword">from</span> <span class="hljs-variable constant_">CSV</span> file ---
-<span class="hljs-variable constant_">CSV</span> <span class="hljs-title class_">Link</span> - <span class="hljs-title class_">Name</span>: <span class="hljs-title class_">Google</span>, <span class="hljs-attr">URL</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.google.com</span>
-<span class="hljs-variable constant_">CSV</span> <span class="hljs-title class_">Link</span> - <span class="hljs-title class_">Name</span>: <span class="hljs-title class_">Bing</span>, <span class="hljs-attr">URL</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.bing.com</span>
-<span class="hljs-variable constant_">CSV</span> <span class="hljs-title class_">Link</span> - <span class="hljs-title class_">Name</span>: <span class="hljs-title class_">DuckDuckGo</span>, <span class="hljs-attr">URL</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.duckduckgo.com</span>
+--- Reading from CSV file ---
+CSV Link - Name: Google, URL: https://www.google.com
+CSV Link - Name: Bing, URL: https://www.bing.com
+CSV Link - Name: DuckDuckGo, URL: https://www.duckduckgo.com
 
---- <span class="hljs-title class_">Reading</span> <span class="hljs-keyword">from</span> <span class="hljs-title class_">JSON</span> file ---
-<span class="hljs-title class_">JSON</span> <span class="hljs-title class_">Link</span> - <span class="hljs-title class_">Name</span>: <span class="hljs-title class_">Google</span>, <span class="hljs-attr">URL</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.google.com</span>
-<span class="hljs-title class_">JSON</span> <span class="hljs-title class_">Link</span> - <span class="hljs-title class_">Name</span>: <span class="hljs-title class_">Bing</span>, <span class="hljs-attr">URL</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.bing.com</span>
-<span class="hljs-title class_">JSON</span> <span class="hljs-title class_">Link</span> - <span class="hljs-title class_">Name</span>: <span class="hljs-title class_">DuckDuckGo</span>, <span class="hljs-attr">URL</span>: <span class="hljs-attr">https</span>:<span class="hljs-comment">//www.duckduckgo.com</span></code></pre>
-            
-            <div class="alert-box alert-success">
-                <i class="bi bi-check-circle alert-icon"></i>
-                <div>
-                    <strong>What's Next?</strong><br>
-                    In <a href="step2.html">Step 2</a>, we'll enhance this file reader by adding functionality to open the links directly in your web browser.
+--- Reading from JSON file ---
+JSON Link - Name: Google, URL: https://www.google.com
+JSON Link - Name: Bing, URL: https://www.bing.com
+JSON Link - Name: DuckDuckGo, URL: https://www.duckduckgo.com</code></pre>
+                
+                <div class="alert-box alert-success">
+                    <i class="bi bi-check-circle alert-icon"></i>
+                    <div>
+                        <strong>What's Next?</strong><br>
+                        In <a href="step2.html">Step 2</a>, we'll enhance this file reader by adding functionality to open the links directly in your web browser.
+                    </div>
                 </div>
-            </div>
+        </div>
+
+        <!-- Navigation Footer -->
         <div class="lesson-nav">
             <div class="nav-actions footer-nav">
                 <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
                 <a href="step2.html" class="nav-btn nav-btn-primary">Next: Desktop API <i class="bi bi-arrow-right"></i></a>
             </div>
-        </div></div>
+        </div>
+    </div>
 
         <!-- Navigation Footer -->
         
