@@ -137,7 +137,7 @@
             </h2>
             <p>Create business-readable test scenarios using Gherkin syntax. These scenarios will execute the same Page Object tests but in human-friendly language:</p>
 
-            <h3>Website Verification Feature</h3>
+            <h4 style="color: #1f2937; margin-bottom: 15px; font-weight: 600;">Website Verification Feature</h4>
             <pre><code class="language-gherkin">Feature: Website Verification Testing
   As a QA Engineer
   I want to verify developer website functionality
@@ -269,45 +269,62 @@ public class CucumberTestRunner {
         <div class="content-section">
             <h2 class="section-title">
                 <div class="section-icon"><i class="bi bi-folder"></i></div>
-                Updated Project Structure
+                Project Structure
             </h2>
-            <div class="folder-structure">
-                <ul class="folder-tree">
-                    <li><span class="folder">📁 step8-cucumber-bdd/</span>
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Cucumber BDD Integration:</strong> We'll add Cucumber framework to our existing Page Object Model, creating business-readable test scenarios.
+                </div>
+            </div>
+            <div class="file-structure">
+                <ul class="file-tree">
+                    <li><span class="folder">📁 java_project/</span>
                         <ul>
-                            <li><span class="folder">📁 src/main/java/com/example/app/</span>
+                            <li><span class="folder">📁 src/</span>
                                 <ul>
-                                    <li><span class="file">📄 Main.java (Enhanced with BDD execution)</span></li>
-                                    <li><span class="file">📄 BasePage.java (From Step 7)</span></li>
-                                    <li><span class="file">📄 GitHubHomePage.java (From Step 7)</span></li>
-                                    <li><span class="file">📄 JUnitHomePage.java (From Step 7)</span></li>
-                                    <li><span class="file">📄 MavenHomePage.java (From Step 7)</span></li>
-                                    <li><span class="file">📄 SeleniumHomePage.java (From Step 7)</span></li>
-                                    <li><span class="file">📄 PageObjectManager.java (From Step 7)</span></li>
-                                    <li><span class="file">📄 JsonLinkDataReader.java (From Step 7)</span></li>
-                                    <li><span class="file">📄 LinkData.java (From Step 7)</span></li>
-                                    <li><span class="file">📄 TestResult.java (From Step 7)</span></li>
-                                    <li><span class="file">📄 TestSummary.java (From Step 7)</span></li>
-                                    <li><span class="file">📄 Logger.java (From Step 7)</span></li>
+                                    <li><span class="folder">📁 main/java/com/example/app/</span>
+                                        <ul>
+                                            <li><span class="java-file">☕ Main.java</span></li>
+                                            <li><span class="java-file">📄 BasePage.java</span></li>
+                                            <li><span class="java-file">📄 GitHubHomePage.java</span></li>
+                                            <li><span class="java-file">📄 JUnitHomePage.java</span></li>
+                                            <li><span class="java-file">📄 MavenHomePage.java</span></li>
+                                            <li><span class="java-file">📄 SeleniumHomePage.java</span></li>
+                                            <li><span class="java-file">📄 PageObjectManager.java</span></li>
+                                            <li><span class="java-file">📄 JsonLinkDataReader.java</span></li>
+                                            <li><span class="java-file">📄 LinkData.java</span></li>
+                                            <li><span class="java-file">📄 TestResult.java</span></li>
+                                            <li><span class="java-file">📄 TestSummary.java</span></li>
+                                            <li><span class="java-file">📄 Logger.java</span></li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="folder">📁 test/java/com/example/app/</span>
+                                        <ul>
+                                            <li><span class="java-file">🥒 CucumberTestRunner.java (NEW)</span></li>
+                                            <li><span class="java-file">🥒 WebsiteVerificationSteps.java (NEW)</span></li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="folder">📁 test/resources/features/</span>
+                                        <ul>
+                                            <li><span class="feature-file">🥒 website-verification.feature (NEW)</span></li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
-                            <li><span class="folder">📁 src/test/java/com/example/app/</span>
+                            <li><span class="folder">📁 data/</span>
                                 <ul>
-                                    <li><span class="file">📄 CucumberTestRunner.java (NEW)</span></li>
-                                    <li><span class="file">📄 WebsiteVerificationSteps.java (NEW)</span></li>
+                                    <li><span class="json-file">📄 links.json</span></li>
                                 </ul>
                             </li>
-                            <li><span class="folder">📁 src/test/resources/features/</span>
+                            <li><span class="folder">📁 lib/</span>
                                 <ul>
-                                    <li><span class="file">📄 website-verification.feature (NEW)</span></li>
+                                    <li><span class="jar-file">📦 org.json.jar</span></li>
+                                    <li><span class="jar-file">📦 selenium-java.jar</span></li>
+                                    <li><span class="jar-file">🥒 cucumber-java.jar (NEW)</span></li>
                                 </ul>
                             </li>
-                            <li><span class="folder">📁 java_project/data/</span>
-                                <ul>
-                                    <li><span class="file">📄 links.json (From Step 7)</span></li>
-                                </ul>
-                            </li>
-                            <li><span class="file">📄 pom.xml (Updated with Cucumber dependencies)</span></li>
+                            <li><span class="xml-file">⚙️ pom.xml (Updated with Cucumber)</span></li>
                         </ul>
                     </li>
                 </ul>
