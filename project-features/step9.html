@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Step 9: Continuous Integration & Automated Reporting</title>
+    <title>Step 9: ExtentReports Integration</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -15,7 +15,6 @@
     <!-- Shared Styles -->
     <link rel="stylesheet" href="../shared-styles.css">
 </head>
-
 <body>
     <!-- Header Section -->
     <div class="lesson-header">
@@ -33,13 +32,19 @@
         <div class="lesson-nav">
             <ul class="nav-breadcrumb">
                 <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
-                <li><i class="bi bi-chevron-right separator"></i></li>
-                <li><span style="color: var(--secondary-color);">Step 9</span></li>
+                <li><a href="../index.html#project-features"><i class="bi bi-code-slash"></i> Project Features</a></li>
+                <li class="active">Step 9</li>
             </ul>
-            <div class="nav-actions">
-                <a href="step8.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 8</a>
-                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step9-extent-reports" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
-                <a href="../index.html" class="nav-btn nav-btn-primary">Course Complete <i class="bi bi-check-circle"></i></a>
+            <div class="nav-buttons">
+                <a href="step8.html" class="nav-btn nav-btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Step 8
+                </a>
+                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step9-extent-reports" class="nav-btn nav-btn-secondary" target="_blank">
+                    <i class="bi bi-github"></i> View Code
+                </a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">
+                    Course Complete <i class="bi bi-check-circle"></i>
+                </a>
             </div>
         </div>
 
@@ -53,446 +58,498 @@
                 <div class="objective-item">
                     <i class="bi bi-check-circle objective-icon"></i>
                     <div>
-                        <strong>GitHub Actions CI/CD</strong><br>
-                        Set up automated test execution with GitHub Actions workflows
+                        <strong>ExtentReports Integration</strong><br>
+                        Add professional HTML reporting to Cucumber BDD scenarios
                     </div>
                 </div>
                 <div class="objective-item">
                     <i class="bi bi-check-circle objective-icon"></i>
                     <div>
-                        <strong>Test Reporting & Analytics</strong><br>
-                        Generate comprehensive HTML reports with ExtentReports and Maven Surefire
+                        <strong>Rich Dashboard Analytics</strong><br>
+                        Generate charts, statistics, and visual test summaries
                     </div>
                 </div>
                 <div class="objective-item">
                     <i class="bi bi-check-circle objective-icon"></i>
                     <div>
-                        <strong>Multi-Environment Testing</strong><br>
-                        Configure parallel testing across different environments and browsers
+                        <strong>Screenshot Integration</strong><br>
+                        Automatically capture and attach visual evidence to reports
                     </div>
                 </div>
                 <div class="objective-item">
                     <i class="bi bi-check-circle objective-icon"></i>
                     <div>
-                        <strong>Quality Gates & Notifications</strong><br>
-                        Implement automated quality gates with Slack/email notifications
+                        <strong>Enhanced Step Reporting</strong><br>
+                        Detailed logging and reporting for each Cucumber step
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- What We're Building -->
+        <!-- Building on Cucumber BDD -->
         <div class="content-section">
             <h2 class="section-title">
-                <div class="section-icon"><i class="bi bi-lightbulb"></i></div>
-                From Manual Testing to Automated CI/CD Pipeline
+                <div class="section-icon"><i class="bi bi-diagram-3"></i></div>
+                Building on Cucumber BDD Framework
             </h2>
-            <p>In this lesson, we're building a <strong>complete CI/CD pipeline</strong> that transforms our data-driven testing framework into an enterprise-grade automated testing solution. This represents the industry standard for professional QA automation:</p>
-            
-            <div class="alert-box alert-info">
-                <i class="bi bi-info-circle alert-icon"></i>
-                <div>
-                    <strong>Enterprise Reality:</strong> Modern development teams rely on automated CI/CD pipelines that run thousands of tests automatically on every code change. Learning to build these pipelines makes you invaluable in any QA engineering role.
-                </div>
-            </div>
-
-            <h3>The Professional Testing Lifecycle</h3>
-            <ul>
-                <li><strong>Continuous Integration:</strong> Tests run automatically on every code commit, preventing regression bugs</li>
-                <li><strong>Automated Reporting:</strong> Generate HTML reports with test results, screenshots, and analytics</li>
-                <li><strong>Smart Notifications:</strong> Slack and email alerts when tests fail, with detailed failure analysis</li>
-            </ul>
-        </div>
-
-        <!-- GitHub Actions Setup -->
-        <div class="content-section">
-            <h2 class="section-title">
-                <div class="section-icon"><i class="bi bi-gear-wide-connected"></i></div>
-                GitHub Actions Workflow Configuration
-            </h2>
-            <p>We'll create a GitHub Actions workflow that automatically runs our test suite on every push and pull request:</p>
-            
-            <h3>Workflow File: <code>.github/workflows/test-automation.yml</code></h3>
-            <pre><code class="language-yaml">name: Test Automation Pipeline
-
-on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
-  schedule:
-    # Run tests daily at 2 AM UTC
-    - cron: '0 2 * * *'
-
-jobs:
-  test-suite:
-    runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        environment: [dev, staging, prod]
-        browser: [chrome, firefox, edge]
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up JDK 11
-      uses: actions/setup-java@v4
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-    
-    - name: Cache Maven dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-    
-    - name: Install Chrome Browser
-      uses: browser-actions/setup-chrome@latest
-    
-    - name: Run Test Suite
-      run: |
-        mvn clean test -Denv=${{ matrix.environment }} -Dbrowser=${{ matrix.browser }}
-      env:
-        CI: true
-        ENVIRONMENT: ${{ matrix.environment }}
-    
-    - name: Generate ExtentReports
-      run: |
-        mvn clean test -Dreporting.enabled=true
-      if: always()
-    
-    - name: Upload Test Reports
-      uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: test-reports-${{ matrix.environment }}-${{ matrix.browser }}
-        path: |
-          target/surefire-reports/
-          target/extent-reports/
-          screenshots/
-    
-    - name: Notify Slack on Failure
-      if: failure()
-      uses: 8398a7/action-slack@v3
-      with:
-        status: failure
-        channel: '#qa-alerts'
-        webhook_url: ${{ secrets.SLACK_WEBHOOK }}</code></pre>
-        </div>
-
-        <!-- Project Structure -->
-        <div class="content-section">
-            <h2 class="section-title">
-                <div class="section-icon"><i class="bi bi-folder"></i></div>
-                Project Structure
-            </h2>
-            <div class="alert-box alert-info">
-                <i class="bi bi-info-circle alert-icon"></i>
-                <div>
-                    <strong>CI/CD Integration:</strong> We'll add GitHub Actions workflows, reporting configurations, and notification systems to our existing data-driven testing framework.
-                </div>
-            </div>
-            <div class="file-structure">
-                <ul class="file-tree">
-                    <li><span class="folder">📁 java_project/</span>
-                        <ul>
-                            <li><span class="folder">📁 .github/workflows/</span>
-                                <ul>
-                                    <li><span class="file">🔄 test-automation.yml (NEW)</span></li>
-                                    <li><span class="file">🔄 nightly-regression.yml (NEW)</span></li>
-                                </ul>
-                            </li>
-                            <li><span class="folder">📁 src/</span>
-                                <ul>
-                                    <li><span class="folder">📁 main/java/com/example/app/</span>
-                                        <ul>
-                                            <li><span class="folder">📁 reporting/</span>
-                                                <ul>
-                                                    <li><span class="java-file">📊 ExtentReportManager.java (NEW)</span></li>
-                                                    <li><span class="java-file">📊 TestResultAnalyzer.java (NEW)</span></li>
-                                                </ul>
-                                            </li>
-                                            <li><span class="folder">📁 notifications/</span>
-                                                <ul>
-                                                    <li><span class="java-file">🔔 SlackNotifier.java (NEW)</span></li>
-                                                    <li><span class="java-file">🔔 EmailNotifier.java (NEW)</span></li>
-                                                </ul>
-                                            </li>
-                                            <li><span class="folder">📁 pages/ (existing)</span></li>
-                                            <li><span class="folder">📁 data/ (existing)</span></li>
-                                            <li><span class="folder">📁 config/ (existing)</span></li>
-                                            <li><span class="folder">📁 utils/ (existing)</span></li>
-                                            <li><span class="java-file">☕ Main.java</span></li>
-                                        </ul>
-                                    </li>
-                                    <li><span class="folder">📁 test/java/com/example/app/</span>
-                                        <ul>
-                                            <li><span class="java-file">🧪 CITestSuite.java (NEW)</span></li>
-                                            <li><span class="java-file">🧪 ParameterizedWebsiteTests.java</span></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><span class="folder">📁 test-resources/</span>
-                                <ul>
-                                    <li><span class="file">📊 extent.properties (NEW)</span></li>
-                                    <li><span class="file">⚙️ junit-platform.properties (NEW)</span></li>
-                                </ul>
-                            </li>
-                            <li><span class="folder">📁 screenshots/ (auto-generated)</span></li>
-                            <li><span class="file">📄 pom.xml (Updated with ExtentReports, reporting plugins)</span></li>
-                        </ul>
-                    </li>
+            <div class="alert alert-info">
+                <strong>Step 9 enhances Step 8's Cucumber BDD framework with professional reporting:</strong>
+                <ul>
+                    <li><strong>Existing Foundation:</strong> Gherkin scenarios and Step Definitions from Step 8</li>
+                    <li><strong>New Layer:</strong> ExtentReports integration for beautiful HTML reports</li>
+                    <li><strong>Enhanced Value:</strong> Visual evidence and analytics for stakeholders</li>
+                    <li><strong>Same Tests, Better Presentation:</strong> Transform BDD results into executive-ready reports</li>
                 </ul>
             </div>
         </div>
 
-        <!-- ExtentReports Setup -->
+        <!-- ExtentReports Dependencies -->
         <div class="content-section">
             <h2 class="section-title">
-                <div class="section-icon"><i class="bi bi-file-earmark-bar-graph"></i></div>
-                Advanced Test Reporting with ExtentReports
+                <div class="section-icon"><i class="bi bi-box"></i></div>
+                Maven Dependencies
             </h2>
-            <p>ExtentReports provides beautiful, comprehensive test reporting with rich dashboards and analytics:</p>
+            <p>Add ExtentReports dependencies to your <code>pom.xml</code>:</p>
 
-            <h3>ExtentReports Manager</h3>
-            <pre><code class="language-java">public class ExtentReportManager {
-    private static final Logger logger = LoggerFactory.getLogger(ExtentReportManager.class);
-    private static ExtentReports extent;
-    private static ExtentTest test;
-    private static final String REPORT_PATH = "target/extent-reports/ExtentReport.html";
-    
-    public static void initializeReport() {
-        ExtentSparkReporter sparkReporter = new ExtentSparkReporter(REPORT_PATH);
-        sparkReporter.config().setTheme(Theme.STANDARD);
-        sparkReporter.config().setDocumentTitle("Test Automation Report");
-        sparkReporter.config().setReportName("Web Application Testing");
-        
-        extent = new ExtentReports();
-        extent.attachReporter(sparkReporter);
-        
-        // Add system information
-        extent.setSystemInfo("Browser", System.getProperty("browser", "chrome"));
-        extent.setSystemInfo("Environment", System.getProperty("env", "dev"));
-        extent.setSystemInfo("Base URL", EnvironmentConfig.getProperty("base.url"));
-        extent.setSystemInfo("Test Suite", "Web Automation Suite");
-        extent.setSystemInfo("Execution Date", LocalDateTime.now().toString());
-    }
-    
-    public static ExtentTest createTest(String testName, String description) {
-        test = extent.createTest(testName, description);
-        return test;
-    }
-    
-    public static void captureScreenshot(WebDriver driver, String stepName) {
-        try {
-            String screenshotPath = captureScreenshotAsFile(driver);
-            test.addScreenCaptureFromPath(screenshotPath, stepName);
-        } catch (Exception e) {
-            logger.error("Failed to capture screenshot: {}", e.getMessage());
-            test.fail("Screenshot capture failed: " + e.getMessage());
-        }
-    }
-    
-    private static String captureScreenshotAsFile(WebDriver driver) throws IOException {
-        TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
-        File sourceFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
-        String screenshotPath = "screenshots/" + System.currentTimeMillis() + ".png";
-        File destFile = new File("target/extent-reports/" + screenshotPath);
-        destFile.getParentFile().mkdirs();
-        FileUtils.copyFile(sourceFile, destFile);
-        return screenshotPath;
-    }
-    
-    public static void attachTestData(Object testData) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonData = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(testData);
-            test.info("Test Data: <pre>" + jsonData + "</pre>");
-        } catch (Exception e) {
-            test.warning("Failed to serialize test data: " + e.getMessage());
-        }
-    }
-    
-    public static void flushReport() {
-        if (extent != null) {
-            extent.flush();
-        }
-    }
-}</code></pre>
-
-            <h3>Enhanced Test with ExtentReports</h3>
-            <pre><code class="language-java">public class EnhancedWebsiteTests {
-    private ExtentTest extentTest;
-    
-    @BeforeEach
-    void setUp() {
-        ExtentReportManager.initializeReport();
-    }
-    
-    @Test
-    void testGitHubHomepage(WebsiteTestData testData) {
-        extentTest = ExtentReportManager.createTest("GitHub Homepage Test", 
-            "Verify that GitHub homepage loads correctly and displays expected content");
-        
-        try {
-            ExtentReportManager.attachTestData(testData);
-            
-            // Navigate to GitHub homepage
-            extentTest.info("Navigating to GitHub homepage");
-            driver.get(testData.getWebsiteUrl());
-            ExtentReportManager.captureScreenshot(driver, "Homepage loaded");
-            
-            // Verify page title
-            extentTest.info("Verifying page title");
-            String actualTitle = driver.getTitle();
-            assertThat(actualTitle).contains(testData.getExpectedTitle());
-            extentTest.pass("Page title verification passed: " + actualTitle);
-            
-            // Verify page elements are visible
-            extentTest.info("Verifying page elements");
-            PageObjectManager pageManager = new PageObjectManager(driver);
-            BasePage page = pageManager.navigateToPage(testData.getWebsiteUrl());
-            
-            TestResult result = page.verifyPageElements();
-            ExtentReportManager.captureScreenshot(driver, "Page elements verification");
-            
-            if (result.allTestsPassed()) {
-                extentTest.pass("All page elements verification passed");
-            } else {
-                extentTest.fail("Page verification failed: " + result.getFailureMessage());
-                fail("Page verification failed: " + result.getFailureMessage());
-            }
-            
-        } catch (Exception e) {
-            extentTest.fail("Test execution failed: " + e.getMessage());
-            ExtentReportManager.captureScreenshot(driver, "Test failure");
-            throw e;
-        }
-    }
-    
-    @AfterEach
-    void tearDown() {
-        ExtentReportManager.flushReport();
-    }
-}</code></pre>
-        </div>
-
-        <!-- Required Dependencies -->
-        <div class="content-section">
-            <h2 class="section-title">
-                <div class="section-icon"><i class="bi bi-tools"></i></div>
-                Required Dependencies
-            </h2>
-            <p>Add these Maven dependencies to your <code>pom.xml</code>:</p>
-            
             <pre><code class="language-xml">&lt;dependencies&gt;
-    &lt;!-- Existing dependencies --&gt;
-    
+    &lt;!-- Existing dependencies from Step 8 (Cucumber, Selenium, etc.) --&gt;
+
     &lt;!-- NEW: ExtentReports Framework --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;com.aventstack&lt;/groupId&gt;
         &lt;artifactId&gt;extentreports&lt;/artifactId&gt;
         &lt;version&gt;5.1.1&lt;/version&gt;
     &lt;/dependency&gt;
-    
+
     &lt;dependency&gt;
-        &lt;groupId&gt;commons-io&lt;/groupId&gt;
+        &lt;groupId&gt;tech.grasshopper&lt;/groupId&gt;
+        &lt;artifactId&gt;extentreports-cucumber7-adapter&lt;/artifactId&gt;
+        &lt;version&gt;1.14.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
         &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
-        &lt;version&gt;2.11.0&lt;/version&gt;
+        &lt;version&gt;1.3.2&lt;/version&gt;
     &lt;/dependency&gt;
-    
-    &lt;!-- NEW: Slack Notifications --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;com.slack.api&lt;/groupId&gt;
-        &lt;artifactId&gt;slack-api-client&lt;/artifactId&gt;
-        &lt;version&gt;1.34.0&lt;/version&gt;
-    &lt;/dependency&gt;
-    
-    &lt;!-- NEW: Email Notifications --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;javax.mail&lt;/groupId&gt;
-        &lt;artifactId&gt;javax.mail-api&lt;/artifactId&gt;
-        &lt;version&gt;1.6.2&lt;/version&gt;
-    &lt;/dependency&gt;
-    
-    &lt;dependency&gt;
-        &lt;groupId&gt;com.sun.mail&lt;/groupId&gt;
-        &lt;artifactId&gt;javax.mail&lt;/artifactId&gt;
-        &lt;version&gt;1.6.2&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-
-&lt;build&gt;
-    &lt;plugins&gt;
-        &lt;!-- Existing plugins --&gt;
-        
-        &lt;!-- NEW: Maven Surefire Plugin for ExtentReports --&gt;
-        &lt;plugin&gt;
-            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-            &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.2.2&lt;/version&gt;
-            &lt;configuration&gt;
-                &lt;systemPropertyVariables&gt;
-                    &lt;extent.reporter.spark.start&gt;true&lt;/extent.reporter.spark.start&gt;
-                    &lt;extent.reporter.spark.out&gt;target/extent-reports/ExtentReport.html&lt;/extent.reporter.spark.out&gt;
-                &lt;/systemPropertyVariables&gt;
-            &lt;/configuration&gt;
-        &lt;/plugin&gt;
-    &lt;/plugins&gt;
-&lt;/build&gt;</code></pre>
+&lt;/dependencies&gt;</code></pre>
         </div>
 
-        <!-- CI/CD Best Practices -->
+        <!-- ExtentReports Manager -->
         <div class="content-section">
             <h2 class="section-title">
-                <div class="section-icon"><i class="bi bi-shield-check"></i></div>
-                CI/CD Best Practices & Quality Gates
+                <div class="section-icon"><i class="bi bi-gear"></i></div>
+                ExtentReports Manager
             </h2>
-            <p>Professional CI/CD pipelines implement quality gates that prevent bad code from reaching production:</p>
-            
-            <h3>CI/CD Best Practices:</h3>
-            <ul>
-                <li><strong>Performance Thresholds:</strong> Tests complete within 15 minutes, page loads under 3 seconds</li>
-                <li><strong>Quality Metrics:</strong> 98%+ test pass rate, zero critical vulnerabilities, 80%+ code coverage</li>
-                <li><strong>Retry Strategies:</strong> Automatic retry on timeouts, screenshot capture on failures</li>
-            </ul>
+            <p>Create a centralized manager for ExtentReports configuration and operations:</p>
+
+            <pre><code class="language-java">public class ExtentReportManager {
+    private static ExtentReports extent;
+    private static ExtentTest test;
+    private static final String REPORT_PATH = "target/extent-reports/ExtentReport.html";
+    private static final String SCREENSHOTS_PATH = "target/extent-reports/screenshots/";
+
+    public static void initializeReport() {
+        ExtentSparkReporter sparkReporter = new ExtentSparkReporter(REPORT_PATH);
+
+        // Configure the report appearance
+        sparkReporter.config().setTheme(Theme.STANDARD);
+        sparkReporter.config().setDocumentTitle("QA Automation Test Report");
+        sparkReporter.config().setReportName("Website Verification Test Results");
+        sparkReporter.config().setTimeStampFormat("EEEE, MMMM dd, yyyy, hh:mm a '('zzz')'");
+
+        extent = new ExtentReports();
+        extent.attachReporter(sparkReporter);
+
+        // Add system information to the report
+        extent.setSystemInfo("Test Environment", "Development");
+        extent.setSystemInfo("Browser", "Chrome (Headless)");
+        extent.setSystemInfo("Operating System", System.getProperty("os.name"));
+        extent.setSystemInfo("Java Version", System.getProperty("java.version"));
+        extent.setSystemInfo("Test Framework", "Selenium + Cucumber + ExtentReports");
+        extent.setSystemInfo("Execution Date", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+    }
+
+    public static ExtentTest createTest(String testName, String description) {
+        test = extent.createTest(testName, description);
+        return test;
+    }
+
+    public static void logInfo(String message) {
+        if (test != null) {
+            test.info(message);
+        }
+    }
+
+    public static void logPass(String message) {
+        if (test != null) {
+            test.pass(message);
+        }
+    }
+
+    public static void logFail(String message) {
+        if (test != null) {
+            test.fail(message);
+        }
+    }
+
+    public static void captureScreenshot(WebDriver driver, String stepName) {
+        if (test != null) {
+            try {
+                String screenshotPath = captureScreenshotAsFile(driver);
+                test.addScreenCaptureFromPath(screenshotPath, stepName);
+                test.info("Screenshot captured: " + stepName);
+            } catch (IOException e) {
+                test.fail("Failed to capture screenshot: " + e.getMessage());
+            }
+        }
+    }
+
+    public static void flushReport() {
+        if (extent != null) {
+            extent.flush();
+            System.out.println("ExtentReports generated at: " + new File(REPORT_PATH).getAbsolutePath());
+        }
+    }
+}</code></pre>
         </div>
 
-        <div class="alert alert-success">
-            <h4><i class="bi bi-lightbulb"></i> Professional CI/CD Insight</h4>
-            <p><strong>Industry Impact:</strong> Companies like Netflix, Google, and Amazon deploy thousands of times per day using automated CI/CD pipelines. The skills you're learning here - automated testing, reporting, and deployment pipelines - are exactly what Fortune 500 companies need in their QA engineers. This knowledge directly translates to senior-level positions and significantly higher salaries.</p>
-        </div>
-
-        <!-- Key Takeaways -->
+        <!-- Enhanced Cucumber Steps -->
         <div class="content-section">
             <h2 class="section-title">
-                <div class="section-icon"><i class="bi bi-trophy"></i></div>
-                Key Takeaways
+                <div class="section-icon"><i class="bi bi-code-square"></i></div>
+                Enhanced Cucumber Steps with ExtentReports
             </h2>
-            <div class="alert alert-success">
-                <strong>Key Benefits of CI/CD Integration:</strong>
-                <ul>
-                    <li><strong>GitHub Actions CI/CD:</strong> Automated test execution prevents regression bugs</li>
-                    <li><strong>ExtentReports:</strong> Professional HTML reports with screenshots and analytics</li>
-                    <li><strong>Multi-Environment Testing:</strong> Parallel execution across browsers and environments</li>
-                    <li><strong>Quality Gates:</strong> Automated quality checks for production standards</li>
+            <p>Enhance your Step Definitions from Step 8 with ExtentReports logging:</p>
+
+            <pre><code class="language-java">public class ExtentReportSteps {
+    private WebDriver driver;
+    private PageObjectManager pageManager;
+    private JsonLinkDataReader dataReader;
+    private List&lt;LinkData&gt; websites;
+    private TestSummary testSummary;
+
+    @Before
+    public void setUp() {
+        // Initialize ExtentReports
+        ExtentReportManager.initializeReport();
+
+        // Setup WebDriver (same as Step 8)
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+
+        driver = new ChromeDriver(options);
+        pageManager = new PageObjectManager(driver);
+        dataReader = new JsonLinkDataReader();
+        testSummary = new TestSummary();
+
+        ExtentReportManager.logInfo("Test environment setup completed successfully");
+    }
+
+    @After
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+
+        // Generate final report
+        ExtentReportManager.flushReport();
+
+        // Print test summary to console
+        System.out.println("\\n" + testSummary.generateSummary());
+    }
+
+    @Given("I have a web browser available")
+    public void i_have_a_web_browser_available() {
+        ExtentReportManager.createTest("Browser Setup", "Verify web browser is available and configured");
+
+        assertNotNull(driver, "WebDriver should be initialized");
+        ExtentReportManager.logPass("Web browser initialized successfully");
+
+        Logger.getInstance().logInfo("Browser setup completed successfully");
+    }
+
+    @Given("I navigate to the {string} website")
+    public void i_navigate_to_website(String websiteName) {
+        ExtentReportManager.createTest("Website Navigation - " + websiteName,
+            "Navigate to " + websiteName + " and verify accessibility");
+
+        try {
+            websites = dataReader.readLinkData("java_project/data/links.json");
+            LinkData targetSite = websites.stream()
+                .filter(site -> site.getName().equals(websiteName))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Website not found: " + websiteName));
+
+            ExtentReportManager.logWebsiteInfo(targetSite);
+            ExtentReportManager.logInfo("Navigating to: " + targetSite.getUrl());
+
+            driver.get(targetSite.getUrl());
+            ExtentReportManager.captureScreenshot(driver, "Website loaded - " + websiteName);
+            ExtentReportManager.logPass("Successfully navigated to " + websiteName);
+
+            Logger.getInstance().logLinkOpened(targetSite.getUrl());
+
+        } catch (Exception e) {
+            ExtentReportManager.logFail("Failed to navigate to " + websiteName + ": " + e.getMessage());
+            ExtentReportManager.captureScreenshot(driver, "Navigation failure - " + websiteName);
+            fail("Failed to navigate to " + websiteName + ": " + e.getMessage());
+        }
+    }
+
+    @When("the page loads completely")
+    public void the_page_loads_completely() {
+        ExtentReportManager.logInfo("Waiting for page to load completely");
+
+        try {
+            Thread.sleep(2000); // Simple wait - in real projects use WebDriverWait
+            assertTrue(driver.getTitle().length() > 0, "Page should have a title");
+
+            ExtentReportManager.logPass("Page loaded successfully");
+            ExtentReportManager.logInfo("Page title: " + driver.getTitle());
+
+            Logger.getInstance().logInfo("Page loaded successfully");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            ExtentReportManager.logFail("Interrupted while waiting for page to load");
+            fail("Interrupted while waiting for page to load");
+        }
+    }
+
+    @Then("the page title should contain {string}")
+    public void the_page_title_should_contain(String expectedTitle) {
+        String actualTitle = driver.getTitle();
+        ExtentReportManager.logInfo("Verifying page title contains: " + expectedTitle);
+        ExtentReportManager.logInfo("Actual page title: " + actualTitle);
+
+        boolean titleMatches = actualTitle.contains(expectedTitle);
+
+        if (titleMatches) {
+            ExtentReportManager.logPass("Title verification passed");
+        } else {
+            ExtentReportManager.logFail("Title verification failed - Expected: '" + expectedTitle + "', Actual: '" + actualTitle + "'");
+            ExtentReportManager.captureScreenshot(driver, "Title verification failure");
+        }
+
+        assertTrue(titleMatches,
+            "Expected title to contain '" + expectedTitle + "' but was '" + actualTitle + "'");
+
+        Logger.getInstance().logInfo("Title verification passed: " + actualTitle);
+    }
+}</code></pre>
+        </div>
+
+        <!-- Cucumber Test Runner Configuration -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-play-circle"></i></div>
+                Updated Cucumber Test Runner
+            </h2>
+            <p>Update your test runner to include ExtentReports plugin:</p>
+
+            <pre><code class="language-java">@Suite
+@IncludeEngines("cucumber")
+@SelectClasspathResource("features")
+@ConfigurationParameter(key = "cucumber.plugin", value = "pretty,html:target/cucumber-reports,tech.grasshopper.ExtentCucumberAdapter:")
+@ConfigurationParameter(key = "cucumber.glue", value = "com.example.app")
+@ConfigurationParameter(key = "cucumber.features", value = "src/test/resources/features")
+public class CucumberTestRunner {
+    // This class serves as the entry point for running Cucumber tests with ExtentReports
+    // All configuration is done via annotations above
+    // ExtentReports will be automatically generated alongside Cucumber reports
+}</code></pre>
+        </div>
+
+        <!-- Project Structure -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-folder"></i></div>
+                Updated Project Structure
+            </h2>
+            <div class="folder-structure">
+                <ul class="folder-tree">
+                    <li><span class="folder">📁 step9-extent-reports/</span>
+                        <ul>
+                            <li><span class="folder">📁 src/main/java/com/example/app/</span>
+                                <ul>
+                                    <li><span class="file">📄 Main.java (Enhanced with ExtentReports execution)</span></li>
+                                    <li><span class="file">📄 ExtentReportManager.java (NEW)</span></li>
+                                    <li><span class="file">📄 BasePage.java (From Steps 7-8)</span></li>
+                                    <li><span class="file">📄 GitHubHomePage.java (From Steps 7-8)</span></li>
+                                    <li><span class="file">📄 JUnitHomePage.java (From Steps 7-8)</span></li>
+                                    <li><span class="file">📄 MavenHomePage.java (From Steps 7-8)</span></li>
+                                    <li><span class="file">📄 SeleniumHomePage.java (From Steps 7-8)</span></li>
+                                    <li><span class="file">📄 PageObjectManager.java (From Steps 7-8)</span></li>
+                                    <li><span class="file">📄 JsonLinkDataReader.java (From Steps 7-8)</span></li>
+                                    <li><span class="file">📄 LinkData.java (From Steps 7-8)</span></li>
+                                    <li><span class="file">📄 TestResult.java (From Steps 7-8)</span></li>
+                                    <li><span class="file">📄 TestSummary.java (From Steps 7-8)</span></li>
+                                    <li><span class="file">📄 Logger.java (From Steps 7-8)</span></li>
+                                </ul>
+                            </li>
+                            <li><span class="folder">📁 src/test/java/com/example/app/</span>
+                                <ul>
+                                    <li><span class="file">📄 CucumberTestRunner.java (Updated with ExtentReports)</span></li>
+                                    <li><span class="file">📄 ExtentReportSteps.java (NEW - Enhanced Step Definitions)</span></li>
+                                </ul>
+                            </li>
+                            <li><span class="folder">📁 src/test/resources/features/</span>
+                                <ul>
+                                    <li><span class="file">📄 website-verification.feature (From Step 8)</span></li>
+                                </ul>
+                            </li>
+                            <li><span class="folder">📁 target/extent-reports/ (auto-generated)</span>
+                                <ul>
+                                    <li><span class="file">📄 ExtentReport.html (Beautiful HTML report)</span></li>
+                                    <li><span class="folder">📁 screenshots/ (Visual evidence)</span></li>
+                                </ul>
+                            </li>
+                            <li><span class="folder">📁 java_project/data/</span>
+                                <ul>
+                                    <li><span class="file">📄 links.json (From previous steps)</span></li>
+                                </ul>
+                            </li>
+                            <li><span class="file">📄 pom.xml (Updated with ExtentReports dependencies)</span></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
 
-        <!-- Navigation Footer -->
+        <!-- Running Tests with ExtentReports -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-terminal"></i></div>
+                Running Tests with ExtentReports
+            </h2>
+            <p>Execute your enhanced Cucumber scenarios with beautiful reporting:</p>
+
+            <div class="terminal-output">
+                <div class="terminal-header">
+                    <div class="terminal-title">Maven Execution with ExtentReports</div>
+                </div>
+                <pre><code># Run all tests with ExtentReports
+mvn test
+
+# Run specific tagged scenarios with reporting
+mvn test -Dcucumber.filter.tags="@smoke"
+
+# Clean run with fresh reports
+mvn clean test
+
+# View generated reports
+# HTML Report: target/extent-reports/ExtentReport.html
+# Cucumber Report: target/cucumber-reports/index.html</code></pre>
+            </div>
+
+            <div class="alert alert-success">
+                <strong>ExtentReports Benefits:</strong>
+                <ul>
+                    <li><strong>Visual Evidence:</strong> Screenshots automatically attached to each test step</li>
+                    <li><strong>Rich Analytics:</strong> Charts, graphs, and statistics for test execution</li>
+                    <li><strong>Stakeholder Friendly:</strong> Beautiful HTML reports for management review</li>
+                    <li><strong>Historical Tracking:</strong> Compare test results across different executions</li>
+                    <li><strong>Detailed Logging:</strong> Step-by-step execution details with timestamps</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sample Report Features -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bar-chart"></i></div>
+                ExtentReports Dashboard Features
+            </h2>
+            <p>Your generated reports will include:</p>
+
+            <div class="alert alert-info">
+                <strong>Professional Report Components:</strong>
+                <ul>
+                    <li><strong>Executive Dashboard:</strong> High-level test statistics and pass/fail rates</li>
+                    <li><strong>Test Details:</strong> Individual scenario results with step-by-step execution</li>
+                    <li><strong>Screenshots Gallery:</strong> Visual evidence for every test action</li>
+                    <li><strong>Timeline View:</strong> Chronological execution with duration metrics</li>
+                    <li><strong>System Information:</strong> Environment details and configuration</li>
+                    <li><strong>Error Analysis:</strong> Detailed failure information with stack traces</li>
+                    <li><strong>Tag-based Filtering:</strong> Filter results by @smoke, @regression tags</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Key Achievements -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-trophy"></i></div>
+                Step 9 Achievements
+            </h2>
+            <div class="alert alert-success">
+                <strong>What You've Accomplished:</strong>
+                <ul>
+                    <li><strong>Professional Reporting:</strong> Added ExtentReports to Cucumber BDD framework</li>
+                    <li><strong>Visual Documentation:</strong> Automatic screenshot capture for every test step</li>
+                    <li><strong>Rich Analytics:</strong> Dashboard with charts, statistics, and trends</li>
+                    <li><strong>Enhanced Step Definitions:</strong> Detailed logging integrated with BDD scenarios</li>
+                    <li><strong>Stakeholder Communication:</strong> Executive-ready reports for business teams</li>
+                    <li><strong>Complete Framework:</strong> End-to-end automation with professional presentation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Course Completion -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-award"></i></div>
+                🎓 Course Complete - Enterprise QA Framework Achieved!
+            </h2>
+            <div class="alert alert-success">
+                <strong>Congratulations! You've built a complete enterprise-ready QA automation framework:</strong>
+                <ul>
+                    <li>✅ <strong>Professional Page Object Model</strong> architecture (Step 7)</li>
+                    <li>✅ <strong>Business-Readable BDD</strong> scenarios with Cucumber (Step 8)</li>
+                    <li>✅ <strong>Beautiful HTML Reports</strong> with ExtentReports (Step 9)</li>
+                    <li>✅ <strong>Selenium WebDriver</strong> browser automation (Steps 6-9)</li>
+                    <li>✅ <strong>Maven Build Management</strong> and dependency handling (All steps)</li>
+                    <li>✅ <strong>Screenshot Evidence</strong> and visual test documentation (Steps 7-9)</li>
+                    <li>✅ <strong>Clean Code Architecture</strong> following industry best practices (All steps)</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>🚀 Career Ready Skills:</strong>
+                <p>You now possess the exact skills that enterprise QA teams need. This framework demonstrates proficiency in:</p>
+                <ul>
+                    <li><strong>Test Automation:</strong> Selenium WebDriver with Page Object Model</li>
+                    <li><strong>BDD Practices:</strong> Cucumber scenarios bridging business and technical teams</li>
+                    <li><strong>Professional Reporting:</strong> ExtentReports for stakeholder communication</li>
+                    <li><strong>Java Development:</strong> Clean, maintainable code following best practices</li>
+                    <li><strong>Framework Design:</strong> Scalable architecture for enterprise testing</li>
+                </ul>
+                <p><strong>Perfect for QA Automation Engineer, SDET, and Test Automation Specialist roles!</strong></p>
+            </div>
+        </div>
+
+        <!-- Footer Navigation -->
         <div class="lesson-nav">
-            <div class="nav-actions">
-                <a href="step8.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 8</a>
-                <a href="../index.html" class="nav-btn nav-btn-primary">Course Complete <i class="bi bi-check-circle"></i></a>
+            <div class="nav-buttons">
+                <a href="step8.html" class="nav-btn nav-btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Step 8: Cucumber BDD
+                </a>
+                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step9-extent-reports" class="nav-btn nav-btn-secondary" target="_blank">
+                    <i class="bi bi-github"></i> View Implementation
+                </a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">
+                    <i class="bi bi-house"></i> Return to Course Home
+                </a>
             </div>
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
 </body>
