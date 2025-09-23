@@ -26,3 +26,9 @@ Thumbs.db
 *.temp
 *.log
 /.claude/
+
+# Analysis files (generated during development)
+defined_classes.txt
+defined_classes_clean.txt
+missing_classes.txt
+used_classes.txt

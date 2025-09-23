@@ -1,13 +1,13 @@
 # Java Course: From QA to QA Automation
 
-A comprehensive Java course designed specifically for **QA Engineers transitioning to QA Automation**. Features dual learning paths: foundational Java concepts and hands-on project development that will eventually include modern automation testing frameworks.
+A comprehensive Java course designed specifically for **QA Engineers transitioning to QA Automation**. Features dual learning paths: foundational Java concepts and hands-on project development culminating in a complete automation testing framework with Cucumber BDD and ExtentReports.
 
 ## 🎯 Course Overview
 
 This course provides a structured pathway for QA professionals to master Java programming and prepare for automation testing roles:
 
 - **📚 Java Fundamentals**: Essential Java and OOP concepts for automation testing
-- **🚀 Project Features**: Progressive development of Java applications (currently foundational, expanding to full automation testing stack)
+- **🚀 Project Features**: Progressive development from basic Java concepts to complete QA automation framework with Selenium, Cucumber BDD, and ExtentReports
 
 ### 🎭 Primary Target Audience
 **QA Engineers transitioning to QA Automation** who need:
@@ -28,20 +28,16 @@ Java-course/
 ├── index.html                           # Main course homepage
 ├── README.md                            # This file
 │
-├── project-features/                    # 🚀 Progressive Java Development
+├── project-features/                    # 🚀 Complete QA Automation Framework
 │   ├── step1.html                      # Basic File Reading
-│   ├── step2.html                      # Desktop API Integration  
+│   ├── step2.html                      # Desktop API Integration
 │   ├── step3.html                      # Professional Code Architecture
-│   └── step4.html                      # Production-Ready Features
-│   
-│   # 🔄 Future expansion will include:
-│   # - Selenium WebDriver automation
-│   # - Cucumber BDD testing
-│   # - RestAssured API testing
-│   # - JUnit test framework
-│   # - Log4J logging
-│   # - ExtentReports reporting
-│   # - Maven/Gradle build tools
+│   ├── step4.html                      # Production-Ready Features
+│   ├── step5.html                      # Testing & Build Automation (JUnit, TestNG, Maven)
+│   ├── step6.html                      # Selenium WebDriver Integration
+│   ├── step7.html                      # Page Object Model & Advanced Testing
+│   ├── step8.html                      # Cucumber BDD Integration
+│   └── step9.html                      # ExtentReports Integration
 │
 └── java-fundamentals/                   # 📚 Programming Foundation
     ├── 1-Constructors.html              # Constructors & Object Creation
@@ -56,7 +52,8 @@ Java-course/
 ```
 Start Here → Project Features
     ↓
-Step 1: File I/O → Step 2: System Integration → Step 3: Architecture → Step 4: Production Code
+Step 1: File I/O → Step 2: System Integration → Step 3: Architecture → Step 4: Production Code →
+Step 5: Testing → Step 6: Selenium → Step 7: Page Objects → Step 8: BDD → Step 9: Reporting
 ```
 
 **Perfect for:**
@@ -70,7 +67,7 @@ Step 1: File I/O → Step 2: System Integration → Step 3: Architecture → Ste
 ```
 Start Here → Java Fundamentals → Project Features
     ↓              ↓                    ↓
-Foundation 1 → Foundation 2 → Step 1 → Step 2 → Step 3 → Step 4
+Foundation 1 → Foundation 2 → Step 1 → Step 2 → Step 3 → Step 4 → Step 5 → Step 6 → Step 7 → Step 8 → Step 9
 ```
 
 **Perfect for:**
@@ -88,9 +85,14 @@ Foundation 1 → Foundation 2 → Step 1 → Step 2 → Step 3 → Step 4
 | **2** | **System Integration** | 25 min | Intermediate | Browser interaction, system automation |
 | **3** | **Code Architecture** | 45 min | Advanced | Framework design, modular testing |
 | **4** | **Production Practices** | 35 min | Advanced | Logging, configuration, best practices |
+| **5** | **Testing & Build Automation** | 40 min | Advanced | JUnit 5, TestNG, Maven test lifecycle |
+| **6** | **Selenium WebDriver** | 35 min | Advanced | Browser automation, WebDriver API |
+| **7** | **Page Object Model** | 45 min | Expert | Industry-standard test framework design |
+| **8** | **Cucumber BDD** | 40 min | Expert | Business-readable test scenarios |
+| **9** | **ExtentReports** | 35 min | Expert | Professional HTML test reporting |
 
 **What You'll Build:**
-A Java application demonstrating file processing, system integration, and professional code structure - foundational skills for automation testing frameworks.
+A complete QA automation framework progressing from basic Java concepts to professional testing tools including Selenium WebDriver, Cucumber BDD scenarios, and ExtentReports - ready for enterprise QA teams.
 
 ### 📚 Java Fundamentals (Programming Foundation)
 
