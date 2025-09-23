@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../shared-styles.css">
 </head>
 
-<body><div class="progress-indicator"><div class="progress-bar" style="width: 100%;"></div></div>
+<body>
     <!-- Header Section -->
     <div class="lesson-header">
         <div class="container">
@@ -37,9 +37,9 @@
                 <li><span style="color: var(--secondary-color);">Step 9</span></li>
             </ul>
             <div class="nav-actions">
-                <a href="step8.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous Step</a>
+                <a href="step8.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 8</a>
                 <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step9-ci-cd-integration" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
-                <a href="step10.html" class="nav-btn nav-btn-primary">Next Step <i class="bi bi-arrow-right"></i></a>
+                <a href="step10.html" class="nav-btn nav-btn-primary">Next: Step 10 <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
 
@@ -97,29 +97,11 @@
             </div>
 
             <h3>The Professional Testing Lifecycle</h3>
-            <div class="workflow-steps">
-                <div class="workflow-item">
-                    <div class="workflow-icon">🔄</div>
-                    <div class="workflow-content">
-                        <strong>Continuous Integration</strong><br>
-                        Tests run automatically on every code commit, preventing regression bugs
-                    </div>
-                </div>
-                <div class="workflow-item">
-                    <div class="workflow-icon">📊</div>
-                    <div class="workflow-content">
-                        <strong>Automated Reporting</strong><br>
-                        Generate beautiful HTML reports with test results, screenshots, and analytics
-                    </div>
-                </div>
-                <div class="workflow-item">
-                    <div class="workflow-icon">🔔</div>
-                    <div class="workflow-content">
-                        <strong>Smart Notifications</strong><br>
-                        Slack and email alerts when tests fail, with detailed failure analysis
-                    </div>
-                </div>
-            </div>
+            <ul>
+                <li><strong>Continuous Integration:</strong> Tests run automatically on every code commit, preventing regression bugs</li>
+                <li><strong>Automated Reporting:</strong> Generate HTML reports with test results, screenshots, and analytics</li>
+                <li><strong>Smart Notifications:</strong> Slack and email alerts when tests fail, with detailed failure analysis</li>
+            </ul>
         </div>
 
         <!-- GitHub Actions Setup -->
@@ -276,8 +258,7 @@ jobs:
             <p>ExtentReports provides beautiful, comprehensive test reporting with rich dashboards and analytics:</p>
 
             <h3>ExtentReports Manager</h3>
-            <pre><code class="language-java">@Component
-public class ExtentReportManager {
+            <pre><code class="language-java">public class ExtentReportManager {
     private static final Logger logger = LoggerFactory.getLogger(ExtentReportManager.class);
     private static ExtentReports extent;
     private static ExtentTest test;
@@ -472,34 +453,12 @@ public class ExtentReportManager {
             </h2>
             <p>Professional CI/CD pipelines implement quality gates that prevent bad code from reaching production:</p>
             
-            <div class="practices-grid">
-                <div class="practice-item">
-                    <h4><i class="bi bi-speedometer2"></i> Performance Thresholds</h4>
-                    <ul>
-                        <li>Tests must complete within 15 minutes</li>
-                        <li>Page load times under 3 seconds</li>
-                        <li>API response times under 500ms</li>
-                    </ul>
-                </div>
-                
-                <div class="practice-item">
-                    <h4><i class="bi bi-bug"></i> Quality Metrics</h4>
-                    <ul>
-                        <li>98%+ test pass rate required</li>
-                        <li>Zero critical security vulnerabilities</li>
-                        <li>Code coverage above 80%</li>
-                    </ul>
-                </div>
-                
-                <div class="practice-item">
-                    <h4><i class="bi bi-arrow-clockwise"></i> Retry Strategies</h4>
-                    <ul>
-                        <li>Automatic retry on network timeouts</li>
-                        <li>Smart screenshot capture on failures</li>
-                        <li>Detailed error logging and analysis</li>
-                    </ul>
-                </div>
-            </div>
+            <h3>CI/CD Best Practices:</h3>
+            <ul>
+                <li><strong>Performance Thresholds:</strong> Tests complete within 15 minutes, page loads under 3 seconds</li>
+                <li><strong>Quality Metrics:</strong> 98%+ test pass rate, zero critical vulnerabilities, 80%+ code coverage</li>
+                <li><strong>Retry Strategies:</strong> Automatic retry on timeouts, screenshot capture on failures</li>
+            </ul>
         </div>
 
         <div class="alert alert-success">
@@ -513,32 +472,22 @@ public class ExtentReportManager {
                 <div class="section-icon"><i class="bi bi-trophy"></i></div>
                 Key Takeaways
             </h2>
-            <div class="takeaway-grid">
-                <div class="takeaway-item">
-                    <i class="bi bi-gear-wide-connected text-primary"></i>
-                    <span><strong>GitHub Actions CI/CD:</strong> Automated test execution on every code change prevents regression bugs</span>
-                </div>
-                <div class="takeaway-item">
-                    <i class="bi bi-file-earmark-bar-graph text-primary"></i>
-                    <span><strong>ExtentReports:</strong> Professional HTML reports with rich dashboards, screenshots, and detailed analytics</span>
-                </div>
-                <div class="takeaway-item">
-                    <i class="bi bi-layers text-primary"></i>
-                    <span><strong>Multi-Environment Testing:</strong> Parallel execution across different browsers and environments</span>
-                </div>
-                <div class="takeaway-item">
-                    <i class="bi bi-shield-check text-primary"></i>
-                    <span><strong>Quality Gates:</strong> Automated quality checks that maintain high standards in production</span>
-                </div>
+            <div class="alert alert-success">
+                <strong>Key Benefits of CI/CD Integration:</strong>
+                <ul>
+                    <li><strong>GitHub Actions CI/CD:</strong> Automated test execution prevents regression bugs</li>
+                    <li><strong>ExtentReports:</strong> Professional HTML reports with screenshots and analytics</li>
+                    <li><strong>Multi-Environment Testing:</strong> Parallel execution across browsers and environments</li>
+                    <li><strong>Quality Gates:</strong> Automated quality checks for production standards</li>
+                </ul>
             </div>
         </div>
 
-        <!-- Bottom Navigation -->
-        <div class="lesson-nav bottom-nav">
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
             <div class="nav-actions">
-                <a href="step8.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous Step</a>
-                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step9-ci-cd-integration" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
-                <a href="step10.html" class="nav-btn nav-btn-primary">Next Step <i class="bi bi-arrow-right"></i></a>
+                <a href="step8.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 8</a>
+                <a href="step10.html" class="nav-btn nav-btn-primary">Next: Step 10 <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </div>

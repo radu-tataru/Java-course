@@ -15,7 +15,7 @@
     <!-- Shared Styles -->
     <link rel="stylesheet" href="../shared-styles.css">
 </head>
-<body><div class="progress-indicator"><div class="progress-bar" style="width: 100%;"></div></div>
+<body>
     <!-- Header Section -->
     <div class="lesson-header">
         <div class="container">
@@ -36,9 +36,9 @@
                 <li><span style="color: var(--secondary-color);">Step 7</span></li>
             </ul>
             <div class="nav-actions">
-                <a href="step6.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous Step</a>
+                <a href="step6.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 6</a>
                 <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step7-page-object-model" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
-                <a href="step8.html" class="nav-btn nav-btn-primary">Next Step <i class="bi bi-arrow-right"></i></a>
+                <a href="step8.html" class="nav-btn nav-btn-primary">Next: Step 8 <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
 
@@ -87,26 +87,23 @@
             </h2>
                     <p>The Page Object Model (POM) is a design pattern that creates an object repository for storing web elements. It helps reduce code duplication and improves test maintenance by:</p>
                     
-                    <div class="pros-cons-grid">
-                        <div class="pros-section">
-                            <h4><i class="bi bi-check-circle-fill text-success"></i> Benefits</h4>
-                            <ul>
-                                <li>Separates test logic from page-specific code</li>
-                                <li>Makes tests more readable and maintainable</li>
-                                <li>Reduces code duplication across test methods</li>
-                                <li>Provides a single place to update element locators</li>
-                                <li>Enables reusable page components</li>
-                            </ul>
-                        </div>
-                        <div class="cons-section">
-                            <h4><i class="bi bi-exclamation-triangle-fill text-warning"></i> Considerations</h4>
-                            <ul>
-                                <li>Initial setup requires more planning</li>
-                                <li>Additional abstraction layer to understand</li>
-                                <li>Need to maintain page object classes</li>
-                                <li>May be overkill for very simple test scenarios</li>
-                            </ul>
-                        </div>
+                    <div class="alert alert-info">
+                        <strong>Benefits:</strong>
+                        <ul>
+                            <li>Separates test logic from page-specific code</li>
+                            <li>Makes tests more readable and maintainable</li>
+                            <li>Reduces code duplication across test methods</li>
+                            <li>Provides a single place to update element locators</li>
+                        </ul>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <strong>Considerations:</strong>
+                        <ul>
+                            <li>Initial setup requires more planning</li>
+                            <li>Additional abstraction layer to understand</li>
+                            <li>Need to maintain page object classes</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -117,39 +114,13 @@
             </h2>
                     <p>We'll transform our basic Selenium automation into a professional testing framework using the Page Object Model pattern.</p>
 
-                    <div class="implementation-steps">
-                        <div class="step-item">
-                            <div class="step-number-small">1</div>
-                            <div class="step-content">
-                                <h4>Create Base Page Class</h4>
-                                <p>Establish a foundation class with common WebDriver operations and utilities that all page objects will inherit.</p>
-                            </div>
-                        </div>
-
-                        <div class="step-item">
-                            <div class="step-number-small">2</div>
-                            <div class="step-content">
-                                <h4>Implement Specific Page Objects</h4>
-                                <p>Create page object classes for each website we're testing (GitHub, JUnit, Maven, Selenium) with their specific elements and methods.</p>
-                            </div>
-                        </div>
-
-                        <div class="step-item">
-                            <div class="step-number-small">3</div>
-                            <div class="step-content">
-                                <h4>Add WebElement Interactions</h4>
-                                <p>Implement methods to interact with page elements: clicking links, verifying text, checking element presence, and extracting information.</p>
-                            </div>
-                        </div>
-
-                        <div class="step-item">
-                            <div class="step-number-small">4</div>
-                            <div class="step-content">
-                                <h4>Create Test Methods with Assertions</h4>
-                                <p>Build comprehensive test methods that verify page functionality, content, and behavior using proper assertions.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <h3>Implementation Steps:</h3>
+                    <ol>
+                        <li><strong>Create Base Page Class</strong> - Foundation class with common WebDriver operations</li>
+                        <li><strong>Implement Specific Page Objects</strong> - Page classes for each website with their elements</li>
+                        <li><strong>Add WebElement Interactions</strong> - Methods to interact with page elements</li>
+                        <li><strong>Create Test Methods</strong> - Test methods with proper assertions</li>
+                    </ol>
                 </div>
 
         <div class="content-section">
@@ -326,34 +297,12 @@
             </h2>
                     <p>Our Step 7 testing approach will include:</p>
                     
-                    <div class="testing-strategy">
-                        <div class="strategy-item">
-                            <h4><i class="bi bi-eye"></i> Visual Verification</h4>
-                            <ul>
-                                <li>Page title and heading verification</li>
-                                <li>Element presence and visibility checks</li>
-                                <li>Screenshot capture for evidence</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="strategy-item">
-                            <h4><i class="bi bi-cursor-fill"></i> Interaction Testing</h4>
-                            <ul>
-                                <li>Button and link availability</li>
-                                <li>Navigation flow validation</li>
-                                <li>Form element interactions</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="strategy-item">
-                            <h4><i class="bi bi-file-text"></i> Content Validation</h4>
-                            <ul>
-                                <li>Text content verification</li>
-                                <li>Page structure analysis</li>
-                                <li>Dynamic content handling</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <h3>Testing Strategy:</h3>
+                    <ul>
+                        <li><strong>Visual Verification:</strong> Page title, heading verification, element presence checks, screenshot capture</li>
+                        <li><strong>Interaction Testing:</strong> Button and link availability, navigation flow validation</li>
+                        <li><strong>Content Validation:</strong> Text content verification, page structure analysis</li>
+                    </ul>
                 </div>
 
                 <div class="alert alert-success">
@@ -366,32 +315,22 @@
                 <div class="section-icon"><i class="bi bi-trophy"></i></div>
                 Key Takeaways
             </h2>
-                    <div class="takeaway-grid">
-                        <div class="takeaway-item">
-                            <i class="bi bi-diagram-3 text-primary"></i>
-                            <span><strong>Page Object Pattern:</strong> Separates page structure from test logic for better maintainability</span>
-                        </div>
-                        <div class="takeaway-item">
-                            <i class="bi bi-search text-primary"></i>
-                            <span><strong>Element Location:</strong> @FindBy annotations provide clean, maintainable element location strategies</span>
-                        </div>
-                        <div class="takeaway-item">
-                            <i class="bi bi-shield-check text-primary"></i>
-                            <span><strong>Test Reliability:</strong> WebDriverWait and proper element handling increase test stability</span>
-                        </div>
-                        <div class="takeaway-item">
-                            <i class="bi bi-recycle text-primary"></i>
-                            <span><strong>Code Reusability:</strong> Page objects can be reused across multiple test scenarios</span>
-                        </div>
+                    <div class="alert alert-success">
+                        <strong>Key Benefits of Page Object Model:</strong>
+                        <ul>
+                            <li><strong>Maintainability:</strong> Separates page structure from test logic</li>
+                            <li><strong>Element Location:</strong> Clean @FindBy annotations for element strategies</li>
+                            <li><strong>Test Reliability:</strong> WebDriverWait improves test stability</li>
+                            <li><strong>Code Reusability:</strong> Page objects work across multiple test scenarios</li>
+                        </ul>
                     </div>
                 </div>
 
-        <!-- Bottom Navigation -->
-        <div class="lesson-nav bottom-nav">
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
             <div class="nav-actions">
-                <a href="step6.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous Step</a>
-                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step7-page-object-model" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
-                <a href="step8.html" class="nav-btn nav-btn-primary">Next Step <i class="bi bi-arrow-right"></i></a>
+                <a href="step6.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 6</a>
+                <a href="step8.html" class="nav-btn nav-btn-primary">Next: Step 8 <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </div>

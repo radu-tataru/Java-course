@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inheritance & Interfaces | Java Course</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-diagram-3"></i></div>
+                <h1 class="lesson-title">Inheritance & Interfaces</h1>
+                <p class="lesson-description">Master inheritance relationships, interface contracts, and the @Override annotation. Learn when to use extends vs implements for flexible, maintainable code design.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Inheritance & Interfaces</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Collections-and-Lists.html" class="nav-btn nav-btn-primary">Next: Collections <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Inheritance Fundamentals</strong><br>
+                        Understand class inheritance and the extends keyword
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Interface Design</strong><br>
+                        Create and implement interfaces using the implements keyword
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>@Override Annotation</strong><br>
+                        Use @Override for safe method overriding and implementation
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Design Decisions</strong><br>
+                        Know when to use inheritance vs interfaces vs abstract classes
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inheritance Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-arrow-up-right"></i></div>
+                Inheritance: The "extends" Relationship
+            </h2>
+            <p>Inheritance allows a class to inherit properties and methods from another class, creating an "is-a" relationship.</p>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Key Concept:</strong> Inheritance represents a "is-a" relationship. A Car "is-a" Vehicle, so Car can extend Vehicle.
+                </div>
+            </div>
+
+            <h3>Basic Inheritance Example</h3>
+            <pre><code class="language-java">// Parent class (superclass)
+public class Vehicle {
+    protected String brand;
+    protected int year;
+
+    public Vehicle(String brand, int year) {
+        this.brand = brand;
+        this.year = year;
+    }
+
+    public void start() {
+        System.out.println(brand + " is starting...");
+    }
+
+    public void displayInfo() {
+        System.out.println(year + " " + brand);
+    }
+}
+
+// Child class (subclass)
+public class Car extends Vehicle {
+    private int doors;
+
+    public Car(String brand, int year, int doors) {
+        super(brand, year); // Call parent constructor
+        this.doors = doors;
+    }
+
+    // Override parent method
+    @Override
+    public void start() {
+        System.out.println("Car engine starting with key...");
+    }
+
+    // Add new method specific to Car
+    public void openTrunk() {
+        System.out.println("Trunk opened");
+    }
+}</code></pre>
+
+            <h3>The @Override Annotation</h3>
+            <div class="alert-box alert-success">
+                <i class="bi bi-shield-check alert-icon"></i>
+                <div>
+                    <strong>Best Practice:</strong> Always use @Override when overriding methods. It helps catch errors and makes your intent clear.
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>With @Override</th>
+                            <th>Without @Override</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>✅ Compiler verifies you're actually overriding</td>
+                            <td>❌ Typos create new methods instead</td>
+                        </tr>
+                        <tr>
+                            <td>✅ Clear documentation of intent</td>
+                            <td>❌ Unclear if method is new or override</td>
+                        </tr>
+                        <tr>
+                            <td>✅ IDE support and warnings</td>
+                            <td>❌ No IDE assistance</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Interfaces Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-puzzle"></i></div>
+                Interfaces: The Contract Pattern
+            </h2>
+            <p>An interface defines a contract that classes must follow. It specifies what methods a class must have, but not how they work.</p>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Key Insight:</strong> Interfaces define "can-do" relationships. A Bird "can-fly", a Fish "can-swim" - these are capabilities, not inheritance.
+                </div>
+            </div>
+
+            <h3>Interface Definition and Implementation</h3>
+            <pre><code class="language-java">// Interface definition
+public interface Flyable {
+    void takeOff();
+    void fly();
+    void land();
+
+    // Default method (Java 8+)
+    default void checkWeather() {
+        System.out.println("Checking weather conditions...");
+    }
+}
+
+// Interface implementation
+public class Bird implements Flyable {
+    private String species;
+
+    public Bird(String species) {
+        this.species = species;
+    }
+
+    @Override
+    public void takeOff() {
+        System.out.println(species + " flaps wings and takes off");
+    }
+
+    @Override
+    public void fly() {
+        System.out.println(species + " is flying gracefully");
+    }
+
+    @Override
+    public void land() {
+        System.out.println(species + " lands softly");
+    }
+}
+
+// Another implementation
+public class Airplane implements Flyable {
+    private String model;
+
+    public Airplane(String model) {
+        this.model = model;
+    }
+
+    @Override
+    public void takeOff() {
+        System.out.println(model + " accelerates down runway");
+    }
+
+    @Override
+    public void fly() {
+        System.out.println(model + " cruising at 30,000 feet");
+    }
+
+    @Override
+    public void land() {
+        System.out.println(model + " approaches runway for landing");
+    }
+}</code></pre>
+        </div>
+
+        <!-- Polymorphism Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-shuffle"></i></div>
+                Polymorphism in Action
+            </h2>
+            <p>Polymorphism allows objects of different types to be treated uniformly when they share a common interface or parent class.</p>
+
+            <h3>Interface Polymorphism Example</h3>
+            <pre><code class="language-java">public class FlightControl {
+    public static void manageFlying(Flyable flyer) {
+        // Works with ANY class that implements Flyable
+        flyer.checkWeather();  // Default method
+        flyer.takeOff();
+        flyer.fly();
+        flyer.land();
+    }
+
+    public static void main(String[] args) {
+        // Different implementations, same interface
+        Flyable bird = new Bird("Eagle");
+        Flyable plane = new Airplane("Boeing 747");
+
+        // Polymorphism - same method call, different behavior
+        manageFlying(bird);   // Bird's implementation
+        manageFlying(plane);  // Airplane's implementation
+    }
+}</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-star alert-icon"></i>
+                <div>
+                    <strong>Powerful Pattern:</strong> The manageFlying method doesn't need to know if it's working with a Bird or Airplane. It just knows both can fly!
+                </div>
+            </div>
+        </div>
+
+        <!-- Abstract Classes Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-layers"></i></div>
+                Abstract Classes: The Middle Ground
+            </h2>
+            <p>Abstract classes combine features of both inheritance and interfaces. They can have both implemented methods and abstract methods that must be overridden.</p>
+
+            <pre><code class="language-java">// Abstract class - cannot be instantiated directly
+public abstract class Animal {
+    protected String name;
+    protected int age;
+
+    public Animal(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Concrete method - all animals have this
+    public void sleep() {
+        System.out.println(name + " is sleeping");
+    }
+
+    // Abstract method - each animal implements differently
+    public abstract void makeSound();
+    public abstract void move();
+}
+
+// Concrete implementation
+public class Dog extends Animal {
+    public Dog(String name, int age) {
+        super(name, age);
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println(name + " barks: Woof!");
+    }
+
+    @Override
+    public void move() {
+        System.out.println(name + " runs on four legs");
+    }
+}</code></pre>
+        </div>
+
+        <!-- When to Use What -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                When to Use What?
+            </h2>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Use Case</th>
+                            <th>Choose</th>
+                            <th>Example</th>
+                            <th>Keyword</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Strong "is-a" relationship</td>
+                            <td><strong>Inheritance</strong></td>
+                            <td>Car extends Vehicle</td>
+                            <td><code>extends</code></td>
+                        </tr>
+                        <tr>
+                            <td>Define capabilities/contracts</td>
+                            <td><strong>Interface</strong></td>
+                            <td>Bird implements Flyable</td>
+                            <td><code>implements</code></td>
+                        </tr>
+                        <tr>
+                            <td>Share code + enforce contracts</td>
+                            <td><strong>Abstract Class</strong></td>
+                            <td>Dog extends Animal</td>
+                            <td><code>extends</code></td>
+                        </tr>
+                        <tr>
+                            <td>Multiple capabilities</td>
+                            <td><strong>Multiple Interfaces</strong></td>
+                            <td>Duck implements Flyable, Swimmable</td>
+                            <td><code>implements</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Remember:</strong> A class can extend only ONE class, but can implement MULTIPLE interfaces. This is why interfaces are often preferred for defining capabilities.
+                </div>
+            </div>
+        </div>
+
+        <!-- Practical Example -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-wrench"></i></div>
+                Practical Example: File Readers
+            </h2>
+            <p>Here's how these concepts apply to the file reading project you'll encounter in Project Features:</p>
+
+            <pre><code class="language-java">// Interface defining contract for file readers
+public interface LinkReader {
+    List&lt;String&gt; readLinks(String filePath) throws IOException;
+}
+
+// Concrete implementations
+public class TxtLinkReader implements LinkReader {
+    @Override
+    public List&lt;String&gt; readLinks(String filePath) throws IOException {
+        List&lt;String&gt; links = new ArrayList&lt;&gt;();
+        // TXT-specific reading logic
+        return links;
+    }
+}
+
+public class JsonLinkReader implements LinkReader {
+    @Override
+    public List&lt;String&gt; readLinks(String filePath) throws IOException {
+        List&lt;String&gt; links = new ArrayList&lt;&gt;();
+        // JSON-specific reading logic
+        return links;
+    }
+}
+
+// Polymorphic usage
+public class FileProcessor {
+    public void processFile(LinkReader reader, String filePath) {
+        try {
+            List&lt;String&gt; links = reader.readLinks(filePath);
+            // Process links regardless of file type
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+    }
+}</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-trophy alert-icon"></i>
+                <div>
+                    <strong>Project Connection:</strong> This exact pattern is used in Project Features Step 3. The interface allows treating all file readers the same way, regardless of file type!
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-check-all"></i></div>
+                Key Takeaways
+            </h2>
+
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Inheritance (extends)</strong><br>
+                        Creates "is-a" relationships and shares code between related classes
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Interfaces (implements)</strong><br>
+                        Define contracts and "can-do" capabilities for unrelated classes
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>@Override annotation</strong><br>
+                        Always use it for safety and clarity when overriding methods
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Polymorphism</strong><br>
+                        Treat different objects uniformly through shared interfaces or parent classes
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-arrow-right alert-icon"></i>
+                <div>
+                    <strong>Ready for Project Features?</strong> You now understand the core concepts needed for Step 3's interface-based architecture and Factory pattern implementation.
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="content-section">
+            <div class="lesson-nav">
+                <div class="nav-actions">
+                    <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                    <a href="Collections-and-Lists.html" class="nav-btn nav-btn-primary">Next: Collections <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

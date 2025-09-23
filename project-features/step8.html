@@ -15,7 +15,7 @@
     <!-- Shared Styles -->
     <link rel="stylesheet" href="../shared-styles.css">
 </head>
-<body><div class="progress-indicator"><div class="progress-bar" style="width: 100%;"></div></div>
+<body>
     <!-- Header Section -->
     <div class="lesson-header">
         <div class="container">
@@ -36,9 +36,9 @@
                 <li><span style="color: var(--secondary-color);">Step 8</span></li>
             </ul>
             <div class="nav-actions">
-                <a href="step7.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous Step</a>
+                <a href="step7.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 7</a>
                 <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step8-test-data-management" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
-                <a href="step9.html" class="nav-btn nav-btn-primary">Next Step <i class="bi bi-arrow-right"></i></a>
+                <a href="step9.html" class="nav-btn nav-btn-primary">Next: Step 9 <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
 
@@ -87,26 +87,23 @@
             </h2>
                     <p>Data-Driven Testing separates test logic from test data, allowing the same test method to run with multiple data sets. This approach provides several key advantages:</p>
                     
-                    <div class="pros-cons-grid">
-                        <div class="pros-section">
-                            <h4><i class="bi bi-check-circle-fill text-success"></i> Benefits</h4>
-                            <ul>
-                                <li>Single test covers multiple scenarios</li>
-                                <li>Easy addition of new test cases without code changes</li>
-                                <li>Non-technical users can contribute test data</li>
-                                <li>Improved test coverage with minimal effort</li>
-                                <li>Clear separation of test logic and test data</li>
-                            </ul>
-                        </div>
-                        <div class="cons-section">
-                            <h4><i class="bi bi-exclamation-triangle-fill text-warning"></i> Considerations</h4>
-                            <ul>
-                                <li>Initial setup requires more planning</li>
-                                <li>Data management overhead</li>
-                                <li>Need for data validation mechanisms</li>
-                                <li>Complex debugging when data issues arise</li>
-                            </ul>
-                        </div>
+                    <div class="alert alert-info">
+                        <strong>Benefits:</strong>
+                        <ul>
+                            <li>Single test covers multiple scenarios</li>
+                            <li>Easy addition of new test cases without code changes</li>
+                            <li>Non-technical users can contribute test data</li>
+                            <li>Clear separation of test logic and test data</li>
+                        </ul>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <strong>Considerations:</strong>
+                        <ul>
+                            <li>Initial setup requires more planning</li>
+                            <li>Data management overhead</li>
+                            <li>Need for data validation mechanisms</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -117,9 +114,8 @@
             </h2>
                     <p>Before implementing data-driven features, we'll reorganize our project into a clean, maintainable architecture:</p>
 
-                    <div class="architecture-diagram">
-                        <h4>New Package Structure:</h4>
-                        <pre><code class="language-text">com.example.app/
+                    <h4>New Package Structure:</h4>
+                    <pre><code class="language-text">com.example.app/
 ├── pages/              # Page Object Model classes
 │   ├── BasePage.java
 │   ├── GitHubHomePage.java
@@ -139,7 +135,6 @@
 │   ├── TestResult.java
 │   └── TestSummary.java
 └── Main.java           # Application entry point</code></pre>
-                    </div>
                 </div>
 
         <div class="content-section">
@@ -149,31 +144,12 @@
             </h2>
                     <p>We'll implement data-driven testing capabilities while maintaining clean architecture principles:</p>
 
-                    <div class="implementation-steps">
-                        <div class="step-item">
-                            <div class="step-number-small">1</div>
-                            <div class="step-content">
-                                <h4>Project Restructure & Excel Data Providers</h4>
-                                <p>Reorganize classes into logical packages and implement Excel reading capabilities using Apache POI for comprehensive test data management.</p>
-                            </div>
-                        </div>
-
-                        <div class="step-item">
-                            <div class="step-number-small">2</div>
-                            <div class="step-content">
-                                <h4>Parameterized Testing Integration</h4>
-                                <p>Integrate JUnit 5 @ParameterizedTest and TestNG @DataProvider annotations to enable dynamic test execution with multiple data sets.</p>
-                            </div>
-                        </div>
-
-                        <div class="step-item">
-                            <div class="step-number-small">3</div>
-                            <div class="step-content">
-                                <h4>Environment Configuration Management</h4>
-                                <p>Create flexible environment configuration system supporting dev, staging, and production environments with externalized properties.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <h3>Implementation Steps:</h3>
+                    <ol>
+                        <li><strong>Project Restructure & Excel Data Providers</strong> - Reorganize classes and implement Apache POI for Excel reading</li>
+                        <li><strong>Parameterized Testing Integration</strong> - Use JUnit 5 @ParameterizedTest and TestNG @DataProvider</li>
+                        <li><strong>Environment Configuration Management</strong> - Support dev, staging, and production environments</li>
+                    </ol>
                 </div>
 
         <div class="content-section">
@@ -183,8 +159,7 @@
             </h2>
 
                     <h3>Excel Data Provider</h3>
-                    <pre><code class="language-java">@Component
-public class ExcelDataProvider {
+                    <pre><code class="language-java">public class ExcelDataProvider {
     
     public List&lt;WebsiteTestData&gt; readWebsiteData(String filePath) {
         List&lt;WebsiteTestData&gt; testData = new ArrayList&lt;&gt;();
@@ -219,7 +194,6 @@ public class ExcelDataProvider {
     
     @ParameterizedTest
     @MethodSource("testDataProvider")
-    @DisplayName("Website verification with dynamic test data")
     void testWebsiteWithExcelData(WebsiteTestData testData) {
         // Set environment configuration
         EnvironmentConfig.setEnvironment(testData.getEnvironment());
@@ -243,8 +217,7 @@ public class ExcelDataProvider {
 }</code></pre>
 
                     <h3>Environment Configuration</h3>
-                    <pre><code class="language-java">@Configuration
-public class EnvironmentConfig {
+                    <pre><code class="language-java">public class EnvironmentConfig {
     private static String currentEnvironment = "dev";
     private static Properties envProperties;
     
@@ -457,32 +430,22 @@ public class EnvironmentConfig {
                 <div class="section-icon"><i class="bi bi-trophy"></i></div>
                 Key Takeaways
             </h2>
-                    <div class="takeaway-grid">
-                        <div class="takeaway-item">
-                            <i class="bi bi-diagram-3 text-primary"></i>
-                            <span><strong>Clean Architecture:</strong> Proper package organization improves maintainability and team collaboration</span>
-                        </div>
-                        <div class="takeaway-item">
-                            <i class="bi bi-file-earmark-spreadsheet text-primary"></i>
-                            <span><strong>Data-Driven Testing:</strong> Separate test logic from test data for maximum flexibility</span>
-                        </div>
-                        <div class="takeaway-item">
-                            <i class="bi bi-arrow-repeat text-primary"></i>
-                            <span><strong>Parameterized Tests:</strong> Single test method handles multiple data scenarios efficiently</span>
-                        </div>
-                        <div class="takeaway-item">
-                            <i class="bi bi-gear text-primary"></i>
-                            <span><strong>Environment Management:</strong> Professional approach to multi-environment testing</span>
-                        </div>
+                    <div class="alert alert-success">
+                        <strong>Key Benefits of Data-Driven Testing:</strong>
+                        <ul>
+                            <li><strong>Clean Architecture:</strong> Proper package organization improves maintainability</li>
+                            <li><strong>Data-Driven Testing:</strong> Separate test logic from test data for flexibility</li>
+                            <li><strong>Parameterized Tests:</strong> Single test method handles multiple scenarios</li>
+                            <li><strong>Environment Management:</strong> Professional multi-environment support</li>
+                        </ul>
                     </div>
                 </div>
 
-        <!-- Bottom Navigation -->
-        <div class="lesson-nav bottom-nav">
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
             <div class="nav-actions">
-                <a href="step7.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous Step</a>
-                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step8-test-data-management" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
-                <a href="step9.html" class="nav-btn nav-btn-primary">Next Step <i class="bi bi-arrow-right"></i></a>
+                <a href="step7.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 7</a>
+                <a href="step9.html" class="nav-btn nav-btn-primary">Next: Step 9 <i class="bi bi-arrow-right"></i></a>
             </div>
         </div>
     </div>

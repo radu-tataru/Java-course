@@ -447,6 +447,42 @@ h3 .inline-code {
     margin-top: 2px;
 }
 
+/* Prerequisites Section */
+.prerequisite-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    margin-bottom: 8px;
+}
+
+.prerequisite-item i {
+    font-size: 1.1rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.prerequisite-link {
+    font-weight: 600;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: block;
+    line-height: 1.3;
+}
+
+.prerequisite-link:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.prerequisite-desc {
+    font-size: 0.9rem;
+    color: #64748b;
+    display: block;
+    margin-top: 2px;
+}
+
 /* File Structure */
 .file-structure {
     background: #1e293b;

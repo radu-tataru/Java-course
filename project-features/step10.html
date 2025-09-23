@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="../shared-styles.css">
 </head>
 
-<body><div class="progress-indicator"><div class="progress-bar" style="width: 100%;"></div></div>
+<body>
     <!-- Header Section -->
     <div class="lesson-header">
         <div class="container">
@@ -37,7 +37,7 @@
                 <li><span style="color: var(--secondary-color);">Step 10</span></li>
             </ul>
             <div class="nav-actions">
-                <a href="step9.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous Step</a>
+                <a href="step9.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 9</a>
                 <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step10-performance-testing" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
                 <a href="../index.html" class="nav-btn nav-btn-primary">Course Complete <i class="bi bi-check-circle"></i></a>
             </div>
@@ -97,29 +97,11 @@
             </div>
 
             <h3>The Complete Testing Strategy</h3>
-            <div class="workflow-steps">
-                <div class="workflow-item">
-                    <div class="workflow-icon">⚡</div>
-                    <div class="workflow-content">
-                        <strong>Performance Testing</strong><br>
-                        Validate application performance under realistic user loads
-                    </div>
-                </div>
-                <div class="workflow-item">
-                    <div class="workflow-icon">🥒</div>
-                    <div class="workflow-content">
-                        <strong>BDD Scenarios</strong><br>
-                        Business-readable test scenarios that bridge technical and non-technical teams
-                    </div>
-                </div>
-                <div class="workflow-item">
-                    <div class="workflow-icon">🔌</div>
-                    <div class="workflow-content">
-                        <strong>API Automation</strong><br>
-                        Comprehensive REST API testing with authentication, validation, and contract testing
-                    </div>
-                </div>
-            </div>
+            <ul>
+                <li><strong>Performance Testing:</strong> Validate application performance under realistic user loads</li>
+                <li><strong>BDD Scenarios:</strong> Business-readable test scenarios that bridge technical and non-technical teams</li>
+                <li><strong>API Automation:</strong> Comprehensive REST API testing with authentication and validation</li>
+            </ul>
         </div>
 
         <!-- JMeter Integration -->
@@ -131,8 +113,7 @@
             <p>We'll integrate Apache JMeter into our test suite for automated performance validation:</p>
 
             <h3>Performance Test Manager</h3>
-            <pre><code class="language-java">@Component
-public class PerformanceTestManager {
+            <pre><code class="language-java">public class PerformanceTestManager {
     private static final Logger logger = LoggerFactory.getLogger(PerformanceTestManager.class);
     
     public PerformanceTestResult executeLoadTest(String testPlan, int userCount, int rampUp) {
@@ -281,7 +262,7 @@ public class PerformanceTestManager {
             <p>Behavior-Driven Development makes tests readable for business stakeholders:</p>
 
             <h3>Feature File: <code>website-verification.feature</code></h3>
-            <pre><code class="language-gherkin">Feature: Website Verification
+            <pre><code class="language-text">Feature: Website Verification
   As a quality assurance engineer
   I want to verify that all configured websites are accessible and functional
   So that I can ensure a reliable user experience
@@ -297,7 +278,7 @@ public class PerformanceTestManager {
     Then the page title should contain "&lt;expected_title&gt;"
     And all critical page elements should be visible
     And the page should load within 3 seconds
-    
+
     Examples:
       | website | expected_title |
       | GitHub  | GitHub         |
@@ -321,8 +302,7 @@ public class PerformanceTestManager {
     And the system should maintain 95th percentile response time under 3 seconds</code></pre>
 
             <h3>Step Definitions Implementation</h3>
-            <pre><code class="language-java">@Component
-public class WebsiteVerificationSteps {
+            <pre><code class="language-java">public class WebsiteVerificationSteps {
     
     private WebDriver driver;
     private PageObjectManager pageManager;
@@ -391,8 +371,7 @@ public class WebsiteVerificationSteps {
             <p>Complete API testing automation for modern web applications:</p>
 
             <h3>API Test Client</h3>
-            <pre><code class="language-java">@Component
-public class APITestClient {
+            <pre><code class="language-java">public class APITestClient {
     private static final String BASE_URI = EnvironmentConfig.getProperty("api.base.url");
     private RequestSpecification requestSpec;
     
@@ -534,27 +513,13 @@ public class APITestClient {
             </h2>
             <p>Our final framework architecture represents industry best practices:</p>
             
-            <div class="architecture-layers">
-                <div class="layer-item">
-                    <h4><i class="bi bi-layers"></i> Presentation Layer</h4>
-                    <p>Page Object Model, Cucumber BDD scenarios, Allure reporting</p>
-                </div>
-                
-                <div class="layer-item">
-                    <h4><i class="bi bi-gear"></i> Business Logic Layer</h4>
-                    <p>Test data management, environment configuration, utility services</p>
-                </div>
-                
-                <div class="layer-item">
-                    <h4><i class="bi bi-database"></i> Data Access Layer</h4>
-                    <p>Excel/CSV data providers, API clients, database connections</p>
-                </div>
-                
-                <div class="layer-item">
-                    <h4><i class="bi bi-cloud"></i> Infrastructure Layer</h4>
-                    <p>CI/CD pipelines, Docker containers, cloud test execution</p>
-                </div>
-            </div>
+            <h3>Framework Architecture Layers:</h3>
+            <ul>
+                <li><strong>Presentation Layer:</strong> Page Object Model, Cucumber BDD scenarios, reporting</li>
+                <li><strong>Business Logic Layer:</strong> Test data management, environment configuration, utilities</li>
+                <li><strong>Data Access Layer:</strong> Excel/CSV data providers, API clients, database connections</li>
+                <li><strong>Infrastructure Layer:</strong> CI/CD pipelines, Docker containers, cloud execution</li>
+            </ul>
         </div>
 
         <div class="alert alert-success">
@@ -568,23 +533,14 @@ public class APITestClient {
                 <div class="section-icon"><i class="bi bi-trophy"></i></div>
                 Key Takeaways
             </h2>
-            <div class="takeaway-grid">
-                <div class="takeaway-item">
-                    <i class="bi bi-speedometer2 text-primary"></i>
-                    <span><strong>Performance Testing:</strong> JMeter integration validates application performance under realistic loads</span>
-                </div>
-                <div class="takeaway-item">
-                    <i class="bi bi-file-text text-primary"></i>
-                    <span><strong>BDD Framework:</strong> Cucumber scenarios bridge technical and business teams with readable tests</span>
-                </div>
-                <div class="takeaway-item">
-                    <i class="bi bi-plug text-primary"></i>
-                    <span><strong>API Testing:</strong> REST Assured provides comprehensive API automation and contract testing</span>
-                </div>
-                <div class="takeaway-item">
-                    <i class="bi bi-diagram-3 text-primary"></i>
-                    <span><strong>Enterprise Architecture:</strong> Scalable framework ready for Fortune 500 environments</span>
-                </div>
+            <div class="alert alert-success">
+                <strong>Key Benefits of Enterprise Testing Framework:</strong>
+                <ul>
+                    <li><strong>Performance Testing:</strong> JMeter integration validates performance under realistic loads</li>
+                    <li><strong>BDD Framework:</strong> Cucumber scenarios bridge technical and business teams</li>
+                    <li><strong>API Testing:</strong> REST Assured provides comprehensive API automation</li>
+                    <li><strong>Enterprise Architecture:</strong> Scalable framework ready for professional environments</li>
+                </ul>
             </div>
         </div>
 
@@ -596,17 +552,20 @@ public class APITestClient {
             </h2>
             <p>Congratulations on completing all 10 steps of the Java Course for QA Engineers! Here's what you've accomplished:</p>
             
-            <div class="completion-checklist">
-                <div class="completion-item">✅ <strong>File I/O Operations</strong> - Basic to advanced file processing</div>
-                <div class="completion-item">✅ <strong>Desktop API Integration</strong> - System-level application interaction</div>
-                <div class="completion-item">✅ <strong>OOP Architecture</strong> - Professional code design patterns</div>
-                <div class="completion-item">✅ <strong>Production Patterns</strong> - Singleton, Factory, and logging systems</div>
-                <div class="completion-item">✅ <strong>Test Automation</strong> - JUnit 5, Maven, and automated testing</div>
-                <div class="completion-item">✅ <strong>Selenium WebDriver</strong> - Web application automation</div>
-                <div class="completion-item">✅ <strong>Page Object Model</strong> - Maintainable test architecture</div>
-                <div class="completion-item">✅ <strong>Data-Driven Testing</strong> - Excel/CSV data management and parameterization</div>
-                <div class="completion-item">✅ <strong>CI/CD Pipelines</strong> - GitHub Actions and automated reporting</div>
-                <div class="completion-item">✅ <strong>Performance & API Testing</strong> - JMeter, Cucumber BDD, REST Assured</div>
+            <div class="alert alert-success">
+                <strong>Course Completion Checklist:</strong>
+                <ul>
+                    <li>✅ <strong>File I/O Operations</strong> - Basic to advanced file processing</li>
+                    <li>✅ <strong>Desktop API Integration</strong> - System-level application interaction</li>
+                    <li>✅ <strong>OOP Architecture</strong> - Professional code design patterns</li>
+                    <li>✅ <strong>Production Patterns</strong> - Singleton, Factory, and logging systems</li>
+                    <li>✅ <strong>Test Automation</strong> - JUnit 5, Maven, and automated testing</li>
+                    <li>✅ <strong>Selenium WebDriver</strong> - Web application automation</li>
+                    <li>✅ <strong>Page Object Model</strong> - Maintainable test architecture</li>
+                    <li>✅ <strong>Data-Driven Testing</strong> - Excel/CSV data management and parameterization</li>
+                    <li>✅ <strong>CI/CD Pipelines</strong> - GitHub Actions and automated reporting</li>
+                    <li>✅ <strong>Performance & API Testing</strong> - JMeter, Cucumber BDD, REST Assured</li>
+                </ul>
             </div>
 
             <div class="alert alert-primary">
@@ -615,11 +574,10 @@ public class APITestClient {
             </div>
         </div>
 
-        <!-- Bottom Navigation -->
-        <div class="lesson-nav bottom-nav">
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
             <div class="nav-actions">
-                <a href="step9.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous Step</a>
-                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step10-performance-testing" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
+                <a href="step9.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 9</a>
                 <a href="../index.html" class="nav-btn nav-btn-primary">Course Complete <i class="bi bi-check-circle"></i></a>
             </div>
         </div>

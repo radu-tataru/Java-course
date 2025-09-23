@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections & Lists | Java Course</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-collection"></i></div>
+                <h1 class="lesson-title">Collections & Lists</h1>
+                <p class="lesson-description">Master the Java Collections Framework with List, ArrayList, and generic types. Learn when to use collections vs arrays and master the enhanced for-loop syntax.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Collections & Lists</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="Inheritance-and-Interfaces.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: Interfaces</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Ready for Projects <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Collections Framework</strong><br>
+                        Understand the Java Collections Framework and List interface
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Generic Types</strong><br>
+                        Use generic syntax like List&lt;String&gt; for type safety
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>ArrayList Operations</strong><br>
+                        Master common List operations: add, get, size, remove
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Enhanced For-Loop</strong><br>
+                        Use for-each loops to iterate through collections efficiently
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arrays vs Collections -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-arrow-left-right"></i></div>
+                Arrays vs Collections: When to Use What?
+            </h2>
+            <p>Before diving into collections, let's understand when to use arrays versus collections.</p>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Feature</th>
+                            <th>Arrays</th>
+                            <th>Collections (List)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Size</strong></td>
+                            <td>❌ Fixed size</td>
+                            <td>✅ Dynamic (grows/shrinks)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Performance</strong></td>
+                            <td>✅ Faster for large datasets</td>
+                            <td>⚠️ Slight overhead</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ease of Use</strong></td>
+                            <td>❌ Manual size management</td>
+                            <td>✅ Rich set of methods</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Type Safety</strong></td>
+                            <td>✅ Built-in</td>
+                            <td>✅ With generics</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Memory</strong></td>
+                            <td>✅ Lower overhead</td>
+                            <td>❌ Higher overhead</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Rule of Thumb:</strong> Use arrays for fixed-size, performance-critical data. Use collections for dynamic data that changes size during runtime.
+                </div>
+            </div>
+        </div>
+
+        <!-- Collections Framework Overview -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-diagram-2"></i></div>
+                Collections Framework Overview
+            </h2>
+            <p>The Java Collections Framework provides a unified architecture for storing and manipulating groups of objects.</p>
+
+            <h3>Core Collection Interfaces</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-list-ul objective-icon"></i>
+                    <div>
+                        <strong>List</strong> - Ordered collection, allows duplicates<br>
+                        <span class="text-muted">Examples: ArrayList, LinkedList</span>
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-collection objective-icon"></i>
+                    <div>
+                        <strong>Set</strong> - No duplicates allowed<br>
+                        <span class="text-muted">Examples: HashSet, TreeSet</span>
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-key objective-icon"></i>
+                    <div>
+                        <strong>Map</strong> - Key-value pairs<br>
+                        <span class="text-muted">Examples: HashMap, TreeMap</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-star alert-icon"></i>
+                <div>
+                    <strong>Focus for Projects:</strong> We'll focus on <strong>List</strong> since it's used extensively in Project Features Step 3 and beyond.
+                </div>
+            </div>
+        </div>
+
+        <!-- Generic Types -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-type"></i></div>
+                Generic Types: Type Safety Made Easy
+            </h2>
+            <p>Generics allow you to specify what type of objects a collection can hold, providing compile-time type safety.</p>
+
+            <h3>Without Generics (Old Way - Don't Do This)</h3>
+            <pre><code class="language-java">// Without generics - not recommended
+List list = new ArrayList();
+list.add("Hello");
+list.add(42);        // Oops! Mixed types
+list.add("World");
+
+// Requires casting and can cause runtime errors
+String first = (String) list.get(0);  // Cast required
+String second = (String) list.get(1); // Runtime error! 42 is not a String</code></pre>
+
+            <h3>With Generics (Modern Way)</h3>
+            <pre><code class="language-java">// With generics - recommended
+List&lt;String&gt; stringList = new ArrayList&lt;&gt;();
+stringList.add("Hello");
+stringList.add("World");
+// stringList.add(42);  // Compile error! Only Strings allowed
+
+// No casting needed
+String first = stringList.get(0);  // Safe and clean
+String second = stringList.get(1); // No casting required</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-shield-check alert-icon"></i>
+                <div>
+                    <strong>Diamond Operator:</strong> Since Java 7, you can use the diamond operator <code>&lt;&gt;</code> on the right side to avoid repeating the generic type.
+                </div>
+            </div>
+        </div>
+
+        <!-- ArrayList Basics -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-list-columns"></i></div>
+                ArrayList: Your Go-To List Implementation
+            </h2>
+            <p>ArrayList is the most commonly used List implementation. It's backed by a dynamic array that grows as needed.</p>
+
+            <h3>Creating and Populating Lists</h3>
+            <pre><code class="language-java">import java.util.ArrayList;
+import java.util.List;
+
+public class ListExamples {
+    public static void main(String[] args) {
+        // Create an empty list
+        List&lt;String&gt; fruits = new ArrayList&lt;&gt;();
+
+        // Add elements
+        fruits.add("Apple");
+        fruits.add("Banana");
+        fruits.add("Cherry");
+
+        // Add at specific position
+        fruits.add(1, "Apricot");  // Insert at index 1
+
+        // Create list with initial values (Java 9+)
+        List&lt;String&gt; colors = List.of("Red", "Green", "Blue");
+
+        // Note: List.of() creates immutable list
+        // colors.add("Yellow"); // Would throw exception
+
+        // For mutable list with initial values
+        List&lt;String&gt; mutableColors = new ArrayList&lt;&gt;();
+        mutableColors.add("Red");
+        mutableColors.add("Green");
+        mutableColors.add("Blue");
+    }
+}</code></pre>
+        </div>
+
+        <!-- Common List Operations -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-gear"></i></div>
+                Common List Operations
+            </h2>
+
+            <h3>Essential Methods</h3>
+            <pre><code class="language-java">List&lt;String&gt; animals = new ArrayList&lt;&gt;();
+
+// Adding elements
+animals.add("Cat");           // Add to end
+animals.add("Dog");
+animals.add(0, "Bird");       // Add at specific index
+
+// Accessing elements
+String firstAnimal = animals.get(0);    // Get element at index
+int size = animals.size();               // Get number of elements
+boolean isEmpty = animals.isEmpty();     // Check if empty
+
+// Checking contents
+boolean hasCat = animals.contains("Cat");           // Check if contains element
+int catIndex = animals.indexOf("Cat");              // Find index of element (-1 if not found)
+
+// Modifying elements
+animals.set(1, "Hamster");              // Replace element at index
+animals.remove("Dog");                  // Remove by value
+animals.remove(0);                      // Remove by index
+
+// Clearing
+animals.clear();                        // Remove all elements
+
+System.out.println("Animals: " + animals);  // ArrayList has nice toString()</code></pre>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Method</th>
+                            <th>Purpose</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>add(element)</code></td>
+                            <td>Add to end</td>
+                            <td><code>list.add("item")</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>add(index, element)</code></td>
+                            <td>Insert at position</td>
+                            <td><code>list.add(0, "first")</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>get(index)</code></td>
+                            <td>Access element</td>
+                            <td><code>String item = list.get(0)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>size()</code></td>
+                            <td>Get length</td>
+                            <td><code>int count = list.size()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>contains(element)</code></td>
+                            <td>Check existence</td>
+                            <td><code>if (list.contains("item"))</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>remove(element)</code></td>
+                            <td>Remove by value</td>
+                            <td><code>list.remove("item")</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Enhanced For-Loop -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-arrow-repeat"></i></div>
+                Enhanced For-Loop (For-Each)
+            </h2>
+            <p>The enhanced for-loop (also called for-each loop) is the most elegant way to iterate through collections.</p>
+
+            <h3>Different Ways to Loop Through Lists</h3>
+            <pre><code class="language-java">List&lt;String&gt; languages = List.of("Java", "Python", "JavaScript", "Go");
+
+// 1. Enhanced for-loop (for-each) - RECOMMENDED
+System.out.println("=== Enhanced For-Loop ===");
+for (String language : languages) {
+    System.out.println("Language: " + language);
+}
+
+// 2. Traditional for-loop with index
+System.out.println("=== Traditional For-Loop ===");
+for (int i = 0; i &lt; languages.size(); i++) {
+    String language = languages.get(i);
+    System.out.println("Language " + i + ": " + language);
+}
+
+// 3. While loop
+System.out.println("=== While Loop ===");
+int index = 0;
+while (index &lt; languages.size()) {
+    System.out.println("Language: " + languages.get(index));
+    index++;
+}
+
+// 4. Iterator (advanced)
+System.out.println("=== Iterator ===");
+for (Iterator&lt;String&gt; it = languages.iterator(); it.hasNext(); ) {
+    String language = it.next();
+    System.out.println("Language: " + language);
+}</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-star alert-icon"></i>
+                <div>
+                    <strong>Best Practice:</strong> Use enhanced for-loop unless you need the index. It's cleaner, less error-prone, and works with all collections.
+                </div>
+            </div>
+
+            <h3>When to Use Which Loop</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Enhanced for-loop</strong><br>
+                        When you just need the values (most common case)
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Traditional for-loop</strong><br>
+                        When you need the index or want to modify the list during iteration
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Iterator</strong><br>
+                        When you need to safely remove elements during iteration
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practical Example -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-wrench"></i></div>
+                Practical Example: Link Management
+            </h2>
+            <p>Here's how List&lt;String&gt; is used in real projects, specifically in the file reading project:</p>
+
+            <pre><code class="language-java">import java.util.ArrayList;
+import java.util.List;
+
+public class LinkManager {
+
+    // Method that returns a list of links from a file
+    public List&lt;String&gt; readLinksFromFile(String fileName) {
+        List&lt;String&gt; links = new ArrayList&lt;&gt;();
+
+        // Simulate reading from different file types
+        if (fileName.endsWith(".txt")) {
+            links.add("https://www.google.com");
+            links.add("https://www.github.com");
+        } else if (fileName.endsWith(".json")) {
+            links.add("https://www.stackoverflow.com");
+            links.add("https://www.oracle.com");
+        }
+
+        return links;  // Return the entire list
+    }
+
+    // Method that processes a list of links
+    public void processLinks(List&lt;String&gt; links) {
+        System.out.println("Processing " + links.size() + " links:");
+
+        // Enhanced for-loop to process each link
+        for (String link : links) {
+            if (isValidUrl(link)) {
+                System.out.println("✅ Valid: " + link);
+            } else {
+                System.out.println("❌ Invalid: " + link);
+            }
+        }
+    }
+
+    // Filter links by domain
+    public List&lt;String&gt; filterByDomain(List&lt;String&gt; links, String domain) {
+        List&lt;String&gt; filtered = new ArrayList&lt;&gt;();
+
+        for (String link : links) {
+            if (link.contains(domain)) {
+                filtered.add(link);
+            }
+        }
+
+        return filtered;
+    }
+
+    private boolean isValidUrl(String url) {
+        return url.startsWith("http://") || url.startsWith("https://");
+    }
+
+    public static void main(String[] args) {
+        LinkManager manager = new LinkManager();
+
+        // Read links from file
+        List&lt;String&gt; allLinks = manager.readLinksFromFile("links.txt");
+
+        // Process all links
+        manager.processLinks(allLinks);
+
+        // Filter for specific domain
+        List&lt;String&gt; githubLinks = manager.filterByDomain(allLinks, "github");
+        System.out.println("GitHub links: " + githubLinks);
+    }
+}</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-arrow-right alert-icon"></i>
+                <div>
+                    <strong>Project Connection:</strong> This exact pattern is used in Project Features Step 3, where each file reader returns a <code>List&lt;String&gt;</code> of links!
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Considerations -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-speedometer2"></i></div>
+                Performance Considerations
+            </h2>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Operation</th>
+                            <th>ArrayList</th>
+                            <th>When to Worry</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>add()</code> at end</td>
+                            <td>✅ O(1) - Very fast</td>
+                            <td>Never</td>
+                        </tr>
+                        <tr>
+                            <td><code>get(index)</code></td>
+                            <td>✅ O(1) - Very fast</td>
+                            <td>Never</td>
+                        </tr>
+                        <tr>
+                            <td><code>add(index, element)</code></td>
+                            <td>⚠️ O(n) - Slower</td>
+                            <td>Large lists, frequent inserts</td>
+                        </tr>
+                        <tr>
+                            <td><code>remove(index)</code></td>
+                            <td>⚠️ O(n) - Slower</td>
+                            <td>Large lists, frequent removals</td>
+                        </tr>
+                        <tr>
+                            <td><code>contains()</code></td>
+                            <td>⚠️ O(n) - Slower</td>
+                            <td>Large lists, frequent searches</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>For Beginners:</strong> Don't worry about performance until you have thousands of elements. ArrayList is perfectly fine for most applications.
+                </div>
+            </div>
+        </div>
+
+        <!-- Common Pitfalls -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-exclamation-triangle"></i></div>
+                Common Pitfalls and How to Avoid Them
+            </h2>
+
+            <h3>1. Index Out of Bounds</h3>
+            <pre><code class="language-java">List&lt;String&gt; items = new ArrayList&lt;&gt;();
+items.add("First");
+
+// ❌ WRONG - IndexOutOfBoundsException
+// String second = items.get(1);  // No element at index 1!
+
+// ✅ CORRECT - Check size first
+if (items.size() &gt; 1) {
+    String second = items.get(1);
+} else {
+    System.out.println("List doesn't have a second element");
+}</code></pre>
+
+            <h3>2. Modifying List During Iteration</h3>
+            <pre><code class="language-java">List&lt;String&gt; numbers = new ArrayList&lt;&gt;();
+numbers.add("1");
+numbers.add("2");
+numbers.add("3");
+
+// ❌ WRONG - ConcurrentModificationException
+// for (String num : numbers) {
+//     if (num.equals("2")) {
+//         numbers.remove(num);  // Don't modify during for-each!
+//     }
+// }
+
+// ✅ CORRECT - Use traditional loop backwards
+for (int i = numbers.size() - 1; i &gt;= 0; i--) {
+    if (numbers.get(i).equals("2")) {
+        numbers.remove(i);
+    }
+}</code></pre>
+
+            <h3>3. Null Pointer Exceptions</h3>
+            <pre><code class="language-java">List&lt;String&gt; items = null;
+
+// ❌ WRONG - NullPointerException
+// items.add("Hello");
+
+// ✅ CORRECT - Initialize the list
+items = new ArrayList&lt;&gt;();
+items.add("Hello");
+
+// ✅ ALSO CORRECT - Check for null
+if (items != null) {
+    items.add("Hello");
+}</code></pre>
+        </div>
+
+        <!-- Summary -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-check-all"></i></div>
+                Key Takeaways
+            </h2>
+
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Use List&lt;Type&gt; for dynamic collections</strong><br>
+                        ArrayList is your go-to implementation for most cases
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Generics provide type safety</strong><br>
+                        Always specify the type: List&lt;String&gt;, never raw List
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Enhanced for-loop is preferred</strong><br>
+                        Use for (Type item : collection) when you don't need the index
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Common methods: add, get, size, contains</strong><br>
+                        These cover 90% of list operations you'll need
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-trophy alert-icon"></i>
+                <div>
+                    <strong>Ready for Project Features!</strong> You now understand List&lt;String&gt;, generics, and enhanced for-loops - exactly what you need for Step 3's interface implementations.
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="content-section">
+            <div class="lesson-nav">
+                <div class="nav-actions">
+                    <a href="Inheritance-and-Interfaces.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: Interfaces</a>
+                    <a href="../index.html" class="nav-btn nav-btn-primary">Ready for Projects <i class="bi bi-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
