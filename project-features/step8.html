@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Step 8: Test Data Management & Parameterization</title>
+    <title>Step 8: Cucumber BDD Integration</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -21,8 +21,8 @@
         <div class="container">
             <div class="lesson-content">
                 <div class="lesson-number-badge">8</div>
-                <h1 class="lesson-title">Test Data Management & Parameterization</h1>
-                <p class="lesson-description">Transform our testing framework from hardcoded data to flexible, data-driven testing with clean architecture and multiple data sources</p>
+                <h1 class="lesson-title">Cucumber BDD Integration</h1>
+                <p class="lesson-description">Transform technical Page Object tests into business-readable scenarios using Behavior-Driven Development with Cucumber and Gherkin syntax</p>
             </div>
         </div>
     </div>
@@ -32,13 +32,19 @@
         <div class="lesson-nav">
             <ul class="nav-breadcrumb">
                 <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
-                <li><i class="bi bi-chevron-right separator"></i></li>
-                <li><span style="color: var(--secondary-color);">Step 8</span></li>
+                <li><a href="../index.html#project-features"><i class="bi bi-code-slash"></i> Project Features</a></li>
+                <li class="active">Step 8</li>
             </ul>
-            <div class="nav-actions">
-                <a href="step7.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 7</a>
-                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step8-test-data-management" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
-                <a href="step9.html" class="nav-btn nav-btn-primary">Next: Step 9 <i class="bi bi-arrow-right"></i></a>
+            <div class="nav-buttons">
+                <a href="step7.html" class="nav-btn nav-btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Step 7
+                </a>
+                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step8-cucumber-bdd" class="nav-btn nav-btn-secondary" target="_blank">
+                    <i class="bi bi-github"></i> View Code
+                </a>
+                <a href="step9.html" class="nav-btn nav-btn-primary">
+                    Next: Step 9 <i class="bi bi-arrow-right"></i>
+                </a>
             </div>
         </div>
 
@@ -52,408 +58,357 @@
                 <div class="objective-item">
                     <i class="bi bi-check-circle objective-icon"></i>
                     <div>
-                        <strong>Excel and CSV Data Providers</strong><br>
-                        Implement comprehensive test data management with file providers
+                        <strong>Gherkin Feature Files</strong><br>
+                        Write business-readable scenarios using Given-When-Then syntax
                     </div>
                 </div>
                 <div class="objective-item">
                     <i class="bi bi-check-circle objective-icon"></i>
                     <div>
-                        <strong>Clean Architecture Restructure</strong><br>
-                        Organize project with proper package structure
+                        <strong>Cucumber Step Definitions</strong><br>
+                        Bridge business language to technical Page Object implementations
                     </div>
                 </div>
                 <div class="objective-item">
                     <i class="bi bi-check-circle objective-icon"></i>
                     <div>
-                        <strong>Parameterized Testing</strong><br>
-                        Master JUnit 5 and TestNG integration techniques
+                        <strong>BDD Test Execution</strong><br>
+                        Run feature scenarios integrated with existing Page Object Model
                     </div>
                 </div>
                 <div class="objective-item">
                     <i class="bi bi-check-circle objective-icon"></i>
                     <div>
-                        <strong>Environment Configuration</strong><br>
-                        Create multi-environment configuration management
+                        <strong>Business-Readable Testing</strong><br>
+                        Create tests that stakeholders can understand and validate
                     </div>
                 </div>
             </div>
-                </div>
+        </div>
 
-        <div class="content-section">
-            <h2 class="section-title">
-                <div class="section-icon"><i class="bi bi-info-circle"></i></div>
-                What is Data-Driven Testing?
-            </h2>
-                    <p>Data-Driven Testing separates test logic from test data, allowing the same test method to run with multiple data sets. This approach provides several key advantages:</p>
-                    
-                    <div class="alert alert-info">
-                        <strong>Benefits:</strong>
-                        <ul>
-                            <li>Single test covers multiple scenarios</li>
-                            <li>Easy addition of new test cases without code changes</li>
-                            <li>Non-technical users can contribute test data</li>
-                            <li>Clear separation of test logic and test data</li>
-                        </ul>
-                    </div>
-
-                    <div class="alert alert-warning">
-                        <strong>Considerations:</strong>
-                        <ul>
-                            <li>Initial setup requires more planning</li>
-                            <li>Data management overhead</li>
-                            <li>Need for data validation mechanisms</li>
-                        </ul>
-                    </div>
-                </div>
-
+        <!-- Project Context -->
         <div class="content-section">
             <h2 class="section-title">
                 <div class="section-icon"><i class="bi bi-diagram-3"></i></div>
-                Clean Architecture Restructure
+                Building on Page Object Model
             </h2>
-                    <p>Before implementing data-driven features, we'll reorganize our project into a clean, maintainable architecture:</p>
+            <div class="alert alert-info">
+                <strong>Step 8 builds directly on Step 7's Page Object Model:</strong>
+                <ul>
+                    <li><strong>Existing Foundation:</strong> Reuse BasePage, GitHubHomePage, JUnitHomePage, etc.</li>
+                    <li><strong>New Layer:</strong> Add Cucumber BDD on top of technical Page Objects</li>
+                    <li><strong>Business Value:</strong> Transform technical tests into readable business scenarios</li>
+                    <li><strong>Same Tests, Better Format:</strong> Run identical verifications with business-friendly language</li>
+                </ul>
+            </div>
+        </div>
 
-                    <h4>New Package Structure:</h4>
-                    <pre><code class="language-text">com.example.app/
-├── pages/              # Page Object Model classes
-│   ├── BasePage.java
-│   ├── GitHubHomePage.java
-│   ├── JUnitHomePage.java
-│   └── PageObjectManager.java
-├── data/               # Test data management
-│   ├── providers/      # Data provider classes
-│   ├── models/         # Data model classes
-│   └── readers/        # File reading utilities
-├── config/             # Configuration management
-│   ├── EnvironmentConfig.java
-│   └── TestConfiguration.java
-├── utils/              # Utility classes
-│   ├── Logger.java
-│   └── ScreenshotUtils.java
-├── tests/              # Test execution classes
-│   ├── TestResult.java
-│   └── TestSummary.java
-└── Main.java           # Application entry point</code></pre>
-                </div>
+        <!-- Dependencies Section -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-box"></i></div>
+                Maven Dependencies
+            </h2>
+            <p>Add Cucumber dependencies to your <code>pom.xml</code>:</p>
 
+            <pre><code class="language-xml">&lt;dependencies&gt;
+    &lt;!-- Existing dependencies from Step 7 --&gt;
+
+    &lt;!-- NEW: Cucumber Framework --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.cucumber&lt;/groupId&gt;
+        &lt;artifactId&gt;cucumber-java&lt;/artifactId&gt;
+        &lt;version&gt;7.14.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.cucumber&lt;/groupId&gt;
+        &lt;artifactId&gt;cucumber-junit-platform-engine&lt;/artifactId&gt;
+        &lt;version&gt;7.14.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.junit.platform&lt;/groupId&gt;
+        &lt;artifactId&gt;junit-platform-suite&lt;/artifactId&gt;
+        &lt;version&gt;1.10.0&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+        </div>
+
+        <!-- Gherkin Feature Files -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-file-earmark-text"></i></div>
+                Gherkin Feature Files
+            </h2>
+            <p>Create business-readable test scenarios using Gherkin syntax. These scenarios will execute the same Page Object tests but in human-friendly language:</p>
+
+            <h3>Website Verification Feature</h3>
+            <pre><code class="language-gherkin">Feature: Website Verification Testing
+  As a QA Engineer
+  I want to verify developer website functionality
+  So that users have reliable access to development resources
+
+  Background:
+    Given I have a web browser available
+    And I can access the internet
+
+  @smoke
+  Scenario: Verify JUnit website accessibility
+    Given I navigate to the "JUnit 5" website
+    When the page loads completely
+    Then the page title should contain "JUnit"
+    And all critical page elements should be visible
+    And I should be able to take a screenshot
+
+  @smoke
+  Scenario: Verify Maven website accessibility
+    Given I navigate to the "Maven" website
+    When the page loads completely
+    Then the page title should contain "Maven"
+    And all critical page elements should be visible
+    And I should be able to take a screenshot
+
+  @regression
+  Scenario: Verify GitHub website accessibility
+    Given I navigate to the "GitHub" website
+    When the page loads completely
+    Then the page title should contain "GitHub"
+    And all critical page elements should be visible
+    And I should be able to take a screenshot
+
+  @comprehensive
+  Scenario: Verify all developer websites
+    Given I have the list of developer websites to test
+    When I test each website for basic functionality
+    Then all websites should be accessible
+    And all page titles should match expectations
+    And screenshots should be captured for evidence</code></pre>
+        </div>
+
+        <!-- Step Definitions -->
         <div class="content-section">
             <h2 class="section-title">
                 <div class="section-icon"><i class="bi bi-gear"></i></div>
-                Step 8 Implementation
+                Cucumber Step Definitions
             </h2>
-                    <p>We'll implement data-driven testing capabilities while maintaining clean architecture principles:</p>
+            <p>Step Definitions bridge Gherkin scenarios to your existing Page Object code:</p>
 
-                    <h3>Implementation Steps:</h3>
-                    <ol>
-                        <li><strong>Project Restructure & Excel Data Providers</strong> - Reorganize classes and implement Apache POI for Excel reading</li>
-                        <li><strong>Parameterized Testing Integration</strong> - Use JUnit 5 @ParameterizedTest and TestNG @DataProvider</li>
-                        <li><strong>Environment Configuration Management</strong> - Support dev, staging, and production environments</li>
-                    </ol>
-                </div>
+            <pre><code class="language-java">@Given("I have a web browser available")
+public void i_have_a_web_browser_available() {
+    assertNotNull(driver, "WebDriver should be initialized");
+    Logger.getInstance().logInfo("Browser setup completed successfully");
+}
 
+@Given("I navigate to the {string} website")
+public void i_navigate_to_website(String websiteName) {
+    try {
+        websites = dataReader.readLinkData("java_project/data/links.json");
+        LinkData targetSite = websites.stream()
+            .filter(site -> site.getName().equals(websiteName))
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Website not found: " + websiteName));
+
+        driver.get(targetSite.getUrl());
+        Logger.getInstance().logLinkOpened(targetSite.getUrl());
+    } catch (Exception e) {
+        fail("Failed to navigate to " + websiteName + ": " + e.getMessage());
+    }
+}
+
+@When("the page loads completely")
+public void the_page_loads_completely() {
+    try {
+        Thread.sleep(2000); // Simple wait - in real projects use WebDriverWait
+        assertTrue(driver.getTitle().length() > 0, "Page should have a title");
+        Logger.getInstance().logInfo("Page loaded successfully");
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        fail("Interrupted while waiting for page to load");
+    }
+}
+
+@Then("the page title should contain {string}")
+public void the_page_title_should_contain(String expectedTitle) {
+    String actualTitle = driver.getTitle();
+    boolean titleMatches = actualTitle.contains(expectedTitle);
+    assertTrue(titleMatches,
+        "Expected title to contain '" + expectedTitle + "' but was '" + actualTitle + "'");
+    Logger.getInstance().logInfo("Title verification passed: " + actualTitle);
+}
+
+@And("all critical page elements should be visible")
+public void all_critical_page_elements_should_be_visible() {
+    String currentUrl = driver.getCurrentUrl();
+    BasePage currentPage = pageManager.navigateToPage(currentUrl);
+
+    TestResult result = currentPage.verifyPageElements();
+    testSummary.addTestResult(result);
+
+    assertTrue(result.allTestsPassed(),
+        "Page elements verification failed: " + result.getFailureMessage());
+    Logger.getInstance().logInfo("All page elements verified successfully");
+}</code></pre>
+        </div>
+
+        <!-- Test Runner Configuration -->
         <div class="content-section">
             <h2 class="section-title">
-                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
-                Key Code Examples
+                <div class="section-icon"><i class="bi bi-play-circle"></i></div>
+                JUnit 5 Cucumber Test Runner
             </h2>
+            <p>Configure JUnit 5 to execute Cucumber features:</p>
 
-                    <h3>Excel Data Provider</h3>
-                    <pre><code class="language-java">public class ExcelDataProvider {
-    
-    public List&lt;WebsiteTestData&gt; readWebsiteData(String filePath) {
-        List&lt;WebsiteTestData&gt; testData = new ArrayList&lt;&gt;();
-        
-        try (FileInputStream fis = new FileInputStream(filePath);
-             Workbook workbook = WorkbookFactory.create(fis)) {
-            
-            Sheet sheet = workbook.getSheetAt(0);
-            
-            for (Row row : sheet) {
-                if (row.getRowNum() == 0) continue; // Skip header
-                
-                WebsiteTestData data = WebsiteTestData.builder()
-                    .testName(getCellValue(row.getCell(0)))
-                    .website(getCellValue(row.getCell(1)))
-                    .expectedTitle(getCellValue(row.getCell(2)))
-                    .environment(getCellValue(row.getCell(3)))
-                    .build();
-                    
-                testData.add(data);
-            }
-        } catch (IOException e) {
-            Logger.getInstance().log("Error reading Excel file: " + e.getMessage());
-        }
-        
-        return testData;
-    }
+            <pre><code class="language-java">@Suite
+@IncludeEngines("cucumber")
+@SelectClasspathResource("features")
+@ConfigurationParameter(key = "cucumber.plugin", value = "pretty,html:target/cucumber-reports")
+@ConfigurationParameter(key = "cucumber.glue", value = "com.example.app")
+@ConfigurationParameter(key = "cucumber.features", value = "src/test/resources/features")
+public class CucumberTestRunner {
+    // This class serves as the entry point for running Cucumber tests
+    // All configuration is done via annotations above
 }</code></pre>
-
-                    <h3>Parameterized Test Method</h3>
-                    <pre><code class="language-java">public class ParameterizedWebsiteTests {
-    
-    @ParameterizedTest
-    @MethodSource("testDataProvider")
-    void testWebsiteWithExcelData(WebsiteTestData testData) {
-        // Set environment configuration
-        EnvironmentConfig.setEnvironment(testData.getEnvironment());
-        
-        // Execute test using Page Object Model
-        PageObjectManager pageManager = new PageObjectManager(driver);
-        BasePage page = pageManager.navigateToPage(testData.getWebsiteUrl());
-        
-        // Perform verification
-        TestResult result = page.verifyPageElements();
-        assertThat(result.allTestsPassed()).isTrue();
-        
-        Logger.getInstance().logPageTest(testData.getTestName(), 
-                                        result.getOverallResult());
-    }
-    
-    static Stream&lt;WebsiteTestData&gt; testDataProvider() {
-        TestDataProvider provider = new TestDataProvider();
-        return provider.getWebsiteTestData().stream();
-    }
-}</code></pre>
-
-                    <h3>Environment Configuration</h3>
-                    <pre><code class="language-java">public class EnvironmentConfig {
-    private static String currentEnvironment = "dev";
-    private static Properties envProperties;
-    
-    static {
-        loadEnvironmentProperties();
-    }
-    
-    public static void setEnvironment(String environment) {
-        currentEnvironment = environment;
-        loadEnvironmentProperties();
-    }
-    
-    private static void loadEnvironmentProperties() {
-        envProperties = new Properties();
-        String propertiesFile = "environments/" + currentEnvironment + ".properties";
-        
-        try (InputStream is = EnvironmentConfig.class.getClassLoader()
-                .getResourceAsStream(propertiesFile)) {
-            envProperties.load(is);
-        } catch (IOException e) {
-            Logger.getInstance().log("Warning: Could not load environment properties");
-        }
-    }
-    
-    public static String getProperty(String key) {
-        return envProperties.getProperty(key);
-    }
-}</code></pre>
-                </div>
-
-        <div class="content-section">
-            <h2 class="section-title">
-                <div class="section-icon"><i class="bi bi-tools"></i></div>
-                Required Dependencies
-            </h2>
-                    <p>Add these Maven dependencies to your <code>pom.xml</code>:</p>
-                    
-                    <pre><code class="language-xml">&lt;dependencies&gt;
-    &lt;!-- Existing Selenium and testing dependencies --&gt;
-    
-    &lt;!-- NEW: Apache POI for Excel reading --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
-        &lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;
-        &lt;version&gt;5.2.4&lt;/version&gt;
-    &lt;/dependency&gt;
-    
-    &lt;!-- NEW: TestNG for advanced parameterization --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.testng&lt;/groupId&gt;
-        &lt;artifactId&gt;testng&lt;/artifactId&gt;
-        &lt;version&gt;7.8.0&lt;/version&gt;
-    &lt;/dependency&gt;
-    
-    &lt;!-- NEW: Jackson for enhanced JSON processing --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
-        &lt;version&gt;2.15.2&lt;/version&gt;
-    &lt;/dependency&gt;
-    
-    &lt;!-- NEW: AssertJ for fluent assertions --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;org.assertj&lt;/groupId&gt;
-        &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
-        &lt;version&gt;3.24.2&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;</code></pre>
-                </div>
+        </div>
 
         <!-- Project Structure -->
         <div class="content-section">
             <h2 class="section-title">
                 <div class="section-icon"><i class="bi bi-folder"></i></div>
-                Project Structure
+                Updated Project Structure
             </h2>
-            <div class="alert-box alert-info">
-                <i class="bi bi-info-circle alert-icon"></i>
-                <div>
-                    <strong>Data-Driven Architecture:</strong> We'll restructure the project into clean packages with data providers, test models, and configuration management for enterprise-level testing.
-                </div>
-            </div>
-            <div class="file-structure">
-                <ul class="file-tree">
-                    <li><span class="folder">📁 java_project/</span>
+            <div class="folder-structure">
+                <ul class="folder-tree">
+                    <li><span class="folder">📁 step8-cucumber-bdd/</span>
                         <ul>
-                            <li><span class="folder">📁 src/</span>
+                            <li><span class="folder">📁 src/main/java/com/example/app/</span>
                                 <ul>
-                                    <li><span class="folder">📁 main/java/com/example/app/</span>
-                                        <ul>
-                                            <li><span class="folder">📁 pages/</span>
-                                                <ul>
-                                                    <li><span class="java-file">📄 BasePage.java</span></li>
-                                                    <li><span class="java-file">📄 GitHubHomePage.java</span></li>
-                                                    <li><span class="java-file">📄 JUnitHomePage.java</span></li>
-                                                    <li><span class="java-file">📄 PageObjectManager.java</span></li>
-                                                </ul>
-                                            </li>
-                                            <li><span class="folder">📁 data/</span>
-                                                <ul>
-                                                    <li><span class="folder">📁 providers/</span>
-                                                        <ul>
-                                                            <li><span class="java-file">📊 ExcelDataProvider.java (NEW)</span></li>
-                                                            <li><span class="java-file">📊 TestDataProvider.java (NEW)</span></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><span class="folder">📁 models/</span>
-                                                        <ul>
-                                                            <li><span class="java-file">📋 WebsiteTestData.java (NEW)</span></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li><span class="folder">📁 config/</span>
-                                                <ul>
-                                                    <li><span class="java-file">⚙️ EnvironmentConfig.java (NEW)</span></li>
-                                                </ul>
-                                            </li>
-                                            <li><span class="folder">📁 utils/</span>
-                                                <ul>
-                                                    <li><span class="java-file">📋 Logger.java</span></li>
-                                                </ul>
-                                            </li>
-                                            <li><span class="java-file">☕ Main.java</span></li>
-                                        </ul>
-                                    </li>
-                                    <li><span class="folder">📁 test/java/com/example/app/</span>
-                                        <ul>
-                                            <li><span class="java-file">🧪 ParameterizedWebsiteTests.java (NEW)</span></li>
-                                        </ul>
-                                    </li>
+                                    <li><span class="file">📄 Main.java (Enhanced with BDD execution)</span></li>
+                                    <li><span class="file">📄 BasePage.java (From Step 7)</span></li>
+                                    <li><span class="file">📄 GitHubHomePage.java (From Step 7)</span></li>
+                                    <li><span class="file">📄 JUnitHomePage.java (From Step 7)</span></li>
+                                    <li><span class="file">📄 MavenHomePage.java (From Step 7)</span></li>
+                                    <li><span class="file">📄 SeleniumHomePage.java (From Step 7)</span></li>
+                                    <li><span class="file">📄 PageObjectManager.java (From Step 7)</span></li>
+                                    <li><span class="file">📄 JsonLinkDataReader.java (From Step 7)</span></li>
+                                    <li><span class="file">📄 LinkData.java (From Step 7)</span></li>
+                                    <li><span class="file">📄 TestResult.java (From Step 7)</span></li>
+                                    <li><span class="file">📄 TestSummary.java (From Step 7)</span></li>
+                                    <li><span class="file">📄 Logger.java (From Step 7)</span></li>
                                 </ul>
                             </li>
-                            <li><span class="folder">📁 test-data/</span>
+                            <li><span class="folder">📁 src/test/java/com/example/app/</span>
                                 <ul>
-                                    <li><span class="file">📊 website-test-data.xlsx (NEW)</span></li>
-                                    <li><span class="file">📄 test-config.json (NEW)</span></li>
+                                    <li><span class="file">📄 CucumberTestRunner.java (NEW)</span></li>
+                                    <li><span class="file">📄 WebsiteVerificationSteps.java (NEW)</span></li>
                                 </ul>
                             </li>
-                            <li><span class="folder">📁 environments/</span>
+                            <li><span class="folder">📁 src/test/resources/features/</span>
                                 <ul>
-                                    <li><span class="file">⚙️ dev.properties (NEW)</span></li>
-                                    <li><span class="file">⚙️ staging.properties (NEW)</span></li>
-                                    <li><span class="file">⚙️ prod.properties (NEW)</span></li>
+                                    <li><span class="file">📄 website-verification.feature (NEW)</span></li>
                                 </ul>
                             </li>
-                            <li><span class="file">📄 pom.xml (Updated with POI, TestNG, Jackson)</span></li>
+                            <li><span class="folder">📁 java_project/data/</span>
+                                <ul>
+                                    <li><span class="file">📄 links.json (From Step 7)</span></li>
+                                </ul>
+                            </li>
+                            <li><span class="file">📄 pom.xml (Updated with Cucumber dependencies)</span></li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
 
+        <!-- Running Tests -->
         <div class="content-section">
             <h2 class="section-title">
-                <div class="section-icon"><i class="bi bi-table"></i></div>
-                Test Data Structure
+                <div class="section-icon"><i class="bi bi-terminal"></i></div>
+                Running BDD Tests
             </h2>
-                    <p>Our Excel test data will follow this structure:</p>
-                    
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Test Name</th>
-                                    <th>Website</th>
-                                    <th>Expected Title</th>
-                                    <th>Button Text</th>
-                                    <th>Environment</th>
-                                    <th>Priority</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>GitHub_Production_Test</td>
-                                    <td>GitHub</td>
-                                    <td>GitHub</td>
-                                    <td>Sign up</td>
-                                    <td>prod</td>
-                                    <td>high</td>
-                                </tr>
-                                <tr>
-                                    <td>JUnit_Staging_Test</td>
-                                    <td>JUnit</td>
-                                    <td>JUnit 5</td>
-                                    <td>Guide</td>
-                                    <td>staging</td>
-                                    <td>medium</td>
-                                </tr>
-                                <tr>
-                                    <td>Maven_Dev_Test</td>
-                                    <td>Maven</td>
-                                    <td>Maven</td>
-                                    <td>Download</td>
-                                    <td>dev</td>
-                                    <td>high</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <p>Execute your Cucumber scenarios with Maven:</p>
 
-                <div class="alert alert-success">
-                    <h4><i class="bi bi-lightbulb"></i> Professional Testing Insight</h4>
-                    <p><strong>Clean Architecture Benefits:</strong> Proper package organization makes the codebase more maintainable and scalable. Data-driven testing allows QA teams to add test scenarios without modifying code, while environment configuration enables the same tests to run across different environments. This approach is essential for enterprise-level test automation frameworks.</p>
+            <div class="terminal-output">
+                <div class="terminal-header">
+                    <div class="terminal-title">Maven Execution</div>
                 </div>
+                <pre><code># Run all Cucumber tests
+mvn test
 
+# Run specific scenarios by tag
+mvn test -Dcucumber.filter.tags="@smoke"
+mvn test -Dcucumber.filter.tags="@regression"
+
+# Generate HTML reports
+mvn test -Dcucumber.plugin="pretty,html:target/cucumber-reports"</code></pre>
+            </div>
+
+            <div class="alert alert-success">
+                <strong>BDD Benefits:</strong>
+                <ul>
+                    <li><strong>Business Readable:</strong> Stakeholders can understand and validate test scenarios</li>
+                    <li><strong>Living Documentation:</strong> Features serve as up-to-date documentation</li>
+                    <li><strong>Collaboration:</strong> Bridge between business requirements and technical implementation</li>
+                    <li><strong>Reusable Steps:</strong> Step definitions can be shared across multiple scenarios</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Key Benefits -->
         <div class="content-section">
             <h2 class="section-title">
                 <div class="section-icon"><i class="bi bi-trophy"></i></div>
-                Key Takeaways
+                Step 8 Achievements
             </h2>
-                    <div class="alert alert-success">
-                        <strong>Key Benefits of Data-Driven Testing:</strong>
-                        <ul>
-                            <li><strong>Clean Architecture:</strong> Proper package organization improves maintainability</li>
-                            <li><strong>Data-Driven Testing:</strong> Separate test logic from test data for flexibility</li>
-                            <li><strong>Parameterized Tests:</strong> Single test method handles multiple scenarios</li>
-                            <li><strong>Environment Management:</strong> Professional multi-environment support</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="alert alert-success">
+                <strong>What You've Accomplished:</strong>
+                <ul>
+                    <li><strong>BDD Integration:</strong> Added Cucumber layer over existing Page Objects</li>
+                    <li><strong>Business Language:</strong> Transformed technical tests into readable scenarios</li>
+                    <li><strong>Gherkin Mastery:</strong> Written Given-When-Then scenarios for website testing</li>
+                    <li><strong>Step Definitions:</strong> Created bridge between business language and technical code</li>
+                    <li><strong>Tagged Execution:</strong> Organized tests with @smoke, @regression tags</li>
+                    <li><strong>Cucumber Reports:</strong> Generated HTML reports showing scenario results</li>
+                </ul>
+            </div>
+        </div>
 
-        <!-- Navigation Footer -->
+        <!-- Next Steps Preview -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-arrow-right-circle"></i></div>
+                Coming Next: ExtentReports Integration
+            </h2>
+            <div class="alert alert-info">
+                <strong>Step 9 will enhance our BDD framework with professional reporting:</strong>
+                <ul>
+                    <li><strong>ExtentReports:</strong> Beautiful HTML reports with charts and analytics</li>
+                    <li><strong>Screenshot Integration:</strong> Visual evidence attached to each test step</li>
+                    <li><strong>Enhanced Cucumber Steps:</strong> Rich reporting integrated with BDD scenarios</li>
+                    <li><strong>Dashboard Analytics:</strong> Test trends, pass/fail rates, and execution statistics</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer Navigation -->
         <div class="lesson-nav">
-            <div class="nav-actions">
-                <a href="step7.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 7</a>
-                <a href="step9.html" class="nav-btn nav-btn-primary">Next: Step 9 <i class="bi bi-arrow-right"></i></a>
+            <div class="nav-buttons">
+                <a href="step7.html" class="nav-btn nav-btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Step 7: Page Object Model
+                </a>
+                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step8-cucumber-bdd" class="nav-btn nav-btn-secondary" target="_blank">
+                    <i class="bi bi-github"></i> View Implementation
+                </a>
+                <a href="step9.html" class="nav-btn nav-btn-primary">
+                    Next: Step 9 ExtentReports <i class="bi bi-arrow-right"></i>
+                </a>
             </div>
         </div>
     </div>
 
-    </div>
-
-
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
 </body>
