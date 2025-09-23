@@ -61,7 +61,7 @@
                     <i class="bi bi-check-circle objective-icon"></i>
                     <div>
                         <strong>Test Reporting & Analytics</strong><br>
-                        Generate comprehensive HTML reports with Allure and Maven Surefire
+                        Generate comprehensive HTML reports with ExtentReports and Maven Surefire
                     </div>
                 </div>
                 <div class="objective-item">
@@ -176,12 +176,10 @@ jobs:
         CI: true
         ENVIRONMENT: ${{ matrix.environment }}
     
-    - name: Generate Allure Report
-      uses: simple-elf/allure-report-action@master
+    - name: Generate ExtentReports
+      run: |
+        mvn clean test -Dreporting.enabled=true
       if: always()
-      with:
-        allure_results: target/allure-results
-        allure_history: allure-history
     
     - name: Upload Test Reports
       uses: actions/upload-artifact@v3
@@ -190,7 +188,7 @@ jobs:
         name: test-reports-${{ matrix.environment }}-${{ matrix.browser }}
         path: |
           target/surefire-reports/
-          target/allure-results/
+          target/extent-reports/
           screenshots/
     
     - name: Notify Slack on Failure
@@ -230,7 +228,7 @@ jobs:
                                         <ul>
                                             <li><span class="folder">📁 reporting/</span>
                                                 <ul>
-                                                    <li><span class="java-file">📊 AllureReportManager.java (NEW)</span></li>
+                                                    <li><span class="java-file">📊 ExtentReportManager.java (NEW)</span></li>
                                                     <li><span class="java-file">📊 TestResultAnalyzer.java (NEW)</span></li>
                                                 </ul>
                                             </li>
@@ -257,108 +255,146 @@ jobs:
                             </li>
                             <li><span class="folder">📁 test-resources/</span>
                                 <ul>
-                                    <li><span class="file">📊 allure.properties (NEW)</span></li>
+                                    <li><span class="file">📊 extent.properties (NEW)</span></li>
                                     <li><span class="file">⚙️ junit-platform.properties (NEW)</span></li>
                                 </ul>
                             </li>
                             <li><span class="folder">📁 screenshots/ (auto-generated)</span></li>
-                            <li><span class="file">📄 pom.xml (Updated with Allure, reporting plugins)</span></li>
+                            <li><span class="file">📄 pom.xml (Updated with ExtentReports, reporting plugins)</span></li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- Allure Reporting Setup -->
+        <!-- ExtentReports Setup -->
         <div class="content-section">
             <h2 class="section-title">
                 <div class="section-icon"><i class="bi bi-file-earmark-bar-graph"></i></div>
-                Advanced Test Reporting with Allure
+                Advanced Test Reporting with ExtentReports
             </h2>
-            <p>Allure provides the most comprehensive test reporting available for Java projects:</p>
+            <p>ExtentReports provides beautiful, comprehensive test reporting with rich dashboards and analytics:</p>
 
-            <h3>Allure Report Manager</h3>
+            <h3>ExtentReports Manager</h3>
             <pre><code class="language-java">@Component
-public class AllureReportManager {
-    private static final Logger logger = LoggerFactory.getLogger(AllureReportManager.class);
+public class ExtentReportManager {
+    private static final Logger logger = LoggerFactory.getLogger(ExtentReportManager.class);
+    private static ExtentReports extent;
+    private static ExtentTest test;
+    private static final String REPORT_PATH = "target/extent-reports/ExtentReport.html";
     
-    @Attachment(value = "Screenshot", type = "image/png")
-    public static byte[] captureScreenshot(WebDriver driver) {
+    public static void initializeReport() {
+        ExtentSparkReporter sparkReporter = new ExtentSparkReporter(REPORT_PATH);
+        sparkReporter.config().setTheme(Theme.STANDARD);
+        sparkReporter.config().setDocumentTitle("Test Automation Report");
+        sparkReporter.config().setReportName("Web Application Testing");
+        
+        extent = new ExtentReports();
+        extent.attachReporter(sparkReporter);
+        
+        // Add system information
+        extent.setSystemInfo("Browser", System.getProperty("browser", "chrome"));
+        extent.setSystemInfo("Environment", System.getProperty("env", "dev"));
+        extent.setSystemInfo("Base URL", EnvironmentConfig.getProperty("base.url"));
+        extent.setSystemInfo("Test Suite", "Web Automation Suite");
+        extent.setSystemInfo("Execution Date", LocalDateTime.now().toString());
+    }
+    
+    public static ExtentTest createTest(String testName, String description) {
+        test = extent.createTest(testName, description);
+        return test;
+    }
+    
+    public static void captureScreenshot(WebDriver driver, String stepName) {
         try {
-            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            String screenshotPath = captureScreenshotAsFile(driver);
+            test.addScreenCaptureFromPath(screenshotPath, stepName);
         } catch (Exception e) {
             logger.error("Failed to capture screenshot: {}", e.getMessage());
-            return new byte[0];
+            test.fail("Screenshot capture failed: " + e.getMessage());
         }
     }
     
-    @Attachment(value = "Page Source", type = "text/html")
-    public static String capturePageSource(WebDriver driver) {
-        return driver.getPageSource();
+    private static String captureScreenshotAsFile(WebDriver driver) throws IOException {
+        TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
+        File sourceFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
+        String screenshotPath = "screenshots/" + System.currentTimeMillis() + ".png";
+        File destFile = new File("target/extent-reports/" + screenshotPath);
+        destFile.getParentFile().mkdirs();
+        FileUtils.copyFile(sourceFile, destFile);
+        return screenshotPath;
     }
     
-    @Attachment(value = "Test Data", type = "application/json")
-    public static String attachTestData(Object testData) {
-        ObjectMapper mapper = new ObjectMapper();
+    public static void attachTestData(Object testData) {
         try {
-            return mapper.writerWithDefaultPrettyPrinter()
-                         .writeValueAsString(testData);
-        } catch (JsonProcessingException e) {
-            return "Failed to serialize test data: " + e.getMessage();
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonData = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(testData);
+            test.info("Test Data: <pre>" + jsonData + "</pre>");
+        } catch (Exception e) {
+            test.warning("Failed to serialize test data: " + e.getMessage());
         }
     }
     
-    public static void addEnvironmentInfo() {
-        Properties props = new Properties();
-        props.setProperty("Browser", System.getProperty("browser", "chrome"));
-        props.setProperty("Environment", System.getProperty("env", "dev"));
-        props.setProperty("Base URL", EnvironmentConfig.getProperty("base.url"));
-        props.setProperty("Test Suite", "Web Automation Suite");
-        props.setProperty("Execution Date", LocalDateTime.now().toString());
-        
-        try (FileOutputStream fos = new FileOutputStream("target/allure-results/environment.properties")) {
-            props.store(fos, "Test Environment Information");
-        } catch (IOException e) {
-            logger.error("Failed to create environment.properties: {}", e.getMessage());
+    public static void flushReport() {
+        if (extent != null) {
+            extent.flush();
         }
     }
 }</code></pre>
 
-            <h3>Enhanced Test with Allure Annotations</h3>
-            <pre><code class="language-java">@Epic("Web Application Testing")
-@Feature("Homepage Verification")
-public class EnhancedWebsiteTests {
+            <h3>Enhanced Test with ExtentReports</h3>
+            <pre><code class="language-java">public class EnhancedWebsiteTests {
+    private ExtentTest extentTest;
+    
+    @BeforeEach
+    void setUp() {
+        ExtentReportManager.initializeReport();
+    }
     
     @Test
-    @Story("User can access GitHub homepage")
-    @Severity(SeverityLevel.CRITICAL)
-    @Description("Verify that GitHub homepage loads correctly and displays expected content")
     void testGitHubHomepage(WebsiteTestData testData) {
+        extentTest = ExtentReportManager.createTest("GitHub Homepage Test", 
+            "Verify that GitHub homepage loads correctly and displays expected content");
         
-        AllureReportManager.attachTestData(testData);
-        
-        step("Navigate to GitHub homepage", () -> {
+        try {
+            ExtentReportManager.attachTestData(testData);
+            
+            // Navigate to GitHub homepage
+            extentTest.info("Navigating to GitHub homepage");
             driver.get(testData.getWebsiteUrl());
-            AllureReportManager.captureScreenshot(driver);
-        });
-        
-        step("Verify page title", () -> {
+            ExtentReportManager.captureScreenshot(driver, "Homepage loaded");
+            
+            // Verify page title
+            extentTest.info("Verifying page title");
             String actualTitle = driver.getTitle();
             assertThat(actualTitle).contains(testData.getExpectedTitle());
-        });
-        
-        step("Verify page elements are visible", () -> {
+            extentTest.pass("Page title verification passed: " + actualTitle);
+            
+            // Verify page elements are visible
+            extentTest.info("Verifying page elements");
             PageObjectManager pageManager = new PageObjectManager(driver);
             BasePage page = pageManager.navigateToPage(testData.getWebsiteUrl());
             
             TestResult result = page.verifyPageElements();
-            AllureReportManager.captureScreenshot(driver);
+            ExtentReportManager.captureScreenshot(driver, "Page elements verification");
             
-            if (!result.allTestsPassed()) {
-                AllureReportManager.capturePageSource(driver);
+            if (result.allTestsPassed()) {
+                extentTest.pass("All page elements verification passed");
+            } else {
+                extentTest.fail("Page verification failed: " + result.getFailureMessage());
                 fail("Page verification failed: " + result.getFailureMessage());
             }
-        });
+            
+        } catch (Exception e) {
+            extentTest.fail("Test execution failed: " + e.getMessage());
+            ExtentReportManager.captureScreenshot(driver, "Test failure");
+            throw e;
+        }
+    }
+    
+    @AfterEach
+    void tearDown() {
+        ExtentReportManager.flushReport();
     }
 }</code></pre>
         </div>
@@ -374,17 +410,17 @@ public class EnhancedWebsiteTests {
             <pre><code class="language-xml">&lt;dependencies&gt;
     &lt;!-- Existing dependencies --&gt;
     
-    &lt;!-- NEW: Allure Reporting Framework --&gt;
+    &lt;!-- NEW: ExtentReports Framework --&gt;
     &lt;dependency&gt;
-        &lt;groupId&gt;io.qameta.allure&lt;/groupId&gt;
-        &lt;artifactId&gt;allure-junit5&lt;/artifactId&gt;
-        &lt;version&gt;2.24.0&lt;/version&gt;
+        &lt;groupId&gt;com.aventstack&lt;/groupId&gt;
+        &lt;artifactId&gt;extentreports&lt;/artifactId&gt;
+        &lt;version&gt;5.1.1&lt;/version&gt;
     &lt;/dependency&gt;
     
     &lt;dependency&gt;
-        &lt;groupId&gt;io.qameta.allure&lt;/groupId&gt;
-        &lt;artifactId&gt;allure-selenide&lt;/artifactId&gt;
-        &lt;version&gt;2.24.0&lt;/version&gt;
+        &lt;groupId&gt;commons-io&lt;/groupId&gt;
+        &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+        &lt;version&gt;2.11.0&lt;/version&gt;
     &lt;/dependency&gt;
     
     &lt;!-- NEW: Slack Notifications --&gt;
@@ -412,28 +448,16 @@ public class EnhancedWebsiteTests {
     &lt;plugins&gt;
         &lt;!-- Existing plugins --&gt;
         
-        &lt;!-- NEW: Allure Maven Plugin --&gt;
-        &lt;plugin&gt;
-            &lt;groupId&gt;io.qameta.allure&lt;/groupId&gt;
-            &lt;artifactId&gt;allure-maven&lt;/artifactId&gt;
-            &lt;version&gt;2.12.0&lt;/version&gt;
-        &lt;/plugin&gt;
-        
-        &lt;!-- Enhanced Surefire Plugin for CI/CD --&gt;
+        &lt;!-- NEW: Maven Surefire Plugin for ExtentReports --&gt;
         &lt;plugin&gt;
             &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
             &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
             &lt;version&gt;3.2.2&lt;/version&gt;
             &lt;configuration&gt;
-                &lt;properties&gt;
-                    &lt;property&gt;
-                        &lt;name&gt;listener&lt;/name&gt;
-                        &lt;value&gt;io.qameta.allure.junit5.AllureJunit5&lt;/value&gt;
-                    &lt;/property&gt;
-                &lt;/properties&gt;
-                &lt;systemProperties&gt;
-                    &lt;allure.results.directory&gt;${project.build.directory}/allure-results&lt;/allure.results.directory&gt;
-                &lt;/systemProperties&gt;
+                &lt;systemPropertyVariables&gt;
+                    &lt;extent.reporter.spark.start&gt;true&lt;/extent.reporter.spark.start&gt;
+                    &lt;extent.reporter.spark.out&gt;target/extent-reports/ExtentReport.html&lt;/extent.reporter.spark.out&gt;
+                &lt;/systemPropertyVariables&gt;
             &lt;/configuration&gt;
         &lt;/plugin&gt;
     &lt;/plugins&gt;
@@ -496,7 +520,7 @@ public class EnhancedWebsiteTests {
                 </div>
                 <div class="takeaway-item">
                     <i class="bi bi-file-earmark-bar-graph text-primary"></i>
-                    <span><strong>Allure Reporting:</strong> Professional HTML reports with screenshots, analytics, and failure analysis</span>
+                    <span><strong>ExtentReports:</strong> Professional HTML reports with rich dashboards, screenshots, and detailed analytics</span>
                 </div>
                 <div class="takeaway-item">
                     <i class="bi bi-layers text-primary"></i>
