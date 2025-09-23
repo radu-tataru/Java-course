@@ -40,8 +40,18 @@ Java-course/
 │   └── step9.html                      # ExtentReports Integration
 │
 └── java-fundamentals/                   # 📚 Programming Foundation
-    ├── 1-Constructors.html              # Constructors & Object Creation
-    └── 2-OOP-Concepts-and-Access-Modifiers.html  # OOP & Access Control
+    ├── Constructors.html                # Constructors & Object Creation
+    ├── Data-Types-and-Variables.html    # Variables, primitives, and object types
+    ├── Methods-and-Functions.html       # Method creation and parameter handling
+    ├── OOP-Concepts-and-Access-Modifiers.html  # Four pillars of OOP
+    ├── Inheritance-and-Interfaces.html  # Inheritance, polymorphism, interfaces
+    ├── String-Manipulation.html         # String operations and StringBuilder
+    ├── Arrays-and-Collections.html      # Arrays and basic collection concepts
+    ├── Collections-and-Lists.html       # List<String>, ArrayList, iterations
+    ├── Exception-Handling.html          # Try-catch, throws, custom exceptions
+    ├── File-Operations.html             # File I/O, paths, and resource management
+    ├── Debugging-Techniques.html        # Debugging strategies and tools
+    └── Singleton-vs-Static-Patterns.html # Design patterns for global access
 ```
 
 ## 🛤️ Learning Paths
@@ -98,11 +108,21 @@ A complete QA automation framework progressing from basic Java concepts to profe
 
 | Lesson | Topic | Duration | Level | Key Concepts for QA |
 |--------|-------|----------|-------|-------------------|
-| **1** | **Object-Oriented Basics** | 20 min | Beginner | Classes, objects, methods - core to test automation |
-| **2** | **Access Control & Design** | 25 min | Beginner | Encapsulation, proper code organization |
+| **1** | **Constructors** | 20 min | Beginner | Object creation, initialization - foundation for Page Objects |
+| **2** | **Data Types & Variables** | 25 min | Beginner | Primitives, objects, memory management for test data |
+| **3** | **Methods & Functions** | 30 min | Beginner | Code organization, parameters - building reusable test methods |
+| **4** | **OOP Concepts & Access Modifiers** | 35 min | Intermediate | Encapsulation, inheritance - essential for framework design |
+| **5** | **Inheritance & Interfaces** | 40 min | Intermediate | Polymorphism, contracts - advanced framework patterns |
+| **6** | **String Manipulation** | 20 min | Beginner | Text processing, validation - critical for test assertions |
+| **7** | **Arrays & Collections** | 30 min | Intermediate | Data structures - managing test data sets |
+| **8** | **Collections & Lists** | 35 min | Intermediate | ArrayList, iterations - dynamic test data handling |
+| **9** | **Exception Handling** | 25 min | Intermediate | Error management - robust test framework development |
+| **10** | **File Operations** | 30 min | Intermediate | I/O operations - test data and configuration management |
+| **11** | **Debugging Techniques** | 25 min | Intermediate | Problem solving - essential QA troubleshooting skills |
+| **12** | **Singleton vs Static Patterns** | 30 min | Advanced | Design patterns - global test utilities and drivers |
 
 **What You'll Learn:**
-Essential Java programming concepts that form the backbone of all automation testing frameworks like Selenium, TestNG, and Cucumber.
+Comprehensive Java programming foundation covering all concepts needed for professional test automation frameworks including Selenium, TestNG, Cucumber, and custom testing utilities.
 
 ## 🚀 Getting Started
 
