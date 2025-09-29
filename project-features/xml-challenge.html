@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 XML Extension Challenge | Java Tutorial</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header" style="background: linear-gradient(135deg, #cd7f32 0%, #b8651f 100%);">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white;">
+                    <i class="bi bi-trophy"></i>
+                </div>
+                <h1 class="lesson-title">🎯 XML Extension Challenge</h1>
+                <p class="lesson-description">Extend your Step 3 Link Reader architecture with XML support using JSoup library. A focused challenge for reinforcing OOP concepts and Factory pattern implementation.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">XML Challenge</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="step3.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 3</a>
+                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step3-oop-architecture" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> Step 3 Code</a>
+                <a href="step4.html" class="nav-btn nav-btn-primary">Continue to Step 4 <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Challenge Overview -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-trophy"></i></div>
+                Challenge Overview
+            </h2>
+
+            <div class="alert-box" style="background: linear-gradient(135deg, #fef7ed 0%, #fed7aa 100%); border-left: 4px solid #cd7f32;">
+                <i class="bi bi-target alert-icon" style="color: #cd7f32;"></i>
+                <div>
+                    <strong style="color: #9a3412;">Your Mission:</strong> <span style="color: #7c2d12;">Extend the existing Step 3 Link Reader system to support XML files using the JSoup library, demonstrating understanding of OOP principles and Factory pattern integration.</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <i class="bi bi-clock-history info-icon"></i>
+                        <h4>Duration</h4>
+                        <p>60 minutes<br><em>Focused team session</em></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <i class="bi bi-people info-icon"></i>
+                        <h4>Team Format</h4>
+                        <p>Pairs (2 students)<br><em>Collaborative coding</em></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <i class="bi bi-puzzle info-icon"></i>
+                        <h4>Difficulty</h4>
+                        <p>Beginner+<br><em>Extends Step 3</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Architecture Extension</strong><br>
+                        Understand how to extend existing OOP architecture without breaking changes
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>External Library Integration</strong><br>
+                        Learn to integrate and use JSoup library for XML parsing
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Factory Pattern Application</strong><br>
+                        Apply Factory pattern knowledge to add new file type support
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Open/Closed Principle</strong><br>
+                        Experience how good design enables extension without modification
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prerequisites -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bookmark-check"></i></div>
+                Prerequisites
+            </h2>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Required:</strong> Complete <a href="step3.html"><strong>Step 3: Professional Code Architecture</strong></a> first. This challenge extends the Link Reader system from that lesson.
+                </div>
+            </div>
+
+            <h3>You Should Understand:</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="prerequisite-item">
+                        <i class="bi bi-check-circle text-success"></i>
+                        <span class="prerequisite-link">Interface design and implementation</span>
+                        <span class="prerequisite-desc">- `LinkReader` interface concept</span>
+                    </div>
+                    <div class="prerequisite-item">
+                        <i class="bi bi-check-circle text-success"></i>
+                        <span class="prerequisite-link">Factory pattern basics</span>
+                        <span class="prerequisite-desc">- How `LinkReaderFactory` works</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="prerequisite-item">
+                        <i class="bi bi-check-circle text-success"></i>
+                        <span class="prerequisite-link">Polymorphism concepts</span>
+                        <span class="prerequisite-desc">- Multiple implementations, single interface</span>
+                    </div>
+                    <div class="prerequisite-item">
+                        <i class="bi bi-check-circle text-success"></i>
+                        <span class="prerequisite-link">Maven dependency management</span>
+                        <span class="prerequisite-desc">- Adding external libraries</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Challenge Details -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-list-task"></i></div>
+                Challenge Details
+            </h2>
+
+            <h3>📁 Provided Materials</h3>
+
+            <h4>1. Maven Dependency (Add to your pom.xml)</h4>
+            <pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.jsoup&lt;/groupId&gt;
+    &lt;artifactId&gt;jsoup&lt;/artifactId&gt;
+    &lt;version&gt;1.17.2&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+
+            <h4>2. Sample XML File (data/links.xml)</h4>
+            <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;bookmarks&gt;
+    &lt;category name="Development"&gt;
+        &lt;link url="https://github.com"&gt;GitHub - Code Repository&lt;/link&gt;
+        &lt;link url="https://stackoverflow.com"&gt;Stack Overflow - Q&amp;amp;A&lt;/link&gt;
+    &lt;/category&gt;
+    &lt;category name="Learning"&gt;
+        &lt;link url="https://oracle.com/java"&gt;Oracle Java Documentation&lt;/link&gt;
+        &lt;link url="https://junit.org"&gt;JUnit Testing Framework&lt;/link&gt;
+    &lt;/category&gt;
+    &lt;category name="Tools"&gt;
+        &lt;link url="https://maven.apache.org"&gt;Apache Maven&lt;/link&gt;
+    &lt;/category&gt;
+&lt;/bookmarks&gt;</code></pre>
+
+            <h4>3. JSoup Example Code</h4>
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Study this example</strong> to understand how JSoup parses XML files:
+                </div>
+            </div>
+
+            <pre><code class="language-java">import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import java.io.File;
+import java.io.IOException;
+
+// Example: How to parse XML with JSoup
+try {
+    Document doc = Jsoup.parse(new File("data/links.xml"), "UTF-8", "");
+    Elements links = doc.select("link");
+
+    for (Element link : links) {
+        String url = link.attr("url");        // Get the url attribute
+        String description = link.text();     // Get the text content
+        System.out.println(url + " - " + description);
+    }
+} catch (IOException e) {
+    System.err.println("Error parsing XML: " + e.getMessage());
+}</code></pre>
+        </div>
+
+        <!-- Your Tasks -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-checklist"></i></div>
+                Your Tasks
+            </h2>
+
+            <div class="task-list">
+                <div class="task-item">
+                    <span class="task-number">1</span>
+                    <div class="task-content">
+                        <h4>Study the Existing Architecture</h4>
+                        <p>Open your Step 3 project and analyze:</p>
+                        <ul>
+                            <li>How the <code>LinkReader</code> interface is defined</li>
+                            <li>How <code>TxtLinkReader</code>, <code>CsvLinkReader</code>, and <code>JsonLinkReader</code> implement it</li>
+                            <li>How <code>LinkReaderFactory</code> decides which reader to create</li>
+                            <li>How the <code>Main</code> class uses the Factory pattern</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task-item">
+                    <span class="task-number">2</span>
+                    <div class="task-content">
+                        <h4>Create XmlLinkReader Class</h4>
+                        <p>Implement a new class that follows the existing pattern:</p>
+                        <ul>
+                            <li>Implement the <code>LinkReader</code> interface</li>
+                            <li>Use JSoup to parse the XML file</li>
+                            <li>Extract URLs from <code>&lt;link url="..."&gt;</code> elements</li>
+                            <li>Return a <code>List&lt;String&gt;</code> of URLs</li>
+                            <li>Handle exceptions properly</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task-item">
+                    <span class="task-number">3</span>
+                    <div class="task-content">
+                        <h4>Update LinkReaderFactory</h4>
+                        <p>Extend the Factory to support XML files:</p>
+                        <ul>
+                            <li>Add a case for <code>.xml</code> files</li>
+                            <li>Return an <code>XmlLinkReader</code> instance</li>
+                            <li>Ensure existing functionality remains unchanged</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="task-item">
+                    <span class="task-number">4</span>
+                    <div class="task-content">
+                        <h4>Test Your Implementation</h4>
+                        <p>Verify everything works correctly:</p>
+                        <ul>
+                            <li>Run the <code>Main</code> class with the XML file</li>
+                            <li>Verify links are extracted and opened in browser</li>
+                            <li>Test that existing TXT, CSV, and JSON functionality still works</li>
+                            <li>Handle error cases gracefully</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Questions -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                Key Questions to Answer
+            </h2>
+
+            <div class="alert-box" style="background: #f3f4f6; border-left: 4px solid #6b7280;">
+                <i class="bi bi-lightbulb alert-icon" style="color: #6b7280;"></i>
+                <div>
+                    <strong>Demonstrate Understanding:</strong> Be ready to explain these concepts during your demo:
+                </div>
+            </div>
+
+            <div class="questions-list">
+                <div class="question-item">
+                    <i class="bi bi-arrow-right question-icon"></i>
+                    <span><strong>Where does <code>XmlLinkReader</code> fit in the existing architecture?</strong></span>
+                </div>
+                <div class="question-item">
+                    <i class="bi bi-arrow-right question-icon"></i>
+                    <span><strong>What methods must be implemented to satisfy the <code>LinkReader</code> interface?</strong></span>
+                </div>
+                <div class="question-item">
+                    <i class="bi bi-arrow-right question-icon"></i>
+                    <span><strong>How does the Factory pattern decide which reader to use?</strong></span>
+                </div>
+                <div class="question-item">
+                    <i class="bi bi-arrow-right question-icon"></i>
+                    <span><strong>What changes are needed in <code>LinkReaderFactory</code>?</strong></span>
+                </div>
+                <div class="question-item">
+                    <i class="bi bi-arrow-right question-icon"></i>
+                    <span><strong>Why didn't we need to modify the <code>Main</code> class?</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expected Implementation -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                Implementation Guidance
+            </h2>
+
+            <h3>XmlLinkReader Structure</h3>
+            <pre><code class="language-java">public class XmlLinkReader implements LinkReader {
+    private String fileName;
+
+    public XmlLinkReader(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @Override
+    public List&lt;String&gt; readLinks() {
+        List&lt;String&gt; links = new ArrayList&lt;&gt;();
+        try {
+            // Use JSoup to parse XML
+            Document doc = Jsoup.parse(new File(fileName), "UTF-8", "");
+            Elements linkElements = doc.select("link");
+
+            for (Element link : linkElements) {
+                String url = link.attr("url");
+                if (!url.isEmpty()) {
+                    links.add(url);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading XML file: " + e.getMessage());
+        }
+        return links;
+    }
+}</code></pre>
+
+            <h3>Updated Factory Method</h3>
+            <pre><code class="language-java">public static LinkReader createLinkReader(String fileName) {
+    if (fileName.endsWith(".txt")) {
+        return new TxtLinkReader(fileName);
+    } else if (fileName.endsWith(".csv")) {
+        return new CsvLinkReader(fileName);
+    } else if (fileName.endsWith(".json")) {
+        return new JsonLinkReader(fileName);
+    } else if (fileName.endsWith(".xml")) {
+        return new XmlLinkReader(fileName);  // NEW LINE
+    } else {
+        throw new IllegalArgumentException("Unsupported file type: " + fileName);
+    }
+}</code></pre>
+        </div>
+
+        <!-- Evaluation Criteria -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-award"></i></div>
+                Evaluation Criteria
+            </h2>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="criteria-card">
+                        <h4><i class="bi bi-gear"></i> Technical Implementation (60%)</h4>
+                        <ul>
+                            <li><strong>Interface Implementation (20 pts):</strong> Correctly implements <code>LinkReader</code></li>
+                            <li><strong>JSoup Usage (20 pts):</strong> Proper XML parsing with JSoup</li>
+                            <li><strong>Factory Integration (20 pts):</strong> Updates <code>LinkReaderFactory</code> correctly</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="criteria-card">
+                        <h4><i class="bi bi-shield-check"></i> Code Quality (25%)</h4>
+                        <ul>
+                            <li><strong>Exception Handling (10 pts):</strong> Proper error management</li>
+                            <li><strong>Code Style (10 pts):</strong> Follows existing patterns</li>
+                            <li><strong>No Breaking Changes (5 pts):</strong> Existing code still works</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="criteria-card">
+                        <h4><i class="bi bi-chat-text"></i> Understanding (15%)</h4>
+                        <ul>
+                            <li><strong>Architecture Explanation (10 pts):</strong> Can explain design decisions</li>
+                            <li><strong>Demo Execution (5 pts):</strong> Successfully demonstrates functionality</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Tips -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-lightbulb"></i></div>
+                Success Tips
+            </h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="tip-card tip-do">
+                        <h4><i class="bi bi-check-circle-fill"></i> Do</h4>
+                        <ul>
+                            <li>Start by understanding the existing code structure</li>
+                            <li>Follow the same patterns as other readers</li>
+                            <li>Test with the provided XML file first</li>
+                            <li>Handle exceptions gracefully</li>
+                            <li>Ask questions if you're stuck</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="tip-card tip-dont">
+                        <h4><i class="bi bi-x-circle-fill"></i> Don't</h4>
+                        <ul>
+                            <li>Modify existing classes unnecessarily</li>
+                            <li>Skip testing your implementation</li>
+                            <li>Ignore exception handling</li>
+                            <li>Hardcode file paths or URLs</li>
+                            <li>Rush through without understanding</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session Format -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-calendar-event"></i></div>
+                Session Format
+            </h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">10 min</div>
+                    <div class="timeline-content">
+                        <h4>Understanding Phase</h4>
+                        <p>Examine existing Step 3 codebase, identify where XML reader fits in architecture, plan implementation approach</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">45 min</div>
+                    <div class="timeline-content">
+                        <h4>Implementation Phase</h4>
+                        <p>Create <code>XmlLinkReader</code> class, update <code>LinkReaderFactory</code>, test with provided XML file</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">5 min</div>
+                    <div class="timeline-content">
+                        <h4>Demo & Discussion</h4>
+                        <p>Show XML links opening in browser, explain design decisions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="content-section">
+            <div class="bottom-nav">
+                <a href="step3.html" class="nav-btn nav-btn-outline">
+                    <i class="bi bi-arrow-left"></i> Back to Step 3
+                </a>
+                <a href="../index.html" class="nav-btn nav-btn-secondary">
+                    <i class="bi bi-house"></i> Home
+                </a>
+                <a href="step4.html" class="nav-btn nav-btn-primary">
+                    Continue to Step 4 <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
