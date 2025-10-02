@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Parameterized Testing Challenge | Java Tutorial</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
+
+    <style>
+        .challenge-option {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .challenge-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .challenge-option.simple {
+            border-color: #28a745;
+        }
+
+        .challenge-option.advanced {
+            border-color: #007bff;
+        }
+
+        .challenge-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .challenge-header i {
+            font-size: 1.5rem;
+        }
+
+        .challenge-option.simple .challenge-header i {
+            color: #28a745;
+        }
+
+        .challenge-option.advanced .challenge-header i {
+            color: #007bff;
+        }
+
+        .difficulty-badge {
+            background: #f8f9fa;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-left: auto;
+        }
+
+        .difficulty-badge.simple {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-badge.advanced {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .challenge-content h4 {
+            color: #495057;
+            margin-bottom: 10px;
+        }
+
+        .time-estimate {
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 15px;
+            border-left: 4px solid #cd7f32;
+        }
+
+        .requirement-item {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid #007bff;
+        }
+
+        .hint-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header" style="background: linear-gradient(135deg, #cd7f32 0%, #b8651f 100%);">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge" style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white;">
+                    <i class="bi bi-trophy"></i>
+                </div>
+                <h1 class="lesson-title">🎯 Parameterized Testing Challenge</h1>
+                <p class="lesson-description">Master JUnit 5's @ParameterizedTest to create elegant, data-driven tests. Transform repetitive test methods into powerful parameterized tests that scale.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Parameterized Testing Challenge</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="step5.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 5</a>
+                <a href="https://github.com/radu-tataru/Java-course-project-steps/tree/master/challenge-parameterized-testing" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> Solution Code</a>
+                <a href="step6.html" class="nav-btn nav-btn-primary">Continue to Step 6 <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Challenge Overview -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-trophy"></i></div>
+                Challenge Overview
+            </h2>
+
+            <div class="alert-box" style="background: linear-gradient(135deg, #fef7ed 0%, #fed7aa 100%); border-left: 4px solid #cd7f32;">
+                <i class="bi bi-target alert-icon" style="color: #cd7f32;"></i>
+                <div>
+                    <strong style="color: #9a3412;">Your Mission:</strong> <span style="color: #7c2d12;">Transform repetitive JUnit tests into elegant parameterized tests using @ParameterizedTest. Learn to write one test method that runs with many different inputs - a critical skill for QA automation engineers.</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <i class="bi bi-clock-history info-icon"></i>
+                        <h4>Duration</h4>
+                        <p>30-60 minutes<br><em>Based on difficulty level</em></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <i class="bi bi-people info-icon"></i>
+                        <h4>Team Format</h4>
+                        <p>Pairs (2 students)<br><em>Collaborative coding</em></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <i class="bi bi-puzzle info-icon"></i>
+                        <h4>Difficulty</h4>
+                        <p>Beginner+<br><em>Extends Step 5 JUnit 5</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why This Matters -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-lightbulb"></i></div>
+                Why Parameterized Testing Matters
+            </h2>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Real-World Impact:</strong> In professional QA automation, you'll often need to test the same functionality with different inputs: valid/invalid data, boundary values, multiple user roles, different browsers, etc. Parameterized tests make this elegant and maintainable.
+                </div>
+            </div>
+
+            <h3>From Repetitive to Elegant</h3>
+
+            <p><strong>❌ Without Parameterized Tests (Repetitive):</strong></p>
+            <pre><code class="language-java">@Test
+void testValidAdminLogin() {
+    boolean result = login("admin", "password123");
+    assertTrue(result, "Admin should login successfully");
+}
+
+@Test
+void testValidUserLogin() {
+    boolean result = login("user", "userpass");
+    assertTrue(result, "User should login successfully");
+}
+
+@Test
+void testInvalidPassword() {
+    boolean result = login("admin", "wrongpass");
+    assertFalse(result, "Invalid password should fail");
+}
+
+@Test
+void testEmptyUsername() {
+    boolean result = login("", "password");
+    assertFalse(result, "Empty username should fail");
+}
+
+// ... potentially 20+ more similar tests!</code></pre>
+
+            <p><strong>✅ With Parameterized Tests (Elegant):</strong></p>
+            <pre><code class="language-java">@ParameterizedTest
+@CsvSource({
+    "admin, password123, true, Admin login should succeed",
+    "user, userpass, true, User login should succeed",
+    "admin, wrongpass, false, Invalid password should fail",
+    "'', password, false, Empty username should fail",
+    "admin, '', false, Empty password should fail",
+    "guest, guest123, true, Guest login should succeed"
+})
+void testLogin(String username, String password, boolean expected, String scenario) {
+    boolean result = login(username, password);
+    assertEquals(expected, result, scenario);
+}
+
+// One method, 6+ test cases automatically executed!</code></pre>
+
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Less Code, More Tests</strong><br>
+                        Write one method, test dozens of scenarios
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Easy to Maintain</strong><br>
+                        Add new test cases by adding one line of data
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Better Coverage</strong><br>
+                        Encouraged to test more edge cases since it's so easy
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Industry Standard</strong><br>
+                        Every modern QA framework uses parameterized testing
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Challenge Options -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-trophy"></i></div>
+                Challenge Options
+            </h2>
+
+            <div class="row">
+                <!-- Simple Challenge -->
+                <div class="col-md-6">
+                    <div class="challenge-option simple">
+                        <div class="challenge-header">
+                            <i class="bi bi-play-circle"></i>
+                            <h3>Simple Challenge</h3>
+                            <span class="difficulty-badge simple">Beginner-Friendly</span>
+                        </div>
+                        <div class="challenge-content">
+                            <h4>Inline Data with @CsvSource</h4>
+                            <p>Learn the fundamentals of parameterized testing using inline CSV data.</p>
+
+                            <h5>Requirements:</h5>
+                            <div class="requirement-item">
+                                <strong>1. Create CalculatorTest.java</strong><br>
+                                Test a simple Calculator class with add(), subtract(), multiply(), divide()
+                            </div>
+
+                            <div class="requirement-item">
+                                <strong>2. Use @ParameterizedTest with @CsvSource</strong><br>
+                                Test multiple addition scenarios: positive numbers, negative numbers, zeros
+                            </div>
+
+                            <div class="requirement-item">
+                                <strong>3. Test Multiple Methods</strong><br>
+                                Create parameterized tests for each calculator operation
+                            </div>
+
+                            <div class="requirement-item">
+                                <strong>4. Minimum 15 Test Cases</strong><br>
+                                Across all operations (addition, subtraction, multiplication, division)
+                            </div>
+
+                            <h5>Example Starter Code:</h5>
+                            <pre><code class="language-java">class Calculator {
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    public int subtract(int a, int b) {
+        return a - b;
+    }
+    // ... more operations
+}</code></pre>
+
+                            <div class="hint-box">
+                                <strong>💡 Hints:</strong>
+                                <ul style="margin-bottom: 0; margin-top: 5px;">
+                                    <li>Use @ParameterizedTest instead of @Test</li>
+                                    <li>@CsvSource takes array of strings: {"input1, input2, expected"}</li>
+                                    <li>Method parameters match CSV columns</li>
+                                    <li>Test division by zero edge case!</li>
+                                </ul>
+                            </div>
+
+                            <div class="time-estimate">
+                                ⏱️ Estimated Time: 30-40 minutes
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Challenge -->
+                <div class="col-md-6">
+                    <div class="challenge-option advanced">
+                        <div class="challenge-header">
+                            <i class="bi bi-rocket"></i>
+                            <h3>Advanced Challenge</h3>
+                            <span class="difficulty-badge advanced">More Complex</span>
+                        </div>
+                        <div class="challenge-content">
+                            <h4>CSV File & MethodSource</h4>
+                            <p>Master external data files and complex test scenarios using multiple parameterization techniques.</p>
+
+                            <h5>Requirements:</h5>
+                            <div class="requirement-item">
+                                <strong>1. Create UserValidatorTest.java</strong><br>
+                                Test username/email/password validation with complex business rules
+                            </div>
+
+                            <div class="requirement-item">
+                                <strong>2. Use @CsvFileSource</strong><br>
+                                Read test data from <code>test-data/users.csv</code> file
+                            </div>
+
+                            <div class="requirement-item">
+                                <strong>3. Use @MethodSource</strong><br>
+                                Create a method that provides complex test objects (User objects with multiple fields)
+                            </div>
+
+                            <div class="requirement-item">
+                                <strong>4. Test Business Rules</strong><br>
+                                - Username: 3-20 chars, alphanumeric only<br>
+                                - Email: valid format with @ and domain<br>
+                                - Password: 8+ chars, 1 uppercase, 1 number
+                            </div>
+
+                            <div class="requirement-item">
+                                <strong>5. Minimum 20 Test Cases</strong><br>
+                                Cover edge cases, boundary values, invalid inputs
+                            </div>
+
+                            <h5>CSV File Format (users.csv):</h5>
+                            <pre><code class="language-text">username,email,password,shouldBeValid,reason
+john123,john@example.com,Password1,true,Valid user
+ab,short@test.com,Pass123,false,Username too short
+validuser,invalid-email,GoodPass1,false,Invalid email format
+gooduser,test@example.com,weak,false,Password too short</code></pre>
+
+                            <div class="hint-box">
+                                <strong>💡 Advanced Hints:</strong>
+                                <ul style="margin-bottom: 0; margin-top: 5px;">
+                                    <li>CSV file goes in <code>src/test/resources/test-data/</code></li>
+                                    <li>@CsvFileSource(resources = "/test-data/users.csv", numLinesToSkip = 1)</li>
+                                    <li>@MethodSource("provideUsers") links to static method</li>
+                                    <li>Use Stream&lt;Arguments&gt; for MethodSource</li>
+                                    <li>Create helper methods for validation logic</li>
+                                </ul>
+                            </div>
+
+                            <div class="time-estimate">
+                                ⏱️ Estimated Time: 60 minutes
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Criteria -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-check-circle"></i></div>
+                Success Criteria
+            </h2>
+
+            <p>Your challenge is complete when:</p>
+
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>All Tests Pass</strong><br>
+                        Run <code>mvn test</code> and verify all parameterized tests execute successfully
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Multiple Test Cases per Method</strong><br>
+                        Each parameterized test runs at least 5+ different scenarios
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Clear Test Names</strong><br>
+                        Use @DisplayName or parameter names to make test output readable
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Edge Cases Covered</strong><br>
+                        Test boundary values, empty strings, nulls, special characters
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Maven Report Shows All Tests</strong><br>
+                        Test report clearly shows each parameterized execution
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JUnit 5 Annotations Reference -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-book"></i></div>
+                JUnit 5 Parameterized Testing Quick Reference
+            </h2>
+
+            <h3>Common Annotations</h3>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>@CsvSource - Inline Data</h4>
+                    <pre><code class="language-java">@ParameterizedTest
+@CsvSource({
+    "apple, 1",
+    "banana, 2",
+    "'quoted string', 3"
+})
+void test(String fruit, int count) {
+    // Test logic
+}</code></pre>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>@ValueSource - Single Values</h4>
+                    <pre><code class="language-java">@ParameterizedTest
+@ValueSource(strings = {"apple", "banana", "orange"})
+void testFruits(String fruit) {
+    assertNotNull(fruit);
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-6">
+                    <h4>@CsvFileSource - External File</h4>
+                    <pre><code class="language-java">@ParameterizedTest
+@CsvFileSource(
+    resources = "/test-data.csv",
+    numLinesToSkip = 1
+)
+void test(String input, String expected) {
+    // Test logic
+}</code></pre>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>@MethodSource - Complex Objects</h4>
+                    <pre><code class="language-java">@ParameterizedTest
+@MethodSource("provideTestData")
+void test(User user, boolean valid) {
+    // Test logic
+}
+
+static Stream&lt;Arguments&gt; provideTestData() {
+    return Stream.of(
+        Arguments.of(new User("john"), true),
+        Arguments.of(new User(""), false)
+    );
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="alert-box alert-success" style="margin-top: 20px;">
+                <i class="bi bi-book alert-icon"></i>
+                <div>
+                    <strong>Official Documentation:</strong>
+                    <ul style="margin-bottom: 0; margin-top: 5px;">
+                        <li><a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests" target="_blank">JUnit 5 Parameterized Tests Guide</a></li>
+                        <li><a href="https://www.baeldung.com/parameterized-tests-junit-5" target="_blank">Baeldung Tutorial</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips & Best Practices -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-award"></i></div>
+                Tips & Best Practices
+            </h2>
+
+            <h3>✅ DO - Professional Practices</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Use Descriptive Parameter Names</strong><br>
+                        <code>void test(String username, String password, boolean expected)</code> is better than <code>void test(String a, String b, boolean c)</code>
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Add Display Names</strong><br>
+                        Use <code>@DisplayName("Login Validation Tests")</code> for readable output
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Include Scenario Description</strong><br>
+                        Add a parameter for test description: "admin, pass123, true, <strong>Valid admin login</strong>"
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Group Related Tests</strong><br>
+                        Use @Nested classes to organize parameterized tests by feature
+                    </div>
+                </div>
+            </div>
+
+            <h3>❌ DON'T - Common Mistakes</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-x-circle objective-icon text-danger"></i>
+                    <div>
+                        <strong>Don't Mix Too Many Scenarios</strong><br>
+                        Keep related scenarios together; split unrelated logic into separate tests
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-x-circle objective-icon text-danger"></i>
+                    <div>
+                        <strong>Don't Forget Edge Cases</strong><br>
+                        Test null, empty, boundary values, special characters
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-x-circle objective-icon text-danger"></i>
+                    <div>
+                        <strong>Don't Use Complex Logic in Tests</strong><br>
+                        Parameterized tests should be simple assertions
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What You'll Learn -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-mortarboard"></i></div>
+                What You'll Learn
+            </h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Technical Skills</h4>
+                    <ul>
+                        <li>JUnit 5 @ParameterizedTest annotation</li>
+                        <li>Multiple data source types (@CsvSource, @CsvFileSource, @MethodSource)</li>
+                        <li>Reading external test data files</li>
+                        <li>Creating test data providers</li>
+                        <li>Test report interpretation</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h4>QA Automation Concepts</h4>
+                    <ul>
+                        <li>Data-driven testing principles</li>
+                        <li>Test case design with edge cases</li>
+                        <li>Reducing code duplication</li>
+                        <li>Maintainable test architecture</li>
+                        <li>Industry-standard testing patterns</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert-box alert-success" style="margin-top: 20px;">
+                <i class="bi bi-trophy alert-icon"></i>
+                <div>
+                    <strong>Career Impact:</strong> Parameterized testing is used in every professional QA automation framework. This skill appears in 90%+ of QA automation job descriptions. Mastering it now prepares you for Selenium testing (Step 6) where you'll test the same functionality across different browsers, devices, and data sets.
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-signpost"></i></div>
+                Next Steps
+            </h2>
+
+            <p>After completing this challenge:</p>
+
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-arrow-right objective-icon"></i>
+                    <div>
+                        <strong>Continue to Step 6: Selenium Integration</strong><br>
+                        Apply parameterized testing to browser automation (test same scenario in Chrome, Firefox, Edge)
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-arrow-right objective-icon"></i>
+                    <div>
+                        <strong>Review Solution Code</strong><br>
+                        Compare your implementation with the provided solution on GitHub
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-arrow-right objective-icon"></i>
+                    <div>
+                        <strong>Extend Your Tests</strong><br>
+                        Add more edge cases, try different data sources, experiment with @EnumSource
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Challenge Complete?</strong> Share your experience! What was challenging? What patterns will you use in future projects? Discussing your learning helps solidify the concepts.
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="step5.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 5: Testing</a>
+                <a href="step6.html" class="nav-btn nav-btn-primary">Step 6: Selenium <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
