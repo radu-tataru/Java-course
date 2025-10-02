@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💎 Diamond Challenge: Complete Test Automation Framework | Java Course</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Challenge Header -->
+    <div class="lesson-header" style="background: linear-gradient(135deg, #065f46 0%, #059669 100%);">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge" style="background: #fff; color: #065f46;">
+                    <i class="bi bi-gem"></i>
+                </div>
+                <h1 class="lesson-title">💎 Ultimate Challenge: Complete Test Automation Framework</h1>
+                <p class="lesson-description">Build a production-ready test automation framework integrating ALL course concepts: POM, Cucumber BDD, ExtentReports, and Log4j. The ultimate test of your QA automation mastery.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><a href="step10.html">Step 10</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: #10b981;">Diamond Challenge</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="step10.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Step 10</a>
+                <a href="https://github.com/radu-tataru/Java-course-project-steps/tree/master/challenge-diamond-framework" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Solution</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Course Complete <i class="bi bi-trophy"></i></a>
+            </div>
+        </div>
+
+        <!-- Challenge Overview -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #10b981;"><i class="bi bi-gem"></i></div>
+                Ultimate Challenge Overview
+            </h2>
+
+            <div class="alert-box" style="border-left: 4px solid #10b981; background: #ecfdf5;">
+                <i class="bi bi-gem alert-icon" style="color: #059669;"></i>
+                <div>
+                    <strong style="color: #065f46;">🎯 Your Ultimate Mission:</strong><br>
+                    <span style="color: #047857;">Create a complete, production-ready test automation framework for <strong>SauceDemo.com</strong> that integrates ALL concepts learned in Steps 1-10. This is the capstone project that proves you've mastered QA automation with Java.</span>
+                    <br><br>
+                    <strong style="color: #065f46;">Target Site:</strong> <a href="https://www.saucedemo.com" target="_blank" style="color: #059669;">https://www.saucedemo.com</a><br>
+                    <strong style="color: #065f46;">Duration:</strong> 120-150 minutes (2-2.5 hours)<br>
+                    <strong style="color: #065f46;">Team:</strong> 3-4 people strongly recommended<br>
+                    <strong style="color: #065f46;">Difficulty:</strong> Expert (Ultimate)
+                </div>
+            </div>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Prerequisites:</strong> You MUST complete Steps 1-10 before attempting this challenge. This integrates everything you've learned.
+                </div>
+            </div>
+
+            <h3>Why This is the "Diamond" Challenge</h3>
+            <p>This challenge goes beyond all previous challenges by requiring you to:</p>
+            <ul>
+                <li>✨ <strong>Integrate 6+ technologies:</strong> Selenium, JUnit 5, Page Object Model, Cucumber BDD, ExtentReports, Log4j</li>
+                <li>✨ <strong>Implement 4+ design patterns:</strong> Page Object, Factory, Singleton, Builder</li>
+                <li>✨ <strong>Create professional deliverables:</strong> Framework architecture, documentation, reports</li>
+                <li>✨ <strong>Handle real-world complexity:</strong> Multiple user types, state management, data-driven scenarios</li>
+                <li>✨ <strong>Demonstrate mastery:</strong> This is a portfolio-worthy project</li>
+            </ul>
+        </div>
+
+        <!-- SauceDemo Overview -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #10b981;"><i class="bi bi-browser-chrome"></i></div>
+                Understanding SauceDemo
+            </h2>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>SauceDemo:</strong> A demo e-commerce website specifically designed for test automation practice. It has multiple user types, intentional bugs, and realistic workflows perfect for comprehensive testing.
+                </div>
+            </div>
+
+            <h3>🔑 Available Test Users</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div style="background: #f0fdf4; border: 1px solid #86efac; border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                        <h5 style="color: #065f46;">✅ standard_user</h5>
+                        <p style="margin: 0; color: #047857;"><strong>Password:</strong> secret_sauce<br>
+                        <strong>Behavior:</strong> Normal user, all features work correctly</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="background: #fef2f2; border: 1px solid #fca5a5; border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                        <h5 style="color: #991b1b;">❌ locked_out_user</h5>
+                        <p style="margin: 0; color: #b91c1c;"><strong>Password:</strong> secret_sauce<br>
+                        <strong>Behavior:</strong> Cannot login, gets error message</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="background: #fffbeb; border: 1px solid #fde047; border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                        <h5 style="color: #854d0e;">⚠️ problem_user</h5>
+                        <p style="margin: 0; color: #a16207;"><strong>Password:</strong> secret_sauce<br>
+                        <strong>Behavior:</strong> Product images are broken</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="background: #eff6ff; border: 1px solid #93c5fd; border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+                        <h5 style="color: #1e40af;">🐌 performance_glitch_user</h5>
+                        <p style="margin: 0; color: #1e3a8a;"><strong>Password:</strong> secret_sauce<br>
+                        <strong>Behavior:</strong> Slow page loads, delayed responses</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>📄 Pages to Automate</h3>
+            <ol>
+                <li><strong>Login Page:</strong> Authentication, error handling</li>
+                <li><strong>Products Page:</strong> Product listing, sorting, add to cart</li>
+                <li><strong>Product Details Page:</strong> Individual product view</li>
+                <li><strong>Cart Page:</strong> Review items, remove items, continue shopping</li>
+                <li><strong>Checkout Step 1:</strong> Customer information form</li>
+                <li><strong>Checkout Step 2:</strong> Order review and confirmation</li>
+                <li><strong>Checkout Complete:</strong> Success confirmation</li>
+            </ol>
+        </div>
+
+        <!-- Framework Requirements -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #10b981;"><i class="bi bi-diagram-3"></i></div>
+                Framework Architecture Requirements
+            </h2>
+
+            <h3>1️⃣ Page Object Model (Step 7)</h3>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 15px; margin-bottom: 20px;">
+                <strong style="color: #065f46;">Required Page Objects:</strong>
+                <ul style="color: #047857; margin-bottom: 0;">
+                    <li><code>BasePage</code> - Common functionality, waits, screenshots</li>
+                    <li><code>LoginPage</code> - Authentication methods</li>
+                    <li><code>ProductsPage</code> - Product listing, sorting, cart actions</li>
+                    <li><code>CartPage</code> - Cart review and management</li>
+                    <li><code>CheckoutPage</code> - Multi-step checkout flow</li>
+                    <li><code>CheckoutCompletePage</code> - Order confirmation</li>
+                </ul>
+            </div>
+
+            <h3>2️⃣ Cucumber BDD (Step 8)</h3>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 15px; margin-bottom: 20px;">
+                <strong style="color: #065f46;">Required Scenarios:</strong>
+                <ul style="color: #047857; margin-bottom: 0;">
+                    <li>✅ <strong>Successful Login:</strong> Standard user login and verify products page</li>
+                    <li>❌ <strong>Failed Login:</strong> Locked out user gets error message</li>
+                    <li>🛒 <strong>Add to Cart:</strong> Add multiple products to cart</li>
+                    <li>🗑️ <strong>Remove from Cart:</strong> Remove items from cart</li>
+                    <li>💳 <strong>Complete Purchase:</strong> Full checkout flow end-to-end</li>
+                    <li>🔢 <strong>Product Sorting:</strong> Verify sort by name/price</li>
+                    <li>📊 <strong>Data-Driven:</strong> Use Scenario Outline with Examples</li>
+                </ul>
+            </div>
+
+            <h3>3️⃣ ExtentReports (Step 9)</h3>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 15px; margin-bottom: 20px;">
+                <strong style="color: #065f46;">Required Reporting Features:</strong>
+                <ul style="color: #047857; margin-bottom: 0;">
+                    <li>📊 Professional HTML report dashboard</li>
+                    <li>📸 Screenshots attached to each scenario</li>
+                    <li>✅ Pass/Fail statistics with percentages</li>
+                    <li>⏱️ Execution time tracking</li>
+                    <li>📈 Timeline view of test execution</li>
+                    <li>📋 Detailed step-by-step logs</li>
+                </ul>
+            </div>
+
+            <h3>4️⃣ Log4j Integration (Step 10)</h3>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 15px; margin-bottom: 20px;">
+                <strong style="color: #065f46;">Required Logging:</strong>
+                <ul style="color: #047857; margin-bottom: 0;">
+                    <li>🔧 <code>log4j2.xml</code> configuration file</li>
+                    <li>📝 Console appender for real-time logs</li>
+                    <li>💾 File appender for persistent logs</li>
+                    <li>📊 Multiple log levels (DEBUG, INFO, WARN, ERROR)</li>
+                    <li>🎯 Package-specific logging configuration</li>
+                    <li>🔄 Rolling file policy for log rotation</li>
+                </ul>
+            </div>
+
+            <h3>5️⃣ JUnit 5 & Parameterization (Step 5)</h3>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 15px; margin-bottom: 20px;">
+                <strong style="color: #065f46;">Required Test Management:</strong>
+                <ul style="color: #047857; margin-bottom: 0;">
+                    <li>@BeforeAll / @AfterAll hooks for setup/teardown</li>
+                    <li>@ParameterizedTest for data-driven scenarios</li>
+                    <li>Cucumber Runner with JUnit 5</li>
+                    <li>Proper test lifecycle management</li>
+                </ul>
+            </div>
+
+            <h3>6️⃣ Test Data Management (Step 1)</h3>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 15px; margin-bottom: 20px;">
+                <strong style="color: #065f46;">Required External Data:</strong>
+                <ul style="color: #047857; margin-bottom: 0;">
+                    <li>📄 <code>users.csv</code> - Test user credentials</li>
+                    <li>📄 <code>products.json</code> - Product test data</li>
+                    <li>📄 <code>checkout-info.json</code> - Checkout form data</li>
+                    <li>⚙️ <code>config.properties</code> - URLs, timeouts, browser settings</li>
+                </ul>
+            </div>
+
+            <h3>7️⃣ Design Patterns (Steps 3-4)</h3>
+            <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 15px; margin-bottom: 20px;">
+                <strong style="color: #065f46;">Required Patterns:</strong>
+                <ul style="color: #047857; margin-bottom: 0;">
+                    <li>🏭 <strong>Factory Pattern:</strong> PageObjectFactory for page creation</li>
+                    <li>🔒 <strong>Singleton Pattern:</strong> WebDriver manager, Configuration reader</li>
+                    <li>🎨 <strong>Page Object Pattern:</strong> All page classes</li>
+                    <li>🔨 <strong>Builder Pattern (bonus):</strong> Test data builders</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Example Feature File -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #10b981;"><i class="bi bi-file-earmark-code"></i></div>
+                Example Cucumber Feature
+            </h2>
+
+            <h3>📝 Complete Purchase Flow</h3>
+            <pre><code class="language-gherkin">Feature: SauceDemo E-commerce Purchase Flow
+  As a customer
+  I want to browse products and complete purchases
+  So that I can buy items from SauceDemo
+
+  Background:
+    Given I am on the SauceDemo login page
+    And Log4j logging is initialized
+
+  @smoke @login
+  Scenario: Successful login with standard user
+    When I login with username "standard_user" and password "secret_sauce"
+    Then I should be redirected to the products page
+    And the products page should display 6 items
+    And action should be logged at INFO level
+
+  @negative @login
+  Scenario: Login fails for locked out user
+    When I login with username "locked_out_user" and password "secret_sauce"
+    Then I should see error message "Epic sadface: Sorry, this user has been locked out."
+    And I should remain on the login page
+    And error should be logged at WARN level
+
+  @e2e @purchase
+  Scenario: Complete purchase flow from start to finish
+    Given I login as "standard_user"
+    When I add "Sauce Labs Backpack" to cart
+    And I add "Sauce Labs Bike Light" to cart
+    And I open the cart
+    Then cart should contain 2 items
+    When I proceed to checkout
+    And I fill checkout information:
+      | firstName | lastName | zipCode |
+      | John      | Doe      | 12345   |
+    And I continue to checkout step 2
+    And I verify order total is correct
+    And I click finish
+    Then I should see "Thank you for your order!" message
+    And checkout complete page should be displayed
+    And ExtentReport should capture success screenshot
+    And purchase completion should be logged at INFO level
+
+  @datadriven @cart
+  Scenario Outline: Add multiple products to cart
+    Given I login as "standard_user"
+    When I add "<product>" to cart
+    Then cart badge should show <count>
+    And product addition should be logged
+
+    Examples:
+      | product                | count |
+      | Sauce Labs Backpack    | 1     |
+      | Sauce Labs Bike Light  | 2     |
+      | Sauce Labs Bolt T-Shirt| 3     |
+
+  @sorting @products
+  Scenario: Product sorting functionality
+    Given I login as "standard_user"
+    When I sort products by "Price (low to high)"
+    Then products should be sorted by price ascending
+    And sort action should be logged at DEBUG level
+    When I sort products by "Name (Z to A)"
+    Then products should be sorted by name descending</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Notice:</strong> The feature file demonstrates BDD best practices - clear Given/When/Then structure, data tables, scenario outlines, tags for organization, and integration with logging/reporting.
+                </div>
+            </div>
+        </div>
+
+        <!-- Example Page Object -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #10b981;"><i class="bi bi-code-square"></i></div>
+                Example Page Object Implementation
+            </h2>
+
+            <h3>🔐 LoginPage.java</h3>
+            <pre><code class="language-java">package com.example.pages;
+
+import com.example.base.BasePage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+public class LoginPage extends BasePage {
+
+    private static final Logger logger = LogManager.getLogger(LoginPage.class);
+
+    // Locators
+    private final By usernameInput = By.id("user-name");
+    private final By passwordInput = By.id("password");
+    private final By loginButton = By.id("login-button");
+    private final By errorMessage = By.cssSelector("[data-test='error']");
+
+    public LoginPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public void enterUsername(String username) {
+        logger.debug("Entering username: {}", username);
+        type(usernameInput, username);
+    }
+
+    public void enterPassword(String password) {
+        logger.debug("Entering password");
+        type(passwordInput, password);
+    }
+
+    public ProductsPage clickLogin() {
+        logger.info("Clicking login button");
+        click(loginButton);
+        return new ProductsPage(driver);
+    }
+
+    public ProductsPage login(String username, String password) {
+        logger.info("Attempting login with username: {}", username);
+        enterUsername(username);
+        enterPassword(password);
+        ProductsPage productsPage = clickLogin();
+        logger.info("Login successful, navigated to products page");
+        return productsPage;
+    }
+
+    public String getErrorMessage() {
+        String error = getText(errorMessage);
+        logger.warn("Login error displayed: {}", error);
+        return error;
+    }
+
+    public boolean isErrorDisplayed() {
+        return isElementVisible(errorMessage);
+    }
+
+    @Override
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    @Override
+    public boolean isPageLoaded() {
+        boolean loaded = isElementVisible(usernameInput) &&
+                        isElementVisible(passwordInput) &&
+                        isElementVisible(loginButton);
+        logger.debug("Login page loaded: {}", loaded);
+        return loaded;
+    }
+}</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Key Features:</strong> Proper encapsulation (private locators), Log4j integration at multiple levels, fluent API (returns ProductsPage), clear method names, extends BasePage for common functionality.
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Structure -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #10b981;"><i class="bi bi-folder-tree"></i></div>
+                Required Project Structure
+            </h2>
+
+            <pre><code class="language-text">challenge-diamond-framework/
+├── pom.xml
+├── src/
+│   ├── main/
+│   │   ├── java/com/example/
+│   │   │   ├── base/
+│   │   │   │   └── BasePage.java
+│   │   │   ├── pages/
+│   │   │   │   ├── LoginPage.java
+│   │   │   │   ├── ProductsPage.java
+│   │   │   │   ├── CartPage.java
+│   │   │   │   ├── CheckoutStepOnePage.java
+│   │   │   │   ├── CheckoutStepTwoPage.java
+│   │   │   │   └── CheckoutCompletePage.java
+│   │   │   ├── utils/
+│   │   │   │   ├── DriverManager.java (Singleton)
+│   │   │   │   ├── ConfigReader.java (Singleton)
+│   │   │   │   ├── TestDataReader.java
+│   │   │   │   └── PageObjectFactory.java (Factory)
+│   │   │   └── models/
+│   │   │       ├── User.java
+│   │   │       └── Product.java
+│   │   └── resources/
+│   │       ├── log4j2.xml
+│   │       ├── extent.properties
+│   │       └── testdata/
+│   │           ├── users.csv
+│   │           ├── products.json
+│   │           ├── checkout-info.json
+│   │           └── config.properties
+│   └── test/
+│       ├── java/com/example/
+│       │   ├── runners/
+│       │   │   └── TestRunner.java
+│       │   └── stepdefinitions/
+│       │       ├── Hooks.java
+│       │       ├── LoginSteps.java
+│       │       ├── ProductsSteps.java
+│       │       ├── CartSteps.java
+│       │       └── CheckoutSteps.java
+│       └── resources/
+│           └── features/
+│               ├── Login.feature
+│               ├── Products.feature
+│               ├── Cart.feature
+│               └── Checkout.feature
+├── reports/
+│   └── (Generated ExtentReports)
+├── logs/
+│   └── (Generated Log4j logs)
+├── screenshots/
+│   └── (Captured screenshots)
+└── README.md</code></pre>
+        </div>
+
+        <!-- Success Criteria -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #10b981;"><i class="bi bi-check2-all"></i></div>
+                Success Criteria
+            </h2>
+
+            <div class="alert-box" style="border-left: 4px solid #10b981; background: #ecfdf5;">
+                <i class="bi bi-clipboard-check alert-icon" style="color: #059669;"></i>
+                <div>
+                    <strong style="color: #065f46;">Your framework must include ALL of the following:</strong>
+                    <ol style="color: #047857; margin-bottom: 0;">
+                        <li>✅ <strong>6+ Page Objects</strong> properly extending BasePage</li>
+                        <li>✅ <strong>7+ Cucumber Scenarios</strong> covering main user flows</li>
+                        <li>✅ <strong>ExtentReports</strong> with dashboard, screenshots, and statistics</li>
+                        <li>✅ <strong>Log4j Configuration</strong> with console and file appenders</li>
+                        <li>✅ <strong>External Test Data</strong> in CSV/JSON format</li>
+                        <li>✅ <strong>Factory Pattern</strong> for page object creation</li>
+                        <li>✅ <strong>Singleton Pattern</strong> for WebDriver/Config management</li>
+                        <li>✅ <strong>All Tests Passing</strong> on SauceDemo.com</li>
+                        <li>✅ <strong>Clean Code</strong> - no code duplication, proper naming</li>
+                        <li>✅ <strong>Professional README</strong> with setup and execution instructions</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h3>📊 Quality Checklist</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 style="color: #065f46;">Architecture</h5>
+                    <ul>
+                        <li>☑️ Clear separation of concerns</li>
+                        <li>☑️ DRY principle followed</li>
+                        <li>☑️ Single Responsibility Principle</li>
+                        <li>☑️ Proper inheritance hierarchy</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 style="color: #065f46;">Code Quality</h5>
+                    <ul>
+                        <li>☑️ Meaningful variable/method names</li>
+                        <li>☑️ No hardcoded values</li>
+                        <li>☑️ Proper exception handling</li>
+                        <li>☑️ Consistent formatting</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 style="color: #065f46;">Testing</h5>
+                    <ul>
+                        <li>☑️ All scenarios pass</li>
+                        <li>☑️ Both positive and negative tests</li>
+                        <li>☑️ Data-driven tests included</li>
+                        <li>☑️ Proper assertions</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 style="color: #065f46;">Documentation</h5>
+                    <ul>
+                        <li>☑️ README with clear instructions</li>
+                        <li>☑️ Comments for complex logic</li>
+                        <li>☑️ Feature files are readable</li>
+                        <li>☑️ Reports are stakeholder-ready</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Getting Started -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #10b981;"><i class="bi bi-rocket"></i></div>
+                Getting Started
+            </h2>
+
+            <h3>Step 1: Setup Project Structure</h3>
+            <pre><code class="language-bash">cd qa-java-course-project-v2
+mkdir challenge-diamond-framework
+cd challenge-diamond-framework
+
+# Create Maven structure
+mkdir -p src/main/java/com/example/{base,pages,utils,models}
+mkdir -p src/main/resources/testdata
+mkdir -p src/test/java/com/example/{runners,stepdefinitions}
+mkdir -p src/test/resources/features
+mkdir -p reports logs screenshots</code></pre>
+
+            <h3>Step 2: Create pom.xml</h3>
+            <p>Add all dependencies: Selenium, Cucumber, ExtentReports, Log4j, JUnit 5</p>
+
+            <h3>Step 3: Build BasePage</h3>
+            <p>Create your foundation with common methods all pages will use.</p>
+
+            <h3>Step 4: Create Page Objects</h3>
+            <p>Build all 6+ page objects for SauceDemo pages.</p>
+
+            <h3>Step 5: Write Feature Files</h3>
+            <p>Create Cucumber scenarios covering all user flows.</p>
+
+            <h3>Step 6: Implement Step Definitions</h3>
+            <p>Bridge Gherkin to Page Objects with step definitions.</p>
+
+            <h3>Step 7: Configure Reporting & Logging</h3>
+            <p>Setup ExtentReports and Log4j configuration files.</p>
+
+            <h3>Step 8: Run & Verify</h3>
+            <pre><code class="language-bash">mvn clean test</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Pro Tip:</strong> Start with the happy path (login → add to cart → checkout → complete) and get that working end-to-end first. Then add additional scenarios and edge cases.
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips & Best Practices -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #10b981;"><i class="bi bi-star"></i></div>
+                Tips for Success
+            </h2>
+
+            <h3>🎯 Strategic Approach</h3>
+            <ul>
+                <li><strong>Start Simple:</strong> Get one complete flow working before adding complexity</li>
+                <li><strong>Test Incrementally:</strong> Run tests after each page object/scenario</li>
+                <li><strong>Pair Program:</strong> Work together on complex scenarios</li>
+                <li><strong>Divide & Conquer:</strong> Split page objects among team members</li>
+                <li><strong>Integrate Early:</strong> Don't wait until the end to integrate components</li>
+            </ul>
+
+            <h3>⚠️ Common Pitfalls to Avoid</h3>
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <ul style="margin-bottom: 0;">
+                        <li>❌ <strong>No Thread.sleep():</strong> Use explicit waits only</li>
+                        <li>❌ <strong>Hardcoded credentials:</strong> Use test data files</li>
+                        <li>❌ <strong>Forgot to quit driver:</strong> Always cleanup in @AfterAll</li>
+                        <li>❌ <strong>Too much in one method:</strong> Keep methods focused and small</li>
+                        <li>❌ <strong>No logging:</strong> Log key actions for debugging</li>
+                        <li>❌ <strong>Skipping documentation:</strong> README is required!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>💡 Pro Tips</h3>
+            <ul>
+                <li>🔍 <strong>Use SauceDemo's user types</strong> for different test scenarios</li>
+                <li>📸 <strong>Capture screenshots</strong> on both success and failure</li>
+                <li>🏷️ <strong>Tag your scenarios</strong> (@smoke, @e2e, @negative) for organized execution</li>
+                <li>📊 <strong>Review ExtentReports</strong> after each run for insights</li>
+                <li>🔄 <strong>Refactor as you go</strong> - don't accumulate technical debt</li>
+            </ul>
+        </div>
+
+        <!-- Challenge Complete -->
+        <div class="content-section">
+            <div class="alert-box" style="border-left: 4px solid #10b981; background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);">
+                <i class="bi bi-gem alert-icon" style="color: #059669; font-size: 2rem;"></i>
+                <div>
+                    <h3 style="color: #065f46; margin-top: 0;">💎 Diamond Challenge Complete!</h3>
+                    <p style="color: #047857;">Once you've built your complete framework with all requirements met and all tests passing, you've achieved the ultimate milestone - you're now a proficient QA automation engineer!</p>
+                    <p style="color: #047857;"><strong>What You've Accomplished:</strong></p>
+                    <ul style="color: #047857;">
+                        <li>✨ Built a production-ready test automation framework from scratch</li>
+                        <li>✨ Integrated 6+ professional QA tools and technologies</li>
+                        <li>✨ Demonstrated mastery of design patterns and best practices</li>
+                        <li>✨ Created portfolio-worthy deliverables with professional reporting</li>
+                        <li>✨ Completed the ultimate capstone project of the Java QA course</li>
+                    </ul>
+                    <p style="color: #047857; margin-bottom: 0;"><strong>🎓 Congratulations!</strong> You've mastered the complete Java QA Automation course. This framework belongs in your portfolio and demonstrates you're ready for professional QA automation roles!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav bottom-nav">
+            <div class="nav-actions">
+                <a href="step10.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Step 10</a>
+                <a href="https://github.com/radu-tataru/Java-course-project-steps/tree/master/challenge-diamond-framework" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Solution</a>
+                <a href="../index.html" class="nav-btn" style="background: #10b981; color: white;">🎓 Course Complete</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>
