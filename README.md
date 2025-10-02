@@ -100,9 +100,10 @@ Foundation 1 → Foundation 2 → Step 1 → Step 2 → Step 3 → Step 4 → St
 | **7** | **Page Object Model** | 45 min | Expert | Industry-standard test framework design |
 | **8** | **Cucumber BDD** | 40 min | Expert | Business-readable test scenarios |
 | **9** | **ExtentReports** | 35 min | Expert | Professional HTML test reporting |
+| **10** | **Log4j Integration** | 40 min | Expert | Enterprise logging with Apache Log4j 2 |
 
 **What You'll Build:**
-A complete QA automation framework progressing from basic Java concepts to professional testing tools including Selenium WebDriver, Cucumber BDD scenarios, and ExtentReports - ready for enterprise QA teams.
+A complete QA automation framework progressing from basic Java concepts to professional testing tools including Selenium WebDriver, Cucumber BDD scenarios, ExtentReports, and enterprise-grade Log4j logging - ready for production environments.
 
 ### 📚 Java Fundamentals (Programming Foundation)
 

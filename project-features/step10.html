@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 10: Professional Logging with Log4j | Java Tutorial</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge">10</div>
+                <h1 class="lesson-title">Professional Logging with Log4j</h1>
+                <p class="lesson-description">Transform your custom Singleton logger into enterprise-grade logging using Apache Log4j 2. Master configuration files, log levels, appenders, and best practices for production QA automation frameworks.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Step 10</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="step9.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 9</a>
+                <a href="https://github.com/radu-tataru/radu-tataru-qa-java-course-project-v2/tree/master/step10-log4j-integration" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Code</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Course Complete <i class="bi bi-check-circle"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Log4j 2 Fundamentals</strong><br>
+                        Understand Apache Log4j 2 architecture and core concepts
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Configuration Management</strong><br>
+                        Master log4j2.xml configuration for flexible logging control
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Log Levels & Appenders</strong><br>
+                        Use appropriate log levels (DEBUG, INFO, WARN, ERROR) and multiple output destinations
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Test Framework Integration</strong><br>
+                        Integrate Log4j with Selenium, Cucumber, and ExtentReports for professional test logging
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prerequisites -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bookmark-check"></i></div>
+                Prerequisites
+            </h2>
+            <p>This step builds on your complete QA automation framework and custom logging from earlier steps:</p>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Required:</strong> Complete all previous steps (1-9) first. This step enhances your existing test framework with professional logging.
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="prerequisite-item">
+                        <i class="bi bi-check-circle text-success"></i>
+                        <a href="step4.html" class="prerequisite-link">Step 4: Singleton Logger</a>
+                        <span class="prerequisite-desc">- Custom logging implementation</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="prerequisite-item">
+                        <i class="bi bi-check-circle text-success"></i>
+                        <a href="step5.html" class="prerequisite-link">Step 5: Maven Build</a>
+                        <span class="prerequisite-desc">- Dependency management with pom.xml</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="prerequisite-item">
+                        <i class="bi bi-check-circle text-success"></i>
+                        <a href="step7.html" class="prerequisite-link">Step 7: Page Object Model</a>
+                        <span class="prerequisite-desc">- Test framework architecture</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="prerequisite-item">
+                        <i class="bi bi-check-circle text-success"></i>
+                        <a href="step9.html" class="prerequisite-link">Step 9: ExtentReports</a>
+                        <span class="prerequisite-desc">- Professional test reporting</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- From Custom to Professional -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-lightbulb"></i></div>
+                From Custom Logger to Log4j: The Professional Upgrade
+            </h2>
+
+            <p>Remember the Singleton Logger you built in <a href="step4.html"><strong>Step 4</strong></a>? It was a great learning experience and demonstrated core design patterns. Now it's time to upgrade to what 90% of enterprise Java applications use: <strong>Apache Log4j 2</strong>.</p>
+
+            <h3>Why Upgrade from Your Custom Logger?</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Battle-Tested Reliability</strong><br>
+                        Log4j is used by millions of applications worldwide - proven stability and performance
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Rich Feature Set</strong><br>
+                        Multiple log levels, rotating files, console colors, async logging, filters
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Zero-Code Configuration</strong><br>
+                        Change logging behavior via XML/JSON files without recompiling code
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Industry Standard</strong><br>
+                        Expected by employers - critical skill for QA automation engineers
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Learning Journey:</strong> Building your own logger taught you WHY logging frameworks exist and HOW they work internally. Now you'll appreciate Log4j's power because you understand the problems it solves!
+                </div>
+            </div>
+        </div>
+
+        <!-- Log4j Architecture -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-diagram-3"></i></div>
+                Understanding Log4j 2 Architecture
+            </h2>
+
+            <p>Log4j 2 has three core components that work together:</p>
+
+            <h3>📝 1. Loggers - What You Write Code Against</h3>
+            <p>Loggers are the entry point for your code. You get a logger instance and call methods like <code>logger.info()</code>, <code>logger.error()</code>, etc.</p>
+            <pre><code class="language-java">import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class MyTest {
+    private static final Logger logger = LogManager.getLogger(MyTest.class);
+
+    public void runTest() {
+        logger.info("Test started");
+        logger.debug("Debug details here");
+        logger.error("Something failed!");
+    }
+}</code></pre>
+
+            <h3>📊 2. Log Levels - Controlling Verbosity</h3>
+            <p>Log4j 2 has six standard log levels (from least to most severe):</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Purpose</th>
+                        <th>Example Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>TRACE</code></td>
+                        <td>Very detailed diagnostic</td>
+                        <td>Method entry/exit, variable values at each step</td>
+                    </tr>
+                    <tr>
+                        <td><code>DEBUG</code></td>
+                        <td>Detailed debugging info</td>
+                        <td>"Opening URL: https://...", "Element found: username_field"</td>
+                    </tr>
+                    <tr>
+                        <td><code>INFO</code></td>
+                        <td>Important business events</td>
+                        <td>"Test scenario started", "Login successful", "Report generated"</td>
+                    </tr>
+                    <tr>
+                        <td><code>WARN</code></td>
+                        <td>Potentially harmful situations</td>
+                        <td>"Element took 15s to load (slow)", "Deprecated API used"</td>
+                    </tr>
+                    <tr>
+                        <td><code>ERROR</code></td>
+                        <td>Error events</td>
+                        <td>"Test failed: element not found", "Screenshot capture failed"</td>
+                    </tr>
+                    <tr>
+                        <td><code>FATAL</code></td>
+                        <td>Critical failures</td>
+                        <td>"WebDriver crashed", "Database connection lost"</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Pro Tip:</strong> Set level to INFO in production, DEBUG during test development, and TRACE only when investigating specific issues. This controls log file size and readability.
+                </div>
+            </div>
+
+            <h3>📤 3. Appenders - Where Logs Go</h3>
+            <p>Appenders define output destinations. Common types:</p>
+            <ul>
+                <li><strong>ConsoleAppender:</strong> Writes to terminal (stdout/stderr)</li>
+                <li><strong>FileAppender:</strong> Writes to a single file</li>
+                <li><strong>RollingFileAppender:</strong> Creates new files when size/time limits hit (prevents huge files)</li>
+                <li><strong>AsyncAppender:</strong> Non-blocking logging for high-performance apps</li>
+            </ul>
+
+            <p><strong>You can have multiple appenders!</strong> Common pattern: Console for immediate feedback + RollingFile for persistent history.</p>
+        </div>
+
+        <!-- Maven Dependencies -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-box-seam"></i></div>
+                Adding Log4j 2 to Your Project
+            </h2>
+
+            <h3>Step 1: Update Maven Dependencies</h3>
+            <p>Add Log4j 2 dependencies to your <code>pom.xml</code>:</p>
+            <pre><code class="language-xml">&lt;dependencies&gt;
+    &lt;!-- Log4j 2 Core --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+        &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;
+        &lt;version&gt;2.20.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- Log4j 2 API --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+        &lt;artifactId&gt;log4j-api&lt;/artifactId&gt;
+        &lt;version&gt;2.20.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- Existing dependencies (Selenium, Cucumber, ExtentReports) remain --&gt;
+&lt;/dependencies&gt;</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Version Note:</strong> Log4j 2.20.0 (2023) is stable and production-ready. Always use version 2.17.0+ to avoid security vulnerabilities found in older versions.
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuration File -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-gear"></i></div>
+                Creating the Log4j Configuration File
+            </h2>
+
+            <h3>Step 2: Create <code>log4j2.xml</code></h3>
+            <p>Create this file in <code>src/main/resources/log4j2.xml</code>:</p>
+
+            <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Configuration status="WARN"&gt;
+    &lt;Properties&gt;
+        &lt;!-- Define reusable properties --&gt;
+        &lt;Property name="log-path"&gt;logs&lt;/Property&gt;
+        &lt;Property name="log-pattern"&gt;%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n&lt;/Property&gt;
+    &lt;/Properties&gt;
+
+    &lt;Appenders&gt;
+        &lt;!-- Console Appender - for immediate feedback --&gt;
+        &lt;Console name="Console" target="SYSTEM_OUT"&gt;
+            &lt;PatternLayout pattern="${log-pattern}"/&gt;
+        &lt;/Console&gt;
+
+        &lt;!-- File Appender - all logs in one file --&gt;
+        &lt;File name="FileLogger" fileName="${log-path}/app.log" append="true"&gt;
+            &lt;PatternLayout pattern="${log-pattern}"/&gt;
+        &lt;/File&gt;
+
+        &lt;!-- Rolling File Appender - creates new file daily and when size exceeds 10MB --&gt;
+        &lt;RollingFile name="RollingFileLogger"
+                     fileName="${log-path}/test-automation.log"
+                     filePattern="${log-path}/test-automation-%d{yyyy-MM-dd}-%i.log"&gt;
+            &lt;PatternLayout pattern="${log-pattern}"/&gt;
+            &lt;Policies&gt;
+                &lt;TimeBasedTriggeringPolicy interval="1" modulate="true"/&gt;
+                &lt;SizeBasedTriggeringPolicy size="10MB"/&gt;
+            &lt;/Policies&gt;
+            &lt;DefaultRolloverStrategy max="30"/&gt;
+        &lt;/RollingFile&gt;
+    &lt;/Appenders&gt;
+
+    &lt;Loggers&gt;
+        &lt;!-- Root logger - applies to all classes --&gt;
+        &lt;Root level="info"&gt;
+            &lt;AppenderRef ref="Console"/&gt;
+            &lt;AppenderRef ref="RollingFileLogger"/&gt;
+        &lt;/Root&gt;
+
+        &lt;!-- Package-specific loggers - more control --&gt;
+        &lt;Logger name="com.example.app" level="debug" additivity="false"&gt;
+            &lt;AppenderRef ref="Console"/&gt;
+            &lt;AppenderRef ref="RollingFileLogger"/&gt;
+        &lt;/Logger&gt;
+
+        &lt;!-- Selenium WebDriver - reduce noise --&gt;
+        &lt;Logger name="org.openqa.selenium" level="warn" additivity="false"&gt;
+            &lt;AppenderRef ref="Console"/&gt;
+        &lt;/Logger&gt;
+    &lt;/Loggers&gt;
+&lt;/Configuration&gt;</code></pre>
+
+            <h3>Understanding the Configuration</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-gear objective-icon"></i>
+                    <div>
+                        <strong>Properties Section</strong><br>
+                        Defines reusable variables like log directory and output format pattern
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-file-earmark objective-icon"></i>
+                    <div>
+                        <strong>Appenders Section</strong><br>
+                        Configures output destinations: Console + RollingFile for organized logging
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-funnel objective-icon"></i>
+                    <div>
+                        <strong>Loggers Section</strong><br>
+                        Controls verbosity per package: DEBUG for your code, WARN for noisy libraries
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Replacing Custom Logger -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-arrow-left-right"></i></div>
+                Replacing Your Custom Logger
+            </h2>
+
+            <h3>Before: Custom Singleton Logger (Step 4)</h3>
+            <pre><code class="language-java">package com.example.app;
+
+public class Main {
+    public static void main(String[] args) {
+        Logger logger = Logger.getInstance();
+        logger.logLinkOpened("https://www.google.com");
+        logger.logLinkFailed("https://invalid.url");
+    }
+}
+
+// Custom Logger class
+public class Logger {
+    private static Logger instance = null;
+    private String logFile = "java_project/data/activity.log";
+
+    private Logger() { }
+
+    public static Logger getInstance() {
+        if (instance == null) {
+            instance = new Logger();
+        }
+        return instance;
+    }
+
+    public void logLinkOpened(String link) {
+        writeToFile("LINK_OPENED", link, "Successfully opened");
+    }
+
+    public void logLinkFailed(String link) {
+        writeToFile("LINK_FAILED", link, "Failed to open");
+    }
+
+    private void writeToFile(String action, String link, String description) {
+        // File writing logic...
+    }
+}</code></pre>
+
+            <h3>After: Log4j 2 Logger</h3>
+            <pre><code class="language-java">package com.example.app;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+public class Main {
+    // Get logger for this class
+    private static final Logger logger = LogManager.getLogger(Main.class);
+
+    public static void main(String[] args) {
+        logger.info("Application started");
+
+        // Different log levels
+        logger.info("Opening link: https://www.google.com");
+        logger.debug("Browser instance created successfully");
+        logger.error("Failed to open link: https://invalid.url");
+
+        logger.info("Application finished");
+    }
+}</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-trophy alert-icon"></i>
+                <div>
+                    <strong>Much Simpler!</strong> No more custom Logger class, no getInstance() calls, no manual file handling. Log4j manages everything through configuration.
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Framework Integration -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                Integrating Log4j with Your Test Framework
+            </h2>
+
+            <h3>Page Object Model with Log4j (Step 7 Enhanced)</h3>
+            <pre><code class="language-java">package com.example.app.pages;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class GoogleHomePage {
+    private static final Logger logger = LogManager.getLogger(GoogleHomePage.class);
+    private WebDriver driver;
+
+    @FindBy(name = "q")
+    private WebElement searchBox;
+
+    @FindBy(name = "btnK")
+    private WebElement searchButton;
+
+    public GoogleHomePage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+        logger.info("GoogleHomePage initialized");
+    }
+
+    public void searchFor(String query) {
+        logger.debug("Searching for: {}", query);
+        try {
+            searchBox.sendKeys(query);
+            searchButton.click();
+            logger.info("Search completed successfully for: {}", query);
+        } catch (Exception e) {
+            logger.error("Search failed for: {}", query, e);
+            throw e;
+        }
+    }
+
+    public String getTitle() {
+        String title = driver.getTitle();
+        logger.debug("Page title: {}", title);
+        return title;
+    }
+}</code></pre>
+
+            <h3>Test Class with Log4j</h3>
+            <pre><code class="language-java">package com.example.app.tests;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import com.example.app.pages.GoogleHomePage;
+
+public class SearchTest {
+    private static final Logger logger = LogManager.getLogger(SearchTest.class);
+    private WebDriver driver;
+    private GoogleHomePage homePage;
+
+    @BeforeEach
+    public void setup() {
+        logger.info("=== Test Setup Started ===");
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        logger.debug("WebDriver initialized: Chrome");
+
+        driver.get("https://www.google.com");
+        homePage = new GoogleHomePage(driver);
+        logger.info("=== Test Setup Complete ===");
+    }
+
+    @Test
+    @DisplayName("Verify Google Search Functionality")
+    public void testGoogleSearch() {
+        logger.info("TEST STARTED: testGoogleSearch");
+
+        homePage.searchFor("Selenium WebDriver");
+
+        String title = homePage.getTitle();
+        logger.info("Verification: Page title = {}", title);
+
+        Assertions.assertTrue(title.contains("Selenium"),
+            "Title should contain 'Selenium'");
+
+        logger.info("TEST PASSED: testGoogleSearch");
+    }
+
+    @AfterEach
+    public void teardown() {
+        logger.info("=== Test Teardown Started ===");
+        if (driver != null) {
+            driver.quit();
+            logger.debug("WebDriver closed successfully");
+        }
+        logger.info("=== Test Teardown Complete ===");
+    }
+}</code></pre>
+
+            <h3>Cucumber Step Definitions with Log4j</h3>
+            <pre><code class="language-java">package com.example.app.stepdefs;
+
+import io.cucumber.java.en.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import com.example.app.pages.GoogleHomePage;
+
+public class SearchSteps {
+    private static final Logger logger = LogManager.getLogger(SearchSteps.class);
+    private GoogleHomePage homePage;
+
+    @Given("I am on the Google homepage")
+    public void i_am_on_google_homepage() {
+        logger.info("STEP: User navigates to Google homepage");
+        // Implementation...
+    }
+
+    @When("I search for {string}")
+    public void i_search_for(String query) {
+        logger.info("STEP: User searches for '{}'", query);
+        homePage.searchFor(query);
+    }
+
+    @Then("I should see results for {string}")
+    public void i_should_see_results(String expectedText) {
+        logger.info("STEP: Verifying results contain '{}'", expectedText);
+        // Verification logic...
+        logger.info("VERIFICATION PASSED: Results contain expected text");
+    }
+}</code></pre>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-award"></i></div>
+                Log4j Best Practices for QA Automation
+            </h2>
+
+            <h3>✅ DO - Professional Logging Practices</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Use Appropriate Log Levels</strong><br>
+                        INFO for test milestones, DEBUG for detailed steps, ERROR for failures
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Log Method Entry/Exit</strong><br>
+                        Helps trace test execution flow, especially in complex scenarios
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Include Context in Messages</strong><br>
+                        "Login failed for user: john@example.com" better than "Login failed"
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Log Exceptions with Stack Traces</strong><br>
+                        <code>logger.error("Test failed", exception)</code> captures full error details
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Use Parameterized Logging</strong><br>
+                        <code>logger.info("User {} logged in", username)</code> is more efficient than string concatenation
+                    </div>
+                </div>
+            </div>
+
+            <h3>❌ DON'T - Common Logging Mistakes</h3>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-x-circle objective-icon text-danger"></i>
+                    <div>
+                        <strong>Don't Log Sensitive Data</strong><br>
+                        Never log passwords, API keys, credit cards, or PII
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-x-circle objective-icon text-danger"></i>
+                    <div>
+                        <strong>Don't Over-Log</strong><br>
+                        Logging every variable slows tests and creates noise
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-x-circle objective-icon text-danger"></i>
+                    <div>
+                        <strong>Don't Use System.out.println</strong><br>
+                        Always use logger - it's configurable and can be turned off
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-x-circle objective-icon text-danger"></i>
+                    <div>
+                        <strong>Don't Ignore Log Levels</strong><br>
+                        Using only INFO defeats the purpose of having multiple levels
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-shield-exclamation alert-icon"></i>
+                <div>
+                    <strong>Security Note:</strong> Be especially careful in production environments. Use different configurations for dev/staging/prod to control what gets logged.
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparing Outputs -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-file-earmark-text"></i></div>
+                Comparing Log Outputs: Before vs After
+            </h2>
+
+            <h3>Your Custom Logger Output (Step 4)</h3>
+            <pre><code class="language-text">2025-01-25T14:30:15 | LINK_OPENED | https://www.google.com | Successfully opened in browser
+2025-01-25T14:30:16 | LINK_OPENED | https://www.github.com | Successfully opened in browser
+2025-01-25T14:30:17 | LINK_FAILED | https://invalid.url | Failed to open in browser</code></pre>
+
+            <h3>Log4j Output - Much More Detailed</h3>
+            <pre><code class="language-text">2025-01-25 14:30:15 [main] INFO  com.example.app.Main - Application started
+2025-01-25 14:30:15 [main] INFO  com.example.app.tests.SearchTest - === Test Setup Started ===
+2025-01-25 14:30:16 [main] DEBUG com.example.app.tests.SearchTest - WebDriver initialized: Chrome
+2025-01-25 14:30:16 [main] INFO  com.example.app.pages.GoogleHomePage - GoogleHomePage initialized
+2025-01-25 14:30:16 [main] INFO  com.example.app.tests.SearchTest - === Test Setup Complete ===
+2025-01-25 14:30:16 [main] INFO  com.example.app.tests.SearchTest - TEST STARTED: testGoogleSearch
+2025-01-25 14:30:16 [main] DEBUG com.example.app.pages.GoogleHomePage - Searching for: Selenium WebDriver
+2025-01-25 14:30:17 [main] INFO  com.example.app.pages.GoogleHomePage - Search completed successfully for: Selenium WebDriver
+2025-01-25 14:30:17 [main] DEBUG com.example.app.pages.GoogleHomePage - Page title: Selenium WebDriver - Google Search
+2025-01-25 14:30:17 [main] INFO  com.example.app.tests.SearchTest - Verification: Page title = Selenium WebDriver - Google Search
+2025-01-25 14:30:17 [main] INFO  com.example.app.tests.SearchTest - TEST PASSED: testGoogleSearch
+2025-01-25 14:30:17 [main] INFO  com.example.app.tests.SearchTest - === Test Teardown Started ===
+2025-01-25 14:30:17 [main] DEBUG com.example.app.tests.SearchTest - WebDriver closed successfully
+2025-01-25 14:30:17 [main] INFO  com.example.app.tests.SearchTest - === Test Teardown Complete ===</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-trophy alert-icon"></i>
+                <div>
+                    <strong>Professional Logging Benefits:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>Thread Information:</strong> [main] shows which thread executed the log</li>
+                        <li><strong>Log Levels:</strong> INFO/DEBUG help filter by importance</li>
+                        <li><strong>Class Names:</strong> Fully qualified names show exactly where logs came from</li>
+                        <li><strong>Consistent Format:</strong> Easy to parse and analyze programmatically</li>
+                        <li><strong>Rich Context:</strong> Complete test lifecycle visibility</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course Complete -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-trophy"></i></div>
+                🎓 Course Complete: Your QA Automation Journey
+            </h2>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-trophy alert-icon"></i>
+                <div>
+                    <strong>Congratulations! You've Completed the Full Java QA Automation Course!</strong><br>
+                    You've built a complete, production-ready QA automation framework from scratch.
+                </div>
+            </div>
+
+            <h3>What You've Mastered</h3>
+
+            <h4>Phase 1: Application Development (Steps 1-4)</h4>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>File I/O Operations</strong> - TXT, CSV, JSON file handling with proper error management
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>System Integration</strong> - Desktop API for browser automation
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>OOP Architecture</strong> - Interfaces, inheritance, Factory pattern
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Design Patterns</strong> - Singleton pattern for global services
+                    </div>
+                </div>
+            </div>
+
+            <h4>Phase 2: QA Automation Framework (Steps 5-9)</h4>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Testing Frameworks</strong> - JUnit 5 and TestNG for unit testing
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Build Automation</strong> - Maven for dependency management and test execution
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Selenium WebDriver</strong> - Professional browser automation with screenshot capture
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Page Object Model</strong> - Industry-standard test framework architecture
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Cucumber BDD</strong> - Business-readable test scenarios with Gherkin
+                    </div>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>ExtentReports</strong> - Professional HTML test reporting with dashboards
+                    </div>
+                </div>
+            </div>
+
+            <h4>Phase 3: Production Polish (Step 10)</h4>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle objective-icon"></i>
+                    <div>
+                        <strong>Log4j 2 Integration</strong> - Enterprise-grade logging for production frameworks
+                    </div>
+                </div>
+            </div>
+
+            <h3>🚀 You're Now Ready For</h3>
+            <ul>
+                <li>✅ <strong>QA Automation Engineer Roles</strong> - You have the complete skill set</li>
+                <li>✅ <strong>Enterprise QA Projects</strong> - Your framework follows industry standards</li>
+                <li>✅ <strong>Technical Interviews</strong> - You can explain design decisions and patterns</li>
+                <li>✅ <strong>Team Collaboration</strong> - Your code is maintainable and professional</li>
+                <li>✅ <strong>Continuous Learning</strong> - Solid foundation for advanced topics (CI/CD, Docker, cloud testing)</li>
+            </ul>
+
+            <h3>📚 Next Steps in Your Career</h3>
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Continue Your Learning Journey:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>CI/CD Integration:</strong> Jenkins, GitHub Actions, GitLab CI</li>
+                        <li><strong>API Testing:</strong> RestAssured for REST API automation</li>
+                        <li><strong>Performance Testing:</strong> JMeter, Gatling</li>
+                        <li><strong>Mobile Testing:</strong> Appium for iOS/Android automation</li>
+                        <li><strong>Cloud Testing:</strong> Sauce Labs, BrowserStack, Selenium Grid</li>
+                        <li><strong>Advanced Patterns:</strong> Factory, Builder, Strategy patterns in test automation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-heart-fill alert-icon"></i>
+                <div>
+                    <strong>Thank You for Learning with Us!</strong><br>
+                    You've worked hard and built something real. This framework is yours - customize it, extend it, and use it in your projects. You're now equipped to build professional QA automation solutions.
+                    <p style="margin-top: 10px; margin-bottom: 0;"><strong>Happy Testing! 🎉</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="step9.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Step 9</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Back to Home <i class="bi bi-house"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
