@@ -33,7 +33,7 @@ Java-course/
 │   ├── step2.html                      # Desktop API Integration
 │   ├── step3.html                      # Professional Code Architecture
 │   ├── step4.html                      # Production-Ready Features
-│   ├── step5.html                      # Testing & Build Automation (JUnit, TestNG, Maven)
+│   ├── step5.html                      # Testing & Build Automation (JUnit 5, Maven)
 │   ├── step6.html                      # Selenium WebDriver Integration
 │   ├── step7.html                      # Page Object Model & Advanced Testing
 │   ├── step8.html                      # Cucumber BDD Integration
@@ -95,7 +95,7 @@ Foundation 1 → Foundation 2 → Step 1 → Step 2 → Step 3 → Step 4 → St
 | **2** | **System Integration** | 25 min | Intermediate | Browser interaction, system automation |
 | **3** | **Code Architecture** | 45 min | Advanced | Framework design, modular testing |
 | **4** | **Production Practices** | 35 min | Advanced | Logging, configuration, best practices |
-| **5** | **Testing & Build Automation** | 40 min | Advanced | JUnit 5, TestNG, Maven test lifecycle |
+| **5** | **Testing & Build Automation** | 40 min | Advanced | JUnit 5, Maven test lifecycle |
 | **6** | **Selenium WebDriver** | 35 min | Advanced | Browser automation, WebDriver API |
 | **7** | **Page Object Model** | 45 min | Expert | Industry-standard test framework design |
 | **8** | **Cucumber BDD** | 40 min | Expert | Business-readable test scenarios |
@@ -123,7 +123,7 @@ A complete QA automation framework progressing from basic Java concepts to profe
 | **12** | **Singleton vs Static Patterns** | 30 min | Advanced | Design patterns - global test utilities and drivers |
 
 **What You'll Learn:**
-Comprehensive Java programming foundation covering all concepts needed for professional test automation frameworks including Selenium, TestNG, Cucumber, and custom testing utilities.
+Comprehensive Java programming foundation covering all concepts needed for professional test automation frameworks including Selenium, JUnit 5, Cucumber, and custom testing utilities.
 
 ## 🚀 Getting Started
 
@@ -195,7 +195,7 @@ The **project-features** section will expand to include full QA Automation stack
 - **Selenium WebDriver**: Web application automation
 - **Cucumber BDD**: Behavior-driven testing approach
 - **RestAssured**: API testing and validation
-- **JUnit/TestNG**: Test framework and assertions
+- **JUnit 5**: Modern test framework and assertions
 - **Log4J**: Professional logging for test execution
 - **ExtentReports**: Rich HTML test reporting
 - **Maven/Gradle**: Build and dependency management
