@@ -394,6 +394,147 @@ mvn test -Dcucumber.plugin="pretty,html:target/cucumber-reports"</code></pre>
             </div>
         </div>
 
+        <!-- Builder Pattern for Test Data -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bricks"></i></div>
+                Builder Pattern for Test Data
+            </h2>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Design Pattern Spotlight:</strong> The <strong>Builder pattern</strong> is a creational design pattern that provides a fluent API for constructing complex objects step-by-step. Perfect for creating test data with many optional parameters!
+                </div>
+            </div>
+
+            <h3>Why Builder Pattern for Test Data?</h3>
+            <p>When creating test data objects, you often face these challenges:</p>
+            <ul>
+                <li><strong>Telescoping Constructors:</strong> Multiple constructors with different parameter combinations become unwieldy</li>
+                <li><strong>Readability:</strong> <code>new LinkData("GitHub", "https://github.com", "GitHub Title")</code> - what does each parameter mean?</li>
+                <li><strong>Optional Fields:</strong> Not all test scenarios need all fields populated</li>
+                <li><strong>Validation:</strong> Need to enforce business rules during object creation</li>
+            </ul>
+
+            <h3>Builder Pattern Implementation</h3>
+            <p>Our <code>LinkData</code> class now includes a Builder for flexible object construction:</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Using Builder Pattern - Fluent and Readable
+LinkData githubLink = LinkData.builder()
+        .withName("GitHub")
+        .withUrl("https://github.com")
+        .withExpectedTitle("GitHub: Let's build from here")
+        .build();
+
+// Only required fields - others are optional
+LinkData mavenLink = LinkData.builder()
+        .withName("Maven")
+        .withUrl("https://maven.apache.org")
+        .build();  // expectedTitle is optional
+
+// Flexible ordering - any order works!
+LinkData seleniumLink = LinkData.builder()
+        .withExpectedTitle("Selenium")  // Title first
+        .withName("Selenium")           // Then name
+        .withUrl("https://www.selenium.dev")  // Finally URL
+        .build();</code></pre>
+
+            <h3>Key Benefits of Builder Pattern</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="alert-box alert-success">
+                        <strong>✅ Readability</strong>
+                        <p>Method names like <code>.withName("GitHub")</code> clearly indicate what's being set, unlike positional constructor parameters.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert-box alert-success">
+                        <strong>✅ Flexibility</strong>
+                        <p>Set fields in any order. No need to remember parameter positions or create multiple constructor overloads.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert-box alert-success">
+                        <strong>✅ Immutability</strong>
+                        <p>Once built, objects are immutable (final fields). Thread-safe and prevents accidental modifications.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert-box alert-success">
+                        <strong>✅ Validation</strong>
+                        <p>The <code>build()</code> method can enforce business rules and throw meaningful exceptions.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Builder Pattern Structure</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class LinkData {
+    // Final fields - immutable after construction
+    private final String name;
+    private final String url;
+    private final String expectedTitle;
+
+    // Private constructor - only accessible via Builder
+    private LinkData(Builder builder) {
+        this.name = builder.name;
+        this.url = builder.url;
+        this.expectedTitle = builder.expectedTitle;
+    }
+
+    // Static inner Builder class
+    public static class Builder {
+        private String name;
+        private String url;
+        private String expectedTitle;
+
+        // Fluent setter methods return 'this' for chaining
+        public Builder withName(String name) {
+            this.name = name;
+            return this;  // Enable method chaining
+        }
+
+        public Builder withUrl(String url) {
+            this.url = url;
+            return this;
+        }
+
+        public Builder withExpectedTitle(String expectedTitle) {
+            this.expectedTitle = expectedTitle;
+            return this;
+        }
+
+        // Build method with validation
+        public LinkData build() {
+            if (name == null || name.trim().isEmpty()) {
+                throw new IllegalArgumentException("Name is required");
+            }
+            if (url == null || url.trim().isEmpty()) {
+                throw new IllegalArgumentException("URL is required");
+            }
+            return new LinkData(this);
+        }
+    }
+
+    // Static factory method for convenience
+    public static Builder builder() {
+        return new Builder();
+    }
+}</code></pre>
+
+            <h3>Running the Builder Pattern Demo</h3>
+            <p>Execute the demonstration to see Builder pattern in action:</p>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-bash" style="color: #e2e8f0;"># Run from project root
+mvn exec:java -pl step8-cucumber-bdd -Dexec.mainClass="com.example.app.BuilderPatternDemo"</code></pre>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-star alert-icon"></i>
+                <div>
+                    <strong>Real-World Usage:</strong> Major frameworks like Lombok (<code>@Builder</code>), Apache Commons (<code>HashCodeBuilder</code>), and testing libraries (TestNG's <code>XmlSuite.Builder</code>) all use this pattern extensively!
+                </div>
+            </div>
+        </div>
+
         <!-- Next Steps Preview -->
         <div class="content-section">
             <h2 class="section-title">
