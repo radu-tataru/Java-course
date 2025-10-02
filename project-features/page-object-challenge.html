@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge: Page Object Model Implementation | Java Course</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Challenge Header -->
+    <div class="lesson-header" style="background: linear-gradient(135deg, #9a3412 0%, #cd7f32 100%);">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge" style="background: #fff; color: #9a3412;">
+                    <i class="bi bi-trophy-fill"></i>
+                </div>
+                <h1 class="lesson-title">🎯 Challenge: Page Object Model Implementation</h1>
+                <p class="lesson-description">Design and implement a complete Page Object Model framework for a real website. Practice industry-standard test automation patterns used by professional QA engineers.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><a href="step7.html">Step 7</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: #cd7f32;">POM Challenge</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="step7.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Step 7</a>
+                <a href="https://github.com/radu-tataru/Java-course-project-steps/tree/master/challenge-page-object-model" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Solution</a>
+                <a href="step8.html" class="nav-btn nav-btn-primary">Continue to Step 8 <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Challenge Overview -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #cd7f32;"><i class="bi bi-flag-fill"></i></div>
+                Challenge Overview
+            </h2>
+
+            <div class="alert-box" style="border-left: 4px solid #cd7f32; background: #fef7ed;">
+                <i class="bi bi-trophy alert-icon" style="color: #cd7f32;"></i>
+                <div>
+                    <strong>Your Mission:</strong> Create a complete Page Object Model framework for a chosen website. Design reusable page classes, implement comprehensive test scenarios, and demonstrate mastery of the POM design pattern.
+                    <br><br>
+                    <strong>Time:</strong> 90 minutes (team challenge)<br>
+                    <strong>Format:</strong> Pair programming or small teams (2-3 people)<br>
+                    <strong>Difficulty:</strong> Intermediate to Advanced
+                </div>
+            </div>
+
+            <h3>Why This Challenge Matters</h3>
+            <p>The Page Object Model is the most widely-used design pattern in test automation. This challenge simulates real-world scenarios where QA engineers must:</p>
+            <ul>
+                <li><strong>Analyze a website</strong> and identify pages and components</li>
+                <li><strong>Design a maintainable architecture</strong> for test automation</li>
+                <li><strong>Implement reusable page objects</strong> following best practices</li>
+                <li><strong>Write clean, readable test scenarios</strong> using page objects</li>
+                <li><strong>Handle dynamic elements</strong> and edge cases</li>
+            </ul>
+        </div>
+
+        <!-- Challenge Options -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #cd7f32;"><i class="bi bi-list-check"></i></div>
+                Choose Your Challenge Level
+            </h2>
+
+            <!-- Simple Challenge -->
+            <div class="alert-box alert-success">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                    <h3 style="margin: 0; color: #166534;">
+                        <i class="bi bi-star"></i> Simple: Wikipedia Article Page
+                    </h3>
+                    <span style="background: #166534; color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.85em;">
+                        BEGINNER
+                    </span>
+                </div>
+                <p><strong>Target Site:</strong> Wikipedia.org (any article page)</p>
+                <p><strong>What to Build:</strong></p>
+                <ul>
+                    <li><code>BasePage.java</code> - Common page functionality (WebDriver management, waits, screenshots)</li>
+                    <li><code>WikipediaArticlePage.java</code> - Main article page object</li>
+                    <li>Test scenarios for article navigation and search</li>
+                </ul>
+                <p><strong>Required Features:</strong></p>
+                <ul>
+                    <li>Search for articles</li>
+                    <li>Navigate to random articles</li>
+                    <li>Verify article title and content</li>
+                    <li>Check "Related Articles" section</li>
+                    <li>Take screenshots of pages</li>
+                </ul>
+            </div>
+
+            <!-- Advanced Challenge -->
+            <div class="alert-box alert-warning">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                    <h3 style="margin: 0; color: #854d0e;">
+                        <i class="bi bi-stars"></i> Advanced: E-commerce Product Flow
+                    </h3>
+                    <span style="background: #854d0e; color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.85em;">
+                        ADVANCED
+                    </span>
+                </div>
+                <p><strong>Target Site:</strong> DemoQA.com/books (Book Store Application)</p>
+                <p><strong>What to Build:</strong></p>
+                <ul>
+                    <li><code>BasePage.java</code> - Common functionality with advanced waits</li>
+                    <li><code>BookStoreHomePage.java</code> - Main catalog page</li>
+                    <li><code>BookDetailsPage.java</code> - Individual book page</li>
+                    <li><code>LoginPage.java</code> - User authentication</li>
+                    <li><code>ProfilePage.java</code> - User profile and collection</li>
+                    <li>Complete test suite with multiple scenarios</li>
+                </ul>
+                <p><strong>Required Features:</strong></p>
+                <ul>
+                    <li>User registration and login</li>
+                    <li>Search and filter books</li>
+                    <li>Add books to collection</li>
+                    <li>View book details</li>
+                    <li>Remove books from collection</li>
+                    <li>Verify collection state</li>
+                    <li>Handle dynamic content and loading states</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Architecture Requirements -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #cd7f32;"><i class="bi bi-diagram-3"></i></div>
+                Architecture Requirements
+            </h2>
+
+            <h3>1. BasePage Structure</h3>
+            <p>Your BasePage should include:</p>
+            <pre><code class="language-java">public abstract class BasePage {
+    protected WebDriver driver;
+    protected WebDriverWait wait;
+
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    // Common methods all pages need:
+    protected void click(By locator) { /* ... */ }
+    protected void type(By locator, String text) { /* ... */ }
+    protected String getText(By locator) { /* ... */ }
+    protected boolean isElementVisible(By locator) { /* ... */ }
+    protected void waitForElement(By locator) { /* ... */ }
+    protected void takeScreenshot(String filename) { /* ... */ }
+
+    public abstract String getPageTitle();
+    public abstract boolean isPageLoaded();
+}</code></pre>
+
+            <h3>2. Page Object Structure</h3>
+            <p>Each page class should follow this pattern:</p>
+            <pre><code class="language-java">public class WikipediaArticlePage extends BasePage {
+
+    // Locators (private and organized by section)
+    private By searchInput = By.id("searchInput");
+    private By searchButton = By.cssSelector("button[type='submit']");
+    private By articleTitle = By.id("firstHeading");
+    private By randomArticleLink = By.id("n-randompage");
+
+    // Constructor
+    public WikipediaArticlePage(WebDriver driver) {
+        super(driver);
+    }
+
+    // Page-specific actions (public methods)
+    public void searchForArticle(String searchTerm) {
+        type(searchInput, searchTerm);
+        click(searchButton);
+    }
+
+    public String getArticleTitle() {
+        return getText(articleTitle);
+    }
+
+    public void navigateToRandomArticle() {
+        click(randomArticleLink);
+    }
+
+    // Verification methods
+    @Override
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    @Override
+    public boolean isPageLoaded() {
+        return isElementVisible(articleTitle);
+    }
+}</code></pre>
+
+            <h3>3. Test Structure</h3>
+            <p>Your test class should look like:</p>
+            <pre><code class="language-java">public class WikipediaTest {
+    private WebDriver driver;
+    private WikipediaArticlePage articlePage;
+
+    @BeforeEach
+    public void setUp() {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.wikipedia.org");
+
+        articlePage = new WikipediaArticlePage(driver);
+    }
+
+    @Test
+    @DisplayName("Search for an article and verify title")
+    public void testArticleSearch() {
+        articlePage.searchForArticle("Selenium (software)");
+
+        assertTrue(articlePage.isPageLoaded(),
+            "Article page should be loaded");
+        assertEquals("Selenium (software)", articlePage.getArticleTitle(),
+            "Article title should match search term");
+    }
+
+    @AfterEach
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+}</code></pre>
+        </div>
+
+        <!-- Success Criteria -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #cd7f32;"><i class="bi bi-check2-circle"></i></div>
+                Success Criteria
+            </h2>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-clipboard-check alert-icon"></i>
+                <div>
+                    <strong>Your solution must include:</strong>
+                    <ol style="margin-bottom: 0;">
+                        <li><strong>BasePage class</strong> with common functionality used by all pages</li>
+                        <li><strong>At least 2 page objects</strong> (3+ for advanced challenge)</li>
+                        <li><strong>Proper encapsulation</strong> - locators private, actions public</li>
+                        <li><strong>Meaningful method names</strong> that describe actions from user perspective</li>
+                        <li><strong>At least 5 test scenarios</strong> (8+ for advanced)</li>
+                        <li><strong>All tests passing</strong> with proper assertions</li>
+                        <li><strong>Screenshot capability</strong> for failed tests</li>
+                        <li><strong>README.md</strong> explaining your design decisions</li>
+                    </ol>
+                </div>
+            </div>
+
+            <h3>Code Quality Checklist</h3>
+            <ul>
+                <li>✅ <strong>DRY Principle:</strong> No duplicated code across page objects</li>
+                <li>✅ <strong>Single Responsibility:</strong> Each page class represents one page/component</li>
+                <li>✅ <strong>Explicit Waits:</strong> Proper WebDriverWait usage, no Thread.sleep()</li>
+                <li>✅ <strong>Clean Locators:</strong> Well-organized, descriptive locator variables</li>
+                <li>✅ <strong>Error Handling:</strong> Graceful handling of element not found scenarios</li>
+                <li>✅ <strong>Test Independence:</strong> Each test can run independently</li>
+                <li>✅ <strong>Readable Tests:</strong> Tests read like user stories</li>
+            </ul>
+        </div>
+
+        <!-- Before & After Example -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #cd7f32;"><i class="bi bi-arrow-left-right"></i></div>
+                Before & After: The Power of Page Objects
+            </h2>
+
+            <h3>❌ Before: Without Page Objects (Messy)</h3>
+            <pre><code class="language-java">@Test
+public void testWikipediaSearch() {
+    driver.get("https://www.wikipedia.org");
+
+    WebElement searchBox = driver.findElement(By.id("searchInput"));
+    searchBox.sendKeys("Selenium");
+
+    WebElement searchBtn = driver.findElement(By.cssSelector("button[type='submit']"));
+    searchBtn.click();
+
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.id("firstHeading")));
+
+    String title = driver.findElement(By.id("firstHeading")).getText();
+    assertEquals("Selenium", title);
+}
+
+@Test
+public void testWikipediaRandomArticle() {
+    driver.get("https://www.wikipedia.org");
+
+    // Same locators repeated!
+    WebElement randomLink = driver.findElement(By.id("n-randompage"));
+    randomLink.click();
+
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.id("firstHeading")));
+
+    String title = driver.findElement(By.id("firstHeading")).getText();
+    assertNotNull(title);
+}</code></pre>
+
+            <h3>✅ After: With Page Objects (Clean & Maintainable)</h3>
+            <pre><code class="language-java">@Test
+@DisplayName("Search for article and verify title")
+public void testWikipediaSearch() {
+    articlePage.searchForArticle("Selenium");
+
+    assertTrue(articlePage.isPageLoaded());
+    assertEquals("Selenium", articlePage.getArticleTitle());
+}
+
+@Test
+@DisplayName("Navigate to random article")
+public void testWikipediaRandomArticle() {
+    articlePage.navigateToRandomArticle();
+
+    assertTrue(articlePage.isPageLoaded());
+    assertNotNull(articlePage.getArticleTitle());
+}</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Notice the difference:</strong>
+                    <ul style="margin-bottom: 0;">
+                        <li>Tests are <strong>dramatically shorter</strong> and easier to read</li>
+                        <li>Locators are <strong>defined once</strong> in the page object</li>
+                        <li>If Wikipedia changes their UI, you update <strong>one place</strong></li>
+                        <li>Tests read like <strong>user actions</strong>, not technical code</li>
+                        <li>New team members can <strong>understand tests</strong> immediately</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips & Best Practices -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #cd7f32;"><i class="bi bi-lightbulb"></i></div>
+                Tips & Best Practices
+            </h2>
+
+            <h3>🎯 Page Object Design Tips</h3>
+            <ul>
+                <li><strong>One page class per page:</strong> Don't mix multiple pages in one class</li>
+                <li><strong>Actions return page objects:</strong> Enable method chaining (e.g., <code>loginPage.login().verifyDashboard()</code>)</li>
+                <li><strong>Use descriptive method names:</strong> <code>clickLoginButton()</code> not <code>click()</code></li>
+                <li><strong>Keep locators private:</strong> Tests should never access locators directly</li>
+                <li><strong>Group related elements:</strong> Use comments to organize locators by section</li>
+            </ul>
+
+            <h3>⏰ Waiting Strategies</h3>
+            <pre><code class="language-java">// ✅ GOOD: Explicit wait in BasePage
+protected void waitForElement(By locator) {
+    wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+}
+
+// ❌ BAD: Hard-coded waits
+Thread.sleep(5000); // Don't do this!</code></pre>
+
+            <h3>🧪 Test Organization</h3>
+            <ul>
+                <li><strong>Use @BeforeEach:</strong> Initialize WebDriver and page objects</li>
+                <li><strong>Use @AfterEach:</strong> Always quit WebDriver to free resources</li>
+                <li><strong>Use @DisplayName:</strong> Make test purposes crystal clear</li>
+                <li><strong>One assertion per test:</strong> Or group related assertions</li>
+            </ul>
+
+            <h3>🐛 Common Pitfalls to Avoid</h3>
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <ul style="margin-bottom: 0;">
+                        <li>❌ <strong>Using Thread.sleep():</strong> Use explicit waits instead</li>
+                        <li>❌ <strong>Tests depending on each other:</strong> Each test should be independent</li>
+                        <li>❌ <strong>Hard-coded test data:</strong> Use variables or data providers</li>
+                        <li>❌ <strong>Mixing assertions and actions:</strong> Keep page objects focused on actions</li>
+                        <li>❌ <strong>Exposing WebDriver:</strong> Keep driver private in BasePage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Getting Started -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #cd7f32;"><i class="bi bi-play-circle"></i></div>
+                Getting Started
+            </h2>
+
+            <h3>Step 1: Setup Your Project</h3>
+            <pre><code class="language-bash"># Create new Maven module
+cd qa-java-course-project-v2
+mkdir challenge-page-object-model
+cd challenge-page-object-model
+
+# Create standard Maven structure
+mkdir -p src/main/java/com/example/app
+mkdir -p src/test/java/com/example/app
+mkdir -p screenshots</code></pre>
+
+            <h3>Step 2: Add Dependencies (pom.xml)</h3>
+            <pre><code class="language-xml">&lt;dependencies&gt;
+    &lt;!-- Selenium WebDriver --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
+        &lt;artifactId&gt;selenium-java&lt;/artifactId&gt;
+        &lt;version&gt;4.15.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- WebDriverManager --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.github.bonigarcia&lt;/groupId&gt;
+        &lt;artifactId&gt;webdrivermanager&lt;/artifactId&gt;
+        &lt;version&gt;5.6.2&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- JUnit 5 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+        &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
+        &lt;version&gt;5.9.2&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+
+            <h3>Step 3: Create BasePage</h3>
+            <p>Start by implementing the BasePage with common functionality.</p>
+
+            <h3>Step 4: Create Your First Page Object</h3>
+            <p>Choose your target page and create a page object class.</p>
+
+            <h3>Step 5: Write Tests</h3>
+            <p>Create test scenarios that use your page objects.</p>
+
+            <h3>Step 6: Run and Verify</h3>
+            <pre><code class="language-bash">mvn test</code></pre>
+        </div>
+
+        <!-- Resources -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon" style="background: #cd7f32;"><i class="bi bi-book"></i></div>
+                Additional Resources
+            </h2>
+
+            <h3>📚 Official Documentation</h3>
+            <ul>
+                <li><a href="https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/" target="_blank">Selenium Page Object Model Guide</a></li>
+                <li><a href="https://github.com/SeleniumHQ/selenium/wiki/PageObjects" target="_blank">Selenium Wiki: Page Objects</a></li>
+                <li><a href="https://martinfowler.com/bliki/PageObject.html" target="_blank">Martin Fowler: PageObject Pattern</a></li>
+            </ul>
+
+            <h3>🎥 Video Tutorials</h3>
+            <ul>
+                <li>Search YouTube: "Page Object Model Selenium Java"</li>
+                <li>Search YouTube: "POM design pattern automation"</li>
+            </ul>
+
+            <h3>💡 Example Projects</h3>
+            <ul>
+                <li>Refer to <strong>Step 7</strong> implementation for reference</li>
+                <li>Check the <strong>solution repository</strong> for complete examples</li>
+            </ul>
+        </div>
+
+        <!-- Challenge Complete -->
+        <div class="content-section">
+            <div class="alert-box" style="border-left: 4px solid #cd7f32; background: linear-gradient(135deg, #fef7ed 0%, #fed7aa 100%);">
+                <i class="bi bi-trophy alert-icon" style="color: #cd7f32;"></i>
+                <div>
+                    <h3 style="color: #9a3412; margin-top: 0;">🎉 Challenge Complete!</h3>
+                    <p>Once you've implemented your Page Object Model framework and all tests are passing, you've mastered one of the most important patterns in test automation!</p>
+                    <p><strong>Next Steps:</strong></p>
+                    <ul style="margin-bottom: 0;">
+                        <li>Compare your solution with the provided reference implementation</li>
+                        <li>Get feedback from your instructor or peers</li>
+                        <li>Continue to <strong>Step 8: Cucumber BDD</strong> to learn how to write business-readable tests using your page objects</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav bottom-nav">
+            <div class="nav-actions">
+                <a href="step7.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Step 7</a>
+                <a href="https://github.com/radu-tataru/Java-course-project-steps/tree/master/challenge-page-object-model" class="nav-btn nav-btn-secondary" target="_blank"><i class="bi bi-github"></i> View Solution</a>
+                <a href="step8.html" class="nav-btn nav-btn-primary">Continue to Step 8 <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>
