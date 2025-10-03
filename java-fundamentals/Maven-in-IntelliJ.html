@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maven in IntelliJ IDEA - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-gear-fill"></i></div>
+                <h1 class="lesson-title">Maven in IntelliJ IDEA</h1>
+                <p class="lesson-description">Master Maven project management and build automation in IntelliJ IDEA for professional Java development</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Maven in IntelliJ IDEA</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand what Maven is and why it's essential for Java projects</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Create and configure Maven projects in IntelliJ IDEA</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand pom.xml structure and configuration</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Manage dependencies and external libraries</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Execute Maven lifecycle commands (clean, compile, test, package)</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use IntelliJ's Maven tool window for project management</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                1. What is Maven?
+            </h2>
+
+            <p><strong>Apache Maven</strong> is a powerful build automation and project management tool for Java applications. It handles dependency management, project building, testing, and deployment.</p>
+
+            <h3 class="mt-4">Why Use Maven?</h3>
+            <ul>
+                <li><strong>Dependency Management:</strong> Automatically download and manage external libraries (JUnit, Selenium, Apache POI, etc.)</li>
+                <li><strong>Standardized Project Structure:</strong> Consistent folder organization across all Maven projects</li>
+                <li><strong>Build Automation:</strong> Compile, test, package, and deploy with simple commands</li>
+                <li><strong>Plugin Ecosystem:</strong> Extend functionality with thousands of plugins</li>
+                <li><strong>Multi-Module Projects:</strong> Manage complex projects with multiple sub-modules</li>
+            </ul>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Maven vs Manual JAR Management:</strong> Instead of manually downloading JAR files and adding them to your project, Maven automatically fetches dependencies from central repositories and manages version conflicts.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-folder-plus"></i></div>
+                2. Creating a Maven Project in IntelliJ
+            </h2>
+
+            <h3 class="mt-4">Method 1: New Project Wizard</h3>
+            <ol>
+                <li>Open IntelliJ IDEA</li>
+                <li>Click <strong>File → New → Project</strong></li>
+                <li>Select <strong>Maven</strong> from the left sidebar</li>
+                <li>Configure project settings:
+                    <ul>
+                        <li><strong>Name:</strong> Your project name (e.g., "file-reader-app")</li>
+                        <li><strong>Location:</strong> Project directory path</li>
+                        <li><strong>JDK:</strong> Select Java 11 or higher</li>
+                    </ul>
+                </li>
+                <li>Expand <strong>Advanced Settings</strong> and configure Maven coordinates:
+                    <ul>
+                        <li><strong>GroupId:</strong> com.example (reverse domain notation)</li>
+                        <li><strong>ArtifactId:</strong> file-reader-app (project identifier)</li>
+                        <li><strong>Version:</strong> 1.0-SNAPSHOT (development version)</li>
+                    </ul>
+                </li>
+                <li>Click <strong>Create</strong></li>
+            </ol>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Pro Tip:</strong> IntelliJ IDEA Community Edition includes full Maven support. You don't need the Ultimate version for Maven functionality.
+                </div>
+            </div>
+
+            <h3 class="mt-4">Method 2: Import Existing Maven Project</h3>
+            <ol>
+                <li>Click <strong>File → Open</strong></li>
+                <li>Navigate to the folder containing <code>pom.xml</code></li>
+                <li>Select the folder (or pom.xml directly) and click <strong>OK</strong></li>
+                <li>IntelliJ will detect Maven and import the project automatically</li>
+            </ol>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-file-earmark-code"></i></div>
+                3. Understanding pom.xml
+            </h2>
+
+            <p>The <code>pom.xml</code> (Project Object Model) is the heart of a Maven project. It defines project configuration, dependencies, and build settings.</p>
+
+            <h3 class="mt-4">Basic pom.xml Structure</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-xml" style="color: #e2e8f0;">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;!-- Project Coordinates --&gt;
+    &lt;groupId&gt;com.example&lt;/groupId&gt;
+    &lt;artifactId&gt;file-reader-app&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;!-- Project Properties --&gt;
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;/properties&gt;
+
+    &lt;!-- Dependencies --&gt;
+    &lt;dependencies&gt;
+        &lt;!-- Dependencies go here --&gt;
+    &lt;/dependencies&gt;
+
+    &lt;!-- Build Configuration --&gt;
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;!-- Build plugins go here --&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+
+            <h3 class="mt-4">Key Elements Explained</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Element</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>&lt;groupId&gt;</code></td>
+                            <td>Organization/company identifier (reverse domain)</td>
+                            <td>com.example</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;artifactId&gt;</code></td>
+                            <td>Project name/identifier</td>
+                            <td>file-reader-app</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;version&gt;</code></td>
+                            <td>Project version</td>
+                            <td>1.0-SNAPSHOT</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;properties&gt;</code></td>
+                            <td>Configuration variables</td>
+                            <td>Java version, encoding</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;dependencies&gt;</code></td>
+                            <td>External libraries</td>
+                            <td>JUnit, Selenium, etc.</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;build&gt;</code></td>
+                            <td>Build configuration and plugins</td>
+                            <td>Compiler, test runners</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-box-seam"></i></div>
+                4. Managing Dependencies
+            </h2>
+
+            <p>Dependencies are external libraries your project needs. Maven downloads them automatically from central repositories.</p>
+
+            <h3 class="mt-4">Adding a Dependency</h3>
+            <p>To add a library (e.g., JUnit 5 for testing), add it to the <code>&lt;dependencies&gt;</code> section:</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-xml" style="color: #e2e8f0;">&lt;dependencies&gt;
+    &lt;!-- JUnit 5 for testing --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+        &lt;artifactId&gt;junit-jupiter-api&lt;/artifactId&gt;
+        &lt;version&gt;5.10.0&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- Selenium WebDriver for browser automation --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
+        &lt;artifactId&gt;selenium-java&lt;/artifactId&gt;
+        &lt;version&gt;4.15.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- Apache POI for Excel file operations --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+        &lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;
+        &lt;version&gt;5.2.3&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;!-- JSON processing --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.json&lt;/groupId&gt;
+        &lt;artifactId&gt;json&lt;/artifactId&gt;
+        &lt;version&gt;20230227&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+
+            <h3 class="mt-4">Finding Dependencies on Maven Central</h3>
+            <ol>
+                <li>Visit <a href="https://mvnrepository.com/" target="_blank">mvnrepository.com</a></li>
+                <li>Search for the library (e.g., "junit jupiter")</li>
+                <li>Click on the library name</li>
+                <li>Select the desired version</li>
+                <li>Copy the Maven dependency XML snippet</li>
+                <li>Paste it into your pom.xml <code>&lt;dependencies&gt;</code> section</li>
+            </ol>
+
+            <h3 class="mt-4">Dependency Scopes</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Scope</th>
+                            <th>Description</th>
+                            <th>When to Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>compile</code></td>
+                            <td>Available in all phases (default)</td>
+                            <td>Production code libraries</td>
+                        </tr>
+                        <tr>
+                            <td><code>test</code></td>
+                            <td>Only for testing phase</td>
+                            <td>JUnit, TestNG, Mockito</td>
+                        </tr>
+                        <tr>
+                            <td><code>provided</code></td>
+                            <td>Provided by runtime environment</td>
+                            <td>Servlet API, JEE libraries</td>
+                        </tr>
+                        <tr>
+                            <td><code>runtime</code></td>
+                            <td>Not needed for compilation</td>
+                            <td>JDBC drivers</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>After Adding Dependencies:</strong> IntelliJ may prompt you to reload the Maven project. Click the Maven refresh icon <i class="bi bi-arrow-repeat"></i> in the Maven tool window, or click "Load Maven Changes" popup.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-folder"></i></div>
+                5. Maven Project Structure
+            </h2>
+
+            <p>Maven enforces a standard directory layout that's consistent across all Maven projects:</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-plaintext" style="color: #e2e8f0;">project-root/
+├── pom.xml                          (Project configuration)
+├── src/
+│   ├── main/
+│   │   ├── java/                    (Production source code)
+│   │   │   └── com/example/app/
+│   │   │       ├── Main.java
+│   │   │       ├── FileReader.java
+│   │   │       └── ...
+│   │   └── resources/               (Configuration files, properties)
+│   │       ├── application.properties
+│   │       └── log4j2.xml
+│   └── test/
+│       ├── java/                    (Test source code)
+│       │   └── com/example/app/
+│       │       ├── MainTest.java
+│       │       └── FileReaderTest.java
+│       └── resources/               (Test resources)
+│           └── test-data.csv
+└── target/                          (Generated files - never commit)
+    ├── classes/                     (Compiled .class files)
+    ├── test-classes/                (Compiled test .class files)
+    └── project-name-1.0-SNAPSHOT.jar (Packaged JAR file)</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Important:</strong> The <code>target/</code> folder contains generated files and should be excluded from version control (add to .gitignore). Maven recreates it during builds.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-terminal"></i></div>
+                6. Maven Lifecycle & Commands
+            </h2>
+
+            <p>Maven has three built-in build lifecycles: <strong>default</strong> (build), <strong>clean</strong> (cleanup), and <strong>site</strong> (documentation). The default lifecycle has several phases:</p>
+
+            <h3 class="mt-4">Common Maven Lifecycle Phases</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Phase</th>
+                            <th>Description</th>
+                            <th>What It Does</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>clean</code></td>
+                            <td>Remove generated files</td>
+                            <td>Deletes target/ directory</td>
+                        </tr>
+                        <tr>
+                            <td><code>validate</code></td>
+                            <td>Check project is correct</td>
+                            <td>Validates pom.xml</td>
+                        </tr>
+                        <tr>
+                            <td><code>compile</code></td>
+                            <td>Compile source code</td>
+                            <td>Compiles src/main/java/ → target/classes/</td>
+                        </tr>
+                        <tr>
+                            <td><code>test</code></td>
+                            <td>Run unit tests</td>
+                            <td>Runs JUnit/TestNG tests</td>
+                        </tr>
+                        <tr>
+                            <td><code>package</code></td>
+                            <td>Create JAR/WAR file</td>
+                            <td>Packages compiled code into JAR</td>
+                        </tr>
+                        <tr>
+                            <td><code>install</code></td>
+                            <td>Install to local repository</td>
+                            <td>Copies JAR to ~/.m2/repository</td>
+                        </tr>
+                        <tr>
+                            <td><code>deploy</code></td>
+                            <td>Deploy to remote repository</td>
+                            <td>Uploads to artifact repository</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Phase Execution:</strong> When you run a phase, Maven executes all preceding phases. For example, <code>mvn package</code> runs: validate → compile → test → package.
+                </div>
+            </div>
+
+            <h3 class="mt-4">Most Common Commands</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-bash" style="color: #e2e8f0;"># Clean and compile project
+mvn clean compile
+
+# Run all tests
+mvn test
+
+# Build JAR file (without tests)
+mvn clean package -DskipTests
+
+# Build JAR file (with tests)
+mvn clean package
+
+# Install to local Maven repository
+mvn clean install
+
+# Run specific test class
+mvn test -Dtest=FileReaderTest
+
+# Run specific test method
+mvn test -Dtest=FileReaderTest#testReadTxtFile</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-window-sidebar"></i></div>
+                7. Using Maven Tool Window in IntelliJ
+            </h2>
+
+            <p>IntelliJ IDEA provides a dedicated Maven tool window for easy project management.</p>
+
+            <h3 class="mt-4">Opening the Maven Tool Window</h3>
+            <ul>
+                <li><strong>Method 1:</strong> Click <strong>View → Tool Windows → Maven</strong></li>
+                <li><strong>Method 2:</strong> Click the Maven icon <i class="bi bi-gear-fill"></i> on the right sidebar</li>
+                <li><strong>Method 3:</strong> Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> (Windows/Linux) or <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd> (Mac), then type "Maven"</li>
+            </ul>
+
+            <h3 class="mt-4">Maven Tool Window Features</h3>
+
+            <h4><i class="bi bi-folder-symlink"></i> Project Structure</h4>
+            <ul>
+                <li>Expandable tree showing your project and sub-modules</li>
+                <li>View all dependencies (with transitive dependencies)</li>
+                <li>See plugin configurations</li>
+            </ul>
+
+            <h4><i class="bi bi-lifecycle"></i> Lifecycle</h4>
+            <p>Execute Maven phases with a double-click:</p>
+            <ul>
+                <li><strong>clean</strong> - Remove target directory</li>
+                <li><strong>validate</strong> - Validate project</li>
+                <li><strong>compile</strong> - Compile source code</li>
+                <li><strong>test</strong> - Run unit tests</li>
+                <li><strong>package</strong> - Create JAR file</li>
+                <li><strong>verify</strong> - Run integration tests</li>
+                <li><strong>install</strong> - Install to local repository</li>
+                <li><strong>deploy</strong> - Deploy to remote repository</li>
+            </ul>
+
+            <h4><i class="bi bi-plug"></i> Plugins</h4>
+            <p>View and execute plugin goals (e.g., compiler:compile, surefire:test)</p>
+
+            <h4><i class="bi bi-tools"></i> Toolbar Actions</h4>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Icon</th>
+                            <th>Action</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="bi bi-arrow-repeat"></i></td>
+                            <td>Reload All Maven Projects</td>
+                            <td>Refresh dependencies and configuration</td>
+                        </tr>
+                        <tr>
+                            <td><i class="bi bi-play-fill"></i></td>
+                            <td>Execute Maven Goal</td>
+                            <td>Run custom Maven commands</td>
+                        </tr>
+                        <tr>
+                            <td><i class="bi bi-skip-start-fill"></i></td>
+                            <td>Toggle Skip Tests</td>
+                            <td>Skip test execution during builds</td>
+                        </tr>
+                        <tr>
+                            <td><i class="bi bi-diagram-3"></i></td>
+                            <td>Show Dependencies</td>
+                            <td>Visualize dependency tree</td>
+                        </tr>
+                        <tr>
+                            <td><i class="bi bi-download"></i></td>
+                            <td>Download Sources/Docs</td>
+                            <td>Download library source code</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Pro Tip:</strong> Right-click on any Maven phase to create a Run Configuration for quick access. This adds it to the top toolbar for one-click execution.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-square"></i></div>
+                8. Practical Example: Complete pom.xml for QA Automation
+            </h2>
+
+            <p>Here's a complete pom.xml configured for a Selenium test automation project with all essential dependencies:</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-xml" style="color: #e2e8f0;">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;com.example&lt;/groupId&gt;
+    &lt;artifactId&gt;qa-automation-framework&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+        &lt;selenium.version&gt;4.15.0&lt;/selenium.version&gt;
+        &lt;junit.version&gt;5.10.0&lt;/junit.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencies&gt;
+        &lt;!-- Selenium WebDriver --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.seleniumhq.selenium&lt;/groupId&gt;
+            &lt;artifactId&gt;selenium-java&lt;/artifactId&gt;
+            &lt;version&gt;${selenium.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- JUnit 5 --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-jupiter-api&lt;/artifactId&gt;
+            &lt;version&gt;${junit.version}&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
+            &lt;artifactId&gt;junit-jupiter-engine&lt;/artifactId&gt;
+            &lt;version&gt;${junit.version}&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- TestNG (alternative to JUnit) --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.testng&lt;/groupId&gt;
+            &lt;artifactId&gt;testng&lt;/artifactId&gt;
+            &lt;version&gt;7.8.0&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- Apache POI for Excel --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.poi&lt;/groupId&gt;
+            &lt;artifactId&gt;poi-ooxml&lt;/artifactId&gt;
+            &lt;version&gt;5.2.3&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- ExtentReports --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.aventstack&lt;/groupId&gt;
+            &lt;artifactId&gt;extentreports&lt;/artifactId&gt;
+            &lt;version&gt;5.1.1&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- JSON Processing --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.json&lt;/groupId&gt;
+            &lt;artifactId&gt;json&lt;/artifactId&gt;
+            &lt;version&gt;20230227&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- Log4j2 for Logging --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+            &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;
+            &lt;version&gt;2.20.0&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;!-- Maven Compiler Plugin --&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.11.0&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;11&lt;/source&gt;
+                    &lt;target&gt;11&lt;/target&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+
+            &lt;!-- Maven Surefire Plugin (for running tests) --&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.1.2&lt;/version&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Properties for Version Management:</strong> Notice how we use <code>${selenium.version}</code> and <code>${junit.version}</code>. This makes it easy to update library versions in one place.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-wrench"></i></div>
+                9. Common Maven Issues & Solutions
+            </h2>
+
+            <h3 class="mt-4">Issue 1: Dependencies Not Downloading</h3>
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Symptoms:</strong> Red imports, "Cannot resolve symbol" errors
+                    <br><strong>Solutions:</strong>
+                    <ul>
+                        <li>Click Maven refresh icon <i class="bi bi-arrow-repeat"></i> in Maven tool window</li>
+                        <li>Right-click project → Maven → Reload Project</li>
+                        <li>File → Invalidate Caches → Invalidate and Restart</li>
+                        <li>Check internet connection (Maven downloads from remote repositories)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="mt-4">Issue 2: "Maven Not Found" or JDK Issues</h3>
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Solutions:</strong>
+                    <ul>
+                        <li>File → Project Structure → Project → Set correct JDK</li>
+                        <li>File → Settings → Build, Execution, Deployment → Build Tools → Maven → Verify Maven home directory</li>
+                        <li>IntelliJ bundles Maven - select "Use bundled Maven 3.x"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="mt-4">Issue 3: Old Dependencies Cached</h3>
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Solution:</strong> Delete local repository cache
+                    <ul>
+                        <li>Navigate to <code>~/.m2/repository/</code> (Windows: <code>C:\Users\YourName\.m2\repository\</code>)</li>
+                        <li>Delete the folder for the problematic dependency</li>
+                        <li>Reload Maven project in IntelliJ</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="mt-4">Issue 4: Tests Not Running</h3>
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Solutions:</strong>
+                    <ul>
+                        <li>Ensure test classes are in <code>src/test/java/</code></li>
+                        <li>Test classes must end with "Test" (e.g., FileReaderTest.java)</li>
+                        <li>Check "Toggle Skip Tests" button <i class="bi bi-skip-start-fill"></i> is not enabled</li>
+                        <li>Verify JUnit/TestNG dependencies have <code>&lt;scope&gt;test&lt;/scope&gt;</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-lightbulb"></i></div>
+                10. Best Practices
+            </h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="alert-box alert-success">
+                        <i class="bi bi-check-circle alert-icon"></i>
+                        <div>
+                            <strong>✅ DO:</strong>
+                            <ul>
+                                <li>Use properties for version management</li>
+                                <li>Keep dependencies up to date (but test before updating)</li>
+                                <li>Use dependency scopes appropriately (test, compile, runtime)</li>
+                                <li>Add .gitignore entry for <code>target/</code> folder</li>
+                                <li>Document custom Maven profiles in README</li>
+                                <li>Run <code>mvn clean</code> before major builds</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert-box alert-danger">
+                        <i class="bi bi-x-circle alert-icon"></i>
+                        <div>
+                            <strong>❌ DON'T:</strong>
+                            <ul>
+                                <li>Commit <code>target/</code> folder to version control</li>
+                                <li>Mix multiple testing frameworks (JUnit + TestNG) unnecessarily</li>
+                                <li>Use outdated library versions with security vulnerabilities</li>
+                                <li>Hardcode file paths in pom.xml</li>
+                                <li>Ignore Maven warnings during builds</li>
+                                <li>Skip tests without good reason</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-rocket"></i></div>
+                Summary
+            </h2>
+
+            <p>Maven is an essential tool for modern Java development. You've learned:</p>
+            <ul>
+                <li>✅ What Maven is and why it's used for build automation</li>
+                <li>✅ How to create Maven projects in IntelliJ IDEA</li>
+                <li>✅ Understanding pom.xml structure and configuration</li>
+                <li>✅ Managing dependencies from Maven Central</li>
+                <li>✅ Maven project structure (src/main/java, src/test/java, target/)</li>
+                <li>✅ Executing Maven lifecycle commands (clean, compile, test, package)</li>
+                <li>✅ Using IntelliJ's Maven tool window effectively</li>
+                <li>✅ Troubleshooting common Maven issues</li>
+            </ul>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-trophy alert-icon"></i>
+                <div>
+                    <strong>Next Steps:</strong> Practice creating a Maven project with Selenium, JUnit, and ExtentReports dependencies. Try running different Maven lifecycle phases and observe what happens in the <code>target/</code> folder.
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-nav" style="margin-top: 40px;">
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <footer style="background: #1e293b; color: white; padding: 30px 0; margin-top: 60px;">
+        <div class="container text-center">
+            <p style="margin: 0;">&copy; 2025 Java Course Project. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
