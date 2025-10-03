@@ -892,7 +892,39 @@ tr:nth-child(even) {
 .lesson-card .lesson-description {
     color: var(--secondary-color);
     font-size: 0.95rem;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+}
+
+.step-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.step-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.step-pill:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.step-pill i {
+    font-size: 0.7rem;
 }
 
 .lesson-meta {
