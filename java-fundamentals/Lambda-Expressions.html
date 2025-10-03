@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lambda Expressions - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-arrow-right-short"></i></div>
+                <h1 class="lesson-title">Lambda Expressions</h1>
+                <p class="lesson-description">Master functional programming in Java using lambda expressions and method references</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Lambda Expressions</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Abstract-Classes.html" class="nav-btn nav-btn-primary">Next: Abstract Classes <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand what lambda expressions are and their benefits</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Write lambda expressions with different syntaxes</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use functional interfaces with lambdas</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Apply lambdas with collections (filter, map, reduce)</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use method references for cleaner code</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Work with built-in functional interfaces</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                1. What are Lambda Expressions?
+            </h2>
+
+            <p><strong>Lambda expressions</strong> (introduced in Java 8) provide a concise way to implement functional interfaces using an expression instead of a full class. They enable functional programming in Java.</p>
+
+            <h3 class="mt-4">Before Lambdas (Anonymous Inner Class)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Old way - verbose
+List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+Collections.sort(names, new Comparator<String>() {
+    @Override
+    public int compare(String a, String b) {
+        return a.compareTo(b);
+    }
+});
+</code></pre>
+
+            <h3 class="mt-4">With Lambda Expression</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// New way - concise
+List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+Collections.sort(names, (a, b) -> a.compareTo(b));
+
+// Even shorter with method reference
+Collections.sort(names, String::compareTo);
+</code></pre>
+
+            <h3 class="mt-4">Benefits of Lambda Expressions</h3>
+            <ul>
+                <li><strong>Concise Code:</strong> Less boilerplate, more readable</li>
+                <li><strong>Functional Programming:</strong> Treat functions as first-class citizens</li>
+                <li><strong>Better Collections:</strong> Powerful stream operations</li>
+                <li><strong>Parallel Processing:</strong> Easier to write parallel code</li>
+            </ul>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Note:</strong> Lambda expressions can only be used with functional interfaces (interfaces with exactly one abstract method).
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                2. Lambda Syntax
+            </h2>
+
+            <h3 class="mt-4">Basic Syntax</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Syntax: (parameters) -> expression
+(int a, int b) -> a + b
+
+// Or with statement block
+(int a, int b) -> {
+    int sum = a + b;
+    return sum;
+}
+</code></pre>
+
+            <h3 class="mt-4">Different Lambda Forms</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// No parameters
+() -> System.out.println("Hello")
+
+// Single parameter (parentheses optional)
+x -> x * x
+(x) -> x * x
+
+// Multiple parameters
+(x, y) -> x + y
+
+// With type declarations
+(int x, int y) -> x + y
+
+// Single expression (implicit return)
+(x, y) -> x + y
+
+// Multiple statements (explicit return required)
+(x, y) -> {
+    int sum = x + y;
+    System.out.println("Sum: " + sum);
+    return sum;
+}
+</code></pre>
+
+            <h3 class="mt-4">Examples with Functional Interfaces</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Runnable (no parameters, no return)
+Runnable task = () -> System.out.println("Running task");
+task.run();
+
+// Comparator (two parameters, returns int)
+Comparator<Integer> comparator = (a, b) -> a - b;
+System.out.println(comparator.compare(5, 3));  // 2
+
+// Predicate (one parameter, returns boolean)
+Predicate<String> isEmpty = s -> s.isEmpty();
+System.out.println(isEmpty.test(""));     // true
+System.out.println(isEmpty.test("hello")); // false
+
+// Function (one parameter, returns value)
+Function<String, Integer> length = s -> s.length();
+System.out.println(length.apply("Hello"));  // 5
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> If your lambda has only one parameter and no type declaration, you can omit the parentheses: <code>x -> x * 2</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-file-earmark-code"></i></div>
+                3. Functional Interfaces
+            </h2>
+
+            <p>A <strong>functional interface</strong> has exactly one abstract method and can be used with lambda expressions.</p>
+
+            <h3 class="mt-4">Creating a Custom Functional Interface</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">@FunctionalInterface
+public interface Calculator {
+    int calculate(int a, int b);
+}
+
+// Usage with lambda
+Calculator add = (a, b) -> a + b;
+Calculator multiply = (a, b) -> a * b;
+
+System.out.println(add.calculate(5, 3));      // 8
+System.out.println(multiply.calculate(5, 3)); // 15
+</code></pre>
+
+            <h3 class="mt-4">Built-in Functional Interfaces (java.util.function)</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Interface</th>
+                            <th>Method</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Predicate&lt;T&gt;</code></td>
+                            <td><code>boolean test(T t)</code></td>
+                            <td>Tests a condition</td>
+                            <td><code>x -> x > 0</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>Function&lt;T,R&gt;</code></td>
+                            <td><code>R apply(T t)</code></td>
+                            <td>Transforms input to output</td>
+                            <td><code>x -> x * 2</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>Consumer&lt;T&gt;</code></td>
+                            <td><code>void accept(T t)</code></td>
+                            <td>Consumes input (no return)</td>
+                            <td><code>x -> System.out.println(x)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>Supplier&lt;T&gt;</code></td>
+                            <td><code>T get()</code></td>
+                            <td>Supplies a value (no input)</td>
+                            <td><code>() -> new ArrayList&lt;&gt;()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>BiFunction&lt;T,U,R&gt;</code></td>
+                            <td><code>R apply(T t, U u)</code></td>
+                            <td>Two inputs, one output</td>
+                            <td><code>(x,y) -> x + y</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="mt-4">Using Built-in Functional Interfaces</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Predicate - test a condition
+Predicate<Integer> isEven = n -> n % 2 == 0;
+System.out.println(isEven.test(4));  // true
+
+// Function - transform input
+Function<String, Integer> stringLength = s -> s.length();
+System.out.println(stringLength.apply("Hello"));  // 5
+
+// Consumer - perform action on input
+Consumer<String> printer = s -> System.out.println(s);
+printer.accept("Hello World");
+
+// Supplier - provide a value
+Supplier<Double> random = () -> Math.random();
+System.out.println(random.get());  // Random number
+
+// BiFunction - two inputs to one output
+BiFunction<Integer, Integer, Integer> add = (a, b) -> a + b;
+System.out.println(add.apply(5, 3));  // 8
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-collection"></i></div>
+                4. Lambdas with Collections
+            </h2>
+
+            <h3 class="mt-4">forEach() - Iterate and Perform Action</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+// Old way
+for (String name : names) {
+    System.out.println(name);
+}
+
+// Lambda way
+names.forEach(name -> System.out.println(name));
+
+// Method reference (even shorter)
+names.forEach(System.out::println);
+</code></pre>
+
+            <h3 class="mt-4">removeIf() - Conditional Removal</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<Integer> numbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+
+// Remove all even numbers
+numbers.removeIf(n -> n % 2 == 0);
+System.out.println(numbers);  // [1, 3, 5]
+</code></pre>
+
+            <h3 class="mt-4">replaceAll() - Transform Elements</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<String> names = new ArrayList<>(Arrays.asList("alice", "bob", "charlie"));
+
+// Convert all to uppercase
+names.replaceAll(name -> name.toUpperCase());
+System.out.println(names);  // [ALICE, BOB, CHARLIE]
+
+// Using method reference
+names.replaceAll(String::toUpperCase);
+</code></pre>
+
+            <h3 class="mt-4">sort() - Custom Sorting</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<String> names = Arrays.asList("Charlie", "Alice", "Bob");
+
+// Sort alphabetically
+names.sort((a, b) -> a.compareTo(b));
+
+// Sort by length
+names.sort((a, b) -> Integer.compare(a.length(), b.length()));
+
+// Using Comparator.comparing
+names.sort(Comparator.comparing(String::length));
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-funnel"></i></div>
+                5. Stream API with Lambdas
+            </h2>
+
+            <p>The Stream API provides powerful operations for processing collections using lambdas.</p>
+
+            <h3 class="mt-4">filter() - Select Elements</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
+
+// Get even numbers
+List<Integer> evens = numbers.stream()
+    .filter(n -> n % 2 == 0)
+    .collect(Collectors.toList());
+System.out.println(evens);  // [2, 4, 6, 8]
+
+// Get numbers greater than 5
+List<Integer> greaterThanFive = numbers.stream()
+    .filter(n -> n > 5)
+    .collect(Collectors.toList());
+System.out.println(greaterThanFive);  // [6, 7, 8]
+</code></pre>
+
+            <h3 class="mt-4">map() - Transform Elements</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+
+// Convert to uppercase
+List<String> upperNames = names.stream()
+    .map(name -> name.toUpperCase())
+    .collect(Collectors.toList());
+System.out.println(upperNames);  // [ALICE, BOB, CHARLIE]
+
+// Get lengths
+List<Integer> lengths = names.stream()
+    .map(String::length)
+    .collect(Collectors.toList());
+System.out.println(lengths);  // [5, 3, 7]
+</code></pre>
+
+            <h3 class="mt-4">reduce() - Combine Elements</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+// Sum all numbers
+int sum = numbers.stream()
+    .reduce(0, (a, b) -> a + b);
+System.out.println("Sum: " + sum);  // 15
+
+// Find maximum
+int max = numbers.stream()
+    .reduce(Integer.MIN_VALUE, (a, b) -> a > b ? a : b);
+System.out.println("Max: " + max);  // 5
+
+// Using method reference
+int product = numbers.stream()
+    .reduce(1, (a, b) -> a * b);
+System.out.println("Product: " + product);  // 120
+</code></pre>
+
+            <h3 class="mt-4">Chaining Operations</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eve");
+
+// Filter names longer than 3 chars, convert to uppercase, sort
+List<String> result = names.stream()
+    .filter(name -> name.length() > 3)
+    .map(String::toUpperCase)
+    .sorted()
+    .collect(Collectors.toList());
+
+System.out.println(result);  // [ALICE, CHARLIE, DAVID]
+</code></pre>
+
+            <h3 class="mt-4">Common Stream Operations</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Operation</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>filter()</code></td>
+                            <td>Select elements matching condition</td>
+                            <td><code>.filter(n -> n > 0)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>map()</code></td>
+                            <td>Transform each element</td>
+                            <td><code>.map(String::toUpperCase)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>sorted()</code></td>
+                            <td>Sort elements</td>
+                            <td><code>.sorted()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>distinct()</code></td>
+                            <td>Remove duplicates</td>
+                            <td><code>.distinct()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>limit()</code></td>
+                            <td>Limit number of elements</td>
+                            <td><code>.limit(5)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>count()</code></td>
+                            <td>Count elements</td>
+                            <td><code>.count()</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>anyMatch()</code></td>
+                            <td>Check if any match condition</td>
+                            <td><code>.anyMatch(n -> n > 5)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>allMatch()</code></td>
+                            <td>Check if all match condition</td>
+                            <td><code>.allMatch(n -> n > 0)</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-link-45deg"></i></div>
+                6. Method References
+            </h2>
+
+            <p><strong>Method references</strong> are a shorthand for lambda expressions that only call a single method.</p>
+
+            <h3 class="mt-4">Types of Method References</h3>
+
+            <h4 class="mt-3">1. Static Method Reference</h4>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Lambda
+Function<String, Integer> parseInt1 = s -> Integer.parseInt(s);
+
+// Method reference
+Function<String, Integer> parseInt2 = Integer::parseInt;
+
+System.out.println(parseInt2.apply("123"));  // 123
+</code></pre>
+
+            <h4 class="mt-3">2. Instance Method Reference (Object)</h4>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">String prefix = "Hello, ";
+
+// Lambda
+Function<String, String> greet1 = name -> prefix.concat(name);
+
+// Method reference
+Function<String, String> greet2 = prefix::concat;
+
+System.out.println(greet2.apply("Alice"));  // Hello, Alice
+</code></pre>
+
+            <h4 class="mt-3">3. Instance Method Reference (Class)</h4>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<String> names = Arrays.asList("alice", "bob", "charlie");
+
+// Lambda
+names.replaceAll(s -> s.toUpperCase());
+
+// Method reference
+names.replaceAll(String::toUpperCase);
+</code></pre>
+
+            <h4 class="mt-3">4. Constructor Reference</h4>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Lambda
+Supplier<ArrayList<String>> listSupplier1 = () -> new ArrayList<>();
+
+// Constructor reference
+Supplier<ArrayList<String>> listSupplier2 = ArrayList::new;
+
+ArrayList<String> list = listSupplier2.get();
+</code></pre>
+
+            <h3 class="mt-4">When to Use Method References</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Lambda</th>
+                            <th>Method Reference</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Calling static method</td>
+                            <td><code>s -> Integer.parseInt(s)</code></td>
+                            <td><code>Integer::parseInt</code></td>
+                        </tr>
+                        <tr>
+                            <td>Calling instance method</td>
+                            <td><code>s -> s.toLowerCase()</code></td>
+                            <td><code>String::toLowerCase</code></td>
+                        </tr>
+                        <tr>
+                            <td>Printing to console</td>
+                            <td><code>x -> System.out.println(x)</code></td>
+                            <td><code>System.out::println</code></td>
+                        </tr>
+                        <tr>
+                            <td>Creating new objects</td>
+                            <td><code>() -> new ArrayList&lt;&gt;()</code></td>
+                            <td><code>ArrayList::new</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> Use method references when your lambda only calls a single method with the same parameters. It makes code more concise and readable.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                7. Real-World Examples
+            </h2>
+
+            <h3 class="mt-4">Example 1: Processing User Data</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">class User {
+    private String name;
+    private int age;
+    private boolean active;
+
+    // Constructor, getters...
+}
+
+List<User> users = Arrays.asList(
+    new User("Alice", 25, true),
+    new User("Bob", 30, false),
+    new User("Charlie", 35, true)
+);
+
+// Get names of active users over 20
+List<String> activeUserNames = users.stream()
+    .filter(user -> user.isActive())
+    .filter(user -> user.getAge() > 20)
+    .map(User::getName)
+    .collect(Collectors.toList());
+
+System.out.println(activeUserNames);  // [Alice, Charlie]
+</code></pre>
+
+            <h3 class="mt-4">Example 2: Grouping and Counting</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<String> words = Arrays.asList("apple", "banana", "apricot", "blueberry", "cherry");
+
+// Group by first letter
+Map<Character, List<String>> groupedByLetter = words.stream()
+    .collect(Collectors.groupingBy(word -> word.charAt(0)));
+
+System.out.println(groupedByLetter);
+// {a=[apple, apricot], b=[banana, blueberry], c=[cherry]}
+
+// Count words by length
+Map<Integer, Long> countByLength = words.stream()
+    .collect(Collectors.groupingBy(String::length, Collectors.counting()));
+
+System.out.println(countByLength);
+// {5=[apple], 6=[banana, cherry], 7=[apricot], 9=[blueberry]}
+</code></pre>
+
+            <h3 class="mt-4">Example 3: Custom Validation</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Validator {
+    public static boolean validate(String input, Predicate<String> rule) {
+        return rule.test(input);
+    }
+
+    public static void main(String[] args) {
+        Predicate<String> notEmpty = s -> !s.isEmpty();
+        Predicate<String> minLength = s -> s.length() >= 5;
+        Predicate<String> hasNumbers = s -> s.matches(".*\\d.*");
+
+        String password = "pass123";
+
+        System.out.println(validate(password, notEmpty));     // true
+        System.out.println(validate(password, minLength));    // true
+        System.out.println(validate(password, hasNumbers));   // true
+
+        // Combine predicates
+        Predicate<String> strongPassword = notEmpty.and(minLength).and(hasNumbers);
+        System.out.println(validate(password, strongPassword)); // true
+    }
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-clipboard-check"></i></div>
+                Practice Exercises
+            </h2>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 1: Filter and Transform</h3>
+                <p>Given a list of numbers, filter out negatives, square each number, and collect the results.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<Integer> numbers = Arrays.asList(-2, -1, 0, 1, 2, 3, 4, 5);
+
+List<Integer> result = numbers.stream()
+    .filter(n -> n > 0)           // Remove negatives and zero
+    .map(n -> n * n)              // Square each number
+    .collect(Collectors.toList());
+
+System.out.println(result);  // [1, 4, 9, 16, 25]
+</code></pre>
+                </details>
+            </div>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 2: String Operations</h3>
+                <p>Convert a list of names to uppercase, filter names longer than 4 characters, and sort them.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<String> names = Arrays.asList("alice", "bob", "charlie", "dave", "eve");
+
+List<String> result = names.stream()
+    .map(String::toUpperCase)
+    .filter(name -> name.length() > 4)
+    .sorted()
+    .collect(Collectors.toList());
+
+System.out.println(result);  // [ALICE, CHARLIE]
+</code></pre>
+                </details>
+            </div>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 3: Custom Predicate</h3>
+                <p>Create a method that filters a list based on multiple predicates combined with AND logic.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public static <T> List<T> filterMultiple(List<T> list, Predicate<T>... predicates) {
+    Predicate<T> combined = Arrays.stream(predicates)
+        .reduce(Predicate::and)
+        .orElse(x -> true);
+
+    return list.stream()
+        .filter(combined)
+        .collect(Collectors.toList());
+}
+
+// Usage
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+List<Integer> result = filterMultiple(
+    numbers,
+    n -> n > 3,      // Greater than 3
+    n -> n < 8,      // Less than 8
+    n -> n % 2 == 0  // Even
+);
+
+System.out.println(result);  // [4, 6]
+</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Concise Syntax:</strong> Lambdas reduce boilerplate code for functional interfaces.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Functional Interfaces:</strong> Must have exactly one abstract method to work with lambdas.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Stream API Power:</strong> Use filter, map, reduce for powerful collection processing.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Method References:</strong> Use :: notation for cleaner code when calling a single method.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Built-in Interfaces:</strong> Use Predicate, Function, Consumer, Supplier from java.util.function.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Chaining Operations:</strong> Stream operations can be chained for complex data transformations.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Type Inference:</strong> Java can often infer lambda parameter types, making code more concise.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Abstract-Classes.html" class="nav-btn nav-btn-primary">Next: Abstract Classes <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

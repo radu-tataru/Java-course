@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keywords: this, super, final - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-key-fill"></i></div>
+                <h1 class="lesson-title">Keywords: this, super, final</h1>
+                <p class="lesson-description">Master essential Java keywords for object-oriented programming</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Keywords: this, super, final</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Packages-and-Imports.html" class="nav-btn nav-btn-primary">Next: Packages and Imports <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use <code>this</code> to reference current object</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use <code>super</code> to access parent class members</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Apply <code>final</code> to variables, methods, and classes</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand constructor chaining with <code>this()</code> and <code>super()</code></span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Prevent modification and inheritance with <code>final</code></span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Apply these keywords in real-world scenarios</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-1-circle"></i></div>
+                1. The 'this' Keyword
+            </h2>
+
+            <p>The <strong>this</strong> keyword refers to the current instance of a class. It's used to access instance variables and methods.</p>
+
+            <h3 class="mt-4">1.1 Distinguish Fields from Parameters</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class User {
+    private String name;
+    private int age;
+
+    // Without 'this' - won't work as intended
+    public User(String name, int age) {
+        name = name;  // ❌ Assigns parameter to itself!
+        age = age;    // ❌ Assigns parameter to itself!
+    }
+
+    // With 'this' - correct
+    public User(String name, int age) {
+        this.name = name;  // ✅ this.name refers to instance variable
+        this.age = age;    // ✅ this.age refers to instance variable
+    }
+
+    public void setName(String name) {
+        this.name = name;  // Distinguish field from parameter
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">1.2 Call Other Methods</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Calculator {
+    private int result;
+
+    public void add(int value) {
+        result += value;
+    }
+
+    public void addAndPrint(int value) {
+        this.add(value);           // Call another method
+        this.printResult();        // Explicit this (optional here)
+    }
+
+    public void printResult() {
+        System.out.println("Result: " + this.result);
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">1.3 Return Current Object (Method Chaining)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class StringBuilder2 {
+    private String value = "";
+
+    public StringBuilder2 append(String str) {
+        value += str;
+        return this;  // Return current object for chaining
+    }
+
+    public StringBuilder2 reverse() {
+        value = new StringBuilder(value).reverse().toString();
+        return this;  // Return current object for chaining
+    }
+
+    public String build() {
+        return value;
+    }
+}
+
+// Usage - method chaining
+String result = new StringBuilder2()
+    .append("Hello")
+    .append(" ")
+    .append("World")
+    .reverse()
+    .build();
+
+System.out.println(result);  // dlroW olleH
+</code></pre>
+
+            <h3 class="mt-4">1.4 Constructor Chaining with this()</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Employee {
+    private String name;
+    private int id;
+    private double salary;
+
+    // Primary constructor
+    public Employee(String name, int id, double salary) {
+        this.name = name;
+        this.id = id;
+        this.salary = salary;
+    }
+
+    // Calls primary constructor
+    public Employee(String name, int id) {
+        this(name, id, 0.0);  // Must be first statement
+    }
+
+    // Calls previous constructor
+    public Employee(String name) {
+        this(name, 0);  // Must be first statement
+    }
+}
+
+// Usage
+Employee emp1 = new Employee("Alice", 101, 50000);
+Employee emp2 = new Employee("Bob", 102);     // Salary defaults to 0.0
+Employee emp3 = new Employee("Charlie");      // ID and salary default
+</code></pre>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Warning:</strong> <code>this()</code> must be the first statement in a constructor.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-2-circle"></i></div>
+                2. The 'super' Keyword
+            </h2>
+
+            <p>The <strong>super</strong> keyword refers to the parent (superclass) of the current object.</p>
+
+            <h3 class="mt-4">2.1 Access Parent Fields</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">class Animal {
+    protected String name = "Animal";
+}
+
+class Dog extends Animal {
+    private String name = "Dog";
+
+    public void printNames() {
+        System.out.println("Dog name: " + this.name);   // Dog
+        System.out.println("Animal name: " + super.name); // Animal
+    }
+}
+
+// Usage
+Dog dog = new Dog();
+dog.printNames();
+// Output:
+// Dog name: Dog
+// Animal name: Animal
+</code></pre>
+
+            <h3 class="mt-4">2.2 Call Parent Methods</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">class Vehicle {
+    public void start() {
+        System.out.println("Vehicle starting...");
+    }
+}
+
+class Car extends Vehicle {
+    @Override
+    public void start() {
+        super.start();  // Call parent's start() first
+        System.out.println("Car engine started");
+    }
+}
+
+// Usage
+Car car = new Car();
+car.start();
+// Output:
+// Vehicle starting...
+// Car engine started
+</code></pre>
+
+            <h3 class="mt-4">2.3 Constructor Chaining with super()</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+class Student extends Person {
+    private int studentId;
+
+    public Student(String name, int age, int studentId) {
+        super(name, age);  // Call parent constructor - must be first
+        this.studentId = studentId;
+    }
+}
+
+// Usage
+Student student = new Student("Alice", 20, 12345);
+</code></pre>
+
+            <h3 class="mt-4">2.4 Page Object Model Example</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">class BasePage {
+    protected WebDriver driver;
+
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    protected void click(WebElement element) {
+        element.click();
+    }
+}
+
+class LoginPage extends BasePage {
+    @FindBy(id = "username")
+    private WebElement usernameField;
+
+    public LoginPage(WebDriver driver) {
+        super(driver);  // Initialize parent's driver
+        PageFactory.initElements(driver, this);
+    }
+
+    public void enterUsername(String username) {
+        super.click(usernameField);  // Use parent's click method
+        usernameField.sendKeys(username);
+    }
+}
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Note:</strong> If a constructor doesn't explicitly call <code>this()</code> or <code>super()</code>, Java automatically inserts <code>super()</code> (no-arg parent constructor).
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-3-circle"></i></div>
+                3. The 'final' Keyword
+            </h2>
+
+            <p>The <strong>final</strong> keyword is used to restrict modification. It can be applied to variables, methods, and classes.</p>
+
+            <h3 class="mt-4">3.1 Final Variables (Constants)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Config {
+    // Final instance variable - must be initialized
+    private final String APP_NAME = "MyApp";
+
+    // Final static variable (constant)
+    public static final double PI = 3.14159;
+    public static final int MAX_USERS = 100;
+
+    // Final variable initialized in constructor
+    private final String environment;
+
+    public Config(String environment) {
+        this.environment = environment;  // Can only be set once
+    }
+
+    public void changeAppName() {
+        // APP_NAME = "NewApp";  // ❌ Compile error - final variable
+    }
+}
+
+// Usage
+Config config = new Config("PROD");
+System.out.println(Config.PI);        // 3.14159
+System.out.println(Config.MAX_USERS); // 100
+</code></pre>
+
+            <h3 class="mt-4">3.2 Final with Collections (Important!)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Final reference - can't reassign, but can modify contents
+private final List<String> names = new ArrayList<>();
+
+public void test() {
+    names.add("Alice");     // ✅ OK - modifying contents
+    names.add("Bob");       // ✅ OK
+
+    // names = new ArrayList<>();  // ❌ Error - can't reassign final reference
+}
+
+// Truly immutable list
+private final List<String> immutableNames =
+    Collections.unmodifiableList(Arrays.asList("Alice", "Bob"));
+</code></pre>
+
+            <h3 class="mt-4">3.3 Final Methods (Prevent Overriding)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">class Parent {
+    // Final method - cannot be overridden
+    public final void importantMethod() {
+        System.out.println("This cannot be changed");
+    }
+
+    // Regular method - can be overridden
+    public void regularMethod() {
+        System.out.println("This can be overridden");
+    }
+}
+
+class Child extends Parent {
+    // @Override
+    // public void importantMethod() {  // ❌ Compile error
+    //     System.out.println("Trying to override");
+    // }
+
+    @Override
+    public void regularMethod() {  // ✅ OK
+        System.out.println("Overridden successfully");
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">3.4 Final Classes (Prevent Inheritance)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Final class - cannot be extended
+public final class ImmutableUser {
+    private final String name;
+    private final int age;
+
+    public ImmutableUser(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+
+// class ExtendedUser extends ImmutableUser {  // ❌ Compile error
+// }
+
+// Real examples: String, Integer, Double are all final classes
+</code></pre>
+
+            <h3 class="mt-4">3.5 Final Parameters</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public void processUser(final User user) {
+    // user = new User();  // ❌ Compile error - final parameter
+
+    user.setName("Alice");  // ✅ OK - can modify object contents
+}
+
+// Lambda with final (effectively final) variables
+public void example() {
+    final String prefix = "User: ";
+
+    List<String> names = Arrays.asList("Alice", "Bob");
+    names.forEach(name -> System.out.println(prefix + name));
+
+    // prefix = "New: ";  // ❌ Error - used in lambda
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-diagram-3"></i></div>
+                4. Combining this, super, and final
+            </h2>
+
+            <h3 class="mt-4">Complete Example: Test Framework Base Class</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public abstract class BaseTest {
+    protected final WebDriver driver;
+    protected final String baseUrl;
+
+    // Constructor with final fields
+    public BaseTest(String baseUrl) {
+        this.baseUrl = baseUrl;
+        this.driver = new ChromeDriver();
+    }
+
+    // Final method - cannot be overridden
+    public final void setUp() {
+        driver.get(this.baseUrl);
+        driver.manage().window().maximize();
+    }
+
+    // Abstract method - must be implemented
+    public abstract void runTest();
+
+    // Final method - teardown logic
+    public final void tearDown() {
+        if (this.driver != null) {
+            this.driver.quit();
+        }
+    }
+}
+
+public class LoginTest extends BaseTest {
+    private final String testUsername = "testuser";
+
+    public LoginTest() {
+        super("https://example.com");  // Call parent constructor
+    }
+
+    @Override
+    public void runTest() {
+        // Cannot override setUp() or tearDown() - they're final
+        LoginPage loginPage = new LoginPage(this.driver);
+        loginPage.login(this.testUsername, "password");
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Builder Pattern with final Fields</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public final class User {
+    private final String name;
+    private final String email;
+    private final int age;
+
+    private User(Builder builder) {
+        this.name = builder.name;
+        this.email = builder.email;
+        this.age = builder.age;
+    }
+
+    public static class Builder {
+        private String name;
+        private String email;
+        private int age;
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;  // Return this for chaining
+        }
+
+        public Builder withEmail(String email) {
+            this.email = email;
+            return this;  // Return this for chaining
+        }
+
+        public Builder withAge(int age) {
+            this.age = age;
+            return this;  // Return this for chaining
+        }
+
+        public User build() {
+            return new User(this);  // Pass this Builder to constructor
+        }
+    }
+
+    // Getters only - no setters (immutable)
+    public String getName() { return name; }
+    public String getEmail() { return email; }
+    public int getAge() { return age; }
+}
+
+// Usage
+User user = new User.Builder()
+    .withName("Alice")
+    .withEmail("alice@example.com")
+    .withAge(25)
+    .build();
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-table"></i></div>
+                5. Quick Reference Table
+            </h2>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Keyword</th>
+                            <th>Applied To</th>
+                            <th>Purpose</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3"><code>this</code></td>
+                            <td>Fields/Methods</td>
+                            <td>Reference current object</td>
+                            <td><code>this.name = name;</code></td>
+                        </tr>
+                        <tr>
+                            <td>Constructor</td>
+                            <td>Call another constructor</td>
+                            <td><code>this(name, 0);</code></td>
+                        </tr>
+                        <tr>
+                            <td>Return</td>
+                            <td>Method chaining</td>
+                            <td><code>return this;</code></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3"><code>super</code></td>
+                            <td>Fields/Methods</td>
+                            <td>Access parent members</td>
+                            <td><code>super.start();</code></td>
+                        </tr>
+                        <tr>
+                            <td>Constructor</td>
+                            <td>Call parent constructor</td>
+                            <td><code>super(name, age);</code></td>
+                        </tr>
+                        <tr>
+                            <td>Override</td>
+                            <td>Extend parent behavior</td>
+                            <td><code>super.method(); ...</code></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="4"><code>final</code></td>
+                            <td>Variable</td>
+                            <td>Make constant</td>
+                            <td><code>final int MAX = 100;</code></td>
+                        </tr>
+                        <tr>
+                            <td>Method</td>
+                            <td>Prevent overriding</td>
+                            <td><code>final void method()</code></td>
+                        </tr>
+                        <tr>
+                            <td>Class</td>
+                            <td>Prevent inheritance</td>
+                            <td><code>final class MyClass</code></td>
+                        </tr>
+                        <tr>
+                            <td>Parameter</td>
+                            <td>Prevent reassignment</td>
+                            <td><code>void m(final int x)</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-clipboard-check"></i></div>
+                Practice Exercises
+            </h2>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 1: Bank Account</h3>
+                <p>Create a BankAccount class with final account number, constructor chaining, and method chaining for transactions.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class BankAccount {
+    private final String accountNumber;
+    private String accountHolder;
+    private double balance;
+
+    public BankAccount(String accountNumber, String accountHolder, double balance) {
+        this.accountNumber = accountNumber;
+        this.accountHolder = accountHolder;
+        this.balance = balance;
+    }
+
+    public BankAccount(String accountNumber, String accountHolder) {
+        this(accountNumber, accountHolder, 0.0);
+    }
+
+    public BankAccount deposit(double amount) {
+        this.balance += amount;
+        return this;  // Method chaining
+    }
+
+    public BankAccount withdraw(double amount) {
+        if (this.balance >= amount) {
+            this.balance -= amount;
+        }
+        return this;  // Method chaining
+    }
+
+    public void printBalance() {
+        System.out.println("Account " + this.accountNumber +
+                         ": $" + this.balance);
+    }
+}
+
+// Usage
+BankAccount account = new BankAccount("ACC123", "Alice")
+    .deposit(1000)
+    .withdraw(200)
+    .deposit(500);
+
+account.printBalance();  // Account ACC123: $1300.0
+</code></pre>
+                </details>
+            </div>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 2: Vehicle Inheritance</h3>
+                <p>Create a Vehicle parent class and Car child class using super for constructor and method chaining.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">class Vehicle {
+    protected final String brand;
+    protected int year;
+
+    public Vehicle(String brand, int year) {
+        this.brand = brand;
+        this.year = year;
+    }
+
+    public void start() {
+        System.out.println(this.brand + " is starting...");
+    }
+
+    public void displayInfo() {
+        System.out.println("Brand: " + this.brand + ", Year: " + this.year);
+    }
+}
+
+class Car extends Vehicle {
+    private final int numberOfDoors;
+
+    public Car(String brand, int year, int numberOfDoors) {
+        super(brand, year);
+        this.numberOfDoors = numberOfDoors;
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        System.out.println("Car engine started with " +
+                         this.numberOfDoors + " doors");
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Doors: " + this.numberOfDoors);
+    }
+}
+
+// Usage
+Car car = new Car("Toyota", 2024, 4);
+car.start();
+car.displayInfo();
+// Output:
+// Toyota is starting...
+// Car engine started with 4 doors
+// Brand: Toyota, Year: 2024
+// Doors: 4
+</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>this References:</strong> Use <code>this</code> to refer to the current object and distinguish fields from parameters.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>super Accesses Parent:</strong> Use <code>super</code> to access parent class fields, methods, and constructors.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Constructor Chaining:</strong> Use <code>this()</code> and <code>super()</code> as first statement in constructors.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>final for Constants:</strong> Use <code>final</code> for variables to create constants.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>final for Safety:</strong> Use <code>final</code> methods to prevent overriding, classes to prevent inheritance.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Method Chaining:</strong> Return <code>this</code> from methods to enable fluent API pattern.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Immutability:</strong> Combine <code>final</code> fields with private access and no setters for immutable objects.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Packages-and-Imports.html" class="nav-btn nav-btn-primary">Next: Packages and Imports <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

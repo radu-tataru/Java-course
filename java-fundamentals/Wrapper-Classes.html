@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wrapper Classes - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-gift"></i></div>
+                <h1 class="lesson-title">Wrapper Classes</h1>
+                <p class="lesson-description">Learn how to use wrapper classes to treat primitives as objects</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Wrapper Classes</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Enum-Types.html" class="nav-btn nav-btn-primary">Next: Enum Types <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand what wrapper classes are and why they exist</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Convert between primitives and wrapper objects</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use autoboxing and unboxing</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Apply wrapper class utility methods</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Work with wrapper classes in collections</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand performance implications</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                1. What are Wrapper Classes?
+            </h2>
+
+            <p><strong>Wrapper classes</strong> convert primitive data types into objects. Each primitive type has a corresponding wrapper class in the <code>java.lang</code> package.</p>
+
+            <h3 class="mt-4">Why Use Wrapper Classes?</h3>
+            <ul>
+                <li><strong>Collections:</strong> Collections (ArrayList, HashMap) only work with objects, not primitives</li>
+                <li><strong>Generics:</strong> Generic types require objects</li>
+                <li><strong>Null Values:</strong> Primitives can't be null, but wrapper objects can</li>
+                <li><strong>Utility Methods:</strong> Wrapper classes provide useful conversion and parsing methods</li>
+                <li><strong>OOP:</strong> Needed when treating primitives as objects</li>
+            </ul>
+
+            <h3 class="mt-4">Primitive to Wrapper Mapping</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Primitive Type</th>
+                            <th>Wrapper Class</th>
+                            <th>Size</th>
+                            <th>Default Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>byte</code></td>
+                            <td><code>Byte</code></td>
+                            <td>8 bits</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td><code>short</code></td>
+                            <td><code>Short</code></td>
+                            <td>16 bits</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td><code>int</code></td>
+                            <td><code>Integer</code></td>
+                            <td>32 bits</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td><code>long</code></td>
+                            <td><code>Long</code></td>
+                            <td>64 bits</td>
+                            <td>0L</td>
+                        </tr>
+                        <tr>
+                            <td><code>float</code></td>
+                            <td><code>Float</code></td>
+                            <td>32 bits</td>
+                            <td>0.0f</td>
+                        </tr>
+                        <tr>
+                            <td><code>double</code></td>
+                            <td><code>Double</code></td>
+                            <td>64 bits</td>
+                            <td>0.0</td>
+                        </tr>
+                        <tr>
+                            <td><code>char</code></td>
+                            <td><code>Character</code></td>
+                            <td>16 bits</td>
+                            <td>'\u0000'</td>
+                        </tr>
+                        <tr>
+                            <td><code>boolean</code></td>
+                            <td><code>Boolean</code></td>
+                            <td>1 bit</td>
+                            <td>false</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Note:</strong> All wrapper classes are immutable and final - they cannot be changed or extended.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-arrow-left-right"></i></div>
+                2. Boxing and Unboxing
+            </h2>
+
+            <h3 class="mt-4">Manual Boxing (Old Way)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Boxing - primitive to object
+int primitive = 5;
+Integer object = Integer.valueOf(primitive);
+
+// Unboxing - object to primitive
+Integer obj = Integer.valueOf(10);
+int prim = obj.intValue();
+</code></pre>
+
+            <h3 class="mt-4">Autoboxing (Java 5+)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Autoboxing - automatic conversion
+int i = 5;
+Integer obj = i;  // Automatically converted to Integer.valueOf(i)
+
+// Auto-unboxing - automatic conversion
+Integer obj2 = 10;
+int i2 = obj2;    // Automatically converted to obj2.intValue()
+
+System.out.println(i2);  // 10
+</code></pre>
+
+            <h3 class="mt-4">Autoboxing in Collections</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// ArrayList only accepts objects, not primitives
+ArrayList<Integer> numbers = new ArrayList<>();
+
+// Autoboxing when adding
+numbers.add(5);     // int → Integer (autoboxing)
+numbers.add(10);
+numbers.add(15);
+
+// Auto-unboxing when retrieving
+int first = numbers.get(0);  // Integer → int (auto-unboxing)
+System.out.println(first);   // 5
+
+// Works in loops too
+for (int num : numbers) {    // Auto-unboxing
+    System.out.println(num);
+}
+</code></pre>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Warning:</strong> Auto-unboxing a null wrapper causes NullPointerException!
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px; margin-top: 10px;"><code class="language-java" style="color: #e2e8f0;">Integer obj = null;
+int i = obj;  // ❌ NullPointerException!</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-tools"></i></div>
+                3. Wrapper Class Utility Methods
+            </h2>
+
+            <h3 class="mt-4">Integer Class Methods</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Parsing strings to primitives
+int num1 = Integer.parseInt("123");
+System.out.println(num1);  // 123
+
+// Parsing with radix (base)
+int binary = Integer.parseInt("1010", 2);   // Binary to decimal
+System.out.println(binary);  // 10
+
+int hex = Integer.parseInt("FF", 16);       // Hex to decimal
+System.out.println(hex);     // 255
+
+// Converting to different formats
+String binary2 = Integer.toBinaryString(10);
+System.out.println(binary2);  // 1010
+
+String hex2 = Integer.toHexString(255);
+System.out.println(hex2);     // ff
+
+// Min and Max values
+System.out.println(Integer.MAX_VALUE);  // 2147483647
+System.out.println(Integer.MIN_VALUE);  // -2147483648
+
+// Comparison
+int result = Integer.compare(5, 10);
+System.out.println(result);  // -1 (first < second)
+</code></pre>
+
+            <h3 class="mt-4">Double Class Methods</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Parsing strings
+double d1 = Double.parseDouble("3.14");
+System.out.println(d1);  // 3.14
+
+// Check special values
+System.out.println(Double.isNaN(0.0/0.0));        // true
+System.out.println(Double.isInfinite(1.0/0.0));   // true
+System.out.println(Double.isFinite(3.14));        // true
+
+// Min and Max
+System.out.println(Double.MAX_VALUE);   // 1.7976931348623157E308
+System.out.println(Double.MIN_VALUE);   // 4.9E-324
+
+// Comparison
+int cmp = Double.compare(3.14, 2.71);
+System.out.println(cmp);  // 1 (first > second)
+</code></pre>
+
+            <h3 class="mt-4">Boolean Class Methods</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Parsing strings
+boolean b1 = Boolean.parseBoolean("true");
+boolean b2 = Boolean.parseBoolean("false");
+boolean b3 = Boolean.parseBoolean("yes");    // false (only "true" returns true)
+
+System.out.println(b1);  // true
+System.out.println(b2);  // false
+System.out.println(b3);  // false
+
+// Logical operations
+System.out.println(Boolean.logicalAnd(true, false));  // false
+System.out.println(Boolean.logicalOr(true, false));   // true
+System.out.println(Boolean.logicalXor(true, true));   // false
+</code></pre>
+
+            <h3 class="mt-4">Character Class Methods</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Character type checking
+System.out.println(Character.isDigit('5'));       // true
+System.out.println(Character.isLetter('A'));      // true
+System.out.println(Character.isWhitespace(' '));  // true
+System.out.println(Character.isUpperCase('A'));   // true
+System.out.println(Character.isLowerCase('a'));   // true
+
+// Case conversion
+System.out.println(Character.toUpperCase('a'));   // A
+System.out.println(Character.toLowerCase('A'));   // a
+
+// Get numeric value
+System.out.println(Character.getNumericValue('5')); // 5
+System.out.println(Character.getNumericValue('A')); // 10 (hex)
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-exclamation-triangle"></i></div>
+                4. Common Pitfalls
+            </h2>
+
+            <h3 class="mt-4">Null Pointer Exception</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Problem: Unboxing null
+Integer count = null;
+// int total = count + 5;  // ❌ NullPointerException!
+
+// Solution: Null check
+int total = (count != null) ? count + 5 : 5;
+System.out.println(total);  // 5
+
+// Or use getOrDefault pattern
+int value = count != null ? count : 0;
+</code></pre>
+
+            <h3 class="mt-4">Object Comparison</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Problem: Using == with wrapper objects
+Integer a = 127;
+Integer b = 127;
+System.out.println(a == b);  // true (cached)
+
+Integer c = 128;
+Integer d = 128;
+System.out.println(c == d);  // false (not cached)
+
+// Solution: Use equals()
+System.out.println(c.equals(d));  // true
+
+// Or compare primitives
+System.out.println(c.intValue() == d.intValue());  // true
+</code></pre>
+
+            <h3 class="mt-4">Integer Caching (-128 to 127)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Java caches Integer objects from -128 to 127
+Integer x = 100;
+Integer y = 100;
+System.out.println(x == y);  // true (same cached object)
+
+Integer m = 200;
+Integer n = 200;
+System.out.println(m == n);  // false (different objects)
+
+// Always use equals() for wrapper comparison
+System.out.println(m.equals(n));  // true
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> Always use <code>.equals()</code> to compare wrapper objects, never <code>==</code>.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-speedometer2"></i></div>
+                5. Performance Considerations
+            </h2>
+
+            <h3 class="mt-4">Primitive vs Wrapper Performance</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Primitives - faster, less memory
+int sum1 = 0;
+for (int i = 0; i < 1000000; i++) {
+    sum1 += i;
+}
+
+// Wrappers - slower, more memory
+Integer sum2 = 0;
+for (int i = 0; i < 1000000; i++) {
+    sum2 += i;  // Unboxing, addition, boxing each iteration!
+}
+
+// Recommendation: Use primitives for calculations
+</code></pre>
+
+            <h3 class="mt-4">When to Use Primitives vs Wrappers</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Use</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Loop counters, calculations</td>
+                            <td><strong>Primitive</strong></td>
+                            <td>Better performance</td>
+                        </tr>
+                        <tr>
+                            <td>Collections (ArrayList, HashMap)</td>
+                            <td><strong>Wrapper</strong></td>
+                            <td>Required by collections</td>
+                        </tr>
+                        <tr>
+                            <td>Need null value</td>
+                            <td><strong>Wrapper</strong></td>
+                            <td>Primitives can't be null</td>
+                        </tr>
+                        <tr>
+                            <td>Method parameters (simple)</td>
+                            <td><strong>Primitive</strong></td>
+                            <td>Less overhead</td>
+                        </tr>
+                        <tr>
+                            <td>API/DTO classes</td>
+                            <td><strong>Wrapper</strong></td>
+                            <td>Null safety, JSON serialization</td>
+                        </tr>
+                        <tr>
+                            <td>Generics</td>
+                            <td><strong>Wrapper</strong></td>
+                            <td>Required by generics</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                6. Real-World Examples
+            </h2>
+
+            <h3 class="mt-4">Example 1: Configuration Values</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Config {
+    private Map<String, String> properties = new HashMap<>();
+
+    public Integer getIntProperty(String key, Integer defaultValue) {
+        String value = properties.get(key);
+        if (value == null) {
+            return defaultValue;
+        }
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+
+    public Double getDoubleProperty(String key, Double defaultValue) {
+        String value = properties.get(key);
+        if (value == null) {
+            return defaultValue;
+        }
+        try {
+            return Double.parseDouble(value);
+        } catch (NumberFormatException e) {
+            return defaultValue;
+        }
+    }
+}
+
+// Usage
+Config config = new Config();
+Integer timeout = config.getIntProperty("timeout", 30);
+Double threshold = config.getDoubleProperty("threshold", 0.5);
+</code></pre>
+
+            <h3 class="mt-4">Example 2: Data Validation</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Validator {
+    public static boolean isValidAge(String ageStr) {
+        try {
+            int age = Integer.parseInt(ageStr);
+            return age >= 0 && age <= 120;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static boolean isValidPrice(String priceStr) {
+        try {
+            double price = Double.parseDouble(priceStr);
+            return price >= 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+}
+
+// Usage
+System.out.println(Validator.isValidAge("25"));     // true
+System.out.println(Validator.isValidAge("abc"));    // false
+System.out.println(Validator.isValidPrice("19.99")); // true
+</code></pre>
+
+            <h3 class="mt-4">Example 3: Test Data with Null Safety</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class User {
+    private String name;
+    private Integer age;        // Can be null
+    private Boolean active;     // Can be null
+
+    // Constructor
+    public User(String name, Integer age, Boolean active) {
+        this.name = name;
+        this.age = age;
+        this.active = active;
+    }
+
+    // Safe getters with defaults
+    public int getAge() {
+        return age != null ? age : 0;
+    }
+
+    public boolean isActive() {
+        return active != null ? active : false;
+    }
+}
+
+// Usage in tests
+User user1 = new User("Alice", 25, true);
+User user2 = new User("Bob", null, null);  // Null values allowed
+
+System.out.println(user2.getAge());      // 0 (default)
+System.out.println(user2.isActive());    // false (default)
+</code></pre>
+
+            <h3 class="mt-4">Example 4: JSON Parsing</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// JSON fields often need to be nullable
+public class Product {
+    private Integer id;
+    private String name;
+    private Double price;
+    private Integer stock;
+
+    // When parsing JSON, some fields might be missing
+    public void updateFromJson(JSONObject json) {
+        if (json.has("id")) {
+            this.id = json.getInt("id");
+        }
+        if (json.has("price")) {
+            this.price = json.getDouble("price");
+        }
+        if (json.has("stock")) {
+            this.stock = json.getInt("stock");
+        }
+    }
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-clipboard-check"></i></div>
+                Practice Exercises
+            </h2>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 1: Safe String to Integer</h3>
+                <p>Write a method that safely converts a String to Integer, returning null if conversion fails.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public static Integer safeParseInt(String value) {
+    if (value == null || value.trim().isEmpty()) {
+        return null;
+    }
+    try {
+        return Integer.parseInt(value);
+    } catch (NumberFormatException e) {
+        return null;
+    }
+}
+
+// Usage
+Integer num1 = safeParseInt("123");
+Integer num2 = safeParseInt("abc");
+Integer num3 = safeParseInt(null);
+
+System.out.println(num1);  // 123
+System.out.println(num2);  // null
+System.out.println(num3);  // null
+
+// Safe arithmetic
+int sum = (num1 != null ? num1 : 0) + (num2 != null ? num2 : 0);
+System.out.println(sum);  // 123
+</code></pre>
+                </details>
+            </div>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 2: Calculate Statistics</h3>
+                <p>Create a method that calculates the average of a list of integers, handling null values.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public static Double calculateAverage(List<Integer> numbers) {
+    if (numbers == null || numbers.isEmpty()) {
+        return null;
+    }
+
+    int sum = 0;
+    int count = 0;
+
+    for (Integer num : numbers) {
+        if (num != null) {
+            sum += num;
+            count++;
+        }
+    }
+
+    return count > 0 ? (double) sum / count : null;
+}
+
+// Usage
+List<Integer> scores = Arrays.asList(90, 85, null, 95, 88);
+Double avg = calculateAverage(scores);
+
+if (avg != null) {
+    System.out.println("Average: " + avg);  // 89.5
+} else {
+    System.out.println("No valid scores");
+}
+</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Object Wrappers:</strong> Each primitive has a corresponding immutable wrapper class.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Autoboxing/Unboxing:</strong> Java automatically converts between primitives and wrappers.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Collections Require Wrappers:</strong> ArrayList, HashMap, etc. only work with objects.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Use equals():</strong> Never use == to compare wrapper objects; use .equals() instead.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Null Safety:</strong> Check for null before unboxing to avoid NullPointerException.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Performance:</strong> Use primitives for calculations; wrappers for collections and null values.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Utility Methods:</strong> Wrappers provide parsing, conversion, and comparison utilities.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="Regular-Expressions.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: Regular Expressions</a>
+                <a href="Enum-Types.html" class="nav-btn nav-btn-primary">Next: Enum Types <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

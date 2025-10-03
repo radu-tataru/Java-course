@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regular Expressions - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-regex"></i></div>
+                <h1 class="lesson-title">Regular Expressions</h1>
+                <p class="lesson-description">Master pattern matching and text processing using Java regular expressions</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Regular Expressions</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Wrapper-Classes.html" class="nav-btn nav-btn-primary">Next: Wrapper Classes <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand regex syntax and metacharacters</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use Pattern and Matcher classes</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Validate input formats (email, phone, etc.)</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Extract data from text using groups</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Replace and split strings with regex</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Apply regex in test automation</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                1. What are Regular Expressions?
+            </h2>
+
+            <p><strong>Regular expressions (regex)</strong> are patterns used to match character combinations in strings. They provide a powerful way to search, validate, and manipulate text.</p>
+
+            <h3 class="mt-4">Common Use Cases</h3>
+            <ul>
+                <li><strong>Validation:</strong> Email addresses, phone numbers, passwords</li>
+                <li><strong>Extraction:</strong> Parse data from logs, HTML, JSON</li>
+                <li><strong>Searching:</strong> Find specific patterns in text</li>
+                <li><strong>Replacement:</strong> Find and replace text patterns</li>
+                <li><strong>Splitting:</strong> Split strings by complex delimiters</li>
+            </ul>
+
+            <h3 class="mt-4">Basic Regex Syntax</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Pattern</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>.</code></td>
+                            <td>Any character except newline</td>
+                            <td><code>a.c</code> matches "abc", "a1c"</td>
+                        </tr>
+                        <tr>
+                            <td><code>^</code></td>
+                            <td>Start of string</td>
+                            <td><code>^Hello</code> matches "Hello world"</td>
+                        </tr>
+                        <tr>
+                            <td><code>$</code></td>
+                            <td>End of string</td>
+                            <td><code>world$</code> matches "Hello world"</td>
+                        </tr>
+                        <tr>
+                            <td><code>*</code></td>
+                            <td>0 or more times</td>
+                            <td><code>ab*</code> matches "a", "ab", "abb"</td>
+                        </tr>
+                        <tr>
+                            <td><code>+</code></td>
+                            <td>1 or more times</td>
+                            <td><code>ab+</code> matches "ab", "abb"</td>
+                        </tr>
+                        <tr>
+                            <td><code>?</code></td>
+                            <td>0 or 1 time</td>
+                            <td><code>colou?r</code> matches "color", "colour"</td>
+                        </tr>
+                        <tr>
+                            <td><code>{n}</code></td>
+                            <td>Exactly n times</td>
+                            <td><code>a{3}</code> matches "aaa"</td>
+                        </tr>
+                        <tr>
+                            <td><code>[abc]</code></td>
+                            <td>Any character in brackets</td>
+                            <td><code>[aeiou]</code> matches any vowel</td>
+                        </tr>
+                        <tr>
+                            <td><code>[^abc]</code></td>
+                            <td>Any character NOT in brackets</td>
+                            <td><code>[^0-9]</code> matches non-digit</td>
+                        </tr>
+                        <tr>
+                            <td><code>|</code></td>
+                            <td>OR operator</td>
+                            <td><code>cat|dog</code> matches "cat" or "dog"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                2. Pattern and Matcher Classes
+            </h2>
+
+            <h3 class="mt-4">Basic Pattern Matching</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import java.util.regex.*;
+
+String text = "Hello World 123";
+String pattern = "\\d+";  // One or more digits
+
+Pattern p = Pattern.compile(pattern);
+Matcher m = p.matcher(text);
+
+if (m.find()) {
+    System.out.println("Found: " + m.group());  // 123
+}
+</code></pre>
+
+            <h3 class="mt-4">Simple String Methods</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// matches() - check if entire string matches
+String email = "user@example.com";
+boolean isValid = email.matches("[a-zA-Z0-9.]+@[a-zA-Z]+\\.[a-zA-Z]+");
+System.out.println(isValid);  // true
+
+// replaceAll() - replace all matches
+String text = "Hello123World456";
+String result = text.replaceAll("\\d+", "");
+System.out.println(result);  // HelloWorld
+
+// split() - split by regex
+String csv = "apple,banana,cherry";
+String[] fruits = csv.split(",");
+// ["apple", "banana", "cherry"]
+</code></pre>
+
+            <h3 class="mt-4">Finding Multiple Matches</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">String text = "Phone: 123-456-7890, Fax: 098-765-4321";
+Pattern pattern = Pattern.compile("\\d{3}-\\d{3}-\\d{4}");
+Matcher matcher = pattern.matcher(text);
+
+while (matcher.find()) {
+    System.out.println("Found: " + matcher.group());
+}
+// Output:
+// Found: 123-456-7890
+// Found: 098-765-4321
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> In Java strings, backslashes must be escaped. Use <code>\\d</code> for digit, <code>\\s</code> for whitespace, etc.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bookmark-check"></i></div>
+                3. Character Classes and Quantifiers
+            </h2>
+
+            <h3 class="mt-4">Predefined Character Classes</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Class</th>
+                            <th>Meaning</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>\\d</code></td>
+                            <td>Digit [0-9]</td>
+                            <td><code>"\\d+"</code> matches "123"</td>
+                        </tr>
+                        <tr>
+                            <td><code>\\D</code></td>
+                            <td>Non-digit [^0-9]</td>
+                            <td><code>"\\D+"</code> matches "abc"</td>
+                        </tr>
+                        <tr>
+                            <td><code>\\w</code></td>
+                            <td>Word character [a-zA-Z0-9_]</td>
+                            <td><code>"\\w+"</code> matches "Hello_123"</td>
+                        </tr>
+                        <tr>
+                            <td><code>\\W</code></td>
+                            <td>Non-word character</td>
+                            <td><code>"\\W+"</code> matches "@#$"</td>
+                        </tr>
+                        <tr>
+                            <td><code>\\s</code></td>
+                            <td>Whitespace [ \\t\\n\\r]</td>
+                            <td><code>"\\s+"</code> matches "   "</td>
+                        </tr>
+                        <tr>
+                            <td><code>\\S</code></td>
+                            <td>Non-whitespace</td>
+                            <td><code>"\\S+"</code> matches "Hello"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="mt-4">Quantifiers</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// {n} - exactly n times
+String pattern1 = "\\d{3}";  // Exactly 3 digits
+"123".matches(pattern1);     // true
+"12".matches(pattern1);      // false
+
+// {n,} - n or more times
+String pattern2 = "\\d{3,}";  // 3 or more digits
+"12345".matches(pattern2);    // true
+
+// {n,m} - between n and m times
+String pattern3 = "\\d{3,5}";  // 3 to 5 digits
+"1234".matches(pattern3);      // true
+"123456".matches(pattern3);    // false
+
+// Greedy vs non-greedy
+String html = "<div>Content</div>";
+String greedy = "<.*>";      // Matches entire string
+String nonGreedy = "<.*?>";  // Matches shortest: <div> and </div>
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-check2-square"></i></div>
+                4. Common Validation Patterns
+            </h2>
+
+            <h3 class="mt-4">Email Validation</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public static boolean isValidEmail(String email) {
+    String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    return email.matches(regex);
+}
+
+// Test
+System.out.println(isValidEmail("user@example.com"));    // true
+System.out.println(isValidEmail("invalid.email"));       // false
+</code></pre>
+
+            <h3 class="mt-4">Phone Number Validation</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public static boolean isValidPhone(String phone) {
+    // Matches: (123) 456-7890, 123-456-7890, 1234567890
+    String regex = "^(\\(\\d{3}\\)|\\d{3})[\\s-]?\\d{3}[\\s-]?\\d{4}$";
+    return phone.matches(regex);
+}
+
+// Test
+System.out.println(isValidPhone("(123) 456-7890"));  // true
+System.out.println(isValidPhone("123-456-7890"));    // true
+System.out.println(isValidPhone("1234567890"));      // true
+</code></pre>
+
+            <h3 class="mt-4">Password Strength Validation</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public static boolean isStrongPassword(String password) {
+    // At least 8 chars, 1 uppercase, 1 lowercase, 1 digit, 1 special char
+    String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+    return password.matches(regex);
+}
+
+// Test
+System.out.println(isStrongPassword("Pass@123"));    // true
+System.out.println(isStrongPassword("password"));    // false
+</code></pre>
+
+            <h3 class="mt-4">URL Validation</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public static boolean isValidURL(String url) {
+    String regex = "^https?://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(/.*)?$";
+    return url.matches(regex);
+}
+
+// Test
+System.out.println(isValidURL("https://example.com"));           // true
+System.out.println(isValidURL("http://example.com/path"));       // true
+System.out.println(isValidURL("example.com"));                   // false
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-diagram-2"></i></div>
+                5. Groups and Capturing
+            </h2>
+
+            <h3 class="mt-4">Capturing Groups</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">String text = "John Doe, age 30";
+Pattern pattern = Pattern.compile("(\\w+)\\s(\\w+),\\sage\\s(\\d+)");
+Matcher matcher = pattern.matcher(text);
+
+if (matcher.find()) {
+    System.out.println("Full match: " + matcher.group(0));  // John Doe, age 30
+    System.out.println("First name: " + matcher.group(1));  // John
+    System.out.println("Last name: " + matcher.group(2));   // Doe
+    System.out.println("Age: " + matcher.group(3));         // 30
+}
+</code></pre>
+
+            <h3 class="mt-4">Named Groups (Java 7+)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">String text = "user@example.com";
+Pattern pattern = Pattern.compile("(?<username>\\w+)@(?<domain>\\w+\\.\\w+)");
+Matcher matcher = pattern.matcher(text);
+
+if (matcher.find()) {
+    System.out.println("Username: " + matcher.group("username"));  // user
+    System.out.println("Domain: " + matcher.group("domain"));      // example.com
+}
+</code></pre>
+
+            <h3 class="mt-4">Extract All Matches</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">String html = "<h1>Title</h1><p>Paragraph</p><div>Content</div>";
+Pattern pattern = Pattern.compile("<(\\w+)>([^<]+)</\\1>");
+Matcher matcher = pattern.matcher(html);
+
+while (matcher.find()) {
+    String tag = matcher.group(1);
+    String content = matcher.group(2);
+    System.out.println(tag + ": " + content);
+}
+// Output:
+// h1: Title
+// p: Paragraph
+// div: Content
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-gear"></i></div>
+                6. Advanced Regex Operations
+            </h2>
+
+            <h3 class="mt-4">Replace with Groups</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Swap first and last name
+String name = "Doe, John";
+String swapped = name.replaceAll("(\\w+),\\s(\\w+)", "$2 $1");
+System.out.println(swapped);  // John Doe
+
+// Format phone number
+String phone = "1234567890";
+String formatted = phone.replaceAll("(\\d{3})(\\d{3})(\\d{4})", "($1) $2-$3");
+System.out.println(formatted);  // (123) 456-7890
+</code></pre>
+
+            <h3 class="mt-4">Split with Complex Delimiter</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Split by comma or semicolon, with optional spaces
+String data = "apple, banana;cherry , date";
+String[] items = data.split("\\s*[,;]\\s*");
+// ["apple", "banana", "cherry", "date"]
+
+// Split but keep delimiter
+String text = "Hello123World456";
+String[] parts = text.split("(?<=\\d)(?=\\D)|(?<=\\D)(?=\\d)");
+// ["Hello", "123", "World", "456"]
+</code></pre>
+
+            <h3 class="mt-4">Pattern Flags</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Case-insensitive matching
+Pattern pattern1 = Pattern.compile("hello", Pattern.CASE_INSENSITIVE);
+boolean matches = pattern1.matcher("HELLO").matches();  // true
+
+// Multiline mode
+Pattern pattern2 = Pattern.compile("^Line", Pattern.MULTILINE);
+String text = "First Line\\nSecond Line";
+// Matches "Line" at start of each line
+
+// Dot matches newline
+Pattern pattern3 = Pattern.compile(".*", Pattern.DOTALL);
+// . now matches \\n as well
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bug"></i></div>
+                7. Regex in Test Automation
+            </h2>
+
+            <h3 class="mt-4">Extract Data from Web Elements</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Extract price from text
+WebElement priceElement = driver.findElement(By.className("price"));
+String text = priceElement.getText();  // "$123.45"
+
+Pattern pattern = Pattern.compile("\\$(\\d+\\.\\d{2})");
+Matcher matcher = pattern.matcher(text);
+
+if (matcher.find()) {
+    double price = Double.parseDouble(matcher.group(1));
+    System.out.println("Price: " + price);  // 123.45
+}
+</code></pre>
+
+            <h3 class="mt-4">Validate Dynamic Text</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Verify success message format
+String message = "Order #12345 placed successfully";
+boolean isValid = message.matches("Order #\\d+ placed successfully");
+
+assertTrue(isValid, "Success message format is incorrect");
+</code></pre>
+
+            <h3 class="mt-4">Parse Log Files</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Extract error messages from logs
+String log = "[ERROR] 2024-01-15 10:30:45 - Connection failed";
+Pattern pattern = Pattern.compile("\\[ERROR\\]\\s([\\d-]+\\s[\\d:]+)\\s-\\s(.+)");
+Matcher matcher = pattern.matcher(log);
+
+if (matcher.find()) {
+    String timestamp = matcher.group(1);
+    String error = matcher.group(2);
+    System.out.println("Error at " + timestamp + ": " + error);
+}
+</code></pre>
+
+            <h3 class="mt-4">Cucumber Step Definitions with Regex</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">@Given("I have {int} items in my cart")
+public void itemsInCart(int count) {
+    // {int} is built-in pattern for integers
+}
+
+@When("I search for {string}")
+public void searchFor(String query) {
+    // {string} is built-in pattern for quoted strings
+}
+
+// Custom regex patterns
+@Then("^the total is \\$(\\d+\\.\\d{2})$")
+public void verifyTotal(String amount) {
+    double expected = Double.parseDouble(amount);
+    // Verify total
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-clipboard-check"></i></div>
+                Practice Exercises
+            </h2>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 1: Extract Email Addresses</h3>
+                <p>Write a method that extracts all email addresses from a text.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public static List<String> extractEmails(String text) {
+    List<String> emails = new ArrayList<>();
+    String regex = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}";
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(text);
+
+    while (matcher.find()) {
+        emails.add(matcher.group());
+    }
+
+    return emails;
+}
+
+// Usage
+String text = "Contact us: support@example.com or sales@example.org";
+List<String> emails = extractEmails(text);
+System.out.println(emails);  // [support@example.com, sales@example.org]
+</code></pre>
+                </details>
+            </div>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 2: Validate Credit Card</h3>
+                <p>Create a regex to validate credit card numbers (16 digits, with optional spaces or dashes every 4 digits).</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public static boolean isValidCreditCard(String card) {
+    // Remove spaces and dashes
+    String cleaned = card.replaceAll("[\\s-]", "");
+
+    // Check if 16 digits
+    if (!cleaned.matches("\\d{16}")) {
+        return false;
+    }
+
+    return true;
+}
+
+// Usage
+System.out.println(isValidCreditCard("1234 5678 9012 3456"));    // true
+System.out.println(isValidCreditCard("1234-5678-9012-3456"));    // true
+System.out.println(isValidCreditCard("1234567890123456"));       // true
+System.out.println(isValidCreditCard("1234"));                   // false
+</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Pattern Matching:</strong> Use Pattern and Matcher for complex regex operations.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Escape Backslashes:</strong> In Java, use <code>\\d</code>, <code>\\s</code>, <code>\\w</code> (double backslash).
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Quick Methods:</strong> Use String.matches(), replaceAll(), split() for simple operations.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Capturing Groups:</strong> Use parentheses () to capture parts of matches for extraction.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Validation Patterns:</strong> Pre-build regex patterns for common validations (email, phone, etc.).
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Greedy vs Non-Greedy:</strong> Use ? after quantifiers for non-greedy matching.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Test Your Regex:</strong> Use online tools like regex101.com to test and debug patterns.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="HashMap-and-Maps.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: HashMap and Maps</a>
+                <a href="Wrapper-Classes.html" class="nav-btn nav-btn-primary">Next: Wrapper Classes <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

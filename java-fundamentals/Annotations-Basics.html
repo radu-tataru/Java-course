@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annotations Basics - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-at"></i></div>
+                <h1 class="lesson-title">Annotations Basics</h1>
+                <p class="lesson-description">Learn how to use Java annotations to add metadata and configure frameworks</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Annotations Basics</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Lambda-Expressions.html" class="nav-btn nav-btn-primary">Next: Lambda Expressions <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand what annotations are and why they're used</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use built-in Java annotations (@Override, @Deprecated, @SuppressWarnings)</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Apply annotations in testing frameworks (JUnit)</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Recognize common framework annotations (Cucumber, Selenium)</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand annotation targets and retention policies</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Create custom annotations (basics)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                1. What are Annotations?
+            </h2>
+
+            <p><strong>Annotations</strong> are metadata tags that provide information about your code to the compiler, runtime, or frameworks. They start with <code>@</code> and don't directly affect the code's behavior but provide instructions or configuration.</p>
+
+            <h3 class="mt-4">Why Use Annotations?</h3>
+            <ul>
+                <li><strong>Compiler Instructions:</strong> Tell the compiler to check for errors (<code>@Override</code>)</li>
+                <li><strong>Runtime Processing:</strong> Frameworks use annotations to configure behavior (<code>@Test</code>)</li>
+                <li><strong>Code Documentation:</strong> Indicate deprecated methods or suppress warnings</li>
+                <li><strong>Reduce Boilerplate:</strong> Replace XML configuration with code annotations</li>
+            </ul>
+
+            <h3 class="mt-4">Common Use Cases</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Category</th>
+                            <th>Examples</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Testing</strong></td>
+                            <td><code>@Test</code>, <code>@Before</code>, <code>@After</code></td>
+                            <td>Mark test methods and setup/teardown</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BDD</strong></td>
+                            <td><code>@Given</code>, <code>@When</code>, <code>@Then</code></td>
+                            <td>Map Gherkin steps to Java methods</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Web</strong></td>
+                            <td><code>@Controller</code>, <code>@RequestMapping</code></td>
+                            <td>Configure web endpoints</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Database</strong></td>
+                            <td><code>@Entity</code>, <code>@Table</code>, <code>@Column</code></td>
+                            <td>Map Java classes to database tables</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dependency Injection</strong></td>
+                            <td><code>@Autowired</code>, <code>@Inject</code></td>
+                            <td>Automatically inject dependencies</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Note:</strong> Annotations are evaluated at compile-time, load-time, or runtime depending on their retention policy.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-tools"></i></div>
+                2. Built-in Java Annotations
+            </h2>
+
+            <h3 class="mt-4">@Override</h3>
+            <p>Indicates that a method overrides a method from a superclass. The compiler will error if it doesn't actually override.</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Animal {
+    public void makeSound() {
+        System.out.println("Some sound");
+    }
+}
+
+public class Dog extends Animal {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+
+    // @Override  // ❌ Compile error - no such method in parent
+    // public void makesound() {  // Typo!
+    //     System.out.println("Woof!");
+    // }
+}
+</code></pre>
+
+            <h3 class="mt-4">@Deprecated</h3>
+            <p>Marks a method or class as deprecated, warning users not to use it.</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Calculator {
+    @Deprecated
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    // New recommended method
+    public int sum(int a, int b) {
+        return a + b;
+    }
+}
+
+// Usage
+Calculator calc = new Calculator();
+int result = calc.add(5, 3);  // ⚠️ Warning: add() is deprecated
+</code></pre>
+
+            <h3 class="mt-4">@SuppressWarnings</h3>
+            <p>Suppresses specific compiler warnings.</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Example {
+    @SuppressWarnings("unchecked")
+    public void rawTypeMethod() {
+        List list = new ArrayList();  // Raw type - normally warns
+        list.add("Hello");
+    }
+
+    @SuppressWarnings({"unused", "deprecation"})
+    public void multipleWarnings() {
+        int unusedVariable = 5;
+        Date date = new Date(2024, 1, 1);  // Deprecated constructor
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">@FunctionalInterface (Java 8+)</h3>
+            <p>Indicates that an interface is a functional interface (has exactly one abstract method).</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">@FunctionalInterface
+public interface Calculator {
+    int calculate(int a, int b);
+
+    // default and static methods are allowed
+    default void print(int result) {
+        System.out.println("Result: " + result);
+    }
+}
+
+// Usage with lambda
+Calculator add = (a, b) -> a + b;
+System.out.println(add.calculate(5, 3));  // 8
+</code></pre>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> Always use <code>@Override</code> when overriding methods. It catches typos and ensures you're actually overriding a parent method.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-check2-square"></i></div>
+                3. Testing Annotations (JUnit 5)
+            </h2>
+
+            <p>JUnit uses annotations to identify and configure test methods.</p>
+
+            <h3 class="mt-4">Basic Test Annotations</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import org.junit.jupiter.api.*;
+
+public class CalculatorTest {
+    private Calculator calculator;
+
+    @BeforeAll
+    static void setupAll() {
+        System.out.println("Running once before all tests");
+    }
+
+    @BeforeEach
+    void setup() {
+        calculator = new Calculator();
+        System.out.println("Running before each test");
+    }
+
+    @Test
+    void testAddition() {
+        int result = calculator.add(2, 3);
+        Assertions.assertEquals(5, result);
+    }
+
+    @Test
+    void testSubtraction() {
+        int result = calculator.subtract(5, 3);
+        Assertions.assertEquals(2, result);
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.out.println("Running after each test");
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        System.out.println("Running once after all tests");
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Test Lifecycle</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Annotation</th>
+                            <th>When It Runs</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>@BeforeAll</code></td>
+                            <td>Once before all tests</td>
+                            <td>Initialize expensive resources (database connection)</td>
+                        </tr>
+                        <tr>
+                            <td><code>@BeforeEach</code></td>
+                            <td>Before each test method</td>
+                            <td>Set up fresh test objects</td>
+                        </tr>
+                        <tr>
+                            <td><code>@Test</code></td>
+                            <td>Each test method</td>
+                            <td>Define individual test cases</td>
+                        </tr>
+                        <tr>
+                            <td><code>@AfterEach</code></td>
+                            <td>After each test method</td>
+                            <td>Clean up test data</td>
+                        </tr>
+                        <tr>
+                            <td><code>@AfterAll</code></td>
+                            <td>Once after all tests</td>
+                            <td>Release expensive resources</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="mt-4">Additional Test Annotations</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class AdvancedTest {
+    @Test
+    @DisplayName("Should add two positive numbers correctly")
+    void testAddPositive() {
+        assertEquals(5, calculator.add(2, 3));
+    }
+
+    @Test
+    @Disabled("Not implemented yet")
+    void testDivision() {
+        // This test will be skipped
+    }
+
+    @Test
+    @Timeout(value = 2, unit = TimeUnit.SECONDS)
+    void testPerformance() {
+        // Fails if takes longer than 2 seconds
+        calculator.heavyComputation();
+    }
+
+    @RepeatedTest(5)
+    void testRepeated() {
+        // Runs this test 5 times
+        assertTrue(calculator.add(1, 1) == 2);
+    }
+}
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-check-circle alert-icon"></i>
+                <div>
+                    <strong>Best Practice:</strong> Use <code>@DisplayName</code> to make test names more readable in test reports.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-file-earmark-text"></i></div>
+                4. BDD Annotations (Cucumber)
+            </h2>
+
+            <p>Cucumber uses annotations to map Gherkin steps to Java methods.</p>
+
+            <h3 class="mt-4">Step Definition Annotations</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import io.cucumber.java.en.*;
+
+public class LoginSteps {
+    private LoginPage loginPage;
+    private String result;
+
+    @Given("I am on the login page")
+    public void navigateToLoginPage() {
+        loginPage = new LoginPage();
+        loginPage.open();
+    }
+
+    @When("I enter username {string} and password {string}")
+    public void enterCredentials(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+    }
+
+    @When("I click the login button")
+    public void clickLogin() {
+        loginPage.clickLoginButton();
+    }
+
+    @Then("I should see {string}")
+    public void verifyMessage(String expectedMessage) {
+        String actualMessage = loginPage.getMessage();
+        assertEquals(expectedMessage, actualMessage);
+    }
+
+    @And("I should be redirected to the dashboard")
+    public void verifyDashboard() {
+        assertTrue(loginPage.isDashboardDisplayed());
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Cucumber Lifecycle Annotations</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import io.cucumber.java.*;
+
+public class Hooks {
+    @Before
+    public void setUp() {
+        // Runs before each scenario
+        WebDriverManager.initializeDriver();
+    }
+
+    @After
+    public void tearDown() {
+        // Runs after each scenario
+        WebDriverManager.quitDriver();
+    }
+
+    @BeforeStep
+    public void beforeEachStep() {
+        // Runs before each step
+        System.out.println("Executing step...");
+    }
+
+    @AfterStep
+    public void afterEachStep() {
+        // Runs after each step
+        // Take screenshot if failed
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Cucumber Annotation Mapping</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Gherkin Keyword</th>
+                            <th>Java Annotation</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Given</code></td>
+                            <td><code>@Given</code></td>
+                            <td>Set up initial state</td>
+                        </tr>
+                        <tr>
+                            <td><code>When</code></td>
+                            <td><code>@When</code></td>
+                            <td>Perform an action</td>
+                        </tr>
+                        <tr>
+                            <td><code>Then</code></td>
+                            <td><code>@Then</code></td>
+                            <td>Verify expected outcome</td>
+                        </tr>
+                        <tr>
+                            <td><code>And</code> / <code>But</code></td>
+                            <td><code>@And</code></td>
+                            <td>Additional steps</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Note:</strong> The text in the annotation must exactly match the Gherkin step text (supports regular expressions and parameters).
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-browser-chrome"></i></div>
+                5. Selenium Annotations (WebDriver)
+            </h2>
+
+            <p>While Selenium itself doesn't use many annotations, it's commonly combined with testing frameworks that do.</p>
+
+            <h3 class="mt-4">FindBy Annotation (Page Object Model)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class LoginPage {
+    @FindBy(id = "username")
+    private WebElement usernameField;
+
+    @FindBy(id = "password")
+    private WebElement passwordField;
+
+    @FindBy(css = "button[type='submit']")
+    private WebElement loginButton;
+
+    @FindBy(xpath = "//div[@class='error-message']")
+    private WebElement errorMessage;
+
+    public LoginPage(WebDriver driver) {
+        PageFactory.initElements(driver, this);
+    }
+
+    public void login(String username, String password) {
+        usernameField.sendKeys(username);
+        passwordField.sendKeys(password);
+        loginButton.click();
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">FindBy Strategies</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Strategy</th>
+                            <th>Example</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>id</code></td>
+                            <td><code>@FindBy(id = "username")</code></td>
+                            <td>Fastest, most reliable</td>
+                        </tr>
+                        <tr>
+                            <td><code>name</code></td>
+                            <td><code>@FindBy(name = "email")</code></td>
+                            <td>Form fields</td>
+                        </tr>
+                        <tr>
+                            <td><code>className</code></td>
+                            <td><code>@FindBy(className = "btn-primary")</code></td>
+                            <td>CSS class names</td>
+                        </tr>
+                        <tr>
+                            <td><code>css</code></td>
+                            <td><code>@FindBy(css = "input[type='text']")</code></td>
+                            <td>CSS selectors</td>
+                        </tr>
+                        <tr>
+                            <td><code>xpath</code></td>
+                            <td><code>@FindBy(xpath = "//button[@id='submit']")</code></td>
+                            <td>Complex element location</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="mt-4">TestNG Annotations (Alternative to JUnit)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import org.testng.annotations.*;
+
+public class WebTest {
+    private WebDriver driver;
+
+    @BeforeSuite
+    public void setupSuite() {
+        // Runs once before all tests in suite
+    }
+
+    @BeforeClass
+    public void setupClass() {
+        // Runs once before this test class
+        driver = new ChromeDriver();
+    }
+
+    @BeforeMethod
+    public void setupTest() {
+        // Runs before each test method
+        driver.get("https://example.com");
+    }
+
+    @Test(priority = 1)
+    public void testLogin() {
+        // Test login functionality
+    }
+
+    @Test(priority = 2, dependsOnMethods = {"testLogin"})
+    public void testDashboard() {
+        // Runs only if testLogin passes
+    }
+
+    @AfterMethod
+    public void cleanup() {
+        // Runs after each test
+    }
+
+    @AfterClass
+    public void tearDown() {
+        driver.quit();
+    }
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-gear"></i></div>
+                6. Annotation Elements
+            </h2>
+
+            <p>Annotations can have elements (parameters) that provide additional configuration.</p>
+
+            <h3 class="mt-4">Annotations with Elements</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Single element (value)
+@Test(timeout = 1000)
+public void testPerformance() {
+    // Fails if takes longer than 1 second
+}
+
+// Multiple elements
+@RequestMapping(
+    value = "/api/users",
+    method = RequestMethod.GET,
+    produces = "application/json"
+)
+public List<User> getUsers() {
+    return userService.findAll();
+}
+
+// Array element
+@SuppressWarnings({"unchecked", "deprecation"})
+public void method() {
+    // Code here
+}
+</code></pre>
+
+            <h3 class="mt-4">Default Values</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// When annotation has a single element named "value"
+@Given("I am on the login page")  // value = "I am on the login page"
+
+// Is equivalent to:
+@Given(value = "I am on the login page")
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> When an annotation has only one element named "value", you can omit the element name and just provide the value.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-plus-circle"></i></div>
+                7. Creating Custom Annotations
+            </h2>
+
+            <p>You can create your own annotations for specific use cases.</p>
+
+            <h3 class="mt-4">Basic Custom Annotation</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import java.lang.annotation.*;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface TestInfo {
+    String author();
+    String date();
+    int priority() default 1;
+    String[] tags() default {};
+}
+
+// Usage
+public class MyTest {
+    @TestInfo(
+        author = "John Doe",
+        date = "2024-01-15",
+        priority = 2,
+        tags = {"smoke", "regression"}
+    )
+    @Test
+    public void testLogin() {
+        // Test code
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Retention Policies</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Policy</th>
+                            <th>Description</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>SOURCE</code></td>
+                            <td>Discarded by compiler</td>
+                            <td>Code generation tools</td>
+                        </tr>
+                        <tr>
+                            <td><code>CLASS</code></td>
+                            <td>Stored in .class file, not available at runtime</td>
+                            <td>Bytecode processors</td>
+                        </tr>
+                        <tr>
+                            <td><code>RUNTIME</code></td>
+                            <td>Available at runtime via reflection</td>
+                            <td>Frameworks (JUnit, Spring)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="mt-4">Target Types</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">@Target(ElementType.METHOD)        // Can only be applied to methods
+@Target(ElementType.TYPE)          // Can be applied to classes/interfaces
+@Target(ElementType.FIELD)         // Can be applied to fields
+@Target(ElementType.PARAMETER)     // Can be applied to parameters
+@Target(ElementType.CONSTRUCTOR)   // Can be applied to constructors
+
+// Multiple targets
+@Target({ElementType.METHOD, ElementType.FIELD})
+public @interface Validate {
+    String message() default "Validation failed";
+}
+</code></pre>
+
+            <h3 class="mt-4">Reading Annotations at Runtime</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import java.lang.reflect.Method;
+
+public class AnnotationProcessor {
+    public static void processAnnotations(Class<?> clazz) {
+        for (Method method : clazz.getDeclaredMethods()) {
+            if (method.isAnnotationPresent(TestInfo.class)) {
+                TestInfo info = method.getAnnotation(TestInfo.class);
+                System.out.println("Method: " + method.getName());
+                System.out.println("Author: " + info.author());
+                System.out.println("Date: " + info.date());
+                System.out.println("Priority: " + info.priority());
+                System.out.println("Tags: " + String.join(", ", info.tags()));
+            }
+        }
+    }
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-clipboard-check"></i></div>
+                Practice Exercises
+            </h2>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 1: Fix Override Errors</h3>
+                <p>Add <code>@Override</code> annotations and fix any errors in this code:</p>
+                <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">class Animal {
+    public void eat() {
+        System.out.println("Eating");
+    }
+}
+
+class Dog extends Animal {
+    public void eat() {  // Should have @Override
+        System.out.println("Dog eating");
+    }
+
+    public void eats() {  // Typo - not an override
+        System.out.println("Dog eating");
+    }
+}
+</code></pre>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">class Animal {
+    public void eat() {
+        System.out.println("Eating");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void eat() {
+        System.out.println("Dog eating");
+    }
+
+    // Fixed typo - now properly overrides
+    @Override
+    public void eat() {
+        System.out.println("Dog eating");
+    }
+}
+</code></pre>
+                </details>
+            </div>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 2: Create Step Definitions</h3>
+                <p>Write Cucumber step definitions for this Gherkin scenario:</p>
+                <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-gherkin" style="color: #e2e8f0;">Scenario: Successful product search
+  Given I am on the home page
+  When I search for "laptop"
+  Then I should see search results
+  And the results should contain "laptop"
+</code></pre>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import io.cucumber.java.en.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class SearchSteps {
+    private SearchPage searchPage;
+    private List<String> searchResults;
+
+    @Given("I am on the home page")
+    public void navigateToHomePage() {
+        searchPage = new SearchPage();
+        searchPage.open();
+    }
+
+    @When("I search for {string}")
+    public void searchForProduct(String query) {
+        searchResults = searchPage.search(query);
+    }
+
+    @Then("I should see search results")
+    public void verifyResultsDisplayed() {
+        assertFalse(searchResults.isEmpty());
+    }
+
+    @And("the results should contain {string}")
+    public void verifyResultsContain(String keyword) {
+        boolean found = searchResults.stream()
+            .anyMatch(result -> result.toLowerCase().contains(keyword.toLowerCase()));
+        assertTrue(found);
+    }
+}
+</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Metadata Tags:</strong> Annotations add metadata to code without changing its behavior directly.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>@Override for Safety:</strong> Always use @Override when overriding methods to catch errors early.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Testing Annotations:</strong> Use @Test, @BeforeEach, @AfterEach for JUnit test lifecycle management.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>BDD Mapping:</strong> Cucumber uses @Given, @When, @Then to map Gherkin steps to Java methods.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Page Objects:</strong> Use @FindBy in Selenium to locate web elements declaratively.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Custom Annotations:</strong> Create your own with @interface and specify retention and target.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Framework Configuration:</strong> Modern frameworks use annotations instead of XML for configuration.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Lambda-Expressions.html" class="nav-btn nav-btn-primary">Next: Lambda Expressions <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

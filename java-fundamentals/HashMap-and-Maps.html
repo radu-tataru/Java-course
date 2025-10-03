@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HashMap and Maps - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-key-fill"></i></div>
+                <h1 class="lesson-title">HashMap and Maps</h1>
+                <p class="lesson-description">Master key-value pair storage and retrieval using HashMap and other Map implementations</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">HashMap and Maps</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Regular-Expressions.html" class="nav-btn nav-btn-primary">Next: Regular Expressions <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand Map interface and its implementations</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use HashMap for key-value storage</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Perform CRUD operations on Maps</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Iterate over Maps using different techniques</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Choose the right Map implementation</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Apply Maps in real-world scenarios</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                1. What is a Map?
+            </h2>
+
+            <p>A <strong>Map</strong> is a collection that stores key-value pairs. Each key is unique and maps to exactly one value. Maps are not part of the Collection interface but are part of the Collections Framework.</p>
+
+            <h3 class="mt-4">Key Characteristics</h3>
+            <ul>
+                <li><strong>Key-Value Pairs:</strong> Each entry contains a unique key and its associated value</li>
+                <li><strong>No Duplicate Keys:</strong> Each key can appear only once in a map</li>
+                <li><strong>One Value per Key:</strong> Each key maps to exactly one value (but values can be duplicated)</li>
+                <li><strong>Fast Lookup:</strong> Retrieve values quickly using their keys</li>
+            </ul>
+
+            <h3 class="mt-4">Common Map Implementations</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Implementation</th>
+                            <th>Order</th>
+                            <th>Performance</th>
+                            <th>Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>HashMap</code></td>
+                            <td>No order</td>
+                            <td>O(1) average</td>
+                            <td>General purpose, fastest</td>
+                        </tr>
+                        <tr>
+                            <td><code>LinkedHashMap</code></td>
+                            <td>Insertion order</td>
+                            <td>O(1) average</td>
+                            <td>Maintain insertion order</td>
+                        </tr>
+                        <tr>
+                            <td><code>TreeMap</code></td>
+                            <td>Sorted by key</td>
+                            <td>O(log n)</td>
+                            <td>Sorted keys needed</td>
+                        </tr>
+                        <tr>
+                            <td><code>Hashtable</code></td>
+                            <td>No order</td>
+                            <td>O(1) average</td>
+                            <td>Legacy, thread-safe</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Note:</strong> HashMap is the most commonly used Map implementation due to its excellent performance for most use cases.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-hash"></i></div>
+                2. HashMap Basics
+            </h2>
+
+            <h3 class="mt-4">Creating and Adding Elements</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Create HashMap
+HashMap<String, Integer> scores = new HashMap<>();
+
+// Add key-value pairs
+scores.put("Alice", 95);
+scores.put("Bob", 87);
+scores.put("Charlie", 92);
+
+System.out.println(scores);  // {Alice=95, Bob=87, Charlie=92}
+
+// Update existing key
+scores.put("Alice", 98);  // Replaces 95 with 98
+System.out.println(scores.get("Alice"));  // 98
+</code></pre>
+
+            <h3 class="mt-4">Retrieving Values</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">HashMap<String, String> capitals = new HashMap<>();
+capitals.put("USA", "Washington D.C.");
+capitals.put("France", "Paris");
+capitals.put("Japan", "Tokyo");
+
+// Get value by key
+String capital = capitals.get("France");
+System.out.println(capital);  // Paris
+
+// Get with default value if key doesn't exist
+String uk = capitals.getOrDefault("UK", "Unknown");
+System.out.println(uk);  // Unknown
+
+// Check if key exists
+if (capitals.containsKey("Japan")) {
+    System.out.println("Japan's capital: " + capitals.get("Japan"));
+}
+
+// Check if value exists
+if (capitals.containsValue("Paris")) {
+    System.out.println("Paris is a capital");
+}
+</code></pre>
+
+            <h3 class="mt-4">Removing Elements</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">HashMap<String, Integer> ages = new HashMap<>();
+ages.put("Alice", 25);
+ages.put("Bob", 30);
+ages.put("Charlie", 35);
+
+// Remove by key
+ages.remove("Bob");
+System.out.println(ages);  // {Alice=25, Charlie=35}
+
+// Remove only if key maps to specific value
+ages.remove("Alice", 20);  // Does nothing (value doesn't match)
+ages.remove("Alice", 25);  // Removes (value matches)
+
+// Clear all entries
+ages.clear();
+System.out.println(ages.isEmpty());  // true
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> Use <code>getOrDefault()</code> to avoid null checks when retrieving values.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-arrow-repeat"></i></div>
+                3. Iterating Over Maps
+            </h2>
+
+            <h3 class="mt-4">Method 1: EntrySet (Recommended)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">HashMap<String, Integer> inventory = new HashMap<>();
+inventory.put("Apples", 50);
+inventory.put("Bananas", 30);
+inventory.put("Oranges", 40);
+
+// Iterate over entries (key-value pairs)
+for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
+    System.out.println(entry.getKey() + ": " + entry.getValue());
+}
+// Output:
+// Apples: 50
+// Bananas: 30
+// Oranges: 40
+</code></pre>
+
+            <h3 class="mt-4">Method 2: KeySet</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Iterate over keys only
+for (String fruit : inventory.keySet()) {
+    System.out.println(fruit + ": " + inventory.get(fruit));
+}
+</code></pre>
+
+            <h3 class="mt-4">Method 3: Values</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Iterate over values only
+for (Integer quantity : inventory.values()) {
+    System.out.println("Quantity: " + quantity);
+}
+</code></pre>
+
+            <h3 class="mt-4">Method 4: forEach with Lambda (Java 8+)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Most concise way
+inventory.forEach((fruit, quantity) -> {
+    System.out.println(fruit + ": " + quantity);
+});
+</code></pre>
+
+            <h3 class="mt-4">Method 5: Streams (Java 8+)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Filter and process entries
+inventory.entrySet().stream()
+    .filter(entry -> entry.getValue() > 35)
+    .forEach(entry -> System.out.println(entry.getKey() + " has high stock"));
+// Output:
+// Apples has high stock
+// Oranges has high stock
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-tools"></i></div>
+                4. Advanced HashMap Operations
+            </h2>
+
+            <h3 class="mt-4">putIfAbsent() - Add Only if Key Doesn't Exist</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">HashMap<String, String> users = new HashMap<>();
+users.put("user1", "Alice");
+
+users.putIfAbsent("user1", "Bob");   // Does nothing (key exists)
+users.putIfAbsent("user2", "Charlie"); // Adds new entry
+
+System.out.println(users);  // {user1=Alice, user2=Charlie}
+</code></pre>
+
+            <h3 class="mt-4">compute() - Update Value Based on Key</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">HashMap<String, Integer> scores = new HashMap<>();
+scores.put("Alice", 10);
+
+// Increment score
+scores.compute("Alice", (key, value) -> value + 5);
+System.out.println(scores.get("Alice"));  // 15
+
+// Create if absent
+scores.compute("Bob", (key, value) -> value == null ? 1 : value + 1);
+System.out.println(scores.get("Bob"));  // 1
+</code></pre>
+
+            <h3 class="mt-4">merge() - Combine Values</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">HashMap<String, Integer> cart = new HashMap<>();
+cart.put("Apple", 2);
+
+// Add or update quantity
+cart.merge("Apple", 3, Integer::sum);  // 2 + 3 = 5
+cart.merge("Banana", 1, Integer::sum); // Creates new entry
+
+System.out.println(cart);  // {Apple=5, Banana=1}
+</code></pre>
+
+            <h3 class="mt-4">replaceAll() - Transform All Values</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">HashMap<String, Integer> prices = new HashMap<>();
+prices.put("Coffee", 3);
+prices.put("Tea", 2);
+
+// Apply 10% discount
+prices.replaceAll((item, price) -> (int)(price * 0.9));
+System.out.println(prices);  // {Coffee=2, Tea=1}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-diagram-3"></i></div>
+                5. Map Implementations Comparison
+            </h2>
+
+            <h3 class="mt-4">HashMap - No Order</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">HashMap<String, Integer> hashMap = new HashMap<>();
+hashMap.put("C", 3);
+hashMap.put("A", 1);
+hashMap.put("B", 2);
+
+System.out.println(hashMap);  // {A=1, B=2, C=3} (no guaranteed order)
+</code></pre>
+
+            <h3 class="mt-4">LinkedHashMap - Insertion Order</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">LinkedHashMap<String, Integer> linkedMap = new LinkedHashMap<>();
+linkedMap.put("C", 3);
+linkedMap.put("A", 1);
+linkedMap.put("B", 2);
+
+System.out.println(linkedMap);  // {C=3, A=1, B=2} (insertion order)
+</code></pre>
+
+            <h3 class="mt-4">TreeMap - Sorted Order</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">TreeMap<String, Integer> treeMap = new TreeMap<>();
+treeMap.put("C", 3);
+treeMap.put("A", 1);
+treeMap.put("B", 2);
+
+System.out.println(treeMap);  // {A=1, B=2, C=3} (sorted by key)
+</code></pre>
+
+            <h3 class="mt-4">When to Use Each Implementation</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Use</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>General purpose, no order needed</td>
+                            <td><code>HashMap</code></td>
+                            <td>Fastest performance</td>
+                        </tr>
+                        <tr>
+                            <td>Need to maintain insertion order</td>
+                            <td><code>LinkedHashMap</code></td>
+                            <td>Preserves order, minimal overhead</td>
+                        </tr>
+                        <tr>
+                            <td>Need sorted keys</td>
+                            <td><code>TreeMap</code></td>
+                            <td>Automatic sorting</td>
+                        </tr>
+                        <tr>
+                            <td>Thread-safe operations (legacy)</td>
+                            <td><code>ConcurrentHashMap</code></td>
+                            <td>Modern thread-safe alternative</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                6. Real-World Examples
+            </h2>
+
+            <h3 class="mt-4">Example 1: Word Frequency Counter</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public static Map<String, Integer> countWords(String text) {
+    Map<String, Integer> wordCount = new HashMap<>();
+    String[] words = text.toLowerCase().split("\\s+");
+
+    for (String word : words) {
+        wordCount.merge(word, 1, Integer::sum);
+    }
+
+    return wordCount;
+}
+
+// Usage
+String text = "hello world hello java world";
+Map<String, Integer> counts = countWords(text);
+System.out.println(counts);  // {hello=2, world=2, java=1}
+</code></pre>
+
+            <h3 class="mt-4">Example 2: Caching System</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Cache<K, V> {
+    private Map<K, V> cache = new HashMap<>();
+
+    public V get(K key) {
+        return cache.get(key);
+    }
+
+    public void put(K key, V value) {
+        cache.put(key, value);
+    }
+
+    public boolean contains(K key) {
+        return cache.containsKey(key);
+    }
+
+    public void clear() {
+        cache.clear();
+    }
+}
+
+// Usage
+Cache<String, User> userCache = new Cache<>();
+userCache.put("user123", new User("Alice"));
+User user = userCache.get("user123");
+</code></pre>
+
+            <h3 class="mt-4">Example 3: Configuration Manager</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Config {
+    private static Map<String, String> settings = new HashMap<>();
+
+    static {
+        settings.put("db.host", "localhost");
+        settings.put("db.port", "5432");
+        settings.put("app.name", "MyApp");
+    }
+
+    public static String get(String key) {
+        return settings.getOrDefault(key, "");
+    }
+
+    public static void set(String key, String value) {
+        settings.put(key, value);
+    }
+}
+
+// Usage
+String dbHost = Config.get("db.host");
+Config.set("app.version", "1.0");
+</code></pre>
+
+            <h3 class="mt-4">Example 4: Test Data Management (Cucumber)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class TestDataManager {
+    private Map<String, Map<String, String>> testData = new HashMap<>();
+
+    public void addUser(String userId, Map<String, String> userData) {
+        testData.put(userId, userData);
+    }
+
+    public String getUserData(String userId, String field) {
+        return testData.getOrDefault(userId, new HashMap<>())
+                       .getOrDefault(field, "");
+    }
+}
+
+// Usage
+TestDataManager manager = new TestDataManager();
+Map<String, String> alice = new HashMap<>();
+alice.put("username", "alice123");
+alice.put("email", "alice@example.com");
+manager.addUser("user1", alice);
+
+String email = manager.getUserData("user1", "email");
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-clipboard-check"></i></div>
+                Practice Exercises
+            </h2>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 1: Student Grades</h3>
+                <p>Create a HashMap to store student names and their grades. Calculate the average grade.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">HashMap<String, Double> grades = new HashMap<>();
+grades.put("Alice", 95.5);
+grades.put("Bob", 87.0);
+grades.put("Charlie", 92.5);
+grades.put("Diana", 88.0);
+
+// Calculate average
+double sum = 0;
+for (double grade : grades.values()) {
+    sum += grade;
+}
+double average = sum / grades.size();
+System.out.println("Average grade: " + average);  // 90.75
+
+// Using streams
+double avg = grades.values().stream()
+    .mapToDouble(Double::doubleValue)
+    .average()
+    .orElse(0.0);
+System.out.println("Average: " + avg);
+</code></pre>
+                </details>
+            </div>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 2: Group by First Letter</h3>
+                <p>Group a list of names by their first letter using a Map.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<String> names = Arrays.asList("Alice", "Bob", "Anna", "Charlie", "Ben");
+Map<Character, List<String>> grouped = new HashMap<>();
+
+for (String name : names) {
+    char firstLetter = name.charAt(0);
+    grouped.computeIfAbsent(firstLetter, k -> new ArrayList<>()).add(name);
+}
+
+System.out.println(grouped);
+// {A=[Alice, Anna], B=[Bob, Ben], C=[Charlie]}
+
+// Using streams
+Map<Character, List<String>> streamGrouped = names.stream()
+    .collect(Collectors.groupingBy(name -> name.charAt(0)));
+System.out.println(streamGrouped);
+</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Key-Value Storage:</strong> Maps store unique keys mapped to values for fast lookup.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>HashMap for Speed:</strong> Use HashMap for general purpose - it's the fastest implementation.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>No Duplicate Keys:</strong> Each key can appear only once; new values replace old ones.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Use entrySet():</strong> Most efficient way to iterate over both keys and values.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>getOrDefault():</strong> Avoid null checks by providing default values.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Order Matters:</strong> Use LinkedHashMap for insertion order, TreeMap for sorted keys.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Advanced Methods:</strong> Use compute(), merge(), and putIfAbsent() for complex operations.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="Type-Casting.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: Type Casting</a>
+                <a href="Regular-Expressions.html" class="nav-btn nav-btn-primary">Next: Regular Expressions <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

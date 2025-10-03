@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Type Casting - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-arrow-left-right"></i></div>
+                <h1 class="lesson-title">Type Casting</h1>
+                <p class="lesson-description">Learn how to convert between data types safely and effectively in Java</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Type Casting</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="HashMap-and-Maps.html" class="nav-btn nav-btn-primary">Next: HashMap and Maps <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand implicit (widening) and explicit (narrowing) casting</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Cast between primitive types safely</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Cast between reference types (upcasting and downcasting)</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use instanceof operator for safe casting</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand ClassCastException and how to avoid it</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Apply type casting in real-world scenarios</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                1. What is Type Casting?
+            </h2>
+
+            <p><strong>Type casting</strong> is the process of converting a value from one data type to another. Java supports casting for both primitive types and reference types (objects).</p>
+
+            <h3 class="mt-4">Why Type Casting?</h3>
+            <ul>
+                <li><strong>Compatibility:</strong> Convert data to required types for operations</li>
+                <li><strong>Precision Control:</strong> Convert between integer and floating-point types</li>
+                <li><strong>Polymorphism:</strong> Work with parent and child class types</li>
+                <li><strong>API Requirements:</strong> Match method parameter types</li>
+            </ul>
+
+            <h3 class="mt-4">Two Types of Casting</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Type</th>
+                            <th>Direction</th>
+                            <th>Safety</th>
+                            <th>Syntax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Widening (Implicit)</strong></td>
+                            <td>Smaller → Larger type</td>
+                            <td>Safe, automatic</td>
+                            <td><code>double d = 5;</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Narrowing (Explicit)</strong></td>
+                            <td>Larger → Smaller type</td>
+                            <td>May lose data, manual</td>
+                            <td><code>int i = (int) 5.7;</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Note:</strong> Widening conversions are automatic because there's no risk of data loss. Narrowing conversions require explicit casting because data may be lost.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-1-circle"></i></div>
+                2. Primitive Type Casting
+            </h2>
+
+            <h3 class="mt-4">Widening Conversion (Automatic)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Automatic conversion from smaller to larger type
+byte b = 10;
+int i = b;          // byte → int (automatic)
+long l = i;         // int → long (automatic)
+float f = l;        // long → float (automatic)
+double d = f;       // float → double (automatic)
+
+System.out.println("byte: " + b);      // 10
+System.out.println("int: " + i);       // 10
+System.out.println("long: " + l);      // 10
+System.out.println("float: " + f);     // 10.0
+System.out.println("double: " + d);    // 10.0
+</code></pre>
+
+            <h3 class="mt-4">Widening Conversion Order</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-plaintext" style="color: #e2e8f0;">byte → short → int → long → float → double
+         char → int → long → float → double
+</code></pre>
+
+            <h3 class="mt-4">Narrowing Conversion (Explicit)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Manual conversion from larger to smaller type
+double d = 9.78;
+int i = (int) d;        // Explicit cast required
+System.out.println(i);  // 9 (decimal part lost)
+
+long l = 100000L;
+int i2 = (int) l;       // Potential data loss if l > Integer.MAX_VALUE
+System.out.println(i2); // 100000
+
+float f = 5.75f;
+int i3 = (int) f;       // Truncates decimal
+System.out.println(i3); // 5
+</code></pre>
+
+            <h3 class="mt-4">Data Loss Examples</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Precision loss
+double d = 3.99999;
+int i = (int) d;
+System.out.println(i);  // 3 (not 4!)
+
+// Overflow
+int largeInt = 130;
+byte b = (byte) largeInt;
+System.out.println(b);  // -126 (overflow!)
+
+// Explanation: byte range is -128 to 127
+// 130 exceeds 127, wraps around: 130 - 256 = -126
+</code></pre>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Warning:</strong> Narrowing conversions can cause data loss! Always verify the value is within the target type's range before casting.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-box-arrow-up"></i></div>
+                3. Reference Type Casting
+            </h2>
+
+            <h3 class="mt-4">Upcasting (Automatic)</h3>
+            <p><strong>Upcasting</strong> is casting from a subclass to a superclass. It's always safe and automatic.</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">class Animal {
+    public void eat() {
+        System.out.println("Animal is eating");
+    }
+}
+
+class Dog extends Animal {
+    public void bark() {
+        System.out.println("Dog is barking");
+    }
+}
+
+// Upcasting - automatic
+Dog dog = new Dog();
+Animal animal = dog;  // Dog → Animal (automatic upcasting)
+
+animal.eat();   // ✅ Works
+// animal.bark();  // ❌ Compile error - Animal doesn't have bark()
+</code></pre>
+
+            <h3 class="mt-4">Downcasting (Explicit)</h3>
+            <p><strong>Downcasting</strong> is casting from a superclass to a subclass. Requires explicit casting and can fail at runtime.</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">Animal animal = new Dog();  // Upcasting
+
+// Downcasting - explicit cast required
+Dog dog = (Dog) animal;  // Animal → Dog
+dog.bark();  // ✅ Works now
+
+// Dangerous downcasting
+Animal animal2 = new Animal();
+Dog dog2 = (Dog) animal2;  // ❌ Runtime error: ClassCastException!
+</code></pre>
+
+            <h3 class="mt-4">Safe Downcasting with instanceof</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public void handleAnimal(Animal animal) {
+    if (animal instanceof Dog) {
+        Dog dog = (Dog) animal;
+        dog.bark();
+    } else if (animal instanceof Cat) {
+        Cat cat = (Cat) animal;
+        cat.meow();
+    } else {
+        animal.eat();
+    }
+}
+
+// Usage
+handleAnimal(new Dog());  // Dog is barking
+handleAnimal(new Cat());  // Cat is meowing
+handleAnimal(new Animal()); // Animal is eating
+</code></pre>
+
+            <h3 class="mt-4">Pattern Matching (Java 16+)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public void handleAnimal(Animal animal) {
+    if (animal instanceof Dog dog) {
+        // 'dog' is automatically cast and available here
+        dog.bark();
+    } else if (animal instanceof Cat cat) {
+        cat.meow();
+    } else {
+        animal.eat();
+    }
+}
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> Always use <code>instanceof</code> before downcasting to avoid ClassCastException at runtime.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-diagram-3"></i></div>
+                4. Casting in Collections
+            </h2>
+
+            <h3 class="mt-4">Before Generics (Legacy Code)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Old-style ArrayList without generics
+ArrayList list = new ArrayList();
+list.add("Hello");
+list.add("World");
+
+// Requires casting when retrieving
+String str = (String) list.get(0);
+System.out.println(str);  // Hello
+
+// Runtime error if wrong type
+list.add(123);
+String str2 = (String) list.get(2);  // ❌ ClassCastException!
+</code></pre>
+
+            <h3 class="mt-4">With Generics (Modern Java)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Type-safe with generics - no casting needed
+ArrayList<String> list = new ArrayList<>();
+list.add("Hello");
+list.add("World");
+
+String str = list.get(0);  // No cast needed
+System.out.println(str);   // Hello
+
+// list.add(123);  // ❌ Compile error - type safety!
+</code></pre>
+
+            <h3 class="mt-4">Casting with Polymorphic Collections</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">List<Animal> animals = new ArrayList<>();
+animals.add(new Dog());
+animals.add(new Cat());
+animals.add(new Bird());
+
+for (Animal animal : animals) {
+    animal.eat();  // Common method
+
+    if (animal instanceof Dog) {
+        ((Dog) animal).bark();
+    } else if (animal instanceof Cat) {
+        ((Cat) animal).meow();
+    } else if (animal instanceof Bird) {
+        ((Bird) animal).fly();
+    }
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-box-seam"></i></div>
+                5. Boxing and Unboxing
+            </h2>
+
+            <p><strong>Boxing</strong> converts primitives to wrapper objects. <strong>Unboxing</strong> converts wrapper objects to primitives.</p>
+
+            <h3 class="mt-4">Manual Boxing/Unboxing (Old Way)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Boxing - primitive to object
+int primitive = 5;
+Integer object = new Integer(primitive);  // Deprecated in Java 9+
+
+// Unboxing - object to primitive
+Integer obj = new Integer(10);
+int prim = obj.intValue();
+</code></pre>
+
+            <h3 class="mt-4">Auto-Boxing/Unboxing (Java 5+)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Auto-boxing - automatic conversion
+int i = 5;
+Integer obj = i;  // Automatic boxing
+
+// Auto-unboxing - automatic conversion
+Integer obj2 = 10;
+int i2 = obj2;    // Automatic unboxing
+
+// In collections
+ArrayList<Integer> numbers = new ArrayList<>();
+numbers.add(5);      // Auto-boxing: int → Integer
+int num = numbers.get(0);  // Auto-unboxing: Integer → int
+</code></pre>
+
+            <h3 class="mt-4">Boxing/Unboxing with All Wrapper Classes</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Primitive</th>
+                            <th>Wrapper Class</th>
+                            <th>Boxing Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>byte</code></td>
+                            <td><code>Byte</code></td>
+                            <td><code>Byte b = 1;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>short</code></td>
+                            <td><code>Short</code></td>
+                            <td><code>Short s = 10;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>int</code></td>
+                            <td><code>Integer</code></td>
+                            <td><code>Integer i = 100;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>long</code></td>
+                            <td><code>Long</code></td>
+                            <td><code>Long l = 1000L;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>float</code></td>
+                            <td><code>Float</code></td>
+                            <td><code>Float f = 3.14f;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>double</code></td>
+                            <td><code>Double</code></td>
+                            <td><code>Double d = 3.14;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>char</code></td>
+                            <td><code>Character</code></td>
+                            <td><code>Character c = 'A';</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>boolean</code></td>
+                            <td><code>Boolean</code></td>
+                            <td><code>Boolean b = true;</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Caution:</strong> Unboxing a null wrapper object causes NullPointerException!
+                    <pre style="background: #1e293b; padding: 10px; border-radius: 4px; margin-top: 10px;"><code class="language-java" style="color: #e2e8f0;">Integer obj = null;
+int i = obj;  // ❌ NullPointerException!</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-exclamation-triangle"></i></div>
+                6. Common Casting Errors
+            </h2>
+
+            <h3 class="mt-4">ClassCastException</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">Object obj = "Hello";
+Integer num = (Integer) obj;  // ❌ ClassCastException!
+// String cannot be cast to Integer
+
+// Solution: Check type first
+if (obj instanceof Integer) {
+    Integer num = (Integer) obj;
+} else {
+    System.out.println("Not an Integer");
+}
+</code></pre>
+
+            <h3 class="mt-4">Loss of Precision</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">double d = 3.9999;
+int i = (int) d;
+System.out.println(i);  // 3 (not 4!)
+
+// Solution: Round before casting
+int i2 = (int) Math.round(d);
+System.out.println(i2);  // 4
+</code></pre>
+
+            <h3 class="mt-4">Overflow</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">long bigNumber = 3_000_000_000L;
+int overflow = (int) bigNumber;
+System.out.println(overflow);  // -1294967296 (overflow!)
+
+// Solution: Check range before casting
+if (bigNumber <= Integer.MAX_VALUE && bigNumber >= Integer.MIN_VALUE) {
+    int safe = (int) bigNumber;
+} else {
+    System.out.println("Value out of int range");
+}
+</code></pre>
+
+            <h3 class="mt-4">NullPointerException with Unboxing</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">Integer wrapper = null;
+int primitive = wrapper;  // ❌ NullPointerException!
+
+// Solution: Null check
+if (wrapper != null) {
+    int primitive = wrapper;
+} else {
+    int primitive = 0;  // Default value
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                7. Real-World Examples
+            </h2>
+
+            <h3 class="mt-4">Example 1: Selenium WebElement Casting</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Finding elements returns WebElement
+WebElement element = driver.findElement(By.id("button"));
+
+// Cast to JavascriptExecutor for JS operations
+if (driver instanceof JavascriptExecutor) {
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+    js.executeScript("arguments[0].click();", element);
+}
+</code></pre>
+
+            <h3 class="mt-4">Example 2: JSON Parsing with Type Casting</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// JSONObject returns Object, needs casting
+JSONObject json = new JSONObject(jsonString);
+
+String name = (String) json.get("name");
+int age = (int) json.get("age");
+boolean active = (boolean) json.get("active");
+
+// Or use type-specific methods (safer)
+String name2 = json.getString("name");
+int age2 = json.getInt("age");
+boolean active2 = json.getBoolean("active");
+</code></pre>
+
+            <h3 class="mt-4">Example 3: Database ResultSet Casting</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">ResultSet rs = statement.executeQuery("SELECT * FROM users");
+
+while (rs.next()) {
+    int id = rs.getInt("id");
+    String name = rs.getString("name");
+
+    // Casting for custom types
+    Object metadata = rs.getObject("metadata");
+    if (metadata instanceof String) {
+        String metaStr = (String) metadata;
+        // Process string metadata
+    } else if (metadata instanceof JSONObject) {
+        JSONObject metaJson = (JSONObject) metadata;
+        // Process JSON metadata
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Example 4: Event Handling with Casting</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">button.setOnAction(event -> {
+    // Get source and cast to Button
+    Object source = event.getSource();
+    if (source instanceof Button) {
+        Button clickedButton = (Button) source;
+        System.out.println("Button clicked: " + clickedButton.getText());
+    }
+});
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-clipboard-check"></i></div>
+                Practice Exercises
+            </h2>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 1: Safe Primitive Casting</h3>
+                <p>Write a method that safely converts a double to int, rounding to nearest integer.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public static int safeDoubleToInt(double value) {
+    // Round to nearest integer
+    long rounded = Math.round(value);
+
+    // Check if within int range
+    if (rounded > Integer.MAX_VALUE) {
+        return Integer.MAX_VALUE;
+    } else if (rounded < Integer.MIN_VALUE) {
+        return Integer.MIN_VALUE;
+    } else {
+        return (int) rounded;
+    }
+}
+
+// Usage
+System.out.println(safeDoubleToInt(3.7));    // 4
+System.out.println(safeDoubleToInt(3.4));    // 3
+System.out.println(safeDoubleToInt(3e10));   // 2147483647 (MAX_VALUE)
+</code></pre>
+                </details>
+            </div>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 2: Safe Reference Casting</h3>
+                <p>Create a method that safely casts and processes different animal types.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public static void processAnimal(Animal animal) {
+    // Common behavior
+    animal.eat();
+
+    // Type-specific behavior with safe casting
+    if (animal instanceof Dog dog) {
+        dog.bark();
+        dog.fetch();
+    } else if (animal instanceof Cat cat) {
+        cat.meow();
+        cat.purr();
+    } else if (animal instanceof Bird bird) {
+        bird.chirp();
+        bird.fly();
+    } else {
+        System.out.println("Unknown animal type");
+    }
+}
+
+// Usage
+processAnimal(new Dog());   // Eating, Barking, Fetching
+processAnimal(new Cat());   // Eating, Meowing, Purring
+processAnimal(new Bird());  // Eating, Chirping, Flying
+</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Widening is Safe:</strong> Smaller to larger type conversions are automatic and safe.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Narrowing Needs Casting:</strong> Larger to smaller type requires explicit cast and may lose data.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Upcasting is Automatic:</strong> Subclass to superclass casting is always safe and implicit.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Downcast with instanceof:</strong> Always check type with instanceof before downcasting to avoid ClassCastException.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Auto-Boxing/Unboxing:</strong> Java automatically converts between primitives and wrapper classes.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Check Null Before Unboxing:</strong> Unboxing null wrappers causes NullPointerException.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Use Generics:</strong> Prefer generics over raw types to avoid manual casting in collections.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="HashMap-and-Maps.html" class="nav-btn nav-btn-primary">Next: HashMap and Maps <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

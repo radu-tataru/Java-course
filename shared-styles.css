@@ -674,3 +674,101 @@ tr:last-child td {
 tr:nth-child(even) {
     background: #f8fafc;
 }
+
+/* Prerequisite Tags */
+.prerequisite-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.prerequisite-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.prerequisite-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.prerequisite-tag i {
+    font-size: 1rem;
+}
+
+/* New Prerequisites Highlight */
+.new-prerequisites {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.new-prerequisites h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.new-prerequisites h3 i {
+    color: var(--success-color);
+}
+
+/* Collapsible Previous Prerequisites */
+.previous-prerequisites {
+    margin-top: 15px;
+}
+
+.previous-prerequisites details {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+}
+
+.previous-prerequisites summary {
+    font-weight: 600;
+    color: var(--secondary-color);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+}
+
+.previous-prerequisites summary::-webkit-details-marker {
+    display: none;
+}
+
+.previous-prerequisites summary::before {
+    content: '▶';
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.previous-prerequisites details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.previous-prerequisites .prerequisite-tags {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+}

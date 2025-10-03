@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abstract Classes - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-diagram-3"></i></div>
+                <h1 class="lesson-title">Abstract Classes</h1>
+                <p class="lesson-description">Learn how to use abstract classes to define templates and enforce contracts in object-oriented design</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Abstract Classes</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Type-Casting.html" class="nav-btn nav-btn-primary">Next: Type Casting <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand what abstract classes are and when to use them</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Create and implement abstract classes with abstract methods</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Combine abstract and concrete methods in a class</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Distinguish between abstract classes and interfaces</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Apply abstract classes in real-world design patterns</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use abstract classes for code reuse and polymorphism</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                1. What are Abstract Classes?
+            </h2>
+
+            <p>An <strong>abstract class</strong> is a class that cannot be instantiated and may contain abstract methods (methods without implementation). It serves as a template for other classes to extend.</p>
+
+            <h3 class="mt-4">Key Characteristics</h3>
+            <ul>
+                <li><strong>Cannot be instantiated:</strong> You can't create objects directly from an abstract class</li>
+                <li><strong>Can have abstract methods:</strong> Methods declared without implementation</li>
+                <li><strong>Can have concrete methods:</strong> Regular methods with full implementation</li>
+                <li><strong>Can have fields and constructors:</strong> Like regular classes</li>
+                <li><strong>Supports inheritance:</strong> Subclasses must implement all abstract methods</li>
+            </ul>
+
+            <h3 class="mt-4">Why Use Abstract Classes?</h3>
+            <ul>
+                <li><strong>Code Reuse:</strong> Share common code among related classes</li>
+                <li><strong>Enforce Contracts:</strong> Force subclasses to implement specific methods</li>
+                <li><strong>Partial Implementation:</strong> Provide some functionality while leaving details to subclasses</li>
+                <li><strong>Polymorphism:</strong> Use abstract class type for references to different implementations</li>
+            </ul>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Note:</strong> Use the <code>abstract</code> keyword to declare both abstract classes and abstract methods.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                2. Creating Abstract Classes
+            </h2>
+
+            <h3 class="mt-4">Basic Abstract Class</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Abstract class - cannot be instantiated
+public abstract class Animal {
+    // Regular field
+    protected String name;
+
+    // Constructor
+    public Animal(String name) {
+        this.name = name;
+    }
+
+    // Abstract method - no implementation
+    public abstract void makeSound();
+
+    // Concrete method - has implementation
+    public void sleep() {
+        System.out.println(name + " is sleeping");
+    }
+}
+
+// Concrete subclass - must implement abstract methods
+public class Dog extends Animal {
+    public Dog(String name) {
+        super(name);
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println(name + " says: Woof!");
+    }
+}
+
+// Usage
+Dog dog = new Dog("Buddy");
+dog.makeSound();  // Buddy says: Woof!
+dog.sleep();      // Buddy is sleeping
+
+// Animal animal = new Animal("Generic");  // ❌ Error: Cannot instantiate
+</code></pre>
+
+            <h3 class="mt-4">Abstract Class Rules</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Rule</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>No instantiation</strong></td>
+                            <td>Cannot create objects directly</td>
+                            <td><code>new Animal();</code> ❌</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Must extend</strong></td>
+                            <td>Use extends keyword in subclasses</td>
+                            <td><code>class Dog extends Animal</code> ✅</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Implement all abstracts</strong></td>
+                            <td>Concrete subclasses must implement all abstract methods</td>
+                            <td><code>@Override makeSound()</code> ✅</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Can be abstract itself</strong></td>
+                            <td>Subclass can also be abstract if not implementing all methods</td>
+                            <td><code>abstract class Mammal extends Animal</code> ✅</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Warning:</strong> If a subclass doesn't implement all abstract methods, it must also be declared abstract.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-layers"></i></div>
+                3. Abstract vs Concrete Methods
+            </h2>
+
+            <p>Abstract classes can contain both abstract (no implementation) and concrete (with implementation) methods.</p>
+
+            <h3 class="mt-4">Combining Abstract and Concrete Methods</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public abstract class Shape {
+    protected String color;
+
+    public Shape(String color) {
+        this.color = color;
+    }
+
+    // Abstract methods - must be implemented by subclasses
+    public abstract double area();
+    public abstract double perimeter();
+
+    // Concrete method - inherited by all subclasses
+    public void displayColor() {
+        System.out.println("Color: " + color);
+    }
+
+    // Concrete method using abstract methods
+    public void displayInfo() {
+        System.out.println("Shape Details:");
+        displayColor();
+        System.out.println("Area: " + area());
+        System.out.println("Perimeter: " + perimeter());
+    }
+}
+
+public class Circle extends Shape {
+    private double radius;
+
+    public Circle(String color, double radius) {
+        super(color);
+        this.radius = radius;
+    }
+
+    @Override
+    public double area() {
+        return Math.PI * radius * radius;
+    }
+
+    @Override
+    public double perimeter() {
+        return 2 * Math.PI * radius;
+    }
+}
+
+public class Rectangle extends Shape {
+    private double width;
+    private double height;
+
+    public Rectangle(String color, double width, double height) {
+        super(color);
+        this.width = width;
+        this.height = height;
+    }
+
+    @Override
+    public double area() {
+        return width * height;
+    }
+
+    @Override
+    public double perimeter() {
+        return 2 * (width + height);
+    }
+}
+
+// Usage
+Shape circle = new Circle("Red", 5.0);
+circle.displayInfo();
+// Output:
+// Shape Details:
+// Color: Red
+// Area: 78.53981633974483
+// Perimeter: 31.41592653589793
+
+Shape rectangle = new Rectangle("Blue", 4.0, 6.0);
+rectangle.displayInfo();
+// Output:
+// Shape Details:
+// Color: Blue
+// Area: 24.0
+// Perimeter: 20.0
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> Use abstract methods to define "what" must be implemented, and concrete methods to define "how" common behavior works.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bezier2"></i></div>
+                4. Abstract Classes vs Interfaces
+            </h2>
+
+            <h3 class="mt-4">Key Differences</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Feature</th>
+                            <th>Abstract Class</th>
+                            <th>Interface</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Method types</strong></td>
+                            <td>Abstract + Concrete methods</td>
+                            <td>Abstract + Default + Static methods</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fields</strong></td>
+                            <td>Can have instance variables</td>
+                            <td>Only public static final constants</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Constructors</strong></td>
+                            <td>Can have constructors</td>
+                            <td>Cannot have constructors</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Access modifiers</strong></td>
+                            <td>Any (public, protected, private)</td>
+                            <td>public, default (package-private)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Inheritance</strong></td>
+                            <td>Single inheritance (extends)</td>
+                            <td>Multiple inheritance (implements)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Use case</strong></td>
+                            <td>IS-A relationship with shared code</td>
+                            <td>CAN-DO capability, contract</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="mt-4">When to Use Abstract Classes vs Interfaces</h3>
+
+            <h4 class="mt-3">Use Abstract Class When:</h4>
+            <ul>
+                <li>You want to share code among closely related classes</li>
+                <li>You need non-static or non-final fields</li>
+                <li>You want to declare non-public members</li>
+                <li>You have common state or behavior to share</li>
+            </ul>
+
+            <h4 class="mt-3">Use Interface When:</h4>
+            <ul>
+                <li>You expect unrelated classes to implement your interface</li>
+                <li>You want to specify behavior without implementation</li>
+                <li>You need multiple inheritance</li>
+                <li>You want to define a contract or capability</li>
+            </ul>
+
+            <h3 class="mt-4">Example: Combining Both</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Interface - defines capability
+public interface Flyable {
+    void fly();
+}
+
+// Abstract class - shared bird characteristics
+public abstract class Bird {
+    protected String name;
+    protected int age;
+
+    public Bird(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public abstract void makeSound();
+
+    public void eat() {
+        System.out.println(name + " is eating");
+    }
+}
+
+// Concrete class implementing both
+public class Eagle extends Bird implements Flyable {
+    public Eagle(String name, int age) {
+        super(name, age);
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println(name + " screeches");
+    }
+
+    @Override
+    public void fly() {
+        System.out.println(name + " soars high in the sky");
+    }
+}
+
+// Not all birds fly
+public class Penguin extends Bird {
+    public Penguin(String name, int age) {
+        super(name, age);
+    }
+
+    @Override
+    public void makeSound() {
+        System.out.println(name + " squawks");
+    }
+
+    public void swim() {
+        System.out.println(name + " swims gracefully");
+    }
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-diagram-2"></i></div>
+                5. Inheritance Hierarchy with Abstract Classes
+            </h2>
+
+            <h3 class="mt-4">Multi-Level Abstract Hierarchy</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Top-level abstract class
+public abstract class Vehicle {
+    protected String brand;
+    protected int year;
+
+    public Vehicle(String brand, int year) {
+        this.brand = brand;
+        this.year = year;
+    }
+
+    public abstract void start();
+    public abstract void stop();
+
+    public void displayInfo() {
+        System.out.println("Brand: " + brand + ", Year: " + year);
+    }
+}
+
+// Mid-level abstract class
+public abstract class MotorVehicle extends Vehicle {
+    protected String fuelType;
+
+    public MotorVehicle(String brand, int year, String fuelType) {
+        super(brand, year);
+        this.fuelType = fuelType;
+    }
+
+    public abstract void refuel();
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Fuel Type: " + fuelType);
+    }
+}
+
+// Concrete implementation
+public class Car extends MotorVehicle {
+    private int numberOfDoors;
+
+    public Car(String brand, int year, String fuelType, int numberOfDoors) {
+        super(brand, year, fuelType);
+        this.numberOfDoors = numberOfDoors;
+    }
+
+    @Override
+    public void start() {
+        System.out.println("Car engine starts");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Car engine stops");
+    }
+
+    @Override
+    public void refuel() {
+        System.out.println("Refueling car with " + fuelType);
+    }
+}
+
+// Another concrete implementation
+public class Motorcycle extends MotorVehicle {
+    private String type; // Sport, Cruiser, etc.
+
+    public Motorcycle(String brand, int year, String fuelType, String type) {
+        super(brand, year, fuelType);
+        this.type = type;
+    }
+
+    @Override
+    public void start() {
+        System.out.println("Motorcycle engine starts with a roar");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Motorcycle engine stops");
+    }
+
+    @Override
+    public void refuel() {
+        System.out.println("Refueling motorcycle with " + fuelType);
+    }
+}
+
+// Usage - Polymorphism
+Vehicle[] vehicles = {
+    new Car("Toyota", 2022, "Gasoline", 4),
+    new Motorcycle("Harley", 2023, "Gasoline", "Cruiser")
+};
+
+for (Vehicle vehicle : vehicles) {
+    vehicle.displayInfo();
+    vehicle.start();
+    if (vehicle instanceof MotorVehicle) {
+        ((MotorVehicle) vehicle).refuel();
+    }
+    vehicle.stop();
+    System.out.println();
+}
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Best Practice:</strong> Use abstract classes to create a hierarchy that progressively adds more specific behavior.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-palette"></i></div>
+                6. Design Patterns with Abstract Classes
+            </h2>
+
+            <h3 class="mt-4">Template Method Pattern</h3>
+            <p>Define the skeleton of an algorithm in an abstract class, letting subclasses override specific steps.</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public abstract class DataProcessor {
+    // Template method - defines the algorithm structure
+    public final void process() {
+        readData();
+        processData();
+        writeData();
+    }
+
+    protected abstract void readData();
+    protected abstract void processData();
+    protected abstract void writeData();
+}
+
+public class CSVProcessor extends DataProcessor {
+    @Override
+    protected void readData() {
+        System.out.println("Reading data from CSV file");
+    }
+
+    @Override
+    protected void processData() {
+        System.out.println("Processing CSV data");
+    }
+
+    @Override
+    protected void writeData() {
+        System.out.println("Writing processed data to CSV");
+    }
+}
+
+public class JSONProcessor extends DataProcessor {
+    @Override
+    protected void readData() {
+        System.out.println("Reading data from JSON file");
+    }
+
+    @Override
+    protected void processData() {
+        System.out.println("Processing JSON data");
+    }
+
+    @Override
+    protected void writeData() {
+        System.out.println("Writing processed data to JSON");
+    }
+}
+
+// Usage
+DataProcessor csvProcessor = new CSVProcessor();
+csvProcessor.process();
+
+DataProcessor jsonProcessor = new JSONProcessor();
+jsonProcessor.process();
+</code></pre>
+
+            <h3 class="mt-4">Factory Pattern with Abstract Products</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Abstract product
+public abstract class Button {
+    public abstract void render();
+    public abstract void onClick();
+}
+
+// Concrete products
+public class WindowsButton extends Button {
+    @Override
+    public void render() {
+        System.out.println("Rendering Windows-style button");
+    }
+
+    @Override
+    public void onClick() {
+        System.out.println("Windows button clicked");
+    }
+}
+
+public class MacButton extends Button {
+    @Override
+    public void render() {
+        System.out.println("Rendering Mac-style button");
+    }
+
+    @Override
+    public void onClick() {
+        System.out.println("Mac button clicked");
+    }
+}
+
+// Factory
+public class ButtonFactory {
+    public static Button createButton(String os) {
+        if (os.equals("Windows")) {
+            return new WindowsButton();
+        } else if (os.equals("Mac")) {
+            return new MacButton();
+        }
+        throw new IllegalArgumentException("Unknown OS: " + os);
+    }
+}
+
+// Usage
+Button button = ButtonFactory.createButton("Windows");
+button.render();
+button.onClick();
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                7. Real-World Examples
+            </h2>
+
+            <h3 class="mt-4">Example 1: Page Object Base Class (Selenium)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public abstract class BasePage {
+    protected WebDriver driver;
+    protected WebDriverWait wait;
+
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        PageFactory.initElements(driver, this);
+    }
+
+    // Abstract methods - each page must implement
+    public abstract boolean isLoaded();
+    public abstract String getPageTitle();
+
+    // Concrete methods - shared by all pages
+    public void waitForElement(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public void click(WebElement element) {
+        waitForElement(element);
+        element.click();
+    }
+
+    public void enterText(WebElement element, String text) {
+        waitForElement(element);
+        element.clear();
+        element.sendKeys(text);
+    }
+}
+
+public class LoginPage extends BasePage {
+    @FindBy(id = "username")
+    private WebElement usernameField;
+
+    @FindBy(id = "password")
+    private WebElement passwordField;
+
+    @FindBy(id = "login-button")
+    private WebElement loginButton;
+
+    public LoginPage(WebDriver driver) {
+        super(driver);
+    }
+
+    @Override
+    public boolean isLoaded() {
+        return usernameField.isDisplayed() && loginButton.isDisplayed();
+    }
+
+    @Override
+    public String getPageTitle() {
+        return "Login Page";
+    }
+
+    public void login(String username, String password) {
+        enterText(usernameField, username);
+        enterText(passwordField, password);
+        click(loginButton);
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Example 2: Test Base Class (JUnit)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public abstract class BaseTest {
+    protected WebDriver driver;
+
+    @BeforeEach
+    public void setUp() {
+        initializeDriver();
+        driver.get(getBaseUrl());
+    }
+
+    @AfterEach
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
+
+    // Abstract methods - each test class must provide
+    protected abstract String getBaseUrl();
+    protected abstract String getBrowserType();
+
+    // Concrete method - shared initialization
+    private void initializeDriver() {
+        String browser = getBrowserType();
+        if (browser.equals("chrome")) {
+            driver = new ChromeDriver();
+        } else if (browser.equals("firefox")) {
+            driver = new FirefoxDriver();
+        }
+    }
+
+    // Utility methods
+    protected void takeScreenshot(String fileName) {
+        // Screenshot logic
+    }
+}
+
+public class LoginTest extends BaseTest {
+    @Override
+    protected String getBaseUrl() {
+        return "https://example.com/login";
+    }
+
+    @Override
+    protected String getBrowserType() {
+        return "chrome";
+    }
+
+    @Test
+    public void testValidLogin() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("user", "pass");
+        // Assertions...
+    }
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-clipboard-check"></i></div>
+                Practice Exercises
+            </h2>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 1: Payment System</h3>
+                <p>Create an abstract Payment class with processPayment() and getPaymentDetails() abstract methods. Implement CreditCardPayment and PayPalPayment subclasses.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public abstract class Payment {
+    protected double amount;
+
+    public Payment(double amount) {
+        this.amount = amount;
+    }
+
+    public abstract void processPayment();
+    public abstract String getPaymentDetails();
+
+    public void displayReceipt() {
+        System.out.println("Payment Receipt:");
+        System.out.println(getPaymentDetails());
+        System.out.println("Amount: $" + amount);
+    }
+}
+
+public class CreditCardPayment extends Payment {
+    private String cardNumber;
+
+    public CreditCardPayment(double amount, String cardNumber) {
+        super(amount);
+        this.cardNumber = cardNumber;
+    }
+
+    @Override
+    public void processPayment() {
+        System.out.println("Processing credit card payment...");
+    }
+
+    @Override
+    public String getPaymentDetails() {
+        return "Credit Card: ****" + cardNumber.substring(cardNumber.length() - 4);
+    }
+}
+
+public class PayPalPayment extends Payment {
+    private String email;
+
+    public PayPalPayment(double amount, String email) {
+        super(amount);
+        this.email = email;
+    }
+
+    @Override
+    public void processPayment() {
+        System.out.println("Processing PayPal payment...");
+    }
+
+    @Override
+    public String getPaymentDetails() {
+        return "PayPal Email: " + email;
+    }
+}
+</code></pre>
+                </details>
+            </div>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 2: Employee Hierarchy</h3>
+                <p>Create an abstract Employee class with calculateSalary() abstract method. Implement FullTimeEmployee and ContractEmployee with different salary calculation logic.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public abstract class Employee {
+    protected String name;
+    protected int id;
+
+    public Employee(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
+    public abstract double calculateSalary();
+
+    public void displayInfo() {
+        System.out.println("Employee: " + name + " (ID: " + id + ")");
+        System.out.println("Salary: $" + calculateSalary());
+    }
+}
+
+public class FullTimeEmployee extends Employee {
+    private double monthlySalary;
+
+    public FullTimeEmployee(String name, int id, double monthlySalary) {
+        super(name, id);
+        this.monthlySalary = monthlySalary;
+    }
+
+    @Override
+    public double calculateSalary() {
+        return monthlySalary;
+    }
+}
+
+public class ContractEmployee extends Employee {
+    private double hourlyRate;
+    private int hoursWorked;
+
+    public ContractEmployee(String name, int id, double hourlyRate, int hoursWorked) {
+        super(name, id);
+        this.hourlyRate = hourlyRate;
+        this.hoursWorked = hoursWorked;
+    }
+
+    @Override
+    public double calculateSalary() {
+        return hourlyRate * hoursWorked;
+    }
+}
+</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Cannot Instantiate:</strong> Abstract classes cannot be instantiated directly; they must be extended.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Mixed Methods:</strong> Can contain both abstract (no body) and concrete (with body) methods.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Enforce Implementation:</strong> Subclasses must implement all abstract methods unless they're also abstract.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Code Reuse:</strong> Share common implementation among related classes while allowing customization.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>vs Interfaces:</strong> Use abstract classes for IS-A relationships with shared code; interfaces for CAN-DO capabilities.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Design Patterns:</strong> Essential for Template Method, Factory, and other design patterns.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Polymorphism:</strong> Use abstract class references to work with different concrete implementations.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Type-Casting.html" class="nav-btn nav-btn-primary">Next: Type Casting <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

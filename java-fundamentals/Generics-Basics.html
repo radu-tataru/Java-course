@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generics Basics - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-box"></i></div>
+                <h1 class="lesson-title">Generics Basics</h1>
+                <p class="lesson-description">Learn how to write type-safe, reusable code using Java Generics</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Generics Basics</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="Packages-and-Imports.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Packages and Imports</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Back to Home <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand what generics are and why they're important</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use generic classes like ArrayList, HashMap with type safety</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Create custom generic classes and methods</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Work with bounded type parameters</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand wildcard types (?, extends, super)</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Apply generics in real-world scenarios</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                1. What are Generics?
+            </h2>
+
+            <p><strong>Generics</strong> allow you to write code that works with different types while providing compile-time type safety. They enable you to create classes, interfaces, and methods that operate on objects of various types without sacrificing type checking.</p>
+
+            <h3 class="mt-4">The Problem Before Generics</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Before Java 5 (without generics)
+ArrayList list = new ArrayList();
+list.add("Hello");
+list.add(123);
+list.add(new Date());
+
+String str = (String) list.get(0);  // Manual casting required
+String num = (String) list.get(1);  // ❌ Runtime error: ClassCastException!
+</code></pre>
+
+            <h3 class="mt-4">The Solution with Generics</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// With generics (Java 5+)
+ArrayList<String> list = new ArrayList<>();
+list.add("Hello");
+list.add("World");
+// list.add(123);  // ❌ Compile-time error - type safety!
+
+String str = list.get(0);  // No casting needed
+</code></pre>
+
+            <h3 class="mt-4">Benefits of Generics</h3>
+            <ul>
+                <li><strong>Type Safety:</strong> Catch errors at compile-time instead of runtime</li>
+                <li><strong>Eliminate Casting:</strong> No need for explicit type casting</li>
+                <li><strong>Code Reusability:</strong> Write generic algorithms that work with different types</li>
+                <li><strong>Better IDE Support:</strong> Improved code completion and error detection</li>
+            </ul>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> Generics are checked at compile-time and erased at runtime (type erasure). This means generic type information is not available at runtime.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-list-ul"></i></div>
+                2. Using Generic Collections
+            </h2>
+
+            <h3 class="mt-4">ArrayList with Generics</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Creating a list of strings
+ArrayList<String> names = new ArrayList<>();
+names.add("Alice");
+names.add("Bob");
+names.add("Charlie");
+
+// Type-safe iteration
+for (String name : names) {
+    System.out.println(name.toUpperCase());  // No casting needed
+}
+
+// Creating a list of integers
+ArrayList<Integer> numbers = new ArrayList<>();
+numbers.add(10);
+numbers.add(20);
+numbers.add(30);
+
+int sum = 0;
+for (Integer num : numbers) {
+    sum += num;  // Auto-unboxing
+}
+System.out.println("Sum: " + sum);
+</code></pre>
+
+            <h3 class="mt-4">HashMap with Generics</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Map of student IDs to names
+HashMap<Integer, String> students = new HashMap<>();
+students.put(101, "Alice Smith");
+students.put(102, "Bob Johnson");
+students.put(103, "Charlie Brown");
+
+// Type-safe retrieval
+String name = students.get(101);  // Returns String, no casting
+System.out.println("Student 101: " + name);
+
+// Iterating over entries
+for (Map.Entry<Integer, String> entry : students.entrySet()) {
+    System.out.println("ID: " + entry.getKey() + ", Name: " + entry.getValue());
+}
+</code></pre>
+
+            <h3 class="mt-4">Common Generic Collection Classes</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Class</th>
+                            <th>Generic Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>ArrayList&lt;E&gt;</code></td>
+                            <td>E - element type</td>
+                            <td>Resizable array</td>
+                        </tr>
+                        <tr>
+                            <td><code>LinkedList&lt;E&gt;</code></td>
+                            <td>E - element type</td>
+                            <td>Doubly-linked list</td>
+                        </tr>
+                        <tr>
+                            <td><code>HashSet&lt;E&gt;</code></td>
+                            <td>E - element type</td>
+                            <td>Set with no duplicates</td>
+                        </tr>
+                        <tr>
+                            <td><code>HashMap&lt;K, V&gt;</code></td>
+                            <td>K - key, V - value</td>
+                            <td>Key-value pairs</td>
+                        </tr>
+                        <tr>
+                            <td><code>TreeMap&lt;K, V&gt;</code></td>
+                            <td>K - key, V - value</td>
+                            <td>Sorted key-value pairs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Warning:</strong> You cannot use primitive types with generics. Use wrapper classes instead: <code>ArrayList&lt;Integer&gt;</code> not <code>ArrayList&lt;int&gt;</code>.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-file-earmark-code"></i></div>
+                3. Creating Generic Classes
+            </h2>
+
+            <h3 class="mt-4">Basic Generic Class</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Generic Box class that can hold any type
+public class Box<T> {
+    private T content;
+
+    public void set(T content) {
+        this.content = content;
+    }
+
+    public T get() {
+        return content;
+    }
+
+    public boolean isEmpty() {
+        return content == null;
+    }
+}
+
+// Usage
+Box<String> stringBox = new Box<>();
+stringBox.set("Hello");
+String value = stringBox.get();  // No casting needed
+
+Box<Integer> intBox = new Box<>();
+intBox.set(42);
+int number = intBox.get();
+</code></pre>
+
+            <h3 class="mt-4">Generic Class with Multiple Type Parameters</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Pair<K, V> {
+    private K key;
+    private V value;
+
+    public Pair(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public K getKey() {
+        return key;
+    }
+
+    public V getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + key + ", " + value + ")";
+    }
+}
+
+// Usage
+Pair<String, Integer> pair1 = new Pair<>("Age", 25);
+System.out.println(pair1);  // (Age, 25)
+
+Pair<Integer, String> pair2 = new Pair<>(101, "Alice");
+System.out.println(pair2);  // (101, Alice)
+</code></pre>
+
+            <h3 class="mt-4">Common Type Parameter Names</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Meaning</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>T</code></td>
+                            <td>Type</td>
+                            <td><code>Box&lt;T&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>E</code></td>
+                            <td>Element</td>
+                            <td><code>ArrayList&lt;E&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>K</code></td>
+                            <td>Key</td>
+                            <td><code>HashMap&lt;K, V&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>V</code></td>
+                            <td>Value</td>
+                            <td><code>HashMap&lt;K, V&gt;</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>N</code></td>
+                            <td>Number</td>
+                            <td><code>Calculator&lt;N&gt;</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-braces"></i></div>
+                4. Generic Methods
+            </h2>
+
+            <h3 class="mt-4">Basic Generic Method</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class ArrayUtils {
+    // Generic method to print array elements
+    public static <T> void printArray(T[] array) {
+        for (T element : array) {
+            System.out.print(element + " ");
+        }
+        System.out.println();
+    }
+}
+
+// Usage
+String[] names = {"Alice", "Bob", "Charlie"};
+Integer[] numbers = {1, 2, 3, 4, 5};
+
+ArrayUtils.printArray(names);     // Alice Bob Charlie
+ArrayUtils.printArray(numbers);   // 1 2 3 4 5
+</code></pre>
+
+            <h3 class="mt-4">Generic Method with Return Type</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Utils {
+    // Returns the middle element of an array
+    public static <T> T getMiddle(T[] array) {
+        if (array == null || array.length == 0) {
+            return null;
+        }
+        int middleIndex = array.length / 2;
+        return array[middleIndex];
+    }
+}
+
+// Usage
+String[] words = {"apple", "banana", "cherry", "date"};
+String middle = Utils.getMiddle(words);
+System.out.println("Middle: " + middle);  // cherry
+
+Integer[] nums = {10, 20, 30, 40, 50};
+Integer midNum = Utils.getMiddle(nums);
+System.out.println("Middle: " + midNum);  // 30
+</code></pre>
+
+            <h3 class="mt-4">Generic Method in Non-Generic Class</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Container {
+    // Generic method in a regular class
+    public <T> void display(T item) {
+        System.out.println("Item: " + item);
+        System.out.println("Type: " + item.getClass().getName());
+    }
+}
+
+// Usage
+Container container = new Container();
+container.display("Hello");      // Item: Hello, Type: java.lang.String
+container.display(42);           // Item: 42, Type: java.lang.Integer
+container.display(3.14);         // Item: 3.14, Type: java.lang.Double
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> The type parameter <code>&lt;T&gt;</code> before the return type indicates it's a generic method. This is different from using a type parameter defined at the class level.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-border-outer"></i></div>
+                5. Bounded Type Parameters
+            </h2>
+
+            <p><strong>Bounded type parameters</strong> restrict the types that can be used as generic arguments.</p>
+
+            <h3 class="mt-4">Upper Bounded Wildcards (extends)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Only accepts Number or its subclasses (Integer, Double, etc.)
+public class Calculator<T extends Number> {
+    private T number;
+
+    public Calculator(T number) {
+        this.number = number;
+    }
+
+    public double square() {
+        return number.doubleValue() * number.doubleValue();
+    }
+}
+
+// Usage
+Calculator<Integer> intCalc = new Calculator<>(5);
+System.out.println("Square: " + intCalc.square());  // 25.0
+
+Calculator<Double> doubleCalc = new Calculator<>(3.5);
+System.out.println("Square: " + doubleCalc.square());  // 12.25
+
+// Calculator<String> strCalc = new Calculator<>("test");  // ❌ Compile error
+</code></pre>
+
+            <h3 class="mt-4">Generic Method with Bounded Type</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class MathUtils {
+    // Only accepts arrays of Number or subclasses
+    public static <T extends Number> double sum(T[] numbers) {
+        double total = 0;
+        for (T num : numbers) {
+            total += num.doubleValue();
+        }
+        return total;
+    }
+}
+
+// Usage
+Integer[] intArray = {1, 2, 3, 4, 5};
+Double[] doubleArray = {1.5, 2.5, 3.5};
+
+System.out.println("Sum: " + MathUtils.sum(intArray));     // 15.0
+System.out.println("Sum: " + MathUtils.sum(doubleArray));  // 7.5
+</code></pre>
+
+            <h3 class="mt-4">Multiple Bounds</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// T must implement both Comparable and Serializable
+public class SortedBox<T extends Comparable<T> & Serializable> {
+    private T item;
+
+    public void setItem(T item) {
+        this.item = item;
+    }
+
+    public T getItem() {
+        return item;
+    }
+
+    public boolean isGreaterThan(T other) {
+        return item.compareTo(other) > 0;
+    }
+}
+
+// Usage - String implements both Comparable and Serializable
+SortedBox<String> box = new SortedBox<>();
+box.setItem("Hello");
+System.out.println(box.isGreaterThan("Apple"));  // true
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Note:</strong> When using multiple bounds, the class bound (if any) must come first, followed by interface bounds: <code>&lt;T extends Class & Interface1 & Interface2&gt;</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-asterisk"></i></div>
+                6. Wildcards
+            </h2>
+
+            <h3 class="mt-4">Unbounded Wildcard (?)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Accepts a list of any type
+public static void printList(List<?> list) {
+    for (Object item : list) {
+        System.out.print(item + " ");
+    }
+    System.out.println();
+}
+
+// Usage
+List<String> strings = Arrays.asList("A", "B", "C");
+List<Integer> numbers = Arrays.asList(1, 2, 3);
+
+printList(strings);  // A B C
+printList(numbers);  // 1 2 3
+</code></pre>
+
+            <h3 class="mt-4">Upper Bounded Wildcard (? extends Type)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Accepts a list of Number or any subclass
+public static double sumList(List<? extends Number> list) {
+    double sum = 0;
+    for (Number num : list) {
+        sum += num.doubleValue();
+    }
+    return sum;
+}
+
+// Usage
+List<Integer> integers = Arrays.asList(1, 2, 3);
+List<Double> doubles = Arrays.asList(1.5, 2.5, 3.5);
+
+System.out.println("Sum: " + sumList(integers));  // 6.0
+System.out.println("Sum: " + sumList(doubles));   // 7.5
+</code></pre>
+
+            <h3 class="mt-4">Lower Bounded Wildcard (? super Type)</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Accepts a list of Integer or any superclass
+public static void addNumbers(List<? super Integer> list) {
+    list.add(1);
+    list.add(2);
+    list.add(3);
+}
+
+// Usage
+List<Integer> integers = new ArrayList<>();
+List<Number> numbers = new ArrayList<>();
+List<Object> objects = new ArrayList<>();
+
+addNumbers(integers);  // ✅ Works
+addNumbers(numbers);   // ✅ Works - Number is superclass of Integer
+addNumbers(objects);   // ✅ Works - Object is superclass of Integer
+</code></pre>
+
+            <h3 class="mt-4">PECS Principle</h3>
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Producer Extends, Consumer Super (PECS):</strong>
+                    <ul class="mb-0">
+                        <li>Use <code>? extends T</code> when you want to <strong>read</strong> from a structure (producer)</li>
+                        <li>Use <code>? super T</code> when you want to <strong>write</strong> to a structure (consumer)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Producer (reading) - use extends
+public static void copyFrom(List<? extends Number> source, List<Number> dest) {
+    for (Number num : source) {
+        dest.add(num);  // Reading from source
+    }
+}
+
+// Consumer (writing) - use super
+public static void copyTo(List<Integer> source, List<? super Integer> dest) {
+    for (Integer num : source) {
+        dest.add(num);  // Writing to dest
+    }
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                7. Real-World Examples
+            </h2>
+
+            <h3 class="mt-4">Example 1: Generic Repository Pattern</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public interface Repository<T, ID> {
+    T findById(ID id);
+    List<T> findAll();
+    void save(T entity);
+    void delete(ID id);
+}
+
+public class UserRepository implements Repository<User, Integer> {
+    private Map<Integer, User> database = new HashMap<>();
+
+    @Override
+    public User findById(Integer id) {
+        return database.get(id);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return new ArrayList<>(database.values());
+    }
+
+    @Override
+    public void save(User user) {
+        database.put(user.getId(), user);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        database.remove(id);
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Example 2: Generic Response Wrapper</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class ApiResponse<T> {
+    private boolean success;
+    private String message;
+    private T data;
+
+    public ApiResponse(boolean success, String message, T data) {
+        this.success = success;
+        this.message = message;
+        this.data = data;
+    }
+
+    // Getters...
+
+    public static <T> ApiResponse<T> success(T data) {
+        return new ApiResponse<>(true, "Success", data);
+    }
+
+    public static <T> ApiResponse<T> error(String message) {
+        return new ApiResponse<>(false, message, null);
+    }
+}
+
+// Usage
+ApiResponse<User> userResponse = ApiResponse.success(new User("Alice"));
+ApiResponse<List<String>> listResponse = ApiResponse.success(Arrays.asList("A", "B"));
+ApiResponse<Void> errorResponse = ApiResponse.error("Not found");
+</code></pre>
+
+            <h3 class="mt-4">Example 3: Generic Utility Methods</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class CollectionUtils {
+    // Swap two elements in a list
+    public static <T> void swap(List<T> list, int i, int j) {
+        T temp = list.get(i);
+        list.set(i, list.get(j));
+        list.set(j, temp);
+    }
+
+    // Find the maximum element
+    public static <T extends Comparable<T>> T max(List<T> list) {
+        if (list.isEmpty()) {
+            return null;
+        }
+        T max = list.get(0);
+        for (T item : list) {
+            if (item.compareTo(max) > 0) {
+                max = item;
+            }
+        }
+        return max;
+    }
+}
+
+// Usage
+List<Integer> numbers = Arrays.asList(3, 1, 4, 1, 5);
+CollectionUtils.swap(numbers, 0, 4);  // Swap first and last
+System.out.println(numbers);  // [5, 1, 4, 1, 3]
+
+Integer maxNum = CollectionUtils.max(numbers);
+System.out.println("Max: " + maxNum);  // 5
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-clipboard-check"></i></div>
+                Practice Exercises
+            </h2>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 1: Generic Stack</h3>
+                <p>Create a generic Stack class with push, pop, peek, and isEmpty methods.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Stack<T> {
+    private ArrayList<T> items = new ArrayList<>();
+
+    public void push(T item) {
+        items.add(item);
+    }
+
+    public T pop() {
+        if (isEmpty()) {
+            throw new RuntimeException("Stack is empty");
+        }
+        return items.remove(items.size() - 1);
+    }
+
+    public T peek() {
+        if (isEmpty()) {
+            throw new RuntimeException("Stack is empty");
+        }
+        return items.get(items.size() - 1);
+    }
+
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+
+    public int size() {
+        return items.size();
+    }
+}
+
+// Usage
+Stack<String> stack = new Stack<>();
+stack.push("A");
+stack.push("B");
+stack.push("C");
+System.out.println(stack.pop());   // C
+System.out.println(stack.peek());  // B
+</code></pre>
+                </details>
+            </div>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 2: Generic findFirst Method</h3>
+                <p>Write a generic method that finds the first element in a list that matches a condition.</p>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import java.util.List;
+import java.util.function.Predicate;
+
+public class ListUtils {
+    public static <T> T findFirst(List<T> list, Predicate<T> condition) {
+        for (T item : list) {
+            if (condition.test(item)) {
+                return item;
+            }
+        }
+        return null;
+    }
+}
+
+// Usage
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+
+// Find first even number
+Integer firstEven = ListUtils.findFirst(numbers, n -> n % 2 == 0);
+System.out.println("First even: " + firstEven);  // 2
+
+// Find first number greater than 4
+Integer firstGreater = ListUtils.findFirst(numbers, n -> n > 4);
+System.out.println("First > 4: " + firstGreater);  // 5
+</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Type Safety:</strong> Generics provide compile-time type checking, catching errors early.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>No Casting Needed:</strong> Generic types eliminate the need for explicit type casting.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Use Wrapper Classes:</strong> Primitives can't be used with generics; use Integer, Double, etc.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Bounded Types:</strong> Use <code>extends</code> to restrict type parameters to specific class hierarchies.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Wildcards for Flexibility:</strong> Use <code>?</code>, <code>? extends</code>, and <code>? super</code> for flexible method parameters.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>PECS Principle:</strong> Producer Extends, Consumer Super - use extends for reading, super for writing.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Type Erasure:</strong> Generic type information is removed at runtime for backward compatibility.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="Packages-and-Imports.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Previous: Packages and Imports</a>
+                <a href="../index.html" class="nav-btn nav-btn-primary">Back to Home <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enum Types - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-list-ol"></i></div>
+                <h1 class="lesson-title">Enum Types</h1>
+                <p class="lesson-description">Learn how to define and use enums for type-safe constants</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Enum Types</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Keywords-this-super-final.html" class="nav-btn nav-btn-primary">Next: Keywords <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand what enums are and when to use them</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Create and use basic enums</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Add fields, constructors, and methods to enums</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use enum methods (values(), valueOf(), ordinal())</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Apply enums in switch statements</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Implement enums in real-world scenarios</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                1. What are Enums?
+            </h2>
+
+            <p>An <strong>enum (enumeration)</strong> is a special data type that represents a fixed set of constants. Enums provide type safety and make code more readable.</p>
+
+            <h3 class="mt-4">Why Use Enums?</h3>
+            <ul>
+                <li><strong>Type Safety:</strong> Prevent invalid values at compile time</li>
+                <li><strong>Readability:</strong> Self-documenting code with meaningful names</li>
+                <li><strong>Maintainability:</strong> Constants grouped in one place</li>
+                <li><strong>Switch Compatibility:</strong> Work seamlessly with switch statements</li>
+                <li><strong>IDE Support:</strong> Auto-completion and refactoring support</li>
+            </ul>
+
+            <h3 class="mt-4">Before Enums (String/Int Constants)</h3>
+            <pre><code class="language-java">// ❌ Problems: No type safety, magic strings
+public class OrderOld {
+    public static final String STATUS_PENDING = "PENDING";
+    public static final String STATUS_SHIPPED = "SHIPPED";
+    public static final String STATUS_DELIVERED = "DELIVERED";
+
+    private String status;
+
+    public void setStatus(String status) {
+        this.status = status;  // Can be ANY string!
+    }
+}
+
+// Usage - error-prone
+order.setStatus("SHIPPED");
+order.setStatus("shipped");   // Typo - runtime bug!
+order.setStatus("INVALID");   // Compiles but wrong!
+</code></pre>
+
+            <h3 class="mt-4">With Enums (Type Safe)</h3>
+            <pre><code class="language-java">// ✅ Type-safe, compile-time checking
+public enum OrderStatus {
+    PENDING, SHIPPED, DELIVERED
+}
+
+public class Order {
+    private OrderStatus status;
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;  // Only valid enum values allowed
+    }
+}
+
+// Usage - type safe
+order.setStatus(OrderStatus.SHIPPED);   // ✅ Valid
+// order.setStatus("shipped");  // ❌ Compile error!
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Note:</strong> Enums are implicitly final and extend java.lang.Enum. Each enum constant is a public static final instance of the enum type.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                2. Creating and Using Enums
+            </h2>
+
+            <h3 class="mt-4">Basic Enum</h3>
+            <pre><code class="language-java">public enum Day {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}
+
+// Usage
+Day today = Day.MONDAY;
+System.out.println("Today is: " + today);  // Today is: MONDAY
+
+// Comparison
+if (today == Day.FRIDAY) {
+    System.out.println("Weekend is near!");
+}
+</code></pre>
+
+            <h3 class="mt-4">Enum in Switch Statement</h3>
+            <pre><code class="language-java">public static void printDayType(Day day) {
+    switch (day) {
+        case SATURDAY:
+        case SUNDAY:
+            System.out.println("Weekend");
+            break;
+        case MONDAY:
+        case TUESDAY:
+        case WEDNESDAY:
+        case THURSDAY:
+        case FRIDAY:
+            System.out.println("Weekday");
+            break;
+    }
+}
+
+// Usage
+printDayType(Day.SATURDAY);  // Weekend
+printDayType(Day.MONDAY);    // Weekday
+</code></pre>
+
+            <h3 class="mt-4">Built-in Enum Methods</h3>
+            <pre><code class="language-java">// values() - get all enum constants
+Day[] allDays = Day.values();
+for (Day day : allDays) {
+    System.out.println(day);
+}
+
+// valueOf() - convert string to enum
+Day day1 = Day.valueOf("MONDAY");
+System.out.println(day1);  // MONDAY
+
+// ordinal() - get position (0-indexed)
+System.out.println(Day.MONDAY.ordinal());    // 0
+System.out.println(Day.FRIDAY.ordinal());    // 4
+
+// name() - get constant name as string
+System.out.println(Day.TUESDAY.name());      // TUESDAY
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-gear"></i></div>
+                3. Enums with Fields and Methods
+            </h2>
+
+            <h3 class="mt-4">Enum with Constructor and Fields</h3>
+            <pre><code class="language-java">public enum Planet {
+    MERCURY(3.303e+23, 2.4397e6),
+    VENUS(4.869e+24, 6.0518e6),
+    EARTH(5.976e+24, 6.37814e6),
+    MARS(6.421e+23, 3.3972e6);
+
+    private final double mass;    // in kilograms
+    private final double radius;  // in meters
+
+    // Constructor (must be private or package-private)
+    Planet(double mass, double radius) {
+        this.mass = mass;
+        this.radius = radius;
+    }
+
+    public double getMass() {
+        return mass;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    // Calculate surface gravity
+    public double surfaceGravity() {
+        final double G = 6.67300E-11;
+        return G * mass / (radius * radius);
+    }
+}
+
+// Usage
+Planet earth = Planet.EARTH;
+System.out.println("Earth's mass: " + earth.getMass());
+System.out.println("Surface gravity: " + earth.surfaceGravity());
+</code></pre>
+
+            <h3 class="mt-4">Enum with Methods</h3>
+            <pre><code class="language-java">public enum Operation {
+    PLUS("+") {
+        public double apply(double x, double y) { return x + y; }
+    },
+    MINUS("-") {
+        public double apply(double x, double y) { return x - y; }
+    },
+    TIMES("*") {
+        public double apply(double x, double y) { return x * y; }
+    },
+    DIVIDE("/") {
+        public double apply(double x, double y) { return x / y; }
+    };
+
+    private final String symbol;
+
+    Operation(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    // Abstract method - each constant must implement
+    public abstract double apply(double x, double y);
+}
+
+// Usage
+double result = Operation.PLUS.apply(5, 3);
+System.out.println("5 + 3 = " + result);  // 8.0
+
+for (Operation op : Operation.values()) {
+    System.out.println(op.getSymbol() + ": " + op.apply(10, 5));
+}
+// Output:
+// +: 15.0
+// -: 5.0
+// *: 50.0
+// /: 2.0
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-diagram-3"></i></div>
+                4. Real-World Enum Examples
+            </h2>
+
+            <h3 class="mt-4">Example 1: HTTP Status Codes</h3>
+            <pre><code class="language-java">public enum HttpStatus {
+    OK(200, "OK"),
+    CREATED(201, "Created"),
+    BAD_REQUEST(400, "Bad Request"),
+    UNAUTHORIZED(401, "Unauthorized"),
+    NOT_FOUND(404, "Not Found"),
+    INTERNAL_SERVER_ERROR(500, "Internal Server Error");
+
+    private final int code;
+    private final String message;
+
+    HttpStatus(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    // Find status by code
+    public static HttpStatus fromCode(int code) {
+        for (HttpStatus status : values()) {
+            if (status.code == code) {
+                return status;
+            }
+        }
+        throw new IllegalArgumentException("Unknown status code: " + code);
+    }
+}
+
+// Usage
+HttpStatus status = HttpStatus.OK;
+System.out.println(status.getCode() + " " + status.getMessage());  // 200 OK
+
+HttpStatus notFound = HttpStatus.fromCode(404);
+System.out.println(notFound);  // NOT_FOUND
+</code></pre>
+
+            <h3 class="mt-4">Example 2: Test Environment</h3>
+            <pre><code class="language-java">public enum Environment {
+    DEV("http://dev.example.com", "dev_db"),
+    QA("http://qa.example.com", "qa_db"),
+    STAGING("http://staging.example.com", "staging_db"),
+    PRODUCTION("http://example.com", "prod_db");
+
+    private final String baseUrl;
+    private final String database;
+
+    Environment(String baseUrl, String database) {
+        this.baseUrl = baseUrl;
+        this.database = database;
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public String getDatabase() {
+        return database;
+    }
+}
+
+// Usage in test framework
+public class TestConfig {
+    private Environment env = Environment.QA;
+
+    public String getUrl(String path) {
+        return env.getBaseUrl() + path;
+    }
+
+    public void setEnvironment(Environment env) {
+        this.env = env;
+    }
+}
+
+// In tests
+TestConfig config = new TestConfig();
+config.setEnvironment(Environment.DEV);
+String loginUrl = config.getUrl("/login");  // http://dev.example.com/login
+</code></pre>
+
+            <h3 class="mt-4">Example 3: User Roles</h3>
+            <pre><code class="language-java">public enum UserRole {
+    GUEST(0, "Guest User"),
+    USER(1, "Regular User"),
+    MODERATOR(2, "Moderator"),
+    ADMIN(3, "Administrator");
+
+    private final int level;
+    private final String displayName;
+
+    UserRole(int level, String displayName) {
+        this.level = level;
+        this.displayName = displayName;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public boolean hasPermission(UserRole required) {
+        return this.level >= required.level;
+    }
+}
+
+// Usage
+public class User {
+    private UserRole role;
+
+    public boolean canModerate() {
+        return role.hasPermission(UserRole.MODERATOR);
+    }
+
+    public boolean canAdminister() {
+        return role.hasPermission(UserRole.ADMIN);
+    }
+}
+
+User user = new User();
+user.setRole(UserRole.MODERATOR);
+System.out.println(user.canModerate());     // true
+System.out.println(user.canAdminister());   // false
+</code></pre>
+
+            <h3 class="mt-4">Example 4: Cucumber Test Priority</h3>
+            <pre><code class="language-java">public enum TestPriority {
+    CRITICAL(1, "Critical - must pass"),
+    HIGH(2, "High priority"),
+    MEDIUM(3, "Medium priority"),
+    LOW(4, "Low priority");
+
+    private final int order;
+    private final String description;
+
+    TestPriority(int order, String description) {
+        this.order = order;
+        this.description = description;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+}
+
+// Usage with custom annotation
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface TestInfo {
+    TestPriority priority() default TestPriority.MEDIUM;
+}
+
+// In test class
+@Test
+@TestInfo(priority = TestPriority.CRITICAL)
+public void testLogin() {
+    // Critical test
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-collection"></i></div>
+                5. Enum Collections and Utilities
+            </h2>
+
+            <h3 class="mt-4">EnumSet - Specialized Set for Enums</h3>
+            <pre><code class="language-java">import java.util.EnumSet;
+
+public enum Color {
+    RED, GREEN, BLUE, YELLOW, ORANGE, PURPLE
+}
+
+// Create EnumSet
+EnumSet<Color> primaryColors = EnumSet.of(Color.RED, Color.GREEN, Color.BLUE);
+EnumSet<Color> warmColors = EnumSet.of(Color.RED, Color.ORANGE, Color.YELLOW);
+EnumSet<Color> allColors = EnumSet.allOf(Color.class);
+
+System.out.println("Primary: " + primaryColors);
+System.out.println("Warm: " + warmColors);
+
+// Set operations
+EnumSet<Color> redColors = EnumSet.of(Color.RED, Color.ORANGE);
+System.out.println(warmColors.contains(Color.RED));  // true
+</code></pre>
+
+            <h3 class="mt-4">EnumMap - Specialized Map for Enums</h3>
+            <pre><code class="language-java">import java.util.EnumMap;
+
+public class PriceList {
+    private EnumMap<Product, Double> prices = new EnumMap<>(Product.class);
+
+    public void setPrice(Product product, double price) {
+        prices.put(product, price);
+    }
+
+    public double getPrice(Product product) {
+        return prices.getOrDefault(product, 0.0);
+    }
+}
+
+enum Product {
+    LAPTOP, PHONE, TABLET
+}
+
+// Usage
+PriceList priceList = new PriceList();
+priceList.setPrice(Product.LAPTOP, 999.99);
+priceList.setPrice(Product.PHONE, 599.99);
+
+System.out.println("Laptop: $" + priceList.getPrice(Product.LAPTOP));
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-clipboard-check"></i></div>
+                Practice Exercises
+            </h2>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-pencil alert-icon"></i>
+                <div>
+                    <strong>Exercise 1: Traffic Light</strong><br>
+                    Create a TrafficLight enum with RED, YELLOW, GREEN. Add a method to get the next light.
+                    <details class="mt-2">
+                        <summary>Show Solution</summary>
+                        <pre class="mt-2"><code class="language-java">public enum TrafficLight {
+    RED("Stop", 30),
+    YELLOW("Prepare to stop", 5),
+    GREEN("Go", 45);
+
+    private final String action;
+    private final int duration;
+
+    TrafficLight(String action, int duration) {
+        this.action = action;
+        this.duration = duration;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public TrafficLight next() {
+        switch (this) {
+            case RED:
+                return GREEN;
+            case GREEN:
+                return YELLOW;
+            case YELLOW:
+                return RED;
+            default:
+                throw new IllegalStateException();
+        }
+    }
+}
+
+// Usage
+TrafficLight light = TrafficLight.RED;
+System.out.println("Current: " + light + " - " + light.getAction());
+
+light = light.next();
+System.out.println("Next: " + light + " - " + light.getAction());
+// Output:
+// Current: RED - Stop
+// Next: GREEN - Go
+</code></pre>
+                    </details>
+                </div>
+            </div>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-pencil alert-icon"></i>
+                <div>
+                    <strong>Exercise 2: Card Deck</strong><br>
+                    Create Suit and Rank enums for playing cards.
+                    <details class="mt-2">
+                        <summary>Show Solution</summary>
+                        <pre class="mt-2"><code class="language-java">public enum Suit {
+    CLUBS("♣"), DIAMONDS("♦"), HEARTS("♥"), SPADES("♠");
+
+    private final String symbol;
+
+    Suit(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+}
+
+public enum Rank {
+    TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8),
+    NINE(9), TEN(10), JACK(10), QUEEN(10), KING(10), ACE(11);
+
+    private final int value;
+
+    Rank(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+}
+
+public class Card {
+    private final Rank rank;
+    private final Suit suit;
+
+    public Card(Rank rank, Suit suit) {
+        this.rank = rank;
+        this.suit = suit;
+    }
+
+    @Override
+    public String toString() {
+        return rank + " of " + suit + " " + suit.getSymbol();
+    }
+}
+
+// Usage
+Card card = new Card(Rank.ACE, Suit.SPADES);
+System.out.println(card);  // ACE of SPADES ♠
+</code></pre>
+                    </details>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Type Safety:</strong> Enums provide compile-time type checking for constant values.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Fixed Set:</strong> Enums represent a fixed set of constants known at compile time.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Rich Enums:</strong> Can have fields, constructors, and methods for complex behavior.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Switch Compatible:</strong> Work seamlessly with switch statements for clean code.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Built-in Methods:</strong> Use values(), valueOf(), ordinal(), and name() for enum operations.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>EnumSet/EnumMap:</strong> Specialized high-performance collections for enums.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Singleton by Nature:</strong> Each enum constant is a singleton instance.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="lesson-nav mt-5">
+            <div class="nav-actions">
+                <a href="Wrapper-Classes.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Wrapper Classes</a>
+                <a href="Keywords-this-super-final.html" class="nav-btn nav-btn-primary">Next: Keywords <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

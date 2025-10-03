@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Operators | Java Course</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- highlight.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-calculator"></i></div>
+                <h1 class="lesson-title">Java Operators</h1>
+                <p class="lesson-description">Master all Java operators: arithmetic, comparison, logical, assignment, and ternary operators for building expressions and making decisions in your code.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Java Operators</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Control-Flow-Statements.html" class="nav-btn nav-btn-primary">Next: Control Flow <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-target"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand and use arithmetic operators (+, -, *, /, %)</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Master comparison operators for making decisions</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use logical operators to combine conditions</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Apply assignment operators and understand operator precedence</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Utilize ternary operator for concise conditional expressions</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arithmetic Operators -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-plus-slash-minus"></i></div>
+                Arithmetic Operators
+            </h2>
+
+            <p>Arithmetic operators perform mathematical calculations on numeric values.</p>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Operator</th>
+                            <th>Name</th>
+                            <th>Example</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>+</code></td>
+                            <td>Addition</td>
+                            <td><code>5 + 3</code></td>
+                            <td><code>8</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>-</code></td>
+                            <td>Subtraction</td>
+                            <td><code>10 - 4</code></td>
+                            <td><code>6</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>*</code></td>
+                            <td>Multiplication</td>
+                            <td><code>6 * 7</code></td>
+                            <td><code>42</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>/</code></td>
+                            <td>Division</td>
+                            <td><code>20 / 4</code></td>
+                            <td><code>5</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>%</code></td>
+                            <td>Modulus (Remainder)</td>
+                            <td><code>17 % 5</code></td>
+                            <td><code>2</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>++</code></td>
+                            <td>Increment</td>
+                            <td><code>x++ or ++x</code></td>
+                            <td>Increases by 1</td>
+                        </tr>
+                        <tr>
+                            <td><code>--</code></td>
+                            <td>Decrement</td>
+                            <td><code>x-- or --x</code></td>
+                            <td>Decreases by 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Arithmetic Examples</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">int a = 10;
+int b = 3;
+
+int sum = a + b;          // 13
+int difference = a - b;   // 7
+int product = a * b;      // 30
+int quotient = a / b;     // 3 (integer division)
+int remainder = a % b;    // 1
+
+// Increment and Decrement
+int x = 5;
+x++;  // x is now 6 (post-increment)
+++x;  // x is now 7 (pre-increment)
+x--;  // x is now 6 (post-decrement)
+--x;  // x is now 5 (pre-decrement)</code></pre>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Integer Division:</strong> When dividing two integers, the result is truncated (no decimal). Example: <code>10 / 3 = 3</code> (not 3.333...). Use <code>double</code> for decimal results: <code>10.0 / 3 = 3.333...</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Operators -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-arrow-left-right"></i></div>
+                Comparison (Relational) Operators
+            </h2>
+
+            <p>Comparison operators compare two values and return a boolean result (<code>true</code> or <code>false</code>).</p>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Operator</th>
+                            <th>Name</th>
+                            <th>Example</th>
+                            <th>Returns true when...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>==</code></td>
+                            <td>Equal to</td>
+                            <td><code>5 == 5</code></td>
+                            <td>Values are equal</td>
+                        </tr>
+                        <tr>
+                            <td><code>!=</code></td>
+                            <td>Not equal to</td>
+                            <td><code>5 != 3</code></td>
+                            <td>Values are not equal</td>
+                        </tr>
+                        <tr>
+                            <td><code>&gt;</code></td>
+                            <td>Greater than</td>
+                            <td><code>8 &gt; 5</code></td>
+                            <td>Left is greater</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;</code></td>
+                            <td>Less than</td>
+                            <td><code>3 &lt; 7</code></td>
+                            <td>Left is smaller</td>
+                        </tr>
+                        <tr>
+                            <td><code>&gt;=</code></td>
+                            <td>Greater than or equal</td>
+                            <td><code>5 &gt;= 5</code></td>
+                            <td>Left is greater or equal</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;=</code></td>
+                            <td>Less than or equal</td>
+                            <td><code>4 &lt;= 9</code></td>
+                            <td>Left is smaller or equal</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Comparison Examples</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">int age = 25;
+int votingAge = 18;
+
+boolean canVote = age >= votingAge;  // true
+boolean isTeen = age >= 13 && age <= 19;  // false
+boolean isAdult = age >= 18;  // true
+
+// String comparison (use .equals() for Strings!)
+String name1 = "Alice";
+String name2 = "Bob";
+boolean sameNam = name1.equals(name2);  // false (correct)
+// boolean wrong = name1 == name2;  // DON'T use == for Strings!</code></pre>
+
+            <div class="alert-box alert-danger">
+                <i class="bi bi-x-circle alert-icon"></i>
+                <div>
+                    <strong>Common Mistake:</strong> Use <code>.equals()</code> to compare Strings, not <code>==</code>. The <code>==</code> operator compares object references, not content!
+                    <pre style="margin-top: 10px; background: #1e1e1e; padding: 10px; border-radius: 4px;"><code>String a = "Hello";
+String b = "Hello";
+a.equals(b)  // ✅ Correct: true
+a == b       // ❌ Wrong: compares references</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logical Operators -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-diagram-3"></i></div>
+                Logical Operators
+            </h2>
+
+            <p>Logical operators combine multiple boolean expressions.</p>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Operator</th>
+                            <th>Name</th>
+                            <th>Example</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>&&</code></td>
+                            <td>Logical AND</td>
+                            <td><code>x > 5 && x < 10</code></td>
+                            <td>True if BOTH conditions are true</td>
+                        </tr>
+                        <tr>
+                            <td><code>||</code></td>
+                            <td>Logical OR</td>
+                            <td><code>x < 5 || x > 10</code></td>
+                            <td>True if AT LEAST ONE condition is true</td>
+                        </tr>
+                        <tr>
+                            <td><code>!</code></td>
+                            <td>Logical NOT</td>
+                            <td><code>!(x == 5)</code></td>
+                            <td>Reverses the boolean value</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Logical Operator Examples</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">int temperature = 75;
+boolean isSunny = true;
+
+// AND: Both conditions must be true
+boolean perfectWeather = temperature > 70 && temperature < 80 && isSunny;  // true
+
+// OR: At least one condition must be true
+boolean stayInside = temperature < 50 || temperature > 90 || !isSunny;  // false
+
+// NOT: Reverses the boolean
+boolean isRaining = !isSunny;  // false
+
+// Complex conditions
+int score = 85;
+boolean passedWithDistinction = score >= 80 && score <= 100;  // true
+boolean needsRetake = score < 60 || score > 100;  // false</code></pre>
+
+            <h3>Truth Tables</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>AND (&&)</h4>
+                    <table class="table table-bordered table-sm">
+                        <tr><th>A</th><th>B</th><th>A && B</th></tr>
+                        <tr><td>true</td><td>true</td><td><strong>true</strong></td></tr>
+                        <tr><td>true</td><td>false</td><td>false</td></tr>
+                        <tr><td>false</td><td>true</td><td>false</td></tr>
+                        <tr><td>false</td><td>false</td><td>false</td></tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h4>OR (||)</h4>
+                    <table class="table table-bordered table-sm">
+                        <tr><th>A</th><th>B</th><th>A || B</th></tr>
+                        <tr><td>true</td><td>true</td><td><strong>true</strong></td></tr>
+                        <tr><td>true</td><td>false</td><td><strong>true</strong></td></tr>
+                        <tr><td>false</td><td>true</td><td><strong>true</strong></td></tr>
+                        <tr><td>false</td><td>false</td><td>false</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assignment Operators -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-arrow-right-circle"></i></div>
+                Assignment Operators
+            </h2>
+
+            <p>Assignment operators assign values to variables with optional arithmetic operations.</p>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Operator</th>
+                            <th>Example</th>
+                            <th>Equivalent to</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>=</code></td><td><code>x = 5</code></td><td>Assigns 5 to x</td></tr>
+                        <tr><td><code>+=</code></td><td><code>x += 3</code></td><td><code>x = x + 3</code></td></tr>
+                        <tr><td><code>-=</code></td><td><code>x -= 2</code></td><td><code>x = x - 2</code></td></tr>
+                        <tr><td><code>*=</code></td><td><code>x *= 4</code></td><td><code>x = x * 4</code></td></tr>
+                        <tr><td><code>/=</code></td><td><code>x /= 2</code></td><td><code>x = x / 2</code></td></tr>
+                        <tr><td><code>%=</code></td><td><code>x %= 3</code></td><td><code>x = x % 3</code></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">int count = 10;
+count += 5;   // count is now 15
+count -= 3;   // count is now 12
+count *= 2;   // count is now 24
+count /= 4;   // count is now 6
+count %= 5;   // count is now 1</code></pre>
+        </div>
+
+        <!-- Ternary Operator -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                Ternary Operator (Conditional)
+            </h2>
+
+            <p>The ternary operator is a shorthand for simple if-else statements.</p>
+
+            <div class="alert-box alert-info">
+                <strong>Syntax:</strong> <code>condition ? valueIfTrue : valueIfFalse</code>
+            </div>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Without ternary (verbose)
+int age = 20;
+String status;
+if (age >= 18) {
+    status = "Adult";
+} else {
+    status = "Minor";
+}
+
+// With ternary (concise)
+String status = (age >= 18) ? "Adult" : "Minor";
+
+// More examples
+int a = 10, b = 20;
+int max = (a > b) ? a : b;  // max = 20
+
+int score = 75;
+String grade = (score >= 60) ? "Pass" : "Fail";  // grade = "Pass"
+
+boolean hasDiscount = (age > 65 || age < 12) ? true : false;</code></pre>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Use Case:</strong> Ternary operators are perfect for simple assignments based on a condition. They make code more concise and readable for straightforward conditions.
+                </div>
+            </div>
+        </div>
+
+        <!-- Operator Precedence -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-sort-numeric-down"></i></div>
+                Operator Precedence
+            </h2>
+
+            <p>When multiple operators appear in an expression, Java follows a specific order of evaluation (precedence).</p>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Priority</th>
+                            <th>Operators</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1 (Highest)</td><td><code>++</code> <code>--</code> <code>!</code></td><td>Unary</td></tr>
+                        <tr><td>2</td><td><code>*</code> <code>/</code> <code>%</code></td><td>Multiplicative</td></tr>
+                        <tr><td>3</td><td><code>+</code> <code>-</code></td><td>Additive</td></tr>
+                        <tr><td>4</td><td><code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code></td><td>Relational</td></tr>
+                        <tr><td>5</td><td><code>==</code> <code>!=</code></td><td>Equality</td></tr>
+                        <tr><td>6</td><td><code>&&</code></td><td>Logical AND</td></tr>
+                        <tr><td>7</td><td><code>||</code></td><td>Logical OR</td></tr>
+                        <tr><td>8 (Lowest)</td><td><code>?:</code></td><td>Ternary</td></tr>
+                        <tr><td>9</td><td><code>= += -= *= /= %=</code></td><td>Assignment</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// Precedence examples
+int result = 5 + 3 * 2;     // 11 (not 16) - multiplication first
+int result2 = (5 + 3) * 2;  // 16 - parentheses override precedence
+
+boolean check = 10 > 5 && 3 < 7;  // true (comparison before logical)
+boolean check2 = !false && true;   // true (NOT before AND)
+
+// Use parentheses for clarity!
+int complex = ((a + b) * c) / d;  // Clear and explicit</code></pre>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Best Practice:</strong> When in doubt, use parentheses <code>()</code> to make your intentions explicit. It improves code readability and prevents bugs from unexpected precedence.
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice Exercise -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-square"></i></div>
+                Practice Exercise
+            </h2>
+
+            <div class="alert-box alert-success">
+                <i class="bi bi-pencil alert-icon"></i>
+                <div>
+                    <strong>Try This:</strong> Create a simple calculator program using different operators.
+                </div>
+            </div>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class OperatorsPractice {
+    public static void main(String[] args) {
+        // Arithmetic practice
+        int a = 15, b = 4;
+        System.out.println("Sum: " + (a + b));
+        System.out.println("Difference: " + (a - b));
+        System.out.println("Product: " + (a * b));
+        System.out.println("Quotient: " + (a / b));
+        System.out.println("Remainder: " + (a % b));
+
+        // Comparison practice
+        System.out.println("Is a greater than b? " + (a > b));
+        System.out.println("Is a equal to b? " + (a == b));
+
+        // Logical practice
+        boolean isPositive = a > 0;
+        boolean isEven = a % 2 == 0;
+        System.out.println("Is positive AND even? " + (isPositive && isEven));
+
+        // Ternary practice
+        String result = (a > b) ? "a is larger" : "b is larger";
+        System.out.println(result);
+    }
+}</code></pre>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Key Takeaways
+            </h2>
+
+            <div class="alert alert-info">
+                <ul style="margin-bottom: 0;">
+                    <li>✅ <strong>Arithmetic operators</strong> perform mathematical operations (+, -, *, /, %)</li>
+                    <li>✅ <strong>Comparison operators</strong> return boolean values for decision making</li>
+                    <li>✅ <strong>Logical operators</strong> combine multiple conditions (&&, ||, !)</li>
+                    <li>✅ <strong>Assignment operators</strong> provide shortcuts for common operations (+=, -=, etc.)</li>
+                    <li>✅ <strong>Ternary operator</strong> offers concise conditional expressions</li>
+                    <li>✅ <strong>Use .equals()</strong> for String comparison, not ==</li>
+                    <li>✅ <strong>Operator precedence</strong> matters - use parentheses for clarity</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Control-Flow-Statements.html" class="nav-btn nav-btn-primary">Next: Control Flow <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>

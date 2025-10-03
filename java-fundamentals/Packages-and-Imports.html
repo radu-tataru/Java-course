@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packages and Imports - Java Fundamentals</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../shared-styles.css">
+</head>
+<body>
+    <div class="lesson-header">
+        <div class="container">
+            <div class="lesson-content">
+                <div class="lesson-number-badge"><i class="bi bi-box-seam"></i></div>
+                <h1 class="lesson-title">Packages and Imports</h1>
+                <p class="lesson-description">Learn how to organize Java code using packages and import classes from different packages</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="lesson-nav">
+            <ul class="nav-breadcrumb">
+                <li><a href="../index.html"><i class="bi bi-house"></i> Home</a></li>
+                <li><i class="bi bi-chevron-right separator"></i></li>
+                <li><span style="color: var(--secondary-color);">Packages and Imports</span></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Generics-Basics.html" class="nav-btn nav-btn-primary">Next: Generics Basics <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-bullseye"></i></div>
+                Learning Objectives
+            </h2>
+            <div class="objectives-list">
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand what packages are and why they're important</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Create and organize code using custom packages</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Import classes from Java's standard library</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Use different import techniques (single, wildcard, static)</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Follow Java package naming conventions</span>
+                </div>
+                <div class="objective-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Understand package access modifiers</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-question-circle"></i></div>
+                1. What are Packages?
+            </h2>
+
+            <p><strong>Packages</strong> are namespaces that organize related classes and interfaces into groups. Think of them as folders for your Java code.</p>
+
+            <h3 class="mt-4">Why Use Packages?</h3>
+            <ul>
+                <li><strong>Organization:</strong> Group related classes together (e.g., all database classes in <code>com.example.database</code>)</li>
+                <li><strong>Namespace Management:</strong> Avoid naming conflicts (two classes named <code>User</code> can exist in different packages)</li>
+                <li><strong>Access Control:</strong> Use package-private access to restrict visibility</li>
+                <li><strong>Modularity:</strong> Create reusable components that can be distributed as libraries</li>
+            </ul>
+
+            <h3 class="mt-4">Java's Built-in Packages</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Package</th>
+                            <th>Description</th>
+                            <th>Common Classes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>java.lang</code></td>
+                            <td>Fundamental classes (auto-imported)</td>
+                            <td>String, Math, System, Integer</td>
+                        </tr>
+                        <tr>
+                            <td><code>java.util</code></td>
+                            <td>Utility classes and collections</td>
+                            <td>ArrayList, HashMap, Scanner, Date</td>
+                        </tr>
+                        <tr>
+                            <td><code>java.io</code></td>
+                            <td>Input/output operations</td>
+                            <td>File, FileReader, BufferedReader</td>
+                        </tr>
+                        <tr>
+                            <td><code>java.nio</code></td>
+                            <td>New I/O (non-blocking I/O)</td>
+                            <td>Path, Files, Charset</td>
+                        </tr>
+                        <tr>
+                            <td><code>java.net</code></td>
+                            <td>Networking operations</td>
+                            <td>URL, Socket, HttpURLConnection</td>
+                        </tr>
+                        <tr>
+                            <td><code>java.time</code></td>
+                            <td>Date and time API (Java 8+)</td>
+                            <td>LocalDate, LocalTime, Duration</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Note:</strong> The <code>java.lang</code> package is automatically imported in every Java file. You don't need to explicitly import classes like String, Math, or System.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-folder-plus"></i></div>
+                2. Creating Packages
+            </h2>
+
+            <h3 class="mt-4">Package Declaration</h3>
+            <p>The package statement must be the <strong>first line</strong> in your Java file (except for comments).</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">package com.example.models;
+
+public class User {
+    private String name;
+    private String email;
+
+    // Constructor, getters, setters...
+}
+</code></pre>
+
+            <h3 class="mt-4">Package Naming Conventions</h3>
+            <ul>
+                <li><strong>All lowercase:</strong> Package names should be in lowercase to avoid conflicts with class names</li>
+                <li><strong>Reverse domain name:</strong> Start with your reversed domain name (e.g., <code>com.company.project</code>)</li>
+                <li><strong>Descriptive names:</strong> Use meaningful names that describe the content (<code>models</code>, <code>services</code>, <code>utils</code>)</li>
+            </ul>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Good Package Names</th>
+                            <th>Bad Package Names</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>com.example.app.models</code></td>
+                            <td><code>com.Example.App.Models</code> (uppercase)</td>
+                        </tr>
+                        <tr>
+                            <td><code>org.project.database</code></td>
+                            <td><code>myPackage</code> (not descriptive)</td>
+                        </tr>
+                        <tr>
+                            <td><code>io.company.utils</code></td>
+                            <td><code>package1</code> (meaningless)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="mt-4">Folder Structure</h3>
+            <p>Packages correspond to folder structures in your file system:</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-plaintext" style="color: #e2e8f0;">src/
+└── com/
+    └── example/
+        └── app/
+            ├── models/
+            │   ├── User.java          (package com.example.app.models)
+            │   └── Product.java       (package com.example.app.models)
+            ├── services/
+            │   ├── UserService.java   (package com.example.app.services)
+            │   └── OrderService.java  (package com.example.app.services)
+            └── Main.java              (package com.example.app)
+</code></pre>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Warning:</strong> The folder structure must exactly match the package declaration. If your package is <code>com.example.app</code>, the file must be in <code>com/example/app/</code> folder.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-download"></i></div>
+                3. Importing Classes
+            </h2>
+
+            <h3 class="mt-4">Single Class Import</h3>
+            <p>Import a specific class from a package:</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Wildcard Import</h3>
+            <p>Import all classes from a package using <code>*</code>:</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        HashMap<String, Integer> map = new HashMap<>();
+        Scanner scanner = new Scanner(System.in);
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Fully Qualified Names (No Import)</h3>
+            <p>Use the full package path without importing:</p>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Main {
+    public static void main(String[] args) {
+        java.util.ArrayList<String> list = new java.util.ArrayList<>();
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">When to Use Each Approach</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Import Type</th>
+                            <th>When to Use</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Single Class</strong></td>
+                            <td>When you need only a few specific classes</td>
+                            <td><code>import java.util.ArrayList;</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wildcard</strong></td>
+                            <td>When using many classes from the same package</td>
+                            <td><code>import java.util.*;</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fully Qualified</strong></td>
+                            <td>To resolve naming conflicts or one-time use</td>
+                            <td><code>java.sql.Date sqlDate;</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> Wildcard imports (<code>*</code>) don't impact performance—they're resolved at compile time. However, explicit imports make your dependencies clearer.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-exclamation-triangle"></i></div>
+                4. Handling Naming Conflicts
+            </h2>
+
+            <p>When two classes have the same name but are in different packages, you'll encounter a naming conflict.</p>
+
+            <h3 class="mt-4">Example: java.util.Date vs java.sql.Date</h3>
+
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// ❌ This will cause a compile error
+import java.util.Date;
+import java.sql.Date;  // Error: Date is already defined
+
+public class Main {
+    public static void main(String[] args) {
+        Date date = new Date();  // Which Date?
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Solution 1: Use Fully Qualified Names</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import java.util.Date;
+
+public class Main {
+    public static void main(String[] args) {
+        Date utilDate = new Date();                    // java.util.Date
+        java.sql.Date sqlDate = new java.sql.Date(0);  // java.sql.Date
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Solution 2: Import One, Qualify the Other</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Date utilDate = new Date();                    // java.util.Date (imported)
+        java.sql.Date sqlDate = new java.sql.Date(0);  // Fully qualified
+    }
+}
+</code></pre>
+
+            <div class="alert-box alert-warning">
+                <i class="bi bi-exclamation-triangle alert-icon"></i>
+                <div>
+                    <strong>Warning:</strong> When in doubt, use fully qualified names for the less frequently used class to make your code's intent clear.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-lightning"></i></div>
+                5. Static Imports
+            </h2>
+
+            <p><strong>Static imports</strong> allow you to import static members (methods and fields) of a class directly.</p>
+
+            <h3 class="mt-4">Without Static Import</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class Calculator {
+    public static void main(String[] args) {
+        double result = Math.sqrt(16);
+        double pi = Math.PI;
+        double power = Math.pow(2, 3);
+
+        System.out.println("Square root: " + result);
+        System.out.println("Pi: " + pi);
+        System.out.println("Power: " + power);
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">With Static Import</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import static java.lang.Math.*;
+
+public class Calculator {
+    public static void main(String[] args) {
+        double result = sqrt(16);      // No need for Math.
+        double pi = PI;                // No need for Math.
+        double power = pow(2, 3);      // No need for Math.
+
+        System.out.println("Square root: " + result);
+        System.out.println("Pi: " + pi);
+        System.out.println("Power: " + power);
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">Static Import - Specific Members</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import static java.lang.Math.PI;
+import static java.lang.Math.sqrt;
+import static java.lang.System.out;
+
+public class Calculator {
+    public static void main(String[] args) {
+        double result = sqrt(16);
+        out.println("Square root: " + result);
+        out.println("Pi: " + PI);
+    }
+}
+</code></pre>
+
+            <h3 class="mt-4">When to Use Static Imports</h3>
+            <ul>
+                <li>✅ <strong>Mathematical constants and functions:</strong> <code>Math.PI</code>, <code>Math.sqrt()</code></li>
+                <li>✅ <strong>Frequently used static methods:</strong> Test assertions (<code>assertEquals()</code>), utility methods</li>
+                <li>❌ <strong>Avoid overuse:</strong> Can make code less readable if the origin of methods is unclear</li>
+            </ul>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-lightbulb alert-icon"></i>
+                <div>
+                    <strong>Tip:</strong> Static imports are commonly used in testing frameworks like JUnit to make test code more readable: <code>import static org.junit.Assert.*;</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-lock"></i></div>
+                6. Package Access Modifiers
+            </h2>
+
+            <p>Access modifiers control the visibility of classes, methods, and fields across packages.</p>
+
+            <h3 class="mt-4">Access Levels</h3>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Modifier</th>
+                            <th>Same Class</th>
+                            <th>Same Package</th>
+                            <th>Subclass</th>
+                            <th>Other Packages</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>public</code></td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td><code>protected</code></td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>❌</td>
+                        </tr>
+                        <tr>
+                            <td><strong>default</strong> (no modifier)</td>
+                            <td>✅</td>
+                            <td>✅</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                        </tr>
+                        <tr>
+                            <td><code>private</code></td>
+                            <td>✅</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                            <td>❌</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="mt-4">Example: Package-Private (Default) Access</h3>
+
+            <p><strong>File: com/example/models/User.java</strong></p>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">package com.example.models;
+
+class User {  // No modifier = package-private
+    String name;  // Package-private field
+
+    void display() {  // Package-private method
+        System.out.println("User: " + name);
+    }
+}
+</code></pre>
+
+            <p><strong>File: com/example/models/UserManager.java</strong></p>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">package com.example.models;
+
+public class UserManager {
+    public void test() {
+        User user = new User();  // ✅ Accessible - same package
+        user.name = "Alice";     // ✅ Accessible - same package
+        user.display();          // ✅ Accessible - same package
+    }
+}
+</code></pre>
+
+            <p><strong>File: com/example/app/Main.java</strong></p>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">package com.example.app;
+
+import com.example.models.User;  // ❌ Compile error - User is not public
+
+public class Main {
+    public static void main(String[] args) {
+        User user = new User();  // ❌ Can't access - different package
+    }
+}
+</code></pre>
+
+            <div class="alert-box alert-info">
+                <i class="bi bi-info-circle alert-icon"></i>
+                <div>
+                    <strong>Note:</strong> Package-private (default) access is useful for internal implementation classes that shouldn't be exposed outside the package.
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                7. Real-World Package Structure
+            </h2>
+
+            <h3 class="mt-4">Typical Multi-Layer Application</h3>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-plaintext" style="color: #e2e8f0;">src/
+└── com/
+    └── example/
+        └── app/
+            ├── models/              # Data models (entities)
+            │   ├── User.java
+            │   ├── Product.java
+            │   └── Order.java
+            │
+            ├── services/            # Business logic
+            │   ├── UserService.java
+            │   ├── ProductService.java
+            │   └── OrderService.java
+            │
+            ├── repositories/        # Data access layer
+            │   ├── UserRepository.java
+            │   └── ProductRepository.java
+            │
+            ├── controllers/         # Web/API controllers
+            │   ├── UserController.java
+            │   └── ProductController.java
+            │
+            ├── utils/               # Utility classes
+            │   ├── DateUtils.java
+            │   └── StringUtils.java
+            │
+            ├── exceptions/          # Custom exceptions
+            │   └── UserNotFoundException.java
+            │
+            └── Main.java            # Application entry point
+</code></pre>
+
+            <h3 class="mt-4">Example: Using the Structure</h3>
+
+            <p><strong>Model Class:</strong></p>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">package com.example.app.models;
+
+public class User {
+    private String id;
+    private String name;
+    private String email;
+
+    // Constructors, getters, setters...
+}
+</code></pre>
+
+            <p><strong>Service Class:</strong></p>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">package com.example.app.services;
+
+import com.example.app.models.User;
+import com.example.app.repositories.UserRepository;
+
+public class UserService {
+    private UserRepository repository = new UserRepository();
+
+    public User getUserById(String id) {
+        return repository.findById(id);
+    }
+}
+</code></pre>
+
+            <p><strong>Main Application:</strong></p>
+            <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">package com.example.app;
+
+import com.example.app.models.User;
+import com.example.app.services.UserService;
+
+public class Main {
+    public static void main(String[] args) {
+        UserService userService = new UserService();
+        User user = userService.getUserById("123");
+        System.out.println("User: " + user.getName());
+    }
+}
+</code></pre>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-clipboard-check"></i></div>
+                Practice Exercises
+            </h2>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 1: Create a Library System</h3>
+                <p>Create a package structure for a library management system:</p>
+                <ul>
+                    <li><code>com.library.models</code> - Book, Member classes</li>
+                    <li><code>com.library.services</code> - LibraryService class</li>
+                    <li><code>com.library</code> - Main class</li>
+                </ul>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">// File: com/library/models/Book.java
+package com.library.models;
+
+public class Book {
+    private String isbn;
+    private String title;
+    private String author;
+
+    public Book(String isbn, String title, String author) {
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+    }
+
+    // Getters...
+}
+
+// File: com/library/services/LibraryService.java
+package com.library.services;
+
+import com.library.models.Book;
+import java.util.ArrayList;
+import java.util.List;
+
+public class LibraryService {
+    private List<Book> books = new ArrayList<>();
+
+    public void addBook(Book book) {
+        books.add(book);
+    }
+
+    public List<Book> getAllBooks() {
+        return books;
+    }
+}
+
+// File: com/library/Main.java
+package com.library;
+
+import com.library.models.Book;
+import com.library.services.LibraryService;
+
+public class Main {
+    public static void main(String[] args) {
+        LibraryService library = new LibraryService();
+        library.addBook(new Book("123", "Java Basics", "John Doe"));
+        System.out.println("Books: " + library.getAllBooks().size());
+    }
+}
+</code></pre>
+                </details>
+            </div>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 2: Import Practice</h3>
+                <p>Refactor this code to use appropriate imports instead of fully qualified names:</p>
+                <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class DateExample {
+    public static void main(String[] args) {
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+        java.util.List<String> list = new java.util.ArrayList<>();
+    }
+}
+</code></pre>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import java.util.*;
+
+public class DateExample {
+    public static void main(String[] args) {
+        Date utilDate = new Date();  // java.util.Date
+        java.sql.Date sqlDate = new java.sql.Date(System.currentTimeMillis());
+        List<String> list = new ArrayList<>();
+    }
+}
+</code></pre>
+                </details>
+            </div>
+
+            <div class="practice-exercise">
+                <h3><i class="bi bi-pencil"></i> Exercise 3: Static Import</h3>
+                <p>Rewrite this code using static imports to make it more concise:</p>
+                <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">public class MathOperations {
+    public static void main(String[] args) {
+        double radius = 5.0;
+        double area = Math.PI * Math.pow(radius, 2);
+        double circumference = 2 * Math.PI * radius;
+
+        System.out.println("Area: " + area);
+        System.out.println("Circumference: " + circumference);
+    }
+}
+</code></pre>
+                <details>
+                    <summary>Show Solution</summary>
+                    <pre style="background: #1e293b; padding: 20px; border-radius: 8px;"><code class="language-java" style="color: #e2e8f0;">import static java.lang.Math.*;
+import static java.lang.System.out;
+
+public class MathOperations {
+    public static void main(String[] args) {
+        double radius = 5.0;
+        double area = PI * pow(radius, 2);
+        double circumference = 2 * PI * radius;
+
+        out.println("Area: " + area);
+        out.println("Circumference: " + circumference);
+    }
+}
+</code></pre>
+                </details>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2 class="section-title">
+                <div class="section-icon"><i class="bi bi-key"></i></div>
+                Key Takeaways
+            </h2>
+            <div class="key-points">
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Organize with Packages:</strong> Use packages to group related classes and prevent naming conflicts.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Follow Naming Conventions:</strong> Use lowercase, reverse domain name format (com.company.project).
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Match Folder Structure:</strong> Package declarations must match the folder structure exactly.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Choose Import Type:</strong> Use single imports for clarity, wildcards for convenience, fully qualified names for conflicts.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Static Imports Sparingly:</strong> Use static imports for frequently used static members like Math methods.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>Control Access:</strong> Use package-private (default) access for internal implementation classes.
+                    </div>
+                </div>
+                <div class="key-point">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>java.lang Auto-imported:</strong> Classes like String, Math, and System don't need explicit imports.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-nav">
+            <div class="nav-actions footer-nav">
+                <a href="../index.html" class="nav-btn nav-btn-outline"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                <a href="Generics-Basics.html" class="nav-btn nav-btn-primary">Next: Generics Basics <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting
+        hljs.highlightAll();
+
+        // Add scroll progress indicator
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-indicator';
+        progressBar.innerHTML = '<div class="progress-bar"></div>';
+        document.body.prepend(progressBar);
+
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+    </script>
+</body>
+</html>
